@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AENG DO | AI Visual Artist</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* Custom Styles & Reset */
+        :root {
+            --cursor-size: 20px;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            cursor: none; /* Hide default cursor */
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Syncopate', sans-serif;
+        }
+
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--cursor-size);
+            height: var(--cursor-size);
+            border: 1px solid white;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        #cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-color: transparent;
+        }
+
+        /* Three.js Canvas Container */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        /* Layout Utilities */
+        .section-padding {
+            padding: 120px 20px;
+        }
+
+        /* Work Grid Hover Effects */
+        .work-item {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .work-item:hover {
+            transform: scale(0.98);
+        }
+
+        .work-item img, .work-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+            filter: grayscale(100%);
+        }
+
+        .work-item:hover img, .work-item:hover video {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        /* Marquee Animation (For Tools) */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Custom Audio Player Style */
+        .audio-player {
+            transition: background-color 0.3s;
+        }
+        .audio-player:hover {
+            background-color: #111;
+        }
+        
+        /* Scrollbar Hide */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+
+    <!-- 3D Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center p-6 mix-blend-difference">
+        <a href="#" class="text-xl font-bold brand-font tracking-widest hover-trigger opacity-50 hover:opacity-100 transition-opacity">AENG DO</a>
+        <div class="hidden md:flex space-x-8 text-sm font-light tracking-wider">
+            <a href="#about" class="hover:text-gray-400 transition-colors hover-trigger">ABOUT</a>
+            <a href="#work" class="hover:text-gray-400 transition-colors hover-trigger">WORK</a>
+            <a href="#solutions" class="hover:text-gray-400 transition-colors hover-trigger">SOLUTIONS</a>
+            <a href="#contact" class="hover:text-gray-400 transition-colors hover-trigger">CONTACT</a>
+        </div>
+        <div class="md:hidden hover-trigger">
+            <div class="w-6 h-0.5 bg-white mb-1.5"></div>
+            <div class="w-6 h-0.5 bg-white"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="h-screen flex flex-col justify-end items-center text-center relative pointer-events-none pb-20">
+        <p class="text-xs md:text-sm tracking-[0.5em] uppercase text-gray-400 fade-in mb-8" style="transition-delay: 0.2s;">
+            AI Image & Video Artist
+        </p>
+        <div class="animate-bounce">
+            <span class="text-[10px] tracking-widest">SCROLL</span>
+        </div>
+    </header>
+
+    <!-- Tech Stack Marquee -->
+    <div class="border-y border-gray-900 bg-black py-4 marquee-container opacity-80">
+        <div class="marquee-content brand-font text-gray-500 text-sm tracking-widest">
+            MIDJOURNEY &nbsp;•&nbsp; STABLE DIFFUSION &nbsp;•&nbsp; RUNWAY GEN-2 &nbsp;•&nbsp; SUNO AI &nbsp;•&nbsp; UDIO &nbsp;•&nbsp; ELEVENLABS &nbsp;•&nbsp; THREE.JS &nbsp;•&nbsp; COMFY UI &nbsp;•&nbsp; OPENAI &nbsp;•&nbsp; 
+            MIDJOURNEY &nbsp;•&nbsp; STABLE DIFFUSION &nbsp;•&nbsp; RUNWAY GEN-2 &nbsp;•&nbsp; SUNO AI &nbsp;•&nbsp; UDIO &nbsp;•&nbsp; ELEVENLABS &nbsp;•&nbsp; THREE.JS &nbsp;•&nbsp; COMFY UI &nbsp;•&nbsp; OPENAI &nbsp;•&nbsp;
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 brand-font">THE <br>PROCESS</h2>
+            </div>
+            <div class="text-gray-300 font-light leading-relaxed space-y-6 fade-in" style="transition-delay: 0.2s;">
+                <p>
+                    디지털의 바다에서 의미를 건져올립니다. 
+                    <strong class="text-white">AENG DO</strong>는 AI 기술과 예술적 직관을 결합하여 
+                    보이지 않는 상상을 시각적 현실로 구현합니다.
+                </p>
+                <p>
+                    이미지, 영상, 웹사이트, 그리고 음악까지.
+                    다양한 AI 툴을 오케스트라처럼 지휘하여 감각적인 경험을 설계합니다.
+                    기술은 차갑지만, 그 결과물은 가장 뜨거운 감동을 줍니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Works (Visual) -->
+    <section id="work" class="section-padding px-4 md:px-12 bg-black bg-opacity-80 backdrop-blur-sm">
+        <h2 class="text-center text-3xl md:text-4xl brand-font mb-20 fade-in">VISUAL ARTWORKS</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Work Item 1 -->
+            <article class="work-item group aspect-[3/4] bg-gray-900 border border-gray-800 hover-trigger fade-in">
+                <div class="w-full h-full relative">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none"></div>
+                    <div class="w-full h-full bg-gray-800 flex items-center justify-center text-gray-600">
+                        <!-- 이미지/영상 들어갈 곳 -->
+                        <span class="brand-font text-5xl opacity-20 group-hover:opacity-10">IMG</span>
+                    </div>
+                    
+                    <!-- Metadata Container -->
+                    <div class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <!-- Hidden details revealed on hover -->
+                        <div class="text-[10px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-y-2 group-hover:translate-y-0">
+                            2024.12 | PERSONAL WORK
+                        </div>
+                        
+                        <h3 class="text-xl font-bold">SYNAPSE</h3>
+                        <p class="text-xs text-gray-300 mt-1">AI Generative Video</p>
+                        
+                        <!-- Tools list revealed on hover -->
+                        <div class="mt-3 pt-3 border-t border-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            <p class="text-[10px] text-gray-500 font-mono uppercase tracking-wider">
+                                TOOLS: MIDJOURNEY, RUNWAY GEN-2, AFTER EFFECTS
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Work Item 2 -->
+            <article class="work-item group aspect-square md:aspect-video md:col-span-2 bg-gray-900 border border-gray-800 hover-trigger fade-in">
+                <div class="w-full h-full relative">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10"></div>
+                    <div class="w-full h-full bg-gray-800 flex items-center justify-center text-gray-600">
+                        <span class="brand-font text-5xl opacity-20 group-hover:opacity-10">IMG</span>
+                    </div>
+                    
+                    <div class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div class="text-[10px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            2024.10 | EXHIBITION
+                        </div>
+                        
+                        <h3 class="text-xl font-bold">MONOCHROME DREAMS</h3>
+                        <p class="text-xs text-gray-300 mt-1">Image Series</p>
+                        
+                        <div class="mt-3 pt-3 border-t border-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            <p class="text-[10px] text-gray-500 font-mono uppercase tracking-wider">
+                                TOOLS: STABLE DIFFUSION XL, LORA TRAINING, PHOTOSHOP
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Work Item 3 -->
+            <article class="work-item group aspect-[3/4] bg-gray-900 border border-gray-800 hover-trigger fade-in">
+                <div class="w-full h-full relative">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10"></div>
+                    <div class="w-full h-full bg-gray-800 flex items-center justify-center text-gray-600">
+                        <span class="brand-font text-5xl opacity-20 group-hover:opacity-10">IMG</span>
+                    </div>
+                    
+                    <div class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div class="text-[10px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            2024.08 | CHARACTER DESIGN
+                        </div>
+                        
+                        <h3 class="text-xl font-bold">VOID WALKER</h3>
+                        <p class="text-xs text-gray-300 mt-1">Character Concept Art</p>
+                        
+                        <div class="mt-3 pt-3 border-t border-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            <p class="text-[10px] text-gray-500 font-mono uppercase tracking-wider">
+                                TOOLS: MIDJOURNEY V6, MAGNIFIC AI
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Web Experiences Section -->
+    <section class="section-padding px-4 md:px-12 bg-black border-t border-gray-900">
+        <h2 class="text-center text-3xl md:text-4xl brand-font mb-20 fade-in">WEB EXPERIENCES</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            <!-- Web Project 1 -->
+            <div class="fade-in hover-trigger">
+                <div class="border border-gray-700 bg-gray-900 aspect-video mb-6 relative group overflow-hidden rounded-md">
+                    <!-- Browser Bar Style -->
+                    <div class="absolute top-0 w-full h-6 bg-gray-800 flex items-center px-2 space-x-1.5 z-20">
+                        <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                    </div>
+                    <!-- Iframe or Image Placeholder -->
+                    <div class="w-full h-full pt-6 flex items-center justify-center bg-gray-900 group-hover:bg-gray-800 transition-colors">
+                        <span class="brand-font text-gray-600">WEBSITE PREVIEW</span>
+                    </div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-80 z-30">
+                        <span class="text-xs font-mono text-gray-400 mb-2">2024.11 | COMMERCIAL</span>
+                        <span class="border border-white px-4 py-2 text-sm brand-font mb-4">VISIT SITE ↗</span>
+                        <span class="text-[10px] text-gray-500 font-mono">REACT, THREE.JS, FRAMER MOTION</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold">BRAND A - CAMPAIGN SITE</h3>
+                <p class="text-gray-400 text-sm mt-2">Interactive 3D Web Experience with AI Assets.</p>
+            </div>
+
+            <!-- Web Project 2 -->
+            <div class="fade-in hover-trigger">
+                <div class="border border-gray-700 bg-gray-900 aspect-video mb-6 relative group overflow-hidden rounded-md">
+                    <div class="absolute top-0 w-full h-6 bg-gray-800 flex items-center px-2 space-x-1.5 z-20">
+                        <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="w-full h-full pt-6 flex items-center justify-center bg-gray-900 group-hover:bg-gray-800 transition-colors">
+                        <span class="brand-font text-gray-600">WEBSITE PREVIEW</span>
+                    </div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-80 z-30">
+                        <span class="text-xs font-mono text-gray-400 mb-2">2024.09 | TEMPLATE</span>
+                        <span class="border border-white px-4 py-2 text-sm brand-font mb-4">VISIT SITE ↗</span>
+                        <span class="text-[10px] text-gray-500 font-mono">HTML5, CSS3, JS</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold">FASHION BRAND LANDING</h3>
+                <p class="text-gray-400 text-sm mt-2">Minimalist layout with AI generated fashion models.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio / Music Section -->
+    <section class="section-padding max-w-4xl mx-auto border-t border-gray-900">
+        <h2 class="text-3xl brand-font mb-12 fade-in">AUDIO TRACKS</h2>
+        
+        <div class="space-y-4 fade-in">
+            <!-- Audio Track 1 -->
+            <div class="audio-player border border-gray-800 p-6 flex flex-col md:flex-row items-center gap-6 hover-trigger group">
+                <!-- Play Button Icon -->
+                <div class="w-12 h-12 rounded-full border border-white flex items-center justify-center cursor-pointer hover:bg-white hover:text-black transition-colors" onclick="document.getElementById('audio1').play()">
+                    ▶
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+                        <h4 class="text-lg font-bold">NEON CITY NIGHTS</h4>
+                        <span class="text-[10px] border border-gray-700 px-1 text-gray-500">2024.12</span>
+                    </div>
+                    <p class="text-xs text-gray-500 brand-font">COMPOSED WITH SUNO AI V3</p>
+                </div>
+                <audio id="audio1" controls class="w-full md:w-64 h-8 bg-transparent" style="filter: invert(1);">
+                    <source src="" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <!-- Audio Track 2 -->
+            <div class="audio-player border border-gray-800 p-6 flex flex-col md:flex-row items-center gap-6 hover-trigger">
+                <div class="w-12 h-12 rounded-full border border-white flex items-center justify-center cursor-pointer hover:bg-white hover:text-black transition-colors" onclick="document.getElementById('audio2').play()">
+                    ▶
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+                        <h4 class="text-lg font-bold">DIGITAL RAIN</h4>
+                        <span class="text-[10px] border border-gray-700 px-1 text-gray-500">2024.11</span>
+                    </div>
+                    <p class="text-xs text-gray-500 brand-font">BG MUSIC FOR EXHIBITION (UDIO)</p>
+                </div>
+                <audio id="audio2" controls class="w-full md:w-64 h-8 bg-transparent" style="filter: invert(1);">
+                    <source src="" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: AI Solutions / Dev -->
+    <section id="solutions" class="section-padding max-w-6xl mx-auto border-t border-gray-900">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 fade-in">
+            <h2 class="text-3xl md:text-4xl brand-font">AI SOLUTIONS <br>& DEVELOPMENT</h2>
+            <p class="text-gray-500 text-sm mt-4 md:mt-0 md:text-right">
+                Creative Tech & Custom Agents<br>
+                감각적인 비주얼을 넘어, 작동하는 시스템을 만듭니다.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 fade-in">
+            
+            <!-- Solution Item 1 -->
+            <div class="group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
+                <div class="flex justify-between items-start mb-12">
+                    <span class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">WEB DEV</span>
+                    <span class="text-gray-600 group-hover:text-white transition-colors">↗</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">Brand Immersive Site</h3>
+                <p class="text-gray-400 font-light text-sm leading-relaxed mb-6">
+                    Three.js를 활용한 반응형 3D 웹사이트 구축. 브랜드 아이덴티티를 시각화하고 사용자 인터랙션을 극대화한 몰입형 웹 경험 제공.
+                </p>
+                <ul class="text-xs text-gray-600 font-mono space-y-1">
+                    <li>+ React / Three.js</li>
+                    <li>+ Interactive UI Design</li>
+                </ul>
+            </div>
+
+            <!-- Solution Item 2 -->
+            <div class="group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
+                <div class="flex justify-between items-start mb-12">
+                    <span class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">AI AGENT</span>
+                    <span class="text-gray-600 group-hover:text-white transition-colors">↗</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">Custom CS AI Agent</h3>
+                <p class="text-gray-400 font-light text-sm leading-relaxed mb-6">
+                    기업 데이터를 학습한 맞춤형 챗봇 및 자동화 에이전트 개발. 24시간 고객 응대 및 내부 업무 자동화를 위한 LLM 기반 솔루션.
+                </p>
+                <ul class="text-xs text-gray-600 font-mono space-y-1">
+                    <li>+ OpenAI API / LangChain</li>
+                    <li>+ Prompt Engineering</li>
+                </ul>
+            </div>
+
+            <!-- Solution Item 3 -->
+            <div class="group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
+                <div class="flex justify-between items-start mb-12">
+                    <span class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">WORKFLOW</span>
+                    <span class="text-gray-600 group-hover:text-white transition-colors">↗</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">Generative AI Workflow</h3>
+                <p class="text-gray-400 font-light text-sm leading-relaxed mb-6">
+                    콘텐츠 제작 파이프라인 자동화 설계. 이미지 생성부터 영상 변환, 편집까지 이어지는 AI 워크플로우 컨설팅 및 구축.
+                </p>
+                <ul class="text-xs text-gray-600 font-mono space-y-1">
+                    <li>+ ComfyUI Workflow</li>
+                    <li>+ Asset Automation</li>
+                </ul>
+            </div>
+
+             <!-- Solution Item 4 -->
+             <div class="group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
+                <div class="flex justify-between items-start mb-12">
+                    <span class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">FINE-TUNING</span>
+                    <span class="text-gray-600 group-hover:text-white transition-colors">↗</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">Style Fine-Tuning</h3>
+                <p class="text-gray-400 font-light text-sm leading-relaxed mb-6">
+                    특정 브랜드 톤앤매너에 맞춘 이미지 생성 모델 파인튜닝(LoRA). 일관된 품질의 마케팅 에셋 생성을 위한 전용 모델 제작.
+                </p>
+                <ul class="text-xs text-gray-600 font-mono space-y-1">
+                    <li>+ Stable Diffusion LoRA</li>
+                    <li>+ Dataset Processing</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- History / Timeline Section -->
+    <section class="section-padding max-w-4xl mx-auto">
+        <h2 class="text-3xl brand-font mb-12 border-b border-gray-800 pb-4 fade-in">ACTIVITIES</h2>
+        
+        <div class="space-y-8 fade-in">
+            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
+                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.12</div>
+                <div>
+                    <h4 class="text-xl font-bold mb-1">AI Art Exhibition 'The Origin'</h4>
+                    <p class="text-gray-400 text-sm font-light">Seoul Design Plaza - Invited Artist</p>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
+                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.08</div>
+                <div>
+                    <h4 class="text-xl font-bold mb-1">Vogue Korea Digital Collaboration</h4>
+                    <p class="text-gray-400 text-sm font-light">Featured AI Motion Graphic Designer</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
+                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2024.11</div>
+                <div>
+                    <h4 class="text-xl font-bold mb-1">Launch of 'AENG DO' Studio</h4>
+                    <p class="text-gray-400 text-sm font-light">Freelance AI Artist Debut</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <footer id="contact" class="py-24 border-t border-gray-900 bg-black relative z-10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-5xl brand-font font-bold mb-8 hover-trigger cursor-pointer transition-colors hover:text-gray-400">
+                <a href="mailto:contact@aengdo.art">LET'S TALK</a>
+            </h2>
+            <p class="text-gray-500 mb-12 font-light">새로운 시각적 경험을 함께 만듭니다.</p>
+            
+            <div class="flex justify-center space-x-8 text-sm brand-font">
+                <a href="#" class="hover:text-gray-400 hover-trigger">INSTAGRAM</a>
+                <a href="#" class="hover:text-gray-400 hover-trigger">YOUTUBE</a>
+                <a href="#" class="hover:text-gray-400 hover-trigger">EMAIL</a>
+            </div>
+            
+            <div class="mt-20 text-xs text-gray-700">
+                &copy; 2025 AENG DO. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Three.js Implementation -->
+    <script>
+        // --- 1. Scene Setup ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x000000, 0.001);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 120; 
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // --- 2. Generate Particles from Text ---
+        function createTextParticles(text) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const width = 1000;
+            const height = 300;
+            canvas.width = width;
+            canvas.height = height;
+            
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, width, height);
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 200px "Syncopate", sans-serif'; 
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, width / 2, height / 2);
+
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            const positions = [];
+            
+            const step = 4; 
+            for (let y = 0; y < height; y += step) {
+                for (let x = 0; x < width; x += step) {
+                    const index = (y * width + x) * 4;
+                    const r = data[index];
+                    
+                    if (r > 128) {
+                        const pX = (x - width / 2) * 0.2; 
+                        const pY = -(y - height / 2) * 0.2;
+                        const pZ = (Math.random() - 0.5) * 10;
+                        positions.push(pX, pY, pZ);
+                    }
+                }
+            }
+            return new Float32Array(positions);
+        }
+
+        const particlePositions = createTextParticles('AENG DO');
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        
+        const count = geometry.attributes.position.count;
+        const originalPositions = new Float32Array(particlePositions);
+
+        const material = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.6,
+            transparent: true,
+            opacity: 0.9,
+            sizeAttenuation: true
+        });
+
+        const textParticles = new THREE.Points(geometry, material);
+        scene.add(textParticles);
+
+        // --- ADDED: Star Background ---
+        function createStars() {
+            const starGeo = new THREE.BufferGeometry();
+            const starCount = 2000; // Number of stars
+            const starPos = new Float32Array(starCount * 3);
+            
+            for(let i=0; i<starCount * 3; i++) {
+                // Random position in a large box around the center
+                starPos[i] = (Math.random() - 0.5) * 600; 
+            }
+            
+            starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+            
+            const starMat = new THREE.PointsMaterial({
+                color: 0x888888, // Slightly dimmer than text
+                size: 0.7,
+                transparent: true,
+                opacity: 0.6,
+                sizeAttenuation: true
+            });
+            
+            return new THREE.Points(starGeo, starMat);
+        }
+
+        const starField = createStars();
+        scene.add(starField);
+
+
+        // --- 3. Interaction State ---
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX);
+            mouseY = (event.clientY - windowHalfY);
+        });
+
+        // --- 4. Custom Cursor Logic ---
+        const cursor = document.getElementById('cursor');
+        const hoverTriggers = document.querySelectorAll('.hover-trigger');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        hoverTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // --- 5. Observer ---
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // --- 6. Animation Loop ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const time = clock.getElapsedTime();
+            const scrollY = window.scrollY;
+
+            targetX = mouseX * 0.0005;
+            targetY = mouseY * 0.0005;
+
+            const autoSway = Math.sin(time * 0.5) * 0.1;
+
+            textParticles.rotation.y += 0.05 * (targetX + autoSway - textParticles.rotation.y);
+            textParticles.rotation.x += 0.05 * (targetY - textParticles.rotation.x);
+
+            // Animate Text Particles
+            const posAttr = textParticles.geometry.attributes.position;
+            const posArray = posAttr.array;
+            
+            for (let i = 0; i < count; i++) {
+                const ix = i * 3;
+                const iy = i * 3 + 1;
+                const iz = i * 3 + 2;
+                const ox = originalPositions[ix];
+                const oy = originalPositions[iy];
+                const oz = originalPositions[iz];
+                const wave = Math.sin(time * 2.0 + ox * 0.05) * 2;
+                posArray[iz] = oz + wave;
+            }
+            posAttr.needsUpdate = true;
+
+            // Animate Stars
+            starField.rotation.y -= 0.0002;
+            starField.rotation.x -= 0.0001;
+            
+            // Scroll Interaction
+            camera.position.z = 120 + scrollY * 0.1;
+            camera.position.y = -scrollY * 0.1;
+            
+            if (scrollY > 0) {
+               textParticles.rotation.z = scrollY * 0.0002;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+    </script>
+</body>
+</html>
