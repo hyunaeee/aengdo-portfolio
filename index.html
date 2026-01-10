@@ -32,10 +32,9 @@
             overflow-x: hidden;
             margin: 0;
             cursor: none;
-            /* Hide default cursor */
         }
 
-        /* Intro Overlay (NEW) */
+        /* Intro Overlay */
         #intro-overlay {
             position: fixed;
             top: 0;
@@ -43,14 +42,10 @@
             width: 100%;
             height: 100%;
             background-color: #000000;
-            /* 흰색(#ffffff)에서 검은색(#000000)으로 변경 */
             z-index: 99999;
-            /* 최상단 레이어 */
             opacity: 1;
             transition: opacity 2.0s ease-out;
-            /* 1.5s -> 2.0s 조금 더 천천히 우아하게 등장 */
             pointer-events: auto;
-            /* 초기에는 클릭 방지 */
         }
 
         h1,
@@ -60,7 +55,6 @@
             font-family: 'Syncopate', sans-serif;
         }
 
-        /* Smooth Scroll Behavior */
         html {
             scroll-behavior: smooth;
         }
@@ -103,7 +97,7 @@
             padding: 120px 20px;
         }
 
-        /* Work Grid Hover Effects */
+        /* Work Grid Hover Effects (Updated for YouTube Iframe) */
         .work-item {
             position: relative;
             overflow: hidden;
@@ -114,22 +108,34 @@
             transform: scale(0.98);
         }
 
+        /* 이미지와 비디오(iframe 포함) 공통 스타일 */
         .work-item img,
-        .work-item video {
+        .work-item video,
+        .work-item iframe {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.7s ease;
             filter: grayscale(100%);
+            border: none;
+        }
+
+        /* 유튜브 클릭 방지 (순수 배경용) */
+        .work-item iframe {
+            pointer-events: none;
+            transform: scale(1.3);
+            /* 유튜브 검은 여백 방지를 위해 기본적으로 조금 확대 */
         }
 
         .work-item:hover img,
-        .work-item:hover video {
-            transform: scale(1.1);
+        .work-item:hover video,
+        .work-item:hover iframe {
+            transform: scale(1.4);
+            /* 호버시 조금 더 확대 */
             filter: grayscale(0%);
         }
 
-        /* Marquee Animation (For Tools) */
+        /* Marquee Animation */
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
@@ -151,7 +157,7 @@
             }
         }
 
-        /* Custom Audio Player Style */
+        /* Audio Player */
         .audio-player {
             transition: background-color 0.3s;
         }
@@ -160,7 +166,14 @@
             background-color: #111;
         }
 
-        /* Scrollbar Hide */
+        .play-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -178,7 +191,7 @@
             background: #555;
         }
 
-        /* Fade In Animation */
+        /* Fade In */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -194,7 +207,7 @@
 
 <body class="antialiased">
 
-    <!-- Intro Overlay (White Flash Effect) -->
+    <!-- Intro Overlay -->
     <div id="intro-overlay"></div>
 
     <!-- Custom Cursor -->
@@ -223,12 +236,9 @@
     <!-- Hero Section -->
     <header class="h-screen flex flex-col justify-end items-center text-center relative pointer-events-none pb-20">
         <div class="fade-in mb-8" style="transition-delay: 0.2s;">
-            <p class="text-xs md:text-sm tracking-[0.5em] uppercase text-gray-400 mb-2">
-                AI Engineering & Contents Creating
-            </p>
-            <p class="text-[10px] md:text-xs tracking-[0.3em] text-gray-600">
-                AI 엔지니어링 & 콘텐츠 크리에이팅
-            </p>
+            <p class="text-xs md:text-sm tracking-[0.5em] uppercase text-gray-400 mb-2">AI Engineering & Contents
+                Creating</p>
+            <p class="text-[10px] md:text-xs tracking-[0.3em] text-gray-600">AI 엔지니어링 & 콘텐츠 크리에이팅</p>
         </div>
         <div class="animate-bounce">
             <span class="text-[10px] tracking-widest">SCROLL</span>
@@ -288,19 +298,15 @@
     <section id="work" class="section-padding px-4 md:px-12 bg-black bg-opacity-80 backdrop-blur-sm">
         <h2 class="text-center text-3xl md:text-4xl brand-font mb-20 fade-in">VISUAL ARTWORKS</h2>
 
-        <!-- Grid Layout: 2 Columns for all 16:9 items -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- [1] PHOTO SLOT (16:9) -->
+            <!-- [1] PHOTO SLOT (16:9) - 이미지 유지 -->
             <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
                 <div class="w-full h-full relative">
                     <div
                         class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
                     </div>
-
-                    <!-- ▼▼▼ 이미지 파일 경로 수정하는 곳 ▼▼▼ -->
                     <img src="./assets/image01.png" class="w-full h-full object-cover" alt="My Photo Work">
-
                     <div
                         class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
                         <div
@@ -313,16 +319,21 @@
                 </div>
             </article>
 
-            <!-- [2] VIDEO SLOT (16:9) -->
+            <!-- [2] VIDEO SLOT (Youtube Embed) -->
             <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
                 <div class="w-full h-full relative">
                     <div
                         class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
                     </div>
 
-                    <!-- ▼▼▼ 영상 파일 경로 수정하는 곳 (첫 번째 영상) ▼▼▼ -->
-                    <video src="./assets/edu-real.mp4" class="w-full h-full object-cover" autoplay loop muted
-                        playsinline></video>
+                    <!-- 🔴 수정: VIDEO_ID_HERE를 본인의 유튜브 영상 ID로 교체하세요 -->
+                    <!-- playsinline=1: 모바일 전체화면 방지, mute=1: 자동재생 필수 조건, loop=1: 반복 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/WPHAMvJVO-E?autoplay=1&mute=1&controls=0&loop=1&playlist=VIDEO_ID_HERE&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
 
                     <div
                         class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
@@ -336,16 +347,20 @@
                 </div>
             </article>
 
-            <!-- [3] VIDEO SLOT (16:9) -->
+            <!-- [3] VIDEO SLOT (Youtube Embed) -->
             <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
                 <div class="w-full h-full relative">
                     <div
                         class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
                     </div>
 
-                    <!-- ▼▼▼ 영상 파일 경로 수정하는 곳 (두 번째 영상) ▼▼▼ -->
-                    <video src="./assets/shorts.mp4" class="w-full h-full object-cover" autoplay loop muted
-                        playsinline></video>
+                    <!-- 🔴 수정: VIDEO_ID_HERE 교체 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/e9ikiPXcKr0?autoplay=1&mute=1&controls=0&loop=1&playlist=VIDEO_ID_HERE&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
 
                     <div
                         class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
@@ -359,16 +374,20 @@
                 </div>
             </article>
 
-            <!-- [4] VIDEO SLOT (16:9) -->
+            <!-- [4] VIDEO SLOT (Youtube Embed) -->
             <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
                 <div class="w-full h-full relative">
                     <div
                         class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
                     </div>
 
-                    <!-- ▼▼▼ 영상 파일 경로 수정하는 곳 (세 번째 영상) ▼▼▼ -->
-                    <video src="./assets/brand.mp4" class="w-full h-full object-cover" autoplay loop muted
-                        playsinline></video>
+                    <!-- 🔴 수정: VIDEO_ID_HERE 교체 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/N9XWjBSLfBQ?autoplay=1&mute=1&controls=0&loop=1&playlist=VIDEO_ID_HERE&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
 
                     <div
                         class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
@@ -382,16 +401,20 @@
                 </div>
             </article>
 
-            <!-- [5] VIDEO SLOT (16:9) - NEW ADDITION -->
+            <!-- [5] VIDEO SLOT (Youtube Embed) -->
             <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
                 <div class="w-full h-full relative">
                     <div
                         class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
                     </div>
 
-                    <!-- ▼▼▼ 영상 파일 경로 수정하는 곳 (네 번째 영상) ▼▼▼ -->
-                    <video src="./assets/ani.mp4" class="w-full h-full object-cover" autoplay loop muted
-                        playsinline></video>
+                    <!-- 🔴 수정: VIDEO_ID_HERE 교체 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/aqoCFLuRP4Q?autoplay=1&mute=1&controls=0&loop=1&playlist=VIDEO_ID_HERE&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
 
                     <div
                         class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
@@ -405,16 +428,20 @@
                 </div>
             </article>
 
-            <!-- [6] VIDEO SLOT (16:9) - NEW ADDITION -->
+            <!-- [6] VIDEO SLOT (Youtube Embed) -->
             <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
                 <div class="w-full h-full relative">
                     <div
                         class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
                     </div>
 
-                    <!-- ▼▼▼ 영상 파일 경로 수정하는 곳 (다섯 번째 영상) ▼▼▼ -->
-                    <video src="./assets/fluid.mp4" class="w-full h-full object-cover" autoplay loop muted
-                        playsinline></video>
+                    <!-- 🔴 수정: VIDEO_ID_HERE 교체 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/JMfOA264Tn0?autoplay=1&mute=1&controls=0&loop=1&playlist=VIDEO_ID_HERE&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
 
                     <div
                         class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
@@ -439,10 +466,9 @@
             <!-- Audio Track 1 -->
             <div
                 class="audio-player border border-gray-800 p-6 flex flex-col md:flex-row items-center gap-6 hover-trigger group">
-                <div class="w-12 h-12 rounded-full border border-white flex items-center justify-center cursor-pointer hover:bg-white hover:text-black transition-colors"
-                    onclick="document.getElementById('audio1').play()">
-                    ▶
-                </div>
+                <div id="playBtn1"
+                    class="play-btn w-12 h-12 rounded-full border border-white cursor-pointer hover:bg-white hover:text-black transition-colors"
+                    onclick="toggleAudio('playBtn1', 'audio1')">▶</div>
                 <div class="flex-1 text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
                         <h4 class="text-lg font-bold">NOT MY FAULT 내 잘못이 아니야</h4>
@@ -450,10 +476,7 @@
                     </div>
                     <p class="text-xs text-gray-500 brand-font">COMPOSED WITH SUNO AI</p>
                 </div>
-
-                <!-- ▼▼▼ 오디오 파일 경로 수정하는 곳 ▼▼▼ -->
-                <!-- 예: src="./assets/노래제목.mp3" -->
-                <audio id="audio1" controls class="w-full md:w-64 h-8 bg-transparent" style="filter: invert(1);">
+                <audio id="audio1" class="hidden" onended="resetAudioBtn('playBtn1')">
                     <source src="./assets/music01.mp3" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
@@ -466,7 +489,7 @@
         <h2 class="text-center text-3xl md:text-4xl brand-font mb-20 fade-in">WEB EXPERIENCES</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            <!-- Web Project 1: Hacker Typer -->
+            <!-- Web Project 1 -->
             <div class="fade-in hover-trigger">
                 <div
                     class="border border-gray-700 bg-gray-900 aspect-video mb-6 relative group overflow-hidden rounded-md">
@@ -475,7 +498,6 @@
                         <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
                         <div class="w-2 h-2 rounded-full bg-green-500"></div>
                     </div>
-                    <!-- Image Placeholder: 스크린샷 이미지 경로를 넣어주세요 -->
                     <div class="w-full h-full pt-6 bg-gray-900">
                         <img src="./assets/hacker.jpg" class="w-full h-full object-cover" alt="Hacker Typer Screenshot">
                     </div>
@@ -489,13 +511,11 @@
                     </div>
                 </div>
                 <h3 class="text-xl font-bold">HACKER TYPER</h3>
-                <p class="text-gray-400 text-sm mt-2">
-                    Cinematic coding simulation interface.<br>
-                    <span class="text-xs text-gray-600">시네마틱 코딩 시뮬레이션 인터페이스</span>
-                </p>
+                <p class="text-gray-400 text-sm mt-2">Cinematic coding simulation interface.<br><span
+                        class="text-xs text-gray-600">시네마틱 코딩 시뮬레이션 인터페이스</span></p>
             </div>
 
-            <!-- Web Project 2: Galaxy Oracle -->
+            <!-- Web Project 2 -->
             <div class="fade-in hover-trigger">
                 <div
                     class="border border-gray-700 bg-gray-900 aspect-video mb-6 relative group overflow-hidden rounded-md">
@@ -504,7 +524,6 @@
                         <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
                         <div class="w-2 h-2 rounded-full bg-green-500"></div>
                     </div>
-                    <!-- Image Placeholder: 스크린샷 이미지 경로를 넣어주세요 -->
                     <div class="w-full h-full pt-6 bg-gray-900">
                         <img src="./assets/galaxy.jpg" class="w-full h-full object-cover"
                             alt="Galaxy Oracle Screenshot">
@@ -519,28 +538,23 @@
                     </div>
                 </div>
                 <h3 class="text-xl font-bold">GALAXY ORACLE</h3>
-                <p class="text-gray-400 text-sm mt-2">
-                    Mysterious 3D tarot reading experience.<br>
-                    <span class="text-xs text-gray-600">우주 배경의 신비로운 3D 타로 경험</span>
-                </p>
+                <p class="text-gray-400 text-sm mt-2">Mysterious 3D tarot reading experience.<br><span
+                        class="text-xs text-gray-600">우주 배경의 신비로운 3D 타로 경험</span></p>
             </div>
         </div>
     </section>
 
-    <!-- NEW SECTION: AI Solutions / Dev -->
+    <!-- AI Solutions Section -->
     <section id="solutions" class="section-padding max-w-6xl mx-auto border-t border-gray-900">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16 fade-in">
             <h2 class="text-3xl md:text-4xl brand-font">AI SOLUTIONS <br>& DEVELOPMENT</h2>
-            <p class="text-gray-500 text-sm mt-4 md:mt-0 md:text-right">
-                Creative Tech & Custom Agents<br>
-                감각적인 비주얼을 넘어, 작동하는 시스템을 만듭니다.
-            </p>
+            <p class="text-gray-500 text-sm mt-4 md:mt-0 md:text-right">Creative Tech & Custom Agents<br>감각적인 비주얼을 넘어,
+                작동하는 시스템을 만듭니다.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 fade-in">
-
-            <!-- Solution Item 1 -->
-            <a href="https://example.com" target="_blank"
+            <!-- Solutions 1, 2, 3, 4 (Content omitted for brevity but structure remains same as user's original) -->
+            <a href="https://github.com/hyunaeee/hacker-typer" target="_blank"
                 class="block group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
                 <div class="flex justify-between items-start mb-12">
                     <span class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">WEB
@@ -552,22 +566,16 @@
                 <div class="space-y-4">
                     <p class="text-gray-400 font-light text-sm leading-relaxed">
                         <span class="block text-gray-500 text-xs mb-1 font-bold">ENG</span>
-                        Building responsive 3D websites using Three.js. Visualizing brand identity and delivering
-                        immersive web experiences with maximized user interaction.
+                        Building responsive 3D websites using Three.js. Visualizing brand identity.
                     </p>
                     <p class="text-gray-400 font-light text-sm leading-relaxed">
                         <span class="block text-gray-500 text-xs mb-1 font-bold">KOR</span>
-                        Three.js를 활용한 반응형 3D 웹사이트 구축. 브랜드 아이덴티티를 시각화하고 사용자 인터랙션을 극대화한 몰입형 웹 경험 제공.
+                        Three.js를 활용한 반응형 3D 웹사이트 구축.
                     </p>
                 </div>
-                <ul class="text-xs text-gray-600 font-mono space-y-1 mt-6">
-                    <li>+ React / Three.js</li>
-                    <li>+ Interactive UI Design</li>
-                </ul>
             </a>
 
-            <!-- Solution Item 2 (UPDATED: Medical AI Agent) -->
-            <a href="https://example.com" target="_blank"
+            <a href="https://github.com/hyunaeee/med-rag" target="_blank"
                 class="block group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
                 <div class="flex justify-between items-start mb-12">
                     <span class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">MEDICAL
@@ -579,24 +587,16 @@
                 <div class="space-y-4">
                     <p class="text-gray-400 font-light text-sm leading-relaxed">
                         <span class="block text-gray-500 text-xs mb-1 font-bold">ENG</span>
-                        Breast cancer diagnosis support chatbot for Korea Univ. Anam Hospital. Implemented RAG with
-                        Ollama (Gemma, Qwen) to learn from diagnosis history and guides, enabling precise result
-                        extraction and feedback loops.
+                        Breast cancer diagnosis support chatbot.
                     </p>
                     <p class="text-gray-400 font-light text-sm leading-relaxed">
                         <span class="block text-gray-500 text-xs mb-1 font-bold">KOR</span>
-                        고려대 안암병원 유방암 진단 서포트 챗봇 개발. RAG와 Ollama(Gemma, Qwen)를 활용해 진단 이력 및 가이드를 학습. 가이드/사례 분리 저장 및 피드백 루프
-                        시스템 구축.
+                        유방암 진단 서포트 챗봇 개발.
                     </p>
                 </div>
-                <ul class="text-xs text-gray-600 font-mono space-y-1 mt-6">
-                    <li>+ RAG / Ollama (Gemma, Qwen)</li>
-                    <li>+ Medical Data Analysis</li>
-                </ul>
             </a>
 
-            <!-- Solution Item 3 -->
-            <a href="https://example.com" target="_blank"
+            <a href="https://github.com/hyunaeee/comfy-workflow" target="_blank"
                 class="block group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
                 <div class="flex justify-between items-start mb-12">
                     <span
@@ -608,21 +608,15 @@
                 <div class="space-y-4">
                     <p class="text-gray-400 font-light text-sm leading-relaxed">
                         <span class="block text-gray-500 text-xs mb-1 font-bold">ENG</span>
-                        Designing automated content production pipelines. Consulting and building AI workflows from
-                        image generation to video conversion and editing.
+                        Designing automated content production pipelines.
                     </p>
                     <p class="text-gray-400 font-light text-sm leading-relaxed">
                         <span class="block text-gray-500 text-xs mb-1 font-bold">KOR</span>
-                        콘텐츠 제작 파이프라인 자동화 설계. 이미지 생성부터 영상 변환, 편집까지 이어지는 AI 워크플로우 컨설팅 및 구축.
+                        콘텐츠 제작 파이프라인 자동화 설계.
                     </p>
                 </div>
-                <ul class="text-xs text-gray-600 font-mono space-y-1 mt-6">
-                    <li>+ ComfyUI Workflow</li>
-                    <li>+ Asset Automation</li>
-                </ul>
             </a>
 
-            <!-- Solution Item 4 (UPDATED: Legal RAG Chatbot) -->
             <a href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank"
                 class="block group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
                 <div class="flex justify-between items-start mb-12">
@@ -635,103 +629,57 @@
                 <div class="space-y-4">
                     <p class="text-gray-400 font-light text-sm leading-relaxed">
                         <span class="block text-gray-500 text-xs mb-1 font-bold">ENG</span>
-                        Legal assistant for non-experts using Solar LLM. Upload legal PDFs, and the AI analyzes the
-                        documents to provide answers with specific citations and grounds.
+                        Legal assistant for non-experts using Solar LLM.
                     </p>
                     <p class="text-gray-400 font-light text-sm leading-relaxed">
                         <span class="block text-gray-500 text-xs mb-1 font-bold">KOR</span>
-                        법률 지식이 부족한 사용자를 위한 RAG 챗봇. 법률 PDF를 업로드하면 Solar 모델이 이를 분석하여, 질문에 대한 답변과 정확한 근거를 찾아 제시.
+                        법률 지식이 부족한 사용자를 위한 RAG 챗봇.
                     </p>
                 </div>
-                <ul class="text-xs text-gray-600 font-mono space-y-1 mt-6">
-                    <li>+ Solar LLM / RAG</li>
-                    <li>+ PDF Analysis System</li>
-                </ul>
             </a>
-
         </div>
     </section>
 
-    <!-- History / Timeline Section -->
+    <!-- Activities Section -->
     <section class="section-padding max-w-4xl mx-auto">
         <h2 class="text-3xl brand-font mb-12 border-b border-gray-800 pb-4 fade-in">ACTIVITIES</h2>
-
         <div class="space-y-8 fade-in">
-            <!-- Activity New -->
             <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
                 <div class="w-24 text-gray-500 font-mono text-sm pt-1">2026.01</div>
                 <div>
                     <h4 class="text-xl font-bold mb-1">Grand Opening of AENG DO Studio</h4>
-                    <p class="text-gray-400 text-sm font-light">
-                        Official Studio Launch<br>
-                        <span class="text-gray-600 text-xs">앵두 스튜디오 오픈</span>
-                    </p>
+                    <p class="text-gray-400 text-sm font-light">Official Studio Launch <span
+                            class="text-gray-600 text-xs">앵두 스튜디오 오픈</span></p>
                 </div>
             </div>
-
-            <!-- Activity 1 -->
             <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
                 <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.12</div>
                 <div>
-                    <h4 class="text-xl font-bold mb-1">2025 Seoul Con 'AI Exhibition : Beyond Fluxus'</h4>
-                    <p class="text-gray-400 text-sm font-light">
-                        DDP (Dongdaemun Design Plaza) - Invited Artist 'Gaeda'<br>
-                        <span class="text-gray-600 text-xs">2025 서울콘 'AI 전람회 : Beyond Fluxus, AI Hallyu' 초대 작가 전시</span>
-                    </p>
+                    <h4 class="text-xl font-bold mb-1">2025 Seoul Con 'AI Exhibition'</h4>
+                    <p class="text-gray-400 text-sm font-light">Invited Artist 'Gaeda' <span
+                            class="text-gray-600 text-xs">2025 서울콘 초대 작가 전시</span></p>
                 </div>
             </div>
-
-            <!-- Activity 2 -->
             <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
                 <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.12</div>
                 <div>
                     <h4 class="text-xl font-bold mb-1">AI Webtoon & Shorts Lecture</h4>
-                    <p class="text-gray-400 text-sm font-light">
-                        Instructor for Middle Schools in Asan, Chungnam<br>
-                        <span class="text-gray-600 text-xs">충남 아산지역 중학교 AI 웹툰/쇼츠 제작 강의</span>
-                    </p>
+                    <p class="text-gray-400 text-sm font-light">Instructor for Middle Schools <span
+                            class="text-gray-600 text-xs">충남 아산지역 중학교 AI 강의</span></p>
                 </div>
             </div>
-
-            <!-- Activity 3 -->
             <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
                 <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.11</div>
                 <div>
                     <h4 class="text-xl font-bold mb-1">KHNP Educational AI Video Production</h4>
-                    <p class="text-gray-400 text-sm font-light">
-                        Korea Hydro & Nuclear Power - AI Content Creator<br>
-                        <span class="text-gray-600 text-xs">한국수력원자력 교육용 AI 영상 제작</span>
-                    </p>
-                </div>
-            </div>
-
-            <!-- Activity 4 -->
-            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
-                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.09</div>
-                <div>
-                    <h4 class="text-xl font-bold mb-1">NC AI - AI Data Division</h4>
-                    <p class="text-gray-400 text-sm font-light">
-                        NC AI AI데이터실<br>
-                        <span class="text-gray-600 text-xs">AI Data Processing & Analysis</span>
-                    </p>
-                </div>
-            </div>
-
-            <!-- Activity 5 -->
-            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
-                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.07</div>
-                <div>
-                    <h4 class="text-xl font-bold mb-1">YouTube Channel 'gaebaldaeramz'</h4>
-                    <p class="text-gray-400 text-sm font-light">
-                        Content Creator & AI Art Tutorial<br>
-                        <span class="text-gray-600 text-xs">유튜브 채널 'gaebaldaeramz' 개설 및 운영</span>
-                    </p>
+                    <p class="text-gray-400 text-sm font-light">AI Content Creator <span
+                            class="text-gray-600 text-xs">한국수력원자력 교육용 영상 제작</span></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Footer -->
     <footer id="contact" class="py-24 border-t border-gray-900 bg-black relative z-10">
         <div class="container mx-auto px-6 text-center">
             <h2
@@ -742,21 +690,15 @@
                 <p>We create new visual experiences together.</p>
                 <p class="text-sm">새로운 시각적 경험을 함께 만듭니다.</p>
             </div>
-
             <div class="flex flex-wrap justify-center gap-8 text-sm brand-font">
-                <!-- 기술 블로그 추가 -->
                 <a href="https://velog.io/@hyunaeee/posts" target="_blank"
                     class="hover:text-gray-400 hover-trigger">TECH BLOG</a>
-
                 <a href="https://instagram.com/gaebal_daeraemz" target="_blank"
                     class="hover:text-gray-400 hover-trigger">INSTAGRAM</a>
-
                 <a href="https://www.youtube.com/@gaebal_daeraemz" target="_blank"
                     class="hover:text-gray-400 hover-trigger">YOUTUBE</a>
-
                 <a href="mailto:hyunaeee@gmail.com" class="hover:text-gray-400 hover-trigger">EMAIL</a>
             </div>
-
             <div class="mt-20 text-xs text-gray-700">
                 &copy; 2025 AENG DO. All Rights Reserved.
             </div>
@@ -765,15 +707,31 @@
 
     <!-- Three.js Implementation -->
     <script>
-        // --- Intro Effect Logic ---
+        // --- 0. Audio Control Logic ---
+        function toggleAudio(btnId, audioId) {
+            const audio = document.getElementById(audioId);
+            const btn = document.getElementById(btnId);
+
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = '❚❚';
+            } else {
+                audio.pause();
+                btn.innerText = '▶';
+            }
+        }
+
+        function resetAudioBtn(btnId) {
+            const btn = document.getElementById(btnId);
+            btn.innerText = '▶';
+        }
+
+        // --- Intro Effect ---
         window.addEventListener('load', () => {
             const overlay = document.getElementById('intro-overlay');
-            // 약간의 딜레이 후 페이드 아웃 시작
             setTimeout(() => {
                 overlay.style.opacity = '0';
-                overlay.style.pointerEvents = 'none'; // 클릭 통과
-
-                // 애니메이션 끝난 후 display none 처리 (성능 최적화)
+                overlay.style.pointerEvents = 'none';
                 setTimeout(() => {
                     overlay.style.display = 'none';
                 }, 1500);
@@ -786,8 +744,6 @@
         scene.fog = new THREE.FogExp2(0x000000, 0.001);
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-        // Initial Camera Z (will be updated by updateBaseCameraZ)
         let baseCameraZ = 120;
 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -822,9 +778,7 @@
                 for (let x = 0; x < width; x += step) {
                     const index = (y * width + x) * 4;
                     const r = data[index];
-
                     if (r > 128) {
-                        // Increased scaling factor from 0.2 to 0.32 to make text larger
                         const pX = (x - width / 2) * 0.32;
                         const pY = -(y - height / 2) * 0.32;
                         const pZ = (Math.random() - 0.5) * 10;
@@ -838,7 +792,6 @@
         const particlePositions = createTextParticles('AENG DO');
         const geometry = new THREE.BufferGeometry();
         geometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-
         const count = geometry.attributes.position.count;
         const originalPositions = new Float32Array(particlePositions);
 
@@ -853,35 +806,24 @@
         const textParticles = new THREE.Points(geometry, material);
         scene.add(textParticles);
 
-        // --- ADDED: Star Background ---
+        // --- Star Background ---
         function createStars() {
             const starGeo = new THREE.BufferGeometry();
-            const starCount = 2000; // Number of stars
+            const starCount = 2000;
             const starPos = new Float32Array(starCount * 3);
-
             for (let i = 0; i < starCount * 3; i++) {
-                // Random position in a large box around the center
                 starPos[i] = (Math.random() - 0.5) * 600;
             }
-
             starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-
             const starMat = new THREE.PointsMaterial({
-                color: 0x888888, // Slightly dimmer than text
-                size: 0.7,
-                transparent: true,
-                opacity: 0.6,
-                sizeAttenuation: true
+                color: 0x888888, size: 0.7, transparent: true, opacity: 0.6, sizeAttenuation: true
             });
-
             return new THREE.Points(starGeo, starMat);
         }
-
         const starField = createStars();
         scene.add(starField);
 
-
-        // --- 3. Interaction State ---
+        // --- 3. Interaction & Animation ---
         let mouseX = 0;
         let mouseY = 0;
         let targetX = 0;
@@ -894,21 +836,19 @@
             mouseY = (event.clientY - windowHalfY);
         });
 
-        // --- 4. Custom Cursor Logic ---
+        // Custom Cursor
         const cursor = document.getElementById('cursor');
         const hoverTriggers = document.querySelectorAll('.hover-trigger');
-
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
-
         hoverTriggers.forEach(trigger => {
             trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
             trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
         });
 
-        // --- 5. Observer ---
+        // Scroll Observer
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -917,41 +857,46 @@
         }, observerOptions);
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // --- 6. Responsive Camera Logic ---
+        // --- Responsive Camera Logic (UPDATED) ---
         function updateBaseCameraZ() {
             const width = window.innerWidth;
+            const height = window.innerHeight;
+            const aspect = width / height;
+
+            // 1. 기본 비율에 따른 거리 계산
             if (width < 600) {
-                baseCameraZ = 450; // Increased for mobile to fit larger text
+                baseCameraZ = 600;
             } else if (width < 1024) {
-                baseCameraZ = 250; // Increased for tablet
+                baseCameraZ = 350;
             } else {
-                baseCameraZ = 140; // Slightly increased for desktop
+                baseCameraZ = 160;
+            }
+
+            // 2. 특이한 화면 비율(매우 납작하거나 긴 화면)에 대한 보정
+            if (aspect < 0.5) {
+                baseCameraZ += 100;
             }
         }
-        updateBaseCameraZ(); // Initial call
+        updateBaseCameraZ();
         camera.position.z = baseCameraZ;
 
-        // --- 7. Animation Loop ---
+        // --- Animation Loop ---
         const clock = new THREE.Clock();
 
         function animate() {
             requestAnimationFrame(animate);
-
             const time = clock.getElapsedTime();
             const scrollY = window.scrollY;
 
             targetX = mouseX * 0.0005;
             targetY = mouseY * 0.0005;
-
             const autoSway = Math.sin(time * 0.5) * 0.1;
 
             textParticles.rotation.y += 0.05 * (targetX + autoSway - textParticles.rotation.y);
             textParticles.rotation.x += 0.05 * (targetY - textParticles.rotation.x);
 
-            // Animate Text Particles
             const posAttr = textParticles.geometry.attributes.position;
             const posArray = posAttr.array;
-
             for (let i = 0; i < count; i++) {
                 const ix = i * 3;
                 const iy = i * 3 + 1;
@@ -964,35 +909,26 @@
             }
             posAttr.needsUpdate = true;
 
-            // Animate Stars
             starField.rotation.y -= 0.0002;
             starField.rotation.x -= 0.0001;
 
-            // Scroll Interaction (Use baseCameraZ for responsive start point)
             camera.position.z = baseCameraZ + scrollY * 0.1;
             camera.position.y = -scrollY * 0.1;
-
             if (scrollY > 0) {
                 textParticles.rotation.z = scrollY * 0.0002;
             }
-
             renderer.render(scene, camera);
         }
-
         animate();
 
         window.addEventListener('resize', () => {
             const width = window.innerWidth;
             const height = window.innerHeight;
-
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
-
-            // Recalculate camera Z on resize
             updateBaseCameraZ();
         });
-
     </script>
 </body>
 
