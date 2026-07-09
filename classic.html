@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AENG DO | AI Studio</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* Custom Styles & Reset */
+        :root {
+            --cursor-size: 20px;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            cursor: none;
+        }
+
+        /* Intro Overlay */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            z-index: 99999;
+            opacity: 1;
+            transition: opacity 2.0s ease-out;
+            pointer-events: auto;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Syncopate', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--cursor-size);
+            height: var(--cursor-size);
+            border: 1px solid white;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        #cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-color: transparent;
+        }
+
+        /* Three.js Canvas Container */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        /* Layout Utilities */
+        .section-padding {
+            padding: 120px 20px;
+        }
+
+        /* Work Grid Hover Effects (Updated for YouTube Iframe) */
+        .work-item {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .work-item:hover {
+            transform: scale(0.98);
+        }
+
+        /* 이미지와 비디오(iframe 포함) 공통 스타일 */
+        .work-item img,
+        .work-item video,
+        .work-item iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+            filter: grayscale(100%);
+            border: none;
+        }
+
+        /* 유튜브 클릭 방지 (순수 배경용) */
+        .work-item iframe {
+            pointer-events: none;
+            transform: scale(1.3);
+            /* 유튜브 검은 여백 방지를 위해 기본적으로 조금 확대 */
+        }
+
+        .work-item:hover img,
+        .work-item:hover video,
+        .work-item:hover iframe {
+            transform: scale(1.4);
+            /* 호버시 조금 더 확대 */
+            filter: grayscale(0%);
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Audio Player */
+        .audio-player {
+            transition: background-color 0.3s;
+        }
+
+        .audio-player:hover {
+            background-color: #111;
+        }
+
+        .play-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Fade In */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Intro Overlay -->
+    <div id="intro-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+
+    <!-- 3D Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center p-6 mix-blend-difference">
+        <a href="#"
+            class="text-xl font-bold brand-font tracking-widest hover-trigger opacity-50 hover:opacity-100 transition-opacity">AENG
+            DO</a>
+        <div class="hidden md:flex space-x-8 text-sm font-light tracking-wider">
+            <a href="#about" class="hover:text-gray-400 transition-colors hover-trigger">ABOUT</a>
+            <a href="#work" class="hover:text-gray-400 transition-colors hover-trigger">WORK</a>
+            <a href="#solutions" class="hover:text-gray-400 transition-colors hover-trigger">SOLUTIONS</a>
+            <a href="#contact" class="hover:text-gray-400 transition-colors hover-trigger">CONTACT</a>
+        </div>
+        <div class="md:hidden hover-trigger">
+            <div class="w-6 h-0.5 bg-white mb-1.5"></div>
+            <div class="w-6 h-0.5 bg-white"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="h-screen flex flex-col justify-end items-center text-center relative pointer-events-none pb-20">
+        <div class="fade-in mb-8" style="transition-delay: 0.2s;">
+            <p class="text-xs md:text-sm tracking-[0.5em] uppercase text-gray-400 mb-2">AI Engineering & Contents
+                Creating</p>
+            <p class="text-[10px] md:text-xs tracking-[0.3em] text-gray-600">AI 엔지니어링 & 콘텐츠 크리에이팅</p>
+        </div>
+        <div class="animate-bounce">
+            <span class="text-[10px] tracking-widest">SCROLL</span>
+        </div>
+    </header>
+
+    <!-- Tech Stack Marquee -->
+    <div class="border-y border-gray-900 bg-black py-4 marquee-container opacity-80">
+        <div class="marquee-content brand-font text-gray-500 text-sm tracking-widest">
+            MIDJOURNEY &nbsp;•&nbsp; HIGGSFIELD &nbsp;•&nbsp; KLING &nbsp;•&nbsp; SUNO &nbsp;•&nbsp; NANO BANANA
+            &nbsp;•&nbsp; ELEVENLABS &nbsp;•&nbsp; THREE.JS &nbsp;•&nbsp; COMFY UI &nbsp;•&nbsp; OPENAI &nbsp;•&nbsp;
+            SORA &nbsp;•&nbsp; STABLE DIFFUSION &nbsp;•&nbsp; REVE &nbsp;•&nbsp; GEMINI &nbsp;•&nbsp; HAILUO
+            &nbsp;•&nbsp; GROK &nbsp;•&nbsp; REACT NATIVE &nbsp;•&nbsp; PYTHON &nbsp;•&nbsp; WHISK &nbsp;•&nbsp;
+            MIDJOURNEY &nbsp;•&nbsp; HIGGSFIELD &nbsp;•&nbsp; KLING &nbsp;•&nbsp; SUNO &nbsp;•&nbsp; NANO BANANA
+            &nbsp;•&nbsp; ELEVENLABS &nbsp;•&nbsp; THREE.JS &nbsp;•&nbsp; COMFY UI &nbsp;•&nbsp; OPENAI &nbsp;•&nbsp;
+            SORA &nbsp;•&nbsp; STABLE DIFFUSION &nbsp;•&nbsp; REVE &nbsp;•&nbsp; GEMINI &nbsp;•&nbsp; HAILUO
+            &nbsp;•&nbsp; GROK &nbsp;•&nbsp; REACT NATIVE &nbsp;•&nbsp; PYTHON &nbsp;•&nbsp; VEO &nbsp;•&nbsp;
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 brand-font">THE <br>PROCESS</h2>
+            </div>
+            <div class="text-gray-300 font-light leading-relaxed space-y-8 fade-in" style="transition-delay: 0.2s;">
+                <div>
+                    <p class="mb-2">
+                        디지털의 바다에서 의미를 건져올립니다.
+                        <strong class="text-white">AENG DO</strong>는 AI 기술과 예술적 직관을 결합하여
+                        보이지 않는 상상을 시각적 현실로 구현합니다.
+                    </p>
+                    <p class="text-sm text-gray-500 italic">
+                        We fish for meaning in the sea of digital.
+                        AENG DO combines AI technology with artistic intuition to visualize invisible imagination into
+                        reality.
+                    </p>
+                </div>
+                <div>
+                    <p class="mb-2">
+                        이미지, 영상, 웹사이트, 그리고 음악까지.
+                        다양한 AI 툴을 오케스트라처럼 지휘하여 감각적인 경험을 설계합니다.
+                        기술은 차갑지만, 그 결과물은 가장 뜨거운 감동을 줍니다.
+                    </p>
+                    <p class="text-sm text-gray-500 italic">
+                        From images and videos to websites and music.
+                        We orchestrate various AI tools to design sensory experiences.
+                        Technology may be cold, but the results deliver the warmest emotions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Works (Visual) -->
+    <section id="work" class="section-padding px-4 md:px-12 bg-black bg-opacity-80 backdrop-blur-sm">
+        <h2 class="text-center text-3xl md:text-4xl brand-font mb-20 fade-in">VISUAL ARTWORKS</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- [1] PHOTO SLOT (16:9) - 이미지 유지 -->
+            <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
+                <div class="w-full h-full relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
+                    </div>
+                    <img src="./assets/image01.png" class="w-full h-full object-cover" alt="My Photo Work">
+                    <div
+                        class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div
+                            class="text-[10px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-y-2 group-hover:translate-y-0">
+                            2025.12 | PHOTO ART FOR EXHIBITION
+                        </div>
+                        <h3 class="text-xl font-bold">N.O.W</h3>
+                        <p class="text-xs text-gray-300 mt-1">Concept Art for Exhibition / 컨셉 아트 전시 작품</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- [2] VIDEO SLOT (Youtube Embed) -->
+            <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
+                <div class="w-full h-full relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
+                    </div>
+
+                    <!-- 🔴 수정: VIDEO_ID_HERE를 본인의 유튜브 영상 ID로 교체하세요 -->
+                    <!-- playsinline=1: 모바일 전체화면 방지, mute=1: 자동재생 필수 조건, loop=1: 반복 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/WPHAMvJVO-E?autoplay=1&mute=1&controls=0&loop=1&playlist=WPHAMvJVO-E&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+
+                    <div
+                        class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div
+                            class="text-[10px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            2025.12 | DRAMA
+                        </div>
+                        <h3 class="text-xl font-bold">SYNAPSE</h3>
+                        <p class="text-xs text-gray-300 mt-1"> DRAMA FILM / 옴니버스식 드라마</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- [3] VIDEO SLOT (Youtube Embed) -->
+            <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
+                <div class="w-full h-full relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
+                    </div>
+
+                    <!-- 🔴 수정: VIDEO_ID_HERE 교체 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/e9ikiPXcKr0?autoplay=1&mute=1&controls=0&loop=1&playlist=e9ikiPXcKr0&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+
+                    <div
+                        class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div
+                            class="text-[10px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            2025.08 | SHORTS
+                        </div>
+                        <h3 class="text-xl font-bold">ANIMAL COOKING</h3>
+                        <p class="text-xs text-gray-300 mt-1">Short Film / 캐릭터 단편 영상</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- [4] VIDEO SLOT (Youtube Embed) -->
+            <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
+                <div class="w-full h-full relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
+                    </div>
+
+                    <!-- 🔴 수정: VIDEO_ID_HERE 교체 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/N9XWjBSLfBQ?autoplay=1&mute=1&controls=0&loop=1&playlist=N9XWjBSLfBQ&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+
+                    <div
+                        class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div
+                            class="text-[10px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            2025.12 | COMMERCIAL
+                        </div>
+                        <h3 class="text-xl font-bold">BRAND FILM</h3>
+                        <p class="text-xs text-gray-300 mt-1">Campaign Teaser / 캠페인 티저</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- [5] VIDEO SLOT (Youtube Embed) -->
+            <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
+                <div class="w-full h-full relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
+                    </div>
+
+                    <!-- 🔴 수정: VIDEO_ID_HERE 교체 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/aqoCFLuRP4Q?autoplay=1&mute=1&controls=0&loop=1&playlist=aqoCFLuRP4Q&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+
+                    <div
+                        class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div
+                            class="text-[10px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            2025.11 | EDUCATIONAL ANI
+                        </div>
+                        <h3 class="text-xl font-bold">EDU ANI</h3>
+                        <p class="text-xs text-gray-300 mt-1">Educational Animation / 교육 영상</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- [6] VIDEO SLOT (Youtube Embed) -->
+            <article class="work-item group aspect-video bg-gray-900 border border-gray-800 hover-trigger fade-in">
+                <div class="w-full h-full relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60 z-10 pointer-events-none">
+                    </div>
+
+                    <!-- 🔴 수정: VIDEO_ID_HERE 교체 -->
+                    <iframe
+                        src="https://www.youtube.com/embed/JMfOA264Tn0?autoplay=1&mute=1&controls=0&loop=1&playlist=JMfOA264Tn0&playsinline=1&rel=0"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+
+                    <div
+                        class="absolute bottom-6 left-6 right-6 z-20 pointer-events-none transform group-hover:-translate-y-2 transition-transform duration-500">
+                        <div
+                            class="text-[10px] text-gray-400 font-mono mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            2025.12 | EXPERIMENTAL
+                        </div>
+                        <h3 class="text-xl font-bold">FLUID DYNAMICS</h3>
+                        <p class="text-xs text-gray-300 mt-1">Abstract Motion Graphics / 추상 모션 그래픽</p>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Audio / Music Section -->
+    <section class="section-padding max-w-4xl mx-auto border-t border-gray-900">
+        <h2 class="text-3xl brand-font mb-12 fade-in">AUDIO TRACKS</h2>
+
+        <div class="space-y-4 fade-in">
+            <!-- Audio Track 1 -->
+            <div
+                class="audio-player border border-gray-800 p-6 flex flex-col md:flex-row items-center gap-6 hover-trigger group">
+                <div id="playBtn1"
+                    class="play-btn w-12 h-12 rounded-full border border-white cursor-pointer hover:bg-white hover:text-black transition-colors"
+                    onclick="toggleAudio('playBtn1', 'audio1')">▶</div>
+                <div class="flex-1 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+                        <h4 class="text-lg font-bold">NOT MY FAULT 내 잘못이 아니야</h4>
+                        <span class="text-[10px] border border-gray-700 px-1 text-gray-500">2025.12</span>
+                    </div>
+                    <p class="text-xs text-gray-500 brand-font">COMPOSED WITH SUNO AI</p>
+                </div>
+                <audio id="audio1" class="hidden" onended="resetAudioBtn('playBtn1')">
+                    <source src="./assets/music01.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Web Experiences Section -->
+    <section class="section-padding px-4 md:px-12 bg-black border-t border-gray-900">
+        <h2 class="text-center text-3xl md:text-4xl brand-font mb-20 fade-in">WEB EXPERIENCES</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            <!-- Web Project 1 -->
+            <div class="fade-in hover-trigger">
+                <div
+                    class="border border-gray-700 bg-gray-900 aspect-video mb-6 relative group overflow-hidden rounded-md">
+                    <div class="absolute top-0 w-full h-6 bg-gray-800 flex items-center px-2 space-x-1.5 z-20">
+                        <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="w-full h-full pt-6 bg-gray-900">
+                        <img src="./assets/hacker.jpg" class="w-full h-full object-cover" alt="Hacker Typer Screenshot">
+                    </div>
+                    <div
+                        class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-80 z-30">
+                        <span class="text-xs font-mono text-gray-400 mb-2">2024.11 | INTERACTIVE</span>
+                        <a href="https://hacker-typer.vercel.app/" target="_blank"
+                            class="border border-white px-4 py-2 text-sm brand-font mb-4 hover:bg-white hover:text-black transition-colors cursor-pointer">VISIT
+                            SITE ↗</a>
+                        <span class="text-[10px] text-gray-500 font-mono">REACT, TYPING SIMULATION</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold">HACKER TYPER</h3>
+                <p class="text-gray-400 text-sm mt-2">Cinematic coding simulation interface.<br><span
+                        class="text-xs text-gray-600">시네마틱 코딩 시뮬레이션 인터페이스</span></p>
+            </div>
+
+            <!-- Web Project 2 -->
+            <div class="fade-in hover-trigger">
+                <div
+                    class="border border-gray-700 bg-gray-900 aspect-video mb-6 relative group overflow-hidden rounded-md">
+                    <div class="absolute top-0 w-full h-6 bg-gray-800 flex items-center px-2 space-x-1.5 z-20">
+                        <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="w-full h-full pt-6 bg-gray-900">
+                        <img src="./assets/galaxy.jpg" class="w-full h-full object-cover"
+                            alt="Galaxy Oracle Screenshot">
+                    </div>
+                    <div
+                        class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-80 z-30">
+                        <span class="text-xs font-mono text-gray-400 mb-2">2024.09 | 3D WEB</span>
+                        <a href="https://galaxy-oracle.netlify.app/" target="_blank"
+                            class="border border-white px-4 py-2 text-sm brand-font mb-4 hover:bg-white hover:text-black transition-colors cursor-pointer">VISIT
+                            SITE ↗</a>
+                        <span class="text-[10px] text-gray-500 font-mono">THREE.JS, FORTUNE TELLING</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold">GALAXY ORACLE</h3>
+                <p class="text-gray-400 text-sm mt-2">Mysterious 3D tarot reading experience.<br><span
+                        class="text-xs text-gray-600">우주 배경의 신비로운 3D 타로 경험</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Solutions Section -->
+    <section id="solutions" class="section-padding max-w-6xl mx-auto border-t border-gray-900">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 fade-in">
+            <h2 class="text-3xl md:text-4xl brand-font">AI SOLUTIONS <br>& DEVELOPMENT</h2>
+            <p class="text-gray-500 text-sm mt-4 md:mt-0 md:text-right">Creative Tech & Custom Agents<br>감각적인 비주얼을 넘어,
+                작동하는 시스템을 만듭니다.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 fade-in">
+            <!-- Solutions 1, 2, 3, 4 (Content omitted for brevity but structure remains same as user's original) -->
+            <a href="https://github.com/hyunaeee/hacker-typer" target="_blank"
+                class="block group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
+                <div class="flex justify-between items-start mb-12">
+                    <span class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">WEB
+                        DEV</span>
+                    <span class="text-gray-600 group-hover:text-white transition-colors">↗</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">Brand
+                    Immersive Site</h3>
+                <div class="space-y-4">
+                    <p class="text-gray-400 font-light text-sm leading-relaxed">
+                        <span class="block text-gray-500 text-xs mb-1 font-bold">ENG</span>
+                        Building responsive 3D websites using Three.js. Visualizing brand identity.
+                    </p>
+                    <p class="text-gray-400 font-light text-sm leading-relaxed">
+                        <span class="block text-gray-500 text-xs mb-1 font-bold">KOR</span>
+                        Three.js를 활용한 반응형 3D 웹사이트 구축.
+                    </p>
+                </div>
+            </a>
+
+            <a href="https://github.com/hyunaeee/med-rag" target="_blank"
+                class="block group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
+                <div class="flex justify-between items-start mb-12">
+                    <span class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">MEDICAL
+                        AI</span>
+                    <span class="text-gray-600 group-hover:text-white transition-colors">↗</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                    Diagnosis Support Agent</h3>
+                <div class="space-y-4">
+                    <p class="text-gray-400 font-light text-sm leading-relaxed">
+                        <span class="block text-gray-500 text-xs mb-1 font-bold">ENG</span>
+                        Breast cancer diagnosis support chatbot.
+                    </p>
+                    <p class="text-gray-400 font-light text-sm leading-relaxed">
+                        <span class="block text-gray-500 text-xs mb-1 font-bold">KOR</span>
+                        유방암 진단 서포트 챗봇 개발.
+                    </p>
+                </div>
+            </a>
+
+            <a href="https://github.com/hyunaeee/comfy-workflow" target="_blank"
+                class="block group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
+                <div class="flex justify-between items-start mb-12">
+                    <span
+                        class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">WORKFLOW</span>
+                    <span class="text-gray-600 group-hover:text-white transition-colors">↗</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                    Generative AI Workflow</h3>
+                <div class="space-y-4">
+                    <p class="text-gray-400 font-light text-sm leading-relaxed">
+                        <span class="block text-gray-500 text-xs mb-1 font-bold">ENG</span>
+                        Designing automated content production pipelines.
+                    </p>
+                    <p class="text-gray-400 font-light text-sm leading-relaxed">
+                        <span class="block text-gray-500 text-xs mb-1 font-bold">KOR</span>
+                        콘텐츠 제작 파이프라인 자동화 설계.
+                    </p>
+                </div>
+            </a>
+
+            <a href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank"
+                class="block group border border-gray-800 bg-black p-8 hover:bg-gray-900 transition-colors duration-500 hover-trigger cursor-pointer">
+                <div class="flex justify-between items-start mb-12">
+                    <span class="brand-font text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded-full">LEGAL
+                        AI</span>
+                    <span class="text-gray-600 group-hover:text-white transition-colors">↗</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">Legal
+                    PDF RAG Chatbot</h3>
+                <div class="space-y-4">
+                    <p class="text-gray-400 font-light text-sm leading-relaxed">
+                        <span class="block text-gray-500 text-xs mb-1 font-bold">ENG</span>
+                        Legal assistant for non-experts using Solar LLM.
+                    </p>
+                    <p class="text-gray-400 font-light text-sm leading-relaxed">
+                        <span class="block text-gray-500 text-xs mb-1 font-bold">KOR</span>
+                        법률 지식이 부족한 사용자를 위한 RAG 챗봇.
+                    </p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- History / Timeline Section -->
+    <section class="section-padding max-w-4xl mx-auto">
+        <h2 class="text-3xl brand-font mb-12 border-b border-gray-800 pb-4 fade-in">ACTIVITIES</h2>
+        
+        <div class="space-y-8 fade-in">
+            <!-- Activity New -->
+            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
+                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2026.01</div>
+                <div>
+                    <h4 class="text-xl font-bold mb-1">Grand Opening of AENG DO Studio</h4>
+                    <p class="text-gray-400 text-sm font-light">
+                        Official Studio Launch<br>
+                        <span class="text-gray-600 text-xs">앵두 스튜디오 오픈</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Activity 1 -->
+            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
+                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.12</div>
+                <div>
+                    <h4 class="text-xl font-bold mb-1">2025 Seoul Con 'AI Exhibition : Beyond Fluxus'</h4>
+                    <p class="text-gray-400 text-sm font-light">
+                        DDP (Dongdaemun Design Plaza) - Invited Artist 'Gaeda'<br>
+                        <span class="text-gray-600 text-xs">2025 서울콘 'AI 전람회 : Beyond Fluxus, AI Hallyu' 초대 작가 전시</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Activity 2 -->
+            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
+                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.12</div>
+                <div>
+                    <h4 class="text-xl font-bold mb-1">AI Webtoon & Shorts Lecture</h4>
+                    <p class="text-gray-400 text-sm font-light">
+                        Instructor for Middle Schools in Asan, Chungnam<br>
+                        <span class="text-gray-600 text-xs">충남 아산지역 중학교 AI 웹툰/쇼츠 제작 강의</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Activity 3 -->
+            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
+                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.11</div>
+                <div>
+                    <h4 class="text-xl font-bold mb-1">KHNP Educational AI Video Production</h4>
+                    <p class="text-gray-400 text-sm font-light">
+                        Korea Hydro & Nuclear Power - AI Content Creator<br>
+                        <span class="text-gray-600 text-xs">한국수력원자력 교육용 AI 영상 제작</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Activity 4 -->
+            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
+                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.09</div>
+                <div>
+                    <h4 class="text-xl font-bold mb-1">NC AI - AI Data Division</h4>
+                    <p class="text-gray-400 text-sm font-light">
+                        NC AI AI데이터실<br>
+                        <span class="text-gray-600 text-xs">AI Data Processing & Analysis</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Activity 5 -->
+            <div class="flex flex-col md:flex-row gap-4 md:gap-12 hover-trigger">
+                <div class="w-24 text-gray-500 font-mono text-sm pt-1">2025.07</div>
+                <div>
+                    <h4 class="text-xl font-bold mb-1">YouTube Channel 'gaebaldaeramz'</h4>
+                    <p class="text-gray-400 text-sm font-light">
+                        Content Creator & AI Art Tutorial<br>
+                        <span class="text-gray-600 text-xs">유튜브 채널 'gaebaldaeramz' 개설 및 운영</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-24 border-t border-gray-900 bg-black relative z-10">
+        <div class="container mx-auto px-6 text-center">
+            <h2
+                class="text-3xl md:text-5xl brand-font font-bold mb-8 hover-trigger cursor-pointer transition-colors hover:text-gray-400">
+                <a href="mailto:hyunaeee@gmail.com">LET'S TALK</a>
+            </h2>
+            <div class="mb-12 font-light text-gray-500">
+                <p>We create new visual experiences together.</p>
+                <p class="text-sm">새로운 시각적 경험을 함께 만듭니다.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-8 text-sm brand-font">
+                <a href="https://velog.io/@hyunaeee/posts" target="_blank"
+                    class="hover:text-gray-400 hover-trigger">TECH BLOG</a>
+                <a href="https://instagram.com/gaebal_daeraemz" target="_blank"
+                    class="hover:text-gray-400 hover-trigger">INSTAGRAM</a>
+                <a href="https://www.youtube.com/@gaebal_daeraemz" target="_blank"
+                    class="hover:text-gray-400 hover-trigger">YOUTUBE</a>
+                <a href="mailto:hyunaeee@gmail.com" class="hover:text-gray-400 hover-trigger">EMAIL</a>
+            </div>
+            <div class="mt-20 text-xs text-gray-700">
+                &copy; 2025 AENG DO. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Three.js Implementation -->
+    <script>
+        // --- 0. Audio Control Logic ---
+        function toggleAudio(btnId, audioId) {
+            const audio = document.getElementById(audioId);
+            const btn = document.getElementById(btnId);
+
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = '❚❚';
+            } else {
+                audio.pause();
+                btn.innerText = '▶';
+            }
+        }
+
+        function resetAudioBtn(btnId) {
+            const btn = document.getElementById(btnId);
+            btn.innerText = '▶';
+        }
+
+        // --- Intro Effect ---
+        window.addEventListener('load', () => {
+            const overlay = document.getElementById('intro-overlay');
+            setTimeout(() => {
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 1500);
+            }, 100);
+        });
+
+        // --- 1. Scene Setup ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x000000, 0.001);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        let baseCameraZ = 120;
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // --- 2. Generate Particles from Text ---
+        function createTextParticles(text) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const width = 1000;
+            const height = 300;
+            canvas.width = width;
+            canvas.height = height;
+
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 200px "Syncopate", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, width / 2, height / 2);
+
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            const positions = [];
+
+            const step = 4;
+            for (let y = 0; y < height; y += step) {
+                for (let x = 0; x < width; x += step) {
+                    const index = (y * width + x) * 4;
+                    const r = data[index];
+                    if (r > 128) {
+                        const pX = (x - width / 2) * 0.32;
+                        const pY = -(y - height / 2) * 0.32;
+                        const pZ = (Math.random() - 0.5) * 10;
+                        positions.push(pX, pY, pZ);
+                    }
+                }
+            }
+            return new Float32Array(positions);
+        }
+
+        const particlePositions = createTextParticles('AENG DO');
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        const count = geometry.attributes.position.count;
+        const originalPositions = new Float32Array(particlePositions);
+
+        const material = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.6,
+            transparent: true,
+            opacity: 0.9,
+            sizeAttenuation: true
+        });
+
+        const textParticles = new THREE.Points(geometry, material);
+        scene.add(textParticles);
+
+        // --- Star Background ---
+        function createStars() {
+            const starGeo = new THREE.BufferGeometry();
+            const starCount = 2000;
+            const starPos = new Float32Array(starCount * 3);
+            for (let i = 0; i < starCount * 3; i++) {
+                starPos[i] = (Math.random() - 0.5) * 600;
+            }
+            starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+            const starMat = new THREE.PointsMaterial({
+                color: 0x888888, size: 0.7, transparent: true, opacity: 0.6, sizeAttenuation: true
+            });
+            return new THREE.Points(starGeo, starMat);
+        }
+        const starField = createStars();
+        scene.add(starField);
+
+        // --- 3. Interaction & Animation ---
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX);
+            mouseY = (event.clientY - windowHalfY);
+        });
+
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const hoverTriggers = document.querySelectorAll('.hover-trigger');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        hoverTriggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // Scroll Observer
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // --- Responsive Camera Logic (UPDATED) ---
+        function updateBaseCameraZ() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const aspect = width / height;
+
+            // 1. 기본 비율에 따른 거리 계산
+            if (width < 600) {
+                baseCameraZ = 600;
+            } else if (width < 1024) {
+                baseCameraZ = 350;
+            } else {
+                baseCameraZ = 160;
+            }
+
+            // 2. 특이한 화면 비율(매우 납작하거나 긴 화면)에 대한 보정
+            if (aspect < 0.5) {
+                baseCameraZ += 100;
+            }
+        }
+        updateBaseCameraZ();
+        camera.position.z = baseCameraZ;
+
+        // --- Animation Loop ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+            const scrollY = window.scrollY;
+
+            targetX = mouseX * 0.0005;
+            targetY = mouseY * 0.0005;
+            const autoSway = Math.sin(time * 0.5) * 0.1;
+
+            textParticles.rotation.y += 0.05 * (targetX + autoSway - textParticles.rotation.y);
+            textParticles.rotation.x += 0.05 * (targetY - textParticles.rotation.x);
+
+            const posAttr = textParticles.geometry.attributes.position;
+            const posArray = posAttr.array;
+            for (let i = 0; i < count; i++) {
+                const ix = i * 3;
+                const iy = i * 3 + 1;
+                const iz = i * 3 + 2;
+                const ox = originalPositions[ix];
+                const oy = originalPositions[iy];
+                const oz = originalPositions[iz];
+                const wave = Math.sin(time * 2.0 + ox * 0.05) * 2;
+                posArray[iz] = oz + wave;
+            }
+            posAttr.needsUpdate = true;
+
+            starField.rotation.y -= 0.0002;
+            starField.rotation.x -= 0.0001;
+
+            camera.position.z = baseCameraZ + scrollY * 0.1;
+            camera.position.y = -scrollY * 0.1;
+            if (scrollY > 0) {
+                textParticles.rotation.z = scrollY * 0.0002;
+            }
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            updateBaseCameraZ();
+        });
+    </script>
+</body>
+
+</html>
