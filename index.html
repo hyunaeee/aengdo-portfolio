@@ -720,6 +720,221 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   color: var(--dim);
 }
 
+/* ---------- works: visual artworks ---------- */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
+}
+.work-card {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--faint);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0a0a14;
+  cursor: pointer;
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+}
+.work-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(124, 92, 255, 0.5);
+  box-shadow: 0 22px 60px rgba(124, 92, 255, 0.18);
+}
+.work-card img.thumb, .work-card iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+}
+.work-card .wc-grad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(2, 2, 8, 0.88), transparent 55%);
+  z-index: 2;
+  pointer-events: none;
+}
+.work-card .wc-info {
+  position: absolute;
+  left: 18px; right: 18px; bottom: 14px;
+  z-index: 3;
+  pointer-events: none;
+}
+.work-card .wc-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+}
+.work-card .wc-title { font-family: var(--font-disp); font-weight: 700; font-size: 19px; }
+.work-card .wc-sub { font-size: 12px; color: var(--dim); }
+.work-card .wc-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(3, 3, 10, 0.5);
+  backdrop-filter: blur(4px);
+  font-size: 17px;
+  color: #fff;
+  transition: 0.3s;
+  pointer-events: none;
+}
+.work-card:hover .wc-play {
+  background: rgba(124, 92, 255, 0.65);
+  transform: translate(-50%, -50%) scale(1.12);
+}
+.work-card.playing .wc-play, .work-card.playing img.thumb { display: none; }
+.work-card.static { cursor: default; }
+.work-card.static .wc-play { display: none; }
+
+/* audio track */
+.audio-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid var(--faint);
+  border-radius: 16px;
+  padding: 20px 26px;
+  margin-top: 26px;
+  background: rgba(255, 255, 255, 0.03);
+  flex-wrap: wrap;
+}
+.au-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+  flex: none;
+}
+.au-btn:hover { background: rgba(124, 92, 255, 0.5); border-color: transparent; }
+.au-title { font-weight: 700; font-size: 16.5px; }
+.au-sub { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 2px; color: var(--dim); margin-top: 3px; }
+.au-eq { display: flex; gap: 3px; height: 22px; align-items: flex-end; margin-left: auto; }
+.au-eq i { width: 3px; height: 5px; background: var(--grad); border-radius: 2px; }
+.audio-row.playing .au-eq i { animation: eq 0.65s ease-in-out infinite alternate; }
+.au-eq i:nth-child(2) { animation-delay: 0.12s; }
+.au-eq i:nth-child(3) { animation-delay: 0.24s; }
+.au-eq i:nth-child(4) { animation-delay: 0.36s; }
+.au-eq i:nth-child(5) { animation-delay: 0.48s; }
+@keyframes eq { to { height: 22px; } }
+
+/* builds: web experiences + AI solutions */
+.web-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 26px;
+  margin-bottom: 8vh;
+}
+.web-card { display: block; }
+.web-frame {
+  border: 1px solid var(--faint);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(8, 8, 18, 0.7);
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+}
+.web-card:hover .web-frame {
+  transform: translateY(-6px);
+  border-color: rgba(0, 229, 255, 0.5);
+  box-shadow: 0 22px 60px rgba(0, 229, 255, 0.14);
+}
+.web-frame img { width: 100%; aspect-ratio: 16 / 9.6; object-fit: cover; display: block; }
+.web-meta { margin-top: 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.web-meta h3 { font-family: var(--font-disp); font-weight: 700; font-size: 20px; }
+.web-meta .visit {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  white-space: nowrap;
+}
+.web-desc { color: var(--dim); font-size: 13.5px; margin-top: 6px; }
+.sol-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.sol-card {
+  display: block;
+  border: 1px solid var(--faint);
+  border-radius: 18px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 0.35s, border-color 0.35s, background 0.35s;
+}
+.sol-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(124, 92, 255, 0.5);
+  background: rgba(124, 92, 255, 0.08);
+}
+.sol-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; }
+.sol-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.sol-head .arr { color: var(--dim); transition: 0.3s; }
+.sol-card:hover .arr { color: #fff; transform: translate(3px, -3px); }
+.sol-card h3 { font-family: var(--font-disp); font-weight: 700; font-size: 20px; margin-bottom: 10px; }
+.sol-card p { color: var(--dim); font-size: 13.5px; }
+
+/* journey timeline */
+.timeline { border-left: 1px solid rgba(255, 255, 255, 0.13); padding-left: 30px; max-width: 720px; }
+.tl-item { position: relative; padding: 16px 0; }
+.tl-item::before {
+  content: "";
+  position: absolute;
+  left: -35px;
+  top: 26px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--violet);
+  box-shadow: 0 0 12px var(--violet);
+}
+.tl-date { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px; color: var(--cyan); }
+.tl-title { font-weight: 700; font-size: 17.5px; margin-top: 4px; }
+.tl-sub { color: var(--dim); font-size: 13px; margin-top: 2px; }
+
+/* epilogue socials */
+.social-row { margin-top: 6vh; display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+.social-row a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  color: var(--dim);
+  position: relative;
+  transition: color 0.25s;
+}
+.social-row a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -5px;
+  width: 100%; height: 1px;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.social-row a:hover { color: var(--ink); }
+.social-row a:hover::after { transform: scaleX(1); transform-origin: left; }
+
 /* ---------- guide character ---------- */
 .guide {
   position: fixed;
@@ -845,7 +1060,8 @@ footer {
   <a class="logo" href="#hero">AENGDO<b>.AI</b></a>
   <div class="nav-right">
     <a href="#ch1">STORY</a>
-    <a href="#skills">STACK</a>
+    <a href="#works">WORKS</a>
+    <a href="#builds">BUILDS</a>
     <a href="#game">PLAY</a>
     <a href="#contact">EPILOGUE</a>
     <button class="snd-btn" id="snd">SOUND&nbsp;OFF</button>
@@ -873,7 +1089,10 @@ footer {
   <a href="#ch2" data-dot></a>
   <a href="#ch3" data-dot></a>
   <a href="#ch4" data-dot></a>
+  <a href="#works" data-dot></a>
+  <a href="#builds" data-dot></a>
   <a href="#skills" data-dot></a>
+  <a href="#journey" data-dot></a>
   <a href="#game" data-dot></a>
   <a href="#contact" data-dot></a>
 </div>
@@ -986,11 +1205,172 @@ footer {
     </div>
   </div>
 
-  <!-- ===== CHAPTER V : THE TOOLS ===== -->
+  <!-- ===== CHAPTER V : THE WORKS (visual artworks + audio) ===== -->
+  <section id="works">
+    <div class="sec-inner">
+      <div class="sec-meta" data-fade>
+        <span class="idx">V</span><span class="rule"></span><span class="lab">Chapter V — The Works</span>
+      </div>
+      <div class="split" style="align-items:start; margin-bottom:7vh;">
+        <h2 class="h-lg">
+          <span class="rv"><span class="ri">상상을</span></span>
+          <span class="rv"><span class="ri"><span class="grad-txt">시각적 현실</span>로</span></span>
+        </h2>
+        <div class="copy" data-fade>
+          <p>
+            디지털의 바다에서 의미를 건져올립니다.
+            AI 기술과 예술적 직관을 결합해, 이미지·영상·음악으로
+            <strong>보이지 않는 상상</strong>을 구현합니다.
+            영상은 카드를 클릭하면 재생돼요.
+          </p>
+        </div>
+      </div>
+      <div class="works-grid" data-fade>
+        <article class="work-card static">
+          <img class="thumb" src="assets/now-art.jpg" alt="N.O.W — 컨셉 아트 전시 작품" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-info">
+            <div class="wc-date">2025.12 — PHOTO ART FOR EXHIBITION</div>
+            <div class="wc-title">N.O.W</div>
+            <div class="wc-sub">Concept Art for Exhibition · 컨셉 아트 전시 작품</div>
+          </div>
+        </article>
+        <article class="work-card" data-video="WPHAMvJVO-E">
+          <img class="thumb" src="https://i.ytimg.com/vi/WPHAMvJVO-E/hqdefault.jpg" alt="SYNAPSE" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">2025.12 — DRAMA</div>
+            <div class="wc-title">SYNAPSE</div>
+            <div class="wc-sub">Drama Film · 옴니버스식 드라마</div>
+          </div>
+        </article>
+        <article class="work-card" data-video="e9ikiPXcKr0">
+          <img class="thumb" src="https://i.ytimg.com/vi/e9ikiPXcKr0/hqdefault.jpg" alt="ANIMAL COOKING" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">2025.08 — SHORTS</div>
+            <div class="wc-title">ANIMAL COOKING</div>
+            <div class="wc-sub">Short Film · 캐릭터 단편 영상</div>
+          </div>
+        </article>
+        <article class="work-card" data-video="N9XWjBSLfBQ">
+          <img class="thumb" src="https://i.ytimg.com/vi/N9XWjBSLfBQ/hqdefault.jpg" alt="BRAND FILM" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">2025.12 — COMMERCIAL</div>
+            <div class="wc-title">BRAND FILM</div>
+            <div class="wc-sub">Campaign Teaser · 캠페인 티저</div>
+          </div>
+        </article>
+        <article class="work-card" data-video="aqoCFLuRP4Q">
+          <img class="thumb" src="https://i.ytimg.com/vi/aqoCFLuRP4Q/hqdefault.jpg" alt="EDU ANI" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">2025.11 — EDUCATIONAL</div>
+            <div class="wc-title">EDU ANI</div>
+            <div class="wc-sub">Educational Animation · 교육 영상</div>
+          </div>
+        </article>
+        <article class="work-card" data-video="JMfOA264Tn0">
+          <img class="thumb" src="https://i.ytimg.com/vi/JMfOA264Tn0/hqdefault.jpg" alt="FLUID DYNAMICS" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">2025.12 — EXPERIMENTAL</div>
+            <div class="wc-title">FLUID DYNAMICS</div>
+            <div class="wc-sub">Abstract Motion Graphics · 추상 모션 그래픽</div>
+          </div>
+        </article>
+      </div>
+      <div class="audio-row" data-fade>
+        <button class="au-btn" id="au-btn" aria-label="재생">&#9654;</button>
+        <div>
+          <div class="au-title">NOT MY FAULT — 내 잘못이 아니야</div>
+          <div class="au-sub">2025.12 · COMPOSED WITH SUNO AI</div>
+        </div>
+        <div class="au-eq"><i></i><i></i><i></i><i></i><i></i></div>
+        <audio id="au-audio" preload="none" src="assets/music01.mp3"></audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER VI : BUILT TO WORK (web + AI solutions) ===== -->
+  <section id="builds">
+    <div class="sec-inner">
+      <div class="sec-meta" data-fade>
+        <span class="idx">VI</span><span class="rule"></span><span class="lab">Chapter VI — Built to Work</span>
+      </div>
+      <div class="split" style="align-items:start; margin-bottom:7vh;">
+        <h2 class="h-lg">
+          <span class="rv"><span class="ri">보기만 좋은 게 아니라</span></span>
+          <span class="rv"><span class="ri"><span class="grad-txt">작동</span>합니다</span></span>
+        </h2>
+        <div class="copy" data-fade>
+          <p>
+            감각적인 비주얼을 넘어, <strong>실제로 돌아가는 시스템</strong>을 만듭니다.
+            웹 경험부터 RAG 챗봇, 생성형 AI 파이프라인까지 —
+            전부 <em>직접 배포한</em> 것들입니다.
+          </p>
+        </div>
+      </div>
+      <div class="web-grid" data-fade>
+        <a class="web-card" href="https://hacker-typer.vercel.app/" target="_blank" rel="noopener">
+          <div class="web-frame">
+            <div class="term-bar"><i></i><i></i><i></i></div>
+            <img src="assets/hacker.jpg" alt="HACKER TYPER 스크린샷" loading="lazy" />
+          </div>
+          <div class="web-meta">
+            <h3>HACKER TYPER</h3>
+            <span class="visit">VISIT SITE &#8599;</span>
+          </div>
+          <p class="web-desc">시네마틱 코딩 시뮬레이션 인터페이스 · 2024.11 · React</p>
+        </a>
+        <a class="web-card" href="https://galaxy-oracle.netlify.app/" target="_blank" rel="noopener">
+          <div class="web-frame">
+            <div class="term-bar"><i></i><i></i><i></i></div>
+            <img src="assets/galaxy.jpg" alt="GALAXY ORACLE 스크린샷" loading="lazy" />
+          </div>
+          <div class="web-meta">
+            <h3>GALAXY ORACLE</h3>
+            <span class="visit">VISIT SITE &#8599;</span>
+          </div>
+          <p class="web-desc">우주 배경의 신비로운 3D 타로 경험 · 2024.09 · Three.js</p>
+        </a>
+      </div>
+      <div class="sol-grid" data-fade>
+        <a class="sol-card" href="https://github.com/hyunaeee/hacker-typer" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">WEB DEV</span><span class="arr">&#8599;</span></div>
+          <h3>Brand Immersive Site</h3>
+          <p>Three.js를 활용한 반응형 3D 웹사이트 구축. 브랜드 아이덴티티의 시각화.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/med-rag" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">MEDICAL AI</span><span class="arr">&#8599;</span></div>
+          <h3>Diagnosis Support Agent</h3>
+          <p>유방암 진단 서포트 챗봇 개발. RAG 기반 의료 지식 검색.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/comfy-workflow" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">WORKFLOW</span><span class="arr">&#8599;</span></div>
+          <h3>Generative AI Workflow</h3>
+          <p>ComfyUI 기반 콘텐츠 제작 파이프라인 자동화 설계.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">LEGAL AI</span><span class="arr">&#8599;</span></div>
+          <h3>Legal PDF RAG Chatbot</h3>
+          <p>법률 지식이 부족한 사용자를 위한 Solar LLM 기반 RAG 챗봇.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER VII : THE TOOLS ===== -->
   <section id="skills">
     <div class="sec-inner">
       <div class="sec-meta" data-fade>
-        <span class="idx">V</span><span class="rule"></span><span class="lab">Chapter V — The Tools</span>
+        <span class="idx">VII</span><span class="rule"></span><span class="lab">Chapter VII — The Tools</span>
       </div>
       <div class="split" style="align-items:start; margin-bottom:7vh;">
         <h2 class="h-lg">
@@ -1008,6 +1388,59 @@ footer {
         <div class="skill-row"><span class="no">/04</span><span class="name">Comp. Neuroscience</span><span class="desc">뇌 모델링과 신호 분석</span></div>
         <div class="skill-row"><span class="no">/05</span><span class="name">Data Engineering</span><span class="desc">수집 · 정제 · 시각화</span></div>
         <div class="skill-row"><span class="no">/06</span><span class="name">C / C++</span><span class="desc">성능이 필요한 순간</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER VIII : THE JOURNEY (activities) ===== -->
+  <section id="journey">
+    <div class="sec-inner">
+      <div class="sec-meta" data-fade>
+        <span class="idx">VIII</span><span class="rule"></span><span class="lab">Chapter VIII — The Journey</span>
+      </div>
+      <div class="split" style="align-items:start; margin-bottom:7vh;">
+        <h2 class="h-lg">
+          <span class="rv"><span class="ri">지금까지</span></span>
+          <span class="rv"><span class="ri">걸어온 <span class="grad-txt">길</span></span></span>
+        </h2>
+        <div class="copy" data-fade>
+          <p>
+            전시장에서 강의실까지, 스튜디오에서 데이터실까지.
+            이야기는 <strong>계속 쓰이는 중</strong>입니다.
+          </p>
+        </div>
+      </div>
+      <div class="timeline" data-fade>
+        <div class="tl-item">
+          <div class="tl-date">2026.01</div>
+          <div class="tl-title">앵두 스튜디오 오픈</div>
+          <div class="tl-sub">Grand Opening of AENG DO Studio — Official Launch</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.12</div>
+          <div class="tl-title">2025 서울콘 'AI 전람회 : Beyond Fluxus, AI Hallyu' 초대 작가</div>
+          <div class="tl-sub">DDP 동대문디자인플라자 — Invited Artist 'Gaeda'</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.12</div>
+          <div class="tl-title">AI 웹툰 · 쇼츠 제작 강의</div>
+          <div class="tl-sub">충남 아산지역 중학교 — Instructor</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.11</div>
+          <div class="tl-title">한국수력원자력 교육용 AI 영상 제작</div>
+          <div class="tl-sub">KHNP — AI Content Creator</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.09</div>
+          <div class="tl-title">NC AI — AI 데이터실</div>
+          <div class="tl-sub">AI Data Processing &amp; Analysis</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.07</div>
+          <div class="tl-title">유튜브 채널 'gaebaldaeramz' 개설</div>
+          <div class="tl-sub">Content Creator &amp; AI Art Tutorial</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1075,6 +1508,12 @@ footer {
       <div data-fade>
         <a class="mail-link" href="mailto:hyunaeee@gmail.com">hyunaeee@gmail.com</a>
         <button class="copy-btn" id="copy-mail" title="이메일 복사">COPY</button>
+      </div>
+      <div class="social-row" data-fade>
+        <a href="https://github.com/hyunaeee" target="_blank" rel="noopener">GITHUB</a>
+        <a href="https://velog.io/@hyunaeee/posts" target="_blank" rel="noopener">TECH BLOG</a>
+        <a href="https://instagram.com/gaebal_daeraemz" target="_blank" rel="noopener">INSTAGRAM</a>
+        <a href="https://www.youtube.com/@gaebal_daeraemz" target="_blank" rel="noopener">YOUTUBE</a>
       </div>
       <div class="contact-note" data-fade>RESEARCH · PROJECT · COFFEE CHAT — ALWAYS OPEN</div>
     </div>
@@ -1675,9 +2114,12 @@ const ACTS = [
   ["#ch2",     { morph: 2, camZ: 6.4,  rotY: 2.2, rotX: 0,     posY: 0.1,   bloom: BASE_BLOOM, bgR: 0.036, bgG: 0.016, bgB: 0.070 }], // brain — violet
   ["#ch3",     { morph: 3, camZ: 8.4,  rotY: 3.3, rotX: 0.35,  posY: 0,     bloom: 1.12,       bgR: 0.012, bgG: 0.050, bgB: 0.060 }], // lattice — cyan
   ["#ch4",     { morph: 4, camZ: 9.6,  rotY: 4.5, rotX: -0.5,  posY: 0,     bloom: 1.3,        bgR: 0.058, bgG: 0.014, bgB: 0.058 }], // galaxy — magenta
-  ["#skills",  { morph: 4, camZ: 8.4,  rotY: 5.1, rotX: -0.3,  posY: 0,     bloom: 1.15,       bgR: 0.034, bgG: 0.014, bgB: 0.056 }],
-  ["#game",    { morph: 4, camZ: 10.6, rotY: 5.7, rotX: -0.3,  posY: 0,     bloom: 1.15,       bgR: 0.012, bgG: 0.026, bgB: 0.050 }],
-  ["#contact", { morph: 4, camZ: 13.0, rotY: 6.2, rotX: -0.72, posY: -0.35, bloom: 1.4,        bgR: 0.018, bgG: 0.006, bgB: 0.030 }],
+  ["#works",   { morph: 4, camZ: 11.5, rotY: 4.8, rotX: -0.35, posY: 0.2,   bloom: 1.0,        bgR: 0.020, bgG: 0.010, bgB: 0.040 }], // content first — galaxy recedes
+  ["#builds",  { morph: 4, camZ: 10.5, rotY: 5.1, rotX: -0.3,  posY: 0.1,   bloom: 1.0,        bgR: 0.010, bgG: 0.024, bgB: 0.042 }],
+  ["#skills",  { morph: 4, camZ: 8.6,  rotY: 5.4, rotX: -0.3,  posY: 0,     bloom: 1.15,       bgR: 0.034, bgG: 0.014, bgB: 0.056 }],
+  ["#journey", { morph: 4, camZ: 10.2, rotY: 5.7, rotX: -0.35, posY: 0.15,  bloom: 1.05,       bgR: 0.016, bgG: 0.012, bgB: 0.044 }],
+  ["#game",    { morph: 4, camZ: 10.6, rotY: 6.0, rotX: -0.3,  posY: 0,     bloom: 1.15,       bgR: 0.012, bgG: 0.026, bgB: 0.050 }],
+  ["#contact", { morph: 4, camZ: 13.0, rotY: 6.5, rotX: -0.72, posY: -0.35, bloom: 1.4,        bgR: 0.018, bgG: 0.006, bgB: 0.030 }],
 ];
 let acts = [];
 function computeActs() {
@@ -2337,7 +2779,10 @@ window.dispatchEvent(new Event("scene:ready"));
     ["#ch2", "CH.II — 1.4KG의 우주"],
     ["#ch3", "CH.III — 두 번째 언어"],
     ["#ch4", "CH.IV — 충돌, 그리고 별"],
-    ["#skills", "CH.V — 도구들"],
+    ["#works", "CH.V — 만든 것들"],
+    ["#builds", "CH.VI — 작동하는 것들"],
+    ["#skills", "CH.VII — 도구들"],
+    ["#journey", "CH.VIII — 걸어온 길"],
     ["#game", "INTERLUDE — 신호가 되어"],
     ["#contact", "EPILOGUE — 쓰이지 않은 장"],
   ];
@@ -2354,11 +2799,14 @@ window.dispatchEvent(new Event("scene:ready"));
     "몇 년을 파고든 <b>1.4kg</b>이에요. 주름 하나하나가 다 기억이죠. 🧠",
     "이건 <b>두 번째 모국어</b>예요. 방금 컴파일도 통과했어요 😎",
     "뇌 + 코드 = <b>별</b>! AI를 만드는 이유예요. ✨",
+    "제 <b>작품들</b>이에요! 영상 카드는 클릭하면 재생돼요 🎬",
+    "이건 전부 <b>실제로 배포된</b> 것들이에요. 눌러서 구경해보세요 ⚙️",
     "제 연장통이에요. 제일 아끼는 건 <b>PyTorch</b>!",
+    "DDP에서 <b>전시</b>도 했어요! 이야기는 계속되는 중 🚶‍♀️",
     "심심하시죠? 게임 하나 준비했어요. <b>최고 기록</b> 깨보실래요? 🎮",
     "여기까지 와주셔서 고마워요. <b>다음 장</b>, 같이 쓰실래요? ✉️",
   ];
-  var GUIDE_FACES = ["hello", "hello", "hello", "hello", "joy", "hello", "joy", "joy"];
+  var GUIDE_FACES = ["hello", "hello", "hello", "hello", "joy", "joy", "hello", "hello", "joy", "joy", "joy"];
   // time-aware greeting
   (function () {
     var h = new Date().getHours();
@@ -2479,6 +2927,45 @@ window.dispatchEvent(new Event("scene:ready"));
       say("쿨쿨... 💤");
     }
   }, 5000);
+
+  // video cards: click to swap the thumbnail for a playing YouTube embed
+  document.querySelectorAll(".work-card[data-video]").forEach(function (card) {
+    card.addEventListener("click", function () {
+      if (card.classList.contains("playing")) return;
+      var id = card.getAttribute("data-video");
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
+      f.title = card.querySelector(".wc-title").textContent;
+      f.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+      f.setAttribute("allowfullscreen", "");
+      card.insertBefore(f, card.querySelector(".wc-grad"));
+      card.classList.add("playing");
+    });
+  });
+
+  // audio track player
+  var auBtn = document.getElementById("au-btn");
+  var auAudio = document.getElementById("au-audio");
+  if (auBtn && auAudio) {
+    var auRow = auBtn.closest(".audio-row");
+    auBtn.addEventListener("click", function () {
+      if (auAudio.paused) {
+        auAudio.play();
+        auBtn.innerHTML = "&#10073;&#10073;";
+        auRow.classList.add("playing");
+        say("이 노래, <b>SUNO</b>랑 같이 만들었어요 🎵");
+        setFace("joy", 2600, true);
+      } else {
+        auAudio.pause();
+        auBtn.innerHTML = "&#9654;";
+        auRow.classList.remove("playing");
+      }
+    });
+    auAudio.addEventListener("ended", function () {
+      auBtn.innerHTML = "&#9654;";
+      auRow.classList.remove("playing");
+    });
+  }
 
   // click-to-copy email
   var copyBtn = document.getElementById("copy-mail");
