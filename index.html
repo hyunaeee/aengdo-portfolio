@@ -47,9 +47,9 @@
   --ink: #eceaf6;
   --dim: #8b8a9e;
   --faint: rgba(255, 255, 255, 0.07);
-  --violet: #7c5cff;
-  --cyan: #00e5ff;
-  --pink: #ff4fd8;
+  --violet: #8a75f5;
+  --cyan: #4fd6f0;
+  --pink: #f06ec8;
   --grad: linear-gradient(100deg, var(--violet) 0%, var(--cyan) 60%, var(--pink) 120%);
   --font-disp: "Space Grotesk", "Noto Sans KR", sans-serif;
   --font-kr: "Noto Sans KR", sans-serif;
@@ -1378,14 +1378,13 @@ footer {
       </div>
       <div class="split" style="align-items:start; margin-bottom:7vh;">
         <h2 class="h-lg">
-          <span class="rv"><span class="ri">전부 실제로</span></span>
-          <span class="rv"><span class="ri"><span class="grad-txt">작동</span>합니다</span></span>
+          <span class="rv"><span class="ri">웹 서비스와 AI 시스템 —</span></span>
+          <span class="rv"><span class="ri"><span class="grad-txt">배포</span>까지 마쳤습니다</span></span>
         </h2>
         <div class="copy" data-fade>
           <p>
-            감각적인 비주얼을 넘어, <strong>실제로 돌아가는 시스템</strong>을 만듭니다.
-            웹 경험부터 RAG 챗봇, 생성형 AI 파이프라인까지 —
-            전부 <em>직접 배포한</em> 것들입니다.
+            웹 경험부터 RAG 챗봇, 생성형 AI 파이프라인까지.
+            <strong>링크를 누르면</strong> 바로 들어가서 확인할 수 있습니다.
           </p>
         </div>
       </div>
@@ -1952,9 +1951,9 @@ const uniforms = {
   uIntro: { value: 0 },
   uSize: { value: isMobile ? 26.0 : 20.0 },
   uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-  uColA: { value: new THREE.Color(0x7c5cff) },
-  uColB: { value: new THREE.Color(0x00e5ff) },
-  uColC: { value: new THREE.Color(0xff4fd8) },
+  uColA: { value: new THREE.Color(0x8a75f5) },
+  uColB: { value: new THREE.Color(0x4fd6f0) },
+  uColC: { value: new THREE.Color(0xf06ec8) },
   uPointer: { value: new THREE.Vector3(999, 999, 999) }, // cursor in group-local space
   uPtrStr: { value: 0 },
 };
@@ -2136,7 +2135,7 @@ group.add(new THREE.Points(geo, mat));
   const sg = new THREE.BufferGeometry();
   sg.setAttribute("position", new THREE.BufferAttribute(sp, 3));
   scene.add(new THREE.Points(sg, new THREE.PointsMaterial({
-    size: 0.06, color: 0x9aa4ff, transparent: true, opacity: 0.55,
+    size: 0.06, color: 0x9aa4e8, transparent: true, opacity: 0.42,
     depthWrite: false, blending: THREE.AdditiveBlending,
   })));
 }
@@ -2233,22 +2232,22 @@ window.addEventListener("pointermove", (e) => {
    Each act's values are fully reached by the time its section top hits
    22% of the viewport; between acts, values hold. Computed directly
    from scrollY every frame — no tween state, no race conditions. */
-const BASE_BLOOM = isMobile ? 0.7 : 1.0;
+const BASE_BLOOM = isMobile ? 0.62 : 0.88;
 const BASE = { morph: 0, camZ: 8.5, rotX: 0, rotY: 0, posY: 0, bloom: BASE_BLOOM, bgR: 0.008, bgG: 0.008, bgB: 0.016 };
 const view = { ...BASE };
 
-// per-chapter color grade rides along with the camera/morph keyframes
+// per-chapter color grade — analogous blue-violet family, kept subtle
 const ACTS = [
-  ["#ch1",     { morph: 1, camZ: 7.6,  rotY: 1.1, rotX: 0,     posY: 0,     bloom: BASE_BLOOM, bgR: 0.010, bgG: 0.034, bgB: 0.052 }], // neuron — deep teal
-  ["#ch2",     { morph: 2, camZ: 6.4,  rotY: 2.2, rotX: 0,     posY: 0.1,   bloom: BASE_BLOOM, bgR: 0.036, bgG: 0.016, bgB: 0.070 }], // brain — violet
-  ["#ch3",     { morph: 3, camZ: 8.4,  rotY: 3.3, rotX: 0.35,  posY: 0,     bloom: 1.12,       bgR: 0.012, bgG: 0.050, bgB: 0.060 }], // lattice — cyan
-  ["#ch4",     { morph: 4, camZ: 9.6,  rotY: 4.5, rotX: -0.5,  posY: 0,     bloom: 1.3,        bgR: 0.058, bgG: 0.014, bgB: 0.058 }], // galaxy — magenta
-  ["#works",   { morph: 4, camZ: 11.5, rotY: 4.8, rotX: -0.35, posY: 0.2,   bloom: 1.0,        bgR: 0.020, bgG: 0.010, bgB: 0.040 }], // content first — galaxy recedes
-  ["#builds",  { morph: 4, camZ: 10.5, rotY: 5.1, rotX: -0.3,  posY: 0.1,   bloom: 1.0,        bgR: 0.010, bgG: 0.024, bgB: 0.042 }],
-  ["#skills",  { morph: 4, camZ: 8.6,  rotY: 5.4, rotX: -0.3,  posY: 0,     bloom: 1.15,       bgR: 0.034, bgG: 0.014, bgB: 0.056 }],
-  ["#journey", { morph: 4, camZ: 10.2, rotY: 5.7, rotX: -0.35, posY: 0.15,  bloom: 1.05,       bgR: 0.016, bgG: 0.012, bgB: 0.044 }],
-  ["#game",    { morph: 4, camZ: 10.6, rotY: 6.0, rotX: -0.3,  posY: 0,     bloom: 1.15,       bgR: 0.012, bgG: 0.026, bgB: 0.050 }],
-  ["#contact", { morph: 4, camZ: 13.0, rotY: 6.5, rotX: -0.72, posY: -0.35, bloom: 1.4,        bgR: 0.018, bgG: 0.006, bgB: 0.030 }],
+  ["#ch1",     { morph: 1, camZ: 7.6,  rotY: 1.1, rotX: 0,     posY: 0,     bloom: BASE_BLOOM, bgR: 0.008, bgG: 0.020, bgB: 0.034 }], // neuron — soft blue
+  ["#ch2",     { morph: 2, camZ: 6.4,  rotY: 2.2, rotX: 0,     posY: 0.1,   bloom: BASE_BLOOM, bgR: 0.024, bgG: 0.012, bgB: 0.048 }], // brain — muted violet
+  ["#ch3",     { morph: 3, camZ: 8.4,  rotY: 3.3, rotX: 0.35,  posY: 0,     bloom: 1.02,       bgR: 0.010, bgG: 0.030, bgB: 0.042 }], // lattice — soft cyan
+  ["#ch4",     { morph: 4, camZ: 9.6,  rotY: 4.5, rotX: -0.5,  posY: 0,     bloom: 1.12,       bgR: 0.036, bgG: 0.012, bgB: 0.042 }], // galaxy — plum
+  ["#works",   { morph: 4, camZ: 11.5, rotY: 4.8, rotX: -0.35, posY: 0.2,   bloom: 0.92,       bgR: 0.020, bgG: 0.010, bgB: 0.036 }], // content first — galaxy recedes
+  ["#builds",  { morph: 4, camZ: 10.5, rotY: 5.1, rotX: -0.3,  posY: 0.1,   bloom: 0.92,       bgR: 0.010, bgG: 0.018, bgB: 0.034 }],
+  ["#skills",  { morph: 4, camZ: 8.6,  rotY: 5.4, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.022, bgG: 0.010, bgB: 0.038 }],
+  ["#journey", { morph: 4, camZ: 10.2, rotY: 5.7, rotX: -0.35, posY: 0.15,  bloom: 0.96,       bgR: 0.014, bgG: 0.010, bgB: 0.032 }],
+  ["#game",    { morph: 4, camZ: 10.6, rotY: 6.0, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.010, bgG: 0.018, bgB: 0.036 }],
+  ["#contact", { morph: 4, camZ: 13.0, rotY: 6.5, rotX: -0.72, posY: -0.35, bloom: 1.15,       bgR: 0.014, bgG: 0.006, bgB: 0.024 }],
 ];
 let acts = [];
 function computeActs() {
@@ -2929,7 +2928,7 @@ window.dispatchEvent(new Event("scene:ready"));
     "이건 <b>두 번째 모국어</b>예요. 방금 컴파일도 통과했어요 😎",
     "뇌 + 코드 = <b>AI</b>. 제가 지금 하는 일이에요 ✨",
     "제 <b>작품들</b>이에요! 영상 카드는 클릭하면 재생돼요 🎬",
-    "이건 전부 <b>실제로 배포된</b> 것들이에요. 눌러서 구경해보세요 ⚙️",
+    "전부 <b>직접 들어가볼 수 있어요</b>. 눌러서 구경해보세요 ⚙️",
     "제 연장통이에요. 제일 아끼는 건 <b>PyTorch</b>!",
     "DDP에서 <b>전시</b>도 했어요! 이야기는 계속되는 중 🚶‍♀️",
     "심심하시죠? 게임 하나 준비했어요. <b>최고 기록</b> 깨보실래요? 🎮",
