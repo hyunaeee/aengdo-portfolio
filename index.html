@@ -723,8 +723,8 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 /* ---------- works: visual artworks ---------- */
 .works-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
 }
 .work-card {
   position: relative;
@@ -758,7 +758,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 }
 .work-card .wc-info {
   position: absolute;
-  left: 18px; right: 18px; bottom: 14px;
+  left: 14px; right: 14px; bottom: 11px;
   z-index: 3;
   pointer-events: none;
 }
@@ -768,14 +768,14 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   letter-spacing: 2px;
   color: var(--cyan);
 }
-.work-card .wc-title { font-family: var(--font-disp); font-weight: 700; font-size: 19px; }
-.work-card .wc-sub { font-size: 12px; color: var(--dim); }
+.work-card .wc-title { font-family: var(--font-disp); font-weight: 700; font-size: 15.5px; }
+.work-card .wc-sub { font-size: 11px; color: var(--dim); }
 .work-card .wc-play {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
-  width: 54px; height: 54px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.5);
   display: flex;
@@ -814,18 +814,6 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 }
 .series-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
 .series-grid .wc-title { font-size: 16px; }
-
-/* web experience placeholder tiles (no screenshot yet) */
-.web-ph {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 16 / 9.6;
-  font-size: 46px;
-  background: radial-gradient(circle at 30% 30%, rgba(124, 92, 255, 0.35), rgba(3, 3, 10, 0.92) 70%), #0a0a16;
-}
-.web-ph.g2 { background: radial-gradient(circle at 70% 30%, rgba(0, 229, 255, 0.3), rgba(3, 3, 10, 0.92) 70%), #0a0a16; }
-.web-ph.g3 { background: radial-gradient(circle at 50% 75%, rgba(255, 79, 216, 0.3), rgba(3, 3, 10, 0.92) 70%), #0a0a16; }
 
 /* audio track */
 .audio-row {
@@ -1266,16 +1254,6 @@ footer {
             <div class="wc-sub">Concept Art for Exhibition · 컨셉 아트 전시 작품</div>
           </div>
         </article>
-        <article class="work-card" data-video="WPHAMvJVO-E">
-          <img class="thumb" src="https://i.ytimg.com/vi/WPHAMvJVO-E/hqdefault.jpg" alt="SYNAPSE" loading="lazy" />
-          <div class="wc-grad"></div>
-          <div class="wc-play">&#9654;</div>
-          <div class="wc-info">
-            <div class="wc-date">2025.12 — DRAMA</div>
-            <div class="wc-title">SYNAPSE</div>
-            <div class="wc-sub">Drama Film · 옴니버스식 드라마</div>
-          </div>
-        </article>
         <article class="work-card" data-video="e9ikiPXcKr0">
           <img class="thumb" src="https://i.ytimg.com/vi/e9ikiPXcKr0/hqdefault.jpg" alt="ANIMAL COOKING" loading="lazy" />
           <div class="wc-grad"></div>
@@ -1296,16 +1274,6 @@ footer {
             <div class="wc-sub">Campaign Teaser · 캠페인 티저</div>
           </div>
         </article>
-        <article class="work-card" data-video="aqoCFLuRP4Q">
-          <img class="thumb" src="https://i.ytimg.com/vi/aqoCFLuRP4Q/hqdefault.jpg" alt="EDU ANI" loading="lazy" />
-          <div class="wc-grad"></div>
-          <div class="wc-play">&#9654;</div>
-          <div class="wc-info">
-            <div class="wc-date">2025.11 — EDUCATIONAL</div>
-            <div class="wc-title">EDU ANI</div>
-            <div class="wc-sub">Educational Animation · 교육 영상</div>
-          </div>
-        </article>
         <article class="work-card" data-video="JMfOA264Tn0">
           <img class="thumb" src="https://i.ytimg.com/vi/JMfOA264Tn0/hqdefault.jpg" alt="FLUID DYNAMICS" loading="lazy" />
           <div class="wc-grad"></div>
@@ -1319,7 +1287,7 @@ footer {
       </div>
       <div class="series-head" data-fade>
         <span class="idx">&#9679;</span><span class="rule"></span>
-        <span class="lab">KHNP &times; AENGDO — 어린이 에너지 교육 시리즈 (납품작 · 2025.11)</span>
+        <span class="lab">KHNP &times; AENGDO — 어린이 에너지 교육 시리즈 (납품작 · 2026.03)</span>
       </div>
       <div class="works-grid series-grid" data-fade>
         <article class="work-card" data-drive="1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k">
@@ -1425,7 +1393,7 @@ footer {
         <a class="web-card" href="https://word-game-ochre-psi.vercel.app" target="_blank" rel="noopener">
           <div class="web-frame">
             <div class="term-bar"><i></i><i></i><i></i></div>
-            <div class="web-ph">&#128221;</div>
+            <img src="assets/word.jpg" alt="WORD GAME 스크린샷" loading="lazy" />
           </div>
           <div class="web-meta">
             <h3>WORD GAME</h3>
@@ -1436,24 +1404,13 @@ footer {
         <a class="web-card" href="https://saju-platform.vercel.app" target="_blank" rel="noopener">
           <div class="web-frame">
             <div class="term-bar"><i></i><i></i><i></i></div>
-            <div class="web-ph g2">&#128302;</div>
+            <img src="assets/saju.jpg" alt="천명(天命) 사주 플랫폼 스크린샷" loading="lazy" />
           </div>
           <div class="web-meta">
-            <h3>SAJU PLATFORM</h3>
+            <h3>SAJU PLATFORM 천명</h3>
             <span class="visit">VISIT SITE &#8599;</span>
           </div>
-          <p class="web-desc">사주 풀이 웹 서비스 · 2026.06</p>
-        </a>
-        <a class="web-card" href="https://stress-game-alpha.vercel.app" target="_blank" rel="noopener">
-          <div class="web-frame">
-            <div class="term-bar"><i></i><i></i><i></i></div>
-            <div class="web-ph g3">&#128165;</div>
-          </div>
-          <div class="web-meta">
-            <h3>STRESS BREAKER</h3>
-            <span class="visit">VISIT SITE &#8599;</span>
-          </div>
-          <p class="web-desc">스트레스 타파 미니 게임 · 2026.01</p>
+          <p class="web-desc">명리학 AI 알고리즘 사주 풀이 서비스 · 2026.06</p>
         </a>
       </div>
       <div class="sol-grid" data-fade>
