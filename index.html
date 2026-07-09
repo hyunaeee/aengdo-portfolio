@@ -213,6 +213,8 @@ nav {
 }
 .nav-right a:hover, .snd-btn:hover { color: var(--ink); }
 .nav-right a:hover::after { transform: scaleX(1); transform-origin: left; }
+.nav-right a.active { color: var(--cyan); }
+.nav-right a.active::after { transform: scaleX(1); transform-origin: left; }
 .snd-btn.on { color: var(--cyan); }
 @media (max-width: 700px) { .nav-right a { display: none; } }
 
@@ -1235,7 +1237,7 @@ footer {
         사람에게 배운 기계가 사람을 넘어서는 순간 —
         저는 지금 <span class="pk">그 경계선 위</span>에서 일합니다.
       </p>
-      <div class="ch-close" data-fade>이것이 제가 <b>AI를 만드는 이유</b>입니다.</div>
+      <div class="ch-close" data-fade>이것이 제가 <b>AI를 만드는 이유</b>입니다. 이제, 만든 것들을 보여드릴게요.</div>
     </div>
   </section>
 
@@ -1260,10 +1262,9 @@ footer {
         </h2>
         <div class="copy" data-fade>
           <p>
-            디지털의 바다에서 의미를 건져올립니다.
-            AI 기술과 예술적 직관을 결합해, 이미지·영상·음악으로
-            <strong>보이지 않는 상상</strong>을 구현합니다.
-            영상은 카드를 클릭하면 재생돼요.
+            뇌에서 배우고 코드로 지은 것들은, 결국 <strong>작품</strong>이 되었습니다.
+            AI 기술과 예술적 직관을 결합해 디지털의 바다에서 의미를 건져올리고 —
+            이미지·영상·음악으로 <em>보이지 않는 상상</em>을 구현합니다.
           </p>
         </div>
       </div>
@@ -1503,16 +1504,16 @@ footer {
           <span class="rv"><span class="ri"><span class="grad-txt">도구들</span></span></span>
         </h2>
         <div class="copy" data-fade>
-          <p>연구실의 아이디어를 <strong>동작하는 시스템</strong>으로 바꿀 때 쓰는 것들. 도구는 손에 익을수록 투명해집니다.</p>
+          <p>연구의 아이디어부터 화면 속 콘텐츠까지 — 무엇이든 <strong>완성으로</strong> 데려가는 손에 익은 도구들입니다.</p>
         </div>
       </div>
       <div class="skill-rows" data-fade>
         <div class="skill-row"><span class="no">/01</span><span class="name">Python</span><span class="desc">연구와 프로덕션의 기본기</span></div>
         <div class="skill-row"><span class="no">/02</span><span class="name">PyTorch</span><span class="desc">신경망 설계와 학습</span></div>
-        <div class="skill-row"><span class="no">/03</span><span class="name">LLM &amp; Agents</span><span class="desc">언어모델 기반 시스템</span></div>
-        <div class="skill-row"><span class="no">/04</span><span class="name">Comp. Neuroscience</span><span class="desc">뇌 모델링과 신호 분석</span></div>
-        <div class="skill-row"><span class="no">/05</span><span class="name">Data Engineering</span><span class="desc">수집 · 정제 · 시각화</span></div>
-        <div class="skill-row"><span class="no">/06</span><span class="name">C / C++</span><span class="desc">성능이 필요한 순간</span></div>
+        <div class="skill-row"><span class="no">/03</span><span class="name">LLM · RAG · Agents</span><span class="desc">언어모델 기반 시스템과 에이전트</span></div>
+        <div class="skill-row"><span class="no">/04</span><span class="name">Generative AI</span><span class="desc">ComfyUI · 영상 · 음악 제작 파이프라인</span></div>
+        <div class="skill-row"><span class="no">/05</span><span class="name">React · Next.js</span><span class="desc">인터랙티브 웹 경험</span></div>
+        <div class="skill-row"><span class="no">/06</span><span class="name">Data Engineering</span><span class="desc">수집 · 정제 · 시각화</span></div>
       </div>
     </div>
   </section>
@@ -3150,6 +3151,9 @@ window.dispatchEvent(new Event("scene:ready"));
     });
 
     var dots = document.querySelectorAll("[data-dot]");
+    // which nav link lights up for each chapter index
+    var NAV_MAP = [null, "#ch1", "#ch1", "#ch1", "#ch1", "#works", "#builds", "#builds", "#builds", "#game", "#contact"];
+    var navLinks = document.querySelectorAll(".nav-right a");
     CHAPTERS.forEach(function (ch, i) {
       ScrollTrigger.create({
         trigger: ch[0], start: "top 50%", end: "bottom 50%",
@@ -3157,6 +3161,9 @@ window.dispatchEvent(new Event("scene:ready"));
           if (st.isActive) {
             dots.forEach(function (d) { d.classList.remove("active"); });
             if (dots[i]) dots[i].classList.add("active");
+            navLinks.forEach(function (a) {
+              a.classList.toggle("active", NAV_MAP[i] !== null && a.getAttribute("href") === NAV_MAP[i]);
+            });
             if (chName) {
               chName.style.opacity = 0;
               setTimeout(function () {
