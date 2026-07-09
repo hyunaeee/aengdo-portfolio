@@ -796,6 +796,37 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 .work-card.static { cursor: default; }
 .work-card.static .wc-play { display: none; }
 
+/* KHNP delivered series */
+.series-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8vh 0 3.5vh;
+}
+.series-head .idx { color: var(--pink); font-size: 11px; }
+.series-head .rule { width: 54px; height: 1px; background: rgba(255, 255, 255, 0.2); }
+.series-head .lab {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.series-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+.series-grid .wc-title { font-size: 16px; }
+
+/* web experience placeholder tiles (no screenshot yet) */
+.web-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9.6;
+  font-size: 46px;
+  background: radial-gradient(circle at 30% 30%, rgba(124, 92, 255, 0.35), rgba(3, 3, 10, 0.92) 70%), #0a0a16;
+}
+.web-ph.g2 { background: radial-gradient(circle at 70% 30%, rgba(0, 229, 255, 0.3), rgba(3, 3, 10, 0.92) 70%), #0a0a16; }
+.web-ph.g3 { background: radial-gradient(circle at 50% 75%, rgba(255, 79, 216, 0.3), rgba(3, 3, 10, 0.92) 70%), #0a0a16; }
+
 /* audio track */
 .audio-row {
   display: flex;
@@ -1286,6 +1317,57 @@ footer {
           </div>
         </article>
       </div>
+      <div class="series-head" data-fade>
+        <span class="idx">&#9679;</span><span class="rule"></span>
+        <span class="lab">KHNP &times; AENGDO — 어린이 에너지 교육 시리즈 (납품작 · 2025.11)</span>
+      </div>
+      <div class="works-grid series-grid" data-fade>
+        <article class="work-card" data-drive="1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k&amp;sz=w800" alt="한수원 교육 영상 1화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.01</div>
+          </div>
+        </article>
+        <article class="work-card" data-drive="1oCVM7z9ByHbd61RsIWd_DtN5Ya-glV-X">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1oCVM7z9ByHbd61RsIWd_DtN5Ya-glV-X&amp;sz=w800" alt="한수원 교육 영상 2화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.02</div>
+          </div>
+        </article>
+        <article class="work-card" data-drive="1OmeKei2SqGnEZbQDR4XhA7_KWz8U78xq">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1OmeKei2SqGnEZbQDR4XhA7_KWz8U78xq&amp;sz=w800" alt="한수원 교육 영상 3화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.03</div>
+          </div>
+        </article>
+        <article class="work-card" data-drive="1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB&amp;sz=w800" alt="한수원 교육 영상 4화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.04</div>
+          </div>
+        </article>
+        <article class="work-card" data-drive="1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg&amp;sz=w800" alt="한수원 교육 영상 5화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.05</div>
+          </div>
+        </article>
+      </div>
       <div class="audio-row" data-fade>
         <button class="au-btn" id="au-btn" aria-label="재생">&#9654;</button>
         <div>
@@ -1340,6 +1422,39 @@ footer {
           </div>
           <p class="web-desc">우주 배경의 신비로운 3D 타로 경험 · 2024.09 · Three.js</p>
         </a>
+        <a class="web-card" href="https://word-game-ochre-psi.vercel.app" target="_blank" rel="noopener">
+          <div class="web-frame">
+            <div class="term-bar"><i></i><i></i><i></i></div>
+            <div class="web-ph">&#128221;</div>
+          </div>
+          <div class="web-meta">
+            <h3>WORD GAME</h3>
+            <span class="visit">VISIT SITE &#8599;</span>
+          </div>
+          <p class="web-desc">단어 맞추기 웹 게임 · 2026.06 · JavaScript</p>
+        </a>
+        <a class="web-card" href="https://saju-platform.vercel.app" target="_blank" rel="noopener">
+          <div class="web-frame">
+            <div class="term-bar"><i></i><i></i><i></i></div>
+            <div class="web-ph g2">&#128302;</div>
+          </div>
+          <div class="web-meta">
+            <h3>SAJU PLATFORM</h3>
+            <span class="visit">VISIT SITE &#8599;</span>
+          </div>
+          <p class="web-desc">사주 풀이 웹 서비스 · 2026.06</p>
+        </a>
+        <a class="web-card" href="https://stress-game-alpha.vercel.app" target="_blank" rel="noopener">
+          <div class="web-frame">
+            <div class="term-bar"><i></i><i></i><i></i></div>
+            <div class="web-ph g3">&#128165;</div>
+          </div>
+          <div class="web-meta">
+            <h3>STRESS BREAKER</h3>
+            <span class="visit">VISIT SITE &#8599;</span>
+          </div>
+          <p class="web-desc">스트레스 타파 미니 게임 · 2026.01</p>
+        </a>
       </div>
       <div class="sol-grid" data-fade>
         <a class="sol-card" href="https://github.com/hyunaeee/hacker-typer" target="_blank" rel="noopener">
@@ -1361,6 +1476,36 @@ footer {
           <div class="sol-head"><span class="sol-tag">LEGAL AI</span><span class="arr">&#8599;</span></div>
           <h3>Legal PDF RAG Chatbot</h3>
           <p>법률 지식이 부족한 사용자를 위한 Solar LLM 기반 RAG 챗봇.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/ppt-test" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">GENAI APP</span><span class="arr">&#8599;</span></div>
+          <h3>AI PPT Studio</h3>
+          <p>Next.js 기반 AI 프레젠테이션 제작 스튜디오. 아이디어에서 슬라이드까지.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/higgsMCP" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">MCP · AUTOMATION</span><span class="arr">&#8599;</span></div>
+          <h3>AI Influencer Automation</h3>
+          <p>Higgsfield MCP 기반 AI 뷰티 인플루언서 콘텐츠 자동화 + AdCast Studio 웹앱.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/meeting-assistant" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">AGENT</span><span class="arr">&#8599;</span></div>
+          <h3>Meeting Notes Agent</h3>
+          <p>회의 녹음을 회의록으로 변환해 Notion 업로드·이메일 전달까지 하는 에이전트.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/3D_char_sign_lang" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">SOCIAL IMPACT</span><span class="arr">&#8599;</span></div>
+          <h3>Sign-Language Avatar</h3>
+          <p>3D 아바타를 이용한 한국어 &rarr; 수어 실시간 변환.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/PR_semantic_image_segmentation_unet" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">RESEARCH</span><span class="arr">&#8599;</span></div>
+          <h3>Brain MRI Segmentation</h3>
+          <p>U-Net 기반 뇌 영상 세그멘테이션 논문 구현 — 챕터 II의 뇌가 실제 연구로.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/Report-Summary" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">NLP</span><span class="arr">&#8599;</span></div>
+          <h3>Patent Dispute Summarizer</h3>
+          <p>기업연계 프로젝트 — 특허분쟁 문서 자동 요약 파이프라인.</p>
         </a>
       </div>
     </div>
@@ -2928,13 +3073,17 @@ window.dispatchEvent(new Event("scene:ready"));
     }
   }, 5000);
 
-  // video cards: click to swap the thumbnail for a playing YouTube embed
-  document.querySelectorAll(".work-card[data-video]").forEach(function (card) {
+  // video cards: click to swap the thumbnail for a playing embed
+  // (data-video = YouTube, data-drive = Google Drive deliverables)
+  document.querySelectorAll(".work-card[data-video], .work-card[data-drive]").forEach(function (card) {
     card.addEventListener("click", function () {
       if (card.classList.contains("playing")) return;
-      var id = card.getAttribute("data-video");
+      var yt = card.getAttribute("data-video");
+      var dr = card.getAttribute("data-drive");
       var f = document.createElement("iframe");
-      f.src = "https://www.youtube.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
+      f.src = yt
+        ? "https://www.youtube.com/embed/" + yt + "?autoplay=1&rel=0&playsinline=1"
+        : "https://drive.google.com/file/d/" + dr + "/preview";
       f.title = card.querySelector(".wc-title").textContent;
       f.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
       f.setAttribute("allowfullscreen", "");
