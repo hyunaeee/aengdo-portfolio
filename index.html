@@ -78,6 +78,31 @@
     line-height: 1.7;
   }
   .storyline i { font-style: normal; color: #ff8f99; }
+  /* terminal */
+  .termout {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.9;
+    width: min(520px, 80vw); height: 240px; overflow-y: auto;
+    background: #0b0c12; border: 1.5px solid #0c0d12; padding: 10px 12px;
+    white-space: pre-wrap; word-break: break-all; color: #c6cad6;
+  }
+  .termout b { color: #ff8f99; }
+  .termout .ok { color: #7ee2a8; }
+  .termline { display: flex; align-items: center; font-family: "JetBrains Mono", monospace;
+    font-size: 12px; margin-top: 8px; color: #7ee2a8; }
+  .termline input { flex: 1; background: transparent; border: none; outline: none;
+    color: #e8eaf2; font-family: inherit; font-size: 12px; }
+  /* trash */
+  .trashitem { display: flex; align-items: baseline; gap: 6px; padding: 8px 0;
+    border-bottom: 1px solid #383b48; font-size: 12.5px; }
+  .trashitem span { color: #8f94a6; font-size: 11.5px; flex: 1; }
+  .restore { font-family: inherit; font-size: 11px; padding: 3px 10px; cursor: pointer;
+    background: #2e313d; color: #e8eaf2; border: 1.5px solid;
+    border-color: #4a4d5c #0c0d12 #0c0d12 #4a4d5c; flex: none; }
+  .restore:active { border-color: #0c0d12 #4a4d5c #4a4d5c #0c0d12; }
+  /* cherry rain */
+  .cherrydrop { position: fixed; top: -50px; z-index: 950; pointer-events: none;
+    animation: cfall linear forwards; }
+  @keyframes cfall { to { transform: translateY(115vh) rotate(420deg); } }
   /* floor plan */
   .fpwall { stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: fpdraw 2.2s ease forwards; }
   @keyframes fpdraw { to { stroke-dashoffset: 0; } }
@@ -227,6 +252,10 @@
   <div class="icon" data-app="w-readme"><div class="glyph">📄</div><div class="name">README.TXT</div></div>
   <div class="icon" data-app="w-log"><div class="glyph">📋</div><div class="name">TRACK.LOG</div></div>
   <div class="icon" data-app="w-mail"><div class="glyph">✉️</div><div class="name">MAIL.EXE</div></div>
+  <div class="icon" data-app="w-term"><div class="glyph">💻</div><div class="name">TERMINAL.EXE</div></div>
+  <div class="icon" data-app="w-secret"><div class="glyph">🔒</div><div class="name">SECRET</div></div>
+  <div class="icon" data-app="w-trash"><div class="glyph">🗑️</div><div class="name">휴지통</div></div>
+  <div class="icon" data-app="dontclick"><div class="glyph">⛔</div><div class="name">DONT_CLICK<br/>.EXE</div></div>
 </div>
 
 <!-- ================= windows ================= -->
@@ -437,6 +466,42 @@
     <a href="https://instagram.com/gaebal_daeraemz" target="_blank">Insta</a>
     <a href="https://www.youtube.com/@gaebal_daeraemz" target="_blank">YouTube</a>
   </div>
+</div>
+
+<div class="win" id="w-term" style="left:22%; top:20%;" data-title="💻 TERMINAL">
+  <div class="titlebar"><span>💻 AENGDO SHELL — C:\AENGDO</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody">
+    <div id="term-out" class="termout">AENGDO SHELL v1.0 — 'help' 를 입력해보세요.</div>
+    <div class="termline">C:\AENGDO&gt;&nbsp;<input id="term-in" autocomplete="off" spellcheck="false" /></div>
+  </div>
+  <div class="storyline">개발자의 집엔 역시 터미널이 있어야죠. <i>fortune</i>을 쳐보세요.</div>
+</div>
+
+<div class="win" id="w-trash" style="right:12%; top:26%;" data-title="🗑️ 휴지통">
+  <div class="titlebar"><span>🗑️ 휴지통 — 버린_아이디어들</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="max-width:380px;">
+    <div class="trashitem">🧠 뇌파로 조종하는 마우스 <span>— 하드웨어가 없음</span><button class="restore">복구</button></div>
+    <div class="trashitem">🪙 앵두코인 발행 <span>— 양심이 있음</span><button class="restore">복구</button></div>
+    <div class="trashitem">😴 잠 안 자기 챌린지 앱 <span>— 본인이 1등 할 예정이라 폐기</span><button class="restore">복구</button></div>
+    <div class="trashitem">💜 보라색 네온 테마 v1 <span>— 이 사이트의 전신. 촌스러워서 버림</span><button class="restore">복구</button></div>
+  </div>
+  <div class="storyline">버린 것들도 <i>이야기의 일부</i>라 차마 비우진 못했어요.</div>
+</div>
+
+<div class="win" id="w-secret" style="left:30%; top:24%;" data-title="🔒 SECRET">
+  <div class="titlebar"><span>🔒 SECRET — 접근 제한</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="max-width:380px;" id="secret-body">
+    이 폴더는 잠겨 있습니다.<br/><br/>
+    <b>Q. 사람의 뇌에는 뉴런이 몇 십억 개?</b><br/>
+    <span style="color:#9aa0b0; font-size:12px;">(숫자만 입력 — 이 컴퓨터 어딘가에 답이 있어요)</span><br/><br/>
+    <input id="secret-in" style="font-family:inherit; background:#0b0c12; border:1.5px solid #0c0d12; color:#e8eaf2; padding:6px 10px; width:120px;" />
+    <button id="secret-btn" class="restore" style="margin-left:6px;">해제</button>
+    <span id="secret-msg" style="color:#ff8f99; font-size:12px; margin-left:8px;"></span>
+  </div>
+  <div class="storyline">힌트가 필요하면 <i>BRAIN.EXE</i>나 <i>TRACK.LOG</i>… 아니 사실 어디에나 있어요.</div>
 </div>
 
 <!-- ================= fullscreen apps ================= -->
@@ -655,8 +720,33 @@ document.querySelectorAll("[data-app]").forEach(el =>
   el.addEventListener("click", () => {
     document.getElementById("startmenu").classList.remove("open");
     if (el.dataset.app === "saver") startSaver();
+    else if (el.dataset.app === "dontclick") cherryRain();
     else openWin(el.dataset.app);
   }));
+
+/* DONT_CLICK.EXE — you were warned */
+let rainToasted = false;
+function cherryRain() {
+  for (let i = 0; i < 36; i++) {
+    const d = document.createElement("div");
+    d.className = "cherrydrop";
+    d.textContent = "🍒";
+    d.style.left = Math.random() * 100 + "vw";
+    d.style.fontSize = 14 + Math.random() * 22 + "px";
+    d.style.animationDuration = 1.6 + Math.random() * 2.2 + "s";
+    d.style.animationDelay = Math.random() * 0.8 + "s";
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 5000);
+  }
+  if (!rainToasted) {
+    rainToasted = true;
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.innerHTML = '<img src="assets/aengdu-joy.png" alt="앵두"/><span><b>앵두</b> — 누르지 말라니까요!! ...예쁘긴 하죠 🍒</span>';
+    document.getElementById("toasts").appendChild(t);
+    setTimeout(() => { t.style.transition = "opacity .4s"; t.style.opacity = 0; setTimeout(() => t.remove(), 420); }, 4200);
+  }
+}
 document.querySelectorAll("[data-close]").forEach(b =>
   b.addEventListener("click", e => closeWin(e.target.closest(".win"))));
 document.querySelectorAll("[data-min]").forEach(b =>
@@ -736,8 +826,22 @@ const REACT = {
   "fs-type": "글자 조심하세요, 물어요 🌀",
   "w-mail": "답장은 빛의 속도로 드릴게요 ✉️",
   "w-log": "한 줄 한 줄이 밤샘의 기록입니다 📋",
+  "w-term": "오, 터미널 여는 사람 오랜만이에요. 'fortune' 쳐보세요 💻",
+  "w-trash": "남의 휴지통을 왜... 아니 뭐, 보세요 🗑️",
+  "w-secret": "암호요? 제 전공을 떠올려보세요 🔒",
 };
 const reacted = new Set();
+/* make Aengdu speak in the messenger from anywhere */
+function say(html) {
+  openWin("w-chat");
+  const log = document.getElementById("chatlog");
+  if (!log) return;
+  const m = document.createElement("div");
+  m.className = "msg";
+  m.innerHTML = '<img class="avatar" src="assets/aengdu-hello.png"/><div class="bubble">' + html + "</div>";
+  log.appendChild(m);
+  log.scrollTop = log.scrollHeight;
+}
 function react(id) {
   if (!REACT[id] || reacted.has(id)) return;
   reacted.add(id);
@@ -908,6 +1012,84 @@ function brainApp() {
     }
   })();
 }
+
+/* ================= TERMINAL.EXE ================= */
+(function () {
+  const out = document.getElementById("term-out");
+  const inp = document.getElementById("term-in");
+  if (!out || !inp) return;
+  document.getElementById("w-term").addEventListener("pointerup", () => inp.focus());
+  const FORTUNES = [
+    "오늘의 운세: 커밋하기 좋은 날입니다.",
+    "버그가 아니라 기능이다. — 앵두 (마감 3시간 전)",
+    "잠은 죽어서... 아니, 오늘은 자자.",
+    "뉴런 860억 개 중 지금 몇 개나 쓰고 계신가요?",
+    "가장 좋은 AI 교과서는 이미 머릿속에 있다.",
+    "배포 버튼은 금요일 오후에 누르는 게 아니다.",
+  ];
+  function print(html) { out.innerHTML += "\n" + html; out.scrollTop = out.scrollHeight; }
+  const APPS = { story: "w-story", works: "w-works", game: "w-game", times: "w-times",
+    brain: "w-brain", house: "w-blueprint", portfolio: "w-portfolio", mail: "w-mail", log: "w-log" };
+  inp.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    const raw = inp.value.trim(); inp.value = "";
+    if (!raw) return;
+    print("<span style='color:#7ee2a8'>C:\\AENGDO&gt;</span> " + raw);
+    const [cmd, ...args] = raw.toLowerCase().split(/\s+/);
+    if (cmd === "help") print("명령어: <b>whoami</b> · <b>ls</b> · <b>open</b> [story|works|game|times|brain|house|portfolio] · <b>fortune</b> · <b>coffee</b> · <b>cherry</b> · <b>hack</b> · <b>secret</b> · <b>clear</b> · <b>exit</b>");
+    else if (cmd === "whoami") print("<b>앵두</b> — 뇌과학 × 컴퓨터과학 출신 AI 개발자.\nAI로 콘텐츠를 만들고, 에이전트를 개발하고, 서비스를 배포함.\n특기: 밤샘. 약점: 커피 없는 아침.");
+    else if (cmd === "ls") print("PORTFOLIO.ONE  STORY.EXE  WORKS/  SIGNAL_RUN.EXE\nTIMES.HTML  BRAIN.EXE  HOUSE.DWG  <b>secret/</b>  버린_아이디어들/");
+    else if (cmd === "open") {
+      const id = APPS[args[0]];
+      if (id) { openWin(id); print("<span class='ok'>" + args[0] + " 실행됨.</span>"); }
+      else print("open [story|works|game|times|brain|house|portfolio|mail|log]");
+    }
+    else if (cmd === "fortune") print("🥠 " + FORTUNES[(Math.random() * FORTUNES.length) | 0]);
+    else if (cmd === "sudo") print("권한이 없습니다. 여긴 <b>앵두</b>의 컴퓨터예요.");
+    else if (cmd === "coffee" || raw === "make coffee") print("☕ 추출 중......... <span class='ok'>완료.</span> (가상입니다. 실물은 커피챗으로: hyunaeee@gmail.com)");
+    else if (cmd === "cherry") { cherryRain(); print("🍒🍒🍒"); }
+    else if (cmd === "secret") print("힌트: 사람의 뇌에는 뉴런이 몇 <b>십억</b> 개?");
+    else if (cmd === "hack") {
+      let n = 0;
+      const iv = setInterval(() => {
+        print("<span style='color:#4a7a5a'>0x" + Math.random().toString(16).slice(2, 10) + "  ACCESS " + (Math.random() < 0.8 ? "GRANTED" : "DENIED") + "</span>");
+        if (++n > 9) { clearInterval(iv); print("<span class='ok'>...농담이고요, hacker-typer.vercel.app 에서 실컷 하세요.</span>"); }
+      }, 130);
+    }
+    else if (cmd === "clear") out.innerHTML = "AENGDO SHELL v1.0";
+    else if (cmd === "exit") closeWin(document.getElementById("w-term"));
+    else print("'" + raw + "' 은(는) 없는 명령어예요. 'help' 참고.");
+  });
+})();
+
+/* ================= 휴지통 & SECRET ================= */
+document.querySelectorAll("#w-trash .restore").forEach(b =>
+  b.addEventListener("click", () => {
+    b.textContent = "거부됨";
+    setTimeout(() => b.textContent = "복구", 1500);
+    say("그건 <b>이유가 있어서</b> 버린 거예요... 🍒");
+    openWin("w-chat");
+  }));
+(function () {
+  const btn = document.getElementById("secret-btn");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const v = (document.getElementById("secret-in").value || "").replace(/[^0-9]/g, "");
+    if (v === "86" || v === "860" || v === "86000000000") {
+      document.getElementById("secret-body").innerHTML =
+        '<span class="ok" style="color:#7ee2a8">🎉 잠금 해제 — 제작 비하인드</span><br/><br/>' +
+        '· 이 사이트의 조상님들: <a href="classic.html" target="_blank">CLASSIC v1</a> · <a href="story.html" target="_blank">스토리 모드</a><br/>' +
+        '· 첫 버전은 <b>보라색 네온</b>이었어요 (휴지통 참고)<br/>' +
+        '· 앵두는 원래 <b>동그란 안경</b>을 썼었다 (구버전 캐릭터)<br/>' +
+        '· SIGNAL_RUN 최고기록 1위는 아직 <b>앵두 본인</b><br/>' +
+        '· 이 OS는 뇌과학 전공자가 만든 <b>세 번째</b> 홈페이지입니다 🍒';
+      say("어떻게 알았어요?! ...아, 제가 온 컴퓨터에 적어놨죠 참 🔓");
+    } else {
+      document.getElementById("secret-msg").textContent = "땡! 다시 생각해보세요";
+      setTimeout(() => document.getElementById("secret-msg").textContent = "", 2000);
+    }
+  });
+})();
 
 /* ================= HOUSE.DWG — floor plan rooms ================= */
 document.querySelectorAll("#floorplan .fproom").forEach(room => {
