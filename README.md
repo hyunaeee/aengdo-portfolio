@@ -1,27 +1,20 @@
 # aengdo-portfolio
 
-앵두 스튜디오 포트폴리오 홈페이지 — **"하나의 불꽃에서 시작된 이야기"**
+**AENGDO OS** — 앵두의 레트로 OS 포트폴리오. https://hyunaeee.github.io/aengdo-portfolio/
 
-뇌과학 × 컴퓨터과학 → AI로 이어지는 여정을 스크롤로 읽는 인터랙티브 스토리 사이트입니다.
+바탕화면 아이콘을 클릭해 실행하는 포트폴리오입니다. 창은 드래그로 옮길 수 있습니다.
 
 ## 구성
+- `index.html` — AENGDO OS 셸 (부팅 → 바탕화면 → 창/작업표시줄/시작메뉴/화면보호기)
+  - STORY.EXE: 스크롤 스토리 원본을 창 안에서 실행
+  - WORKS: 탐색기 — 영상(유튜브/드라이브)·음악·웹·GitHub 레포
+  - SIGNAL_RUN.EXE / BRAIN.EXE(아스키 뇌) / FIG01.DWG(청사진) / AENGDO TIMES(신문)
+  - DIVE.EXE / TYPESTORM.EXE(전체화면 앱), NOIR.SCR(75초 방치 시 화면보호기)
+  - 앵두 메신저 + 앱 실행 반응 토스트
+- `story.html` — 스크롤 스토리 사이트 (원본 보존, 단독 실행 가능)
+- `game.html` — SIGNAL RUN 단독 실행
+- `times.html` — AENGDO TIMES 창간호
+- `classic.html` — 최초 버전 홈페이지
+- `assets/` — 캐릭터·작품 이미지, 음악
 
-- `index.html` — 메인 사이트 (단일 파일, 빌드 불필요)
-  - WebGL 파티클 씬: 불꽃 → 뉴런 → 뇌 → 코드 격자 → 은하로 스크롤에 따라 변신 (Three.js + 커스텀 GLSL + 블룸)
-  - 챕터별 컬러 그레이딩, 유성, 성운, 커서 파티클 반발 인터랙션
-  - 가이드 캐릭터 **앵두** 🍒 — 챕터별 대사, 표정 3종(인사/신남/놀람), 졸기/스크롤 기울기 등 리액션
-  - 미니게임 **SIGNAL RUN** — 콤보·실드 시스템, 최고 기록 저장
-  - 부팅 시퀀스 프리로더, Lenis 스무스 스크롤, GSAP 리빌, 앰비언트 사운드 토글
-- `classic.html` — 이전 버전 홈페이지 (보존)
-- `assets/` — 캐릭터 이미지(`aengdu-*.png`) 및 기존 에셋
-
-## 로컬 실행
-
-정적 파일이라 아무 웹서버로 열면 됩니다:
-
-```bash
-python -m http.server 8000
-# http://localhost:8000
-```
-
-Three.js / GSAP / Lenis / 폰트는 CDN에서 로드하므로 인터넷 연결이 필요합니다.
+전부 정적 파일이라 `python -m http.server`로 바로 실행됩니다. (CDN 폰트/three.js 사용)

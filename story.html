@@ -1,0 +1,3283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AENGDO — Where Does a Thought Begin?</title>
+<meta name="description" content="뇌과학에서 컴퓨터과학으로, 그리고 인공지능으로. 한 사람의 여정을 담은 인터랙티브 스토리." />
+<meta name="theme-color" content="#050508" />
+<meta property="og:title" content="AENGDO — Where Does a Thought Begin?" />
+<meta property="og:description" content="뇌과학 × 컴퓨터과학 → AI. 스크롤로 읽는 인터랙티브 스토리 포트폴리오. 미니게임도 있어요 🎮" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://hyunaeee.github.io/aengdo-portfolio/" />
+<meta property="og:image" content="https://hyunaeee.github.io/aengdo-portfolio/assets/og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AENGDO — Where Does a Thought Begin?" />
+<meta name="twitter:image" content="https://hyunaeee.github.io/aengdo-portfolio/assets/og.jpg" />
+<link rel="canonical" href="https://hyunaeee.github.io/aengdo-portfolio/" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "AENGDO (앵두)",
+  "url": "https://hyunaeee.github.io/aengdo-portfolio/",
+  "email": "mailto:hyunaeee@gmail.com",
+  "jobTitle": "AI Engineer & Content Creator",
+  "description": "뇌과학과 컴퓨터과학을 전공하고 AI 엔지니어링과 콘텐츠 크리에이팅을 하는 앵두 스튜디오",
+  "sameAs": [
+    "https://github.com/hyunaeee",
+    "https://velog.io/@hyunaeee/posts",
+    "https://instagram.com/gaebal_daeraemz",
+    "https://www.youtube.com/@gaebal_daeraemz"
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍒</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans+KR:wght@200;300;400;500;700;900&family=Noto+Serif+KR:wght@300;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   AENGDO — a story of two sciences
+   ============================================================ */
+:root {
+  --bg: #030308;
+  --ink: #eceaf6;
+  --dim: #8b8a9e;
+  --faint: rgba(255, 255, 255, 0.07);
+  --violet: #ff4655;  /* cherry — the single accent */
+  --cyan: #d3d8e2;    /* silver — labels & details */
+  --pink: #ff4655;
+  --grad: linear-gradient(100deg, #ff4655 0%, #ff7d88 70%, #ffb3ba 130%);
+  --font-disp: "Space Grotesk", "Noto Sans KR", sans-serif;
+  --font-kr: "Noto Sans KR", sans-serif;
+  --font-serif: "Noto Serif KR", serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { background: var(--bg); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-kr);
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: rgba(255, 70, 85, 0.45); color: #fff; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #06060c; }
+::-webkit-scrollbar-thumb { background: #2a2a3e; border-radius: 3px; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- WebGL canvas ---------- */
+#webgl { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; }
+
+/* ---------- film grain / vignette ---------- */
+.grain {
+  position: fixed;
+  inset: -100px;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.9s steps(4) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-40px, 30px); }
+  50% { transform: translate(30px, -50px); }
+  75% { transform: translate(-30px, -20px); }
+  100% { transform: translate(40px, 40px); }
+}
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 52%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+/* ---------- custom cursor ---------- */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 200;
+  pointer-events: none;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+.cursor-dot { width: 8px; height: 8px; background: #fff; }
+.cursor-ring {
+  width: 38px; height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  transition: width 0.3s, height 0.3s, border-color 0.3s;
+}
+.cursor-ring.is-hover { width: 70px; height: 70px; border-color: #fff; }
+@media (hover: none), (max-width: 768px) { .cursor-dot, .cursor-ring { display: none; } }
+
+/* ---------- preloader: boot sequence ---------- */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: #020205;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 24px;
+}
+.boot {
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 1.6vw, 14px);
+  line-height: 2.2;
+  color: var(--dim);
+  min-height: 9em;
+  width: min(560px, 88vw);
+  white-space: pre-wrap;
+}
+.boot .ok { color: var(--cyan); }
+.boot .num { color: var(--violet); }
+.boot .caret {
+  display: inline-block;
+  width: 0.6em; height: 1.1em;
+  background: var(--cyan);
+  vertical-align: -0.15em;
+  animation: caret 0.7s steps(1) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }
+#preloader .pl-bar {
+  width: min(560px, 88vw);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+#preloader .pl-bar i { display: block; height: 100%; width: 0%; background: var(--grad); }
+
+/* ---------- scroll progress ---------- */
+.progress { position: fixed; top: 0; left: 0; height: 2px; width: 100%; z-index: 150; }
+.progress i {
+  display: block; height: 100%; width: 100%;
+  background: var(--grad);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ---------- nav ---------- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 4.5vw;
+  opacity: 0;
+}
+.logo { font-family: var(--font-mono); font-size: 15px; font-weight: 500; letter-spacing: 2px; }
+.logo b { color: var(--cyan); font-weight: 500; }
+.nav-right { display: flex; gap: 30px; align-items: center; }
+.nav-right a, .snd-btn {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 1.5px;
+  color: var(--dim);
+  transition: color 0.25s;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-right a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -5px;
+  width: 100%; height: 1px;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.nav-right a:hover, .snd-btn:hover { color: var(--ink); }
+.nav-right a:hover::after { transform: scaleX(1); transform-origin: left; }
+.nav-right a.active { color: var(--cyan); }
+.nav-right a.active::after { transform: scaleX(1); transform-origin: left; }
+.snd-btn.on { color: var(--cyan); }
+@media (max-width: 700px) { .nav-right a { display: none; } }
+
+/* ---------- chapter HUD (bottom-left) ---------- */
+.ch-hud {
+  position: fixed;
+  left: 4.5vw;
+  bottom: 34px;
+  z-index: 100;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: var(--dim);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ch-hud .ch-name { color: var(--ink); transition: opacity 0.4s; }
+.ch-hud .ch-track { width: 150px; height: 1px; background: rgba(255, 255, 255, 0.12); }
+.ch-hud .ch-track i {
+  display: block; height: 100%; width: 0%;
+  background: var(--grad);
+  transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+@media (max-width: 768px) { .ch-hud { display: none; } }
+
+/* ---------- side dots ---------- */
+.dots {
+  position: fixed;
+  right: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  opacity: 0;
+}
+.dots a {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  transition: all 0.3s;
+}
+.dots a.active {
+  background: var(--violet);
+  box-shadow: 0 0 12px var(--violet);
+  transform: scale(1.3);
+}
+@media (max-width: 768px) { .dots { display: none; } }
+
+/* ---------- layout ---------- */
+main { position: relative; z-index: 2; }
+section { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 16vh 7vw; }
+.sec-inner { width: 100%; max-width: 1300px; margin: 0 auto; }
+
+/* reveal machinery */
+.rv { display: block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.rv > .ri {
+  display: block;
+  transform: translateY(120%) rotate(2.5deg);
+  transform-origin: left top;
+  will-change: transform;
+}
+[data-fade] { opacity: 0; transform: translateY(40px); }
+
+.grad-txt {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- hero (prologue) ---------- */
+#hero { flex-direction: column; justify-content: center; overflow: hidden; }
+.hero-ghost {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: clamp(120px, 21vw, 360px);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
+  z-index: -1;
+  user-select: none;
+}
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--cyan);
+  margin-bottom: 4vh;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-tag::before { content: ""; width: 40px; height: 1px; background: var(--cyan); }
+.h-hero {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: clamp(42px, 7.4vw, 104px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 44px rgba(255, 70, 85, 0.3);
+}
+.hero-sub {
+  margin-top: 4.5vh;
+  max-width: 560px;
+  color: var(--dim);
+  font-size: clamp(15px, 1.6vw, 18px);
+}
+.hero-sub strong { color: var(--ink); font-weight: 500; }
+.hero-foot {
+  position: absolute;
+  bottom: 5vh; left: 7vw; right: 7vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--dim);
+}
+.scroll-cue { display: flex; align-items: center; gap: 12px; }
+.scroll-cue .wheel {
+  width: 1px; height: 46px;
+  background: rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-cue .wheel::after {
+  content: "";
+  position: absolute;
+  left: 0; top: -50%;
+  width: 100%; height: 50%;
+  background: var(--grad);
+  animation: drop 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes drop { to { top: 110%; } }
+
+/* ---------- story chapters (intertitles) ---------- */
+.chapter { justify-content: center; text-align: center; min-height: 130vh; }
+.ch-inner { max-width: 920px; margin: 0 auto; position: relative; }
+/* radial scrim: keeps story text readable over bright particles */
+.ch-inner::before, #contact .sec-inner::before {
+  content: "";
+  position: absolute;
+  inset: -14% -20%;
+  background: radial-gradient(closest-side, rgba(2, 2, 6, 0.78), rgba(2, 2, 6, 0.4) 55%, transparent 100%);
+  z-index: -1;
+  filter: blur(6px);
+  pointer-events: none;
+}
+#contact .sec-inner { position: relative; }
+.ch-body, .h-ch, .h-hero { text-shadow: 0 2px 24px rgba(0, 0, 0, 0.85); }
+.ch-kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 6px;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 5vh;
+}
+.h-ch {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: clamp(36px, 6vw, 86px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+.ch-body {
+  margin: 6vh auto 0;
+  max-width: 58ch;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(16px, 1.9vw, 21px);
+  line-height: 2.1;
+  color: #b9b7cb;
+}
+.ch-body strong { color: var(--ink); font-weight: 600; }
+.ch-body em { font-style: normal; color: var(--cyan); }
+.ch-body .pk { color: var(--pink); }
+.ch-close {
+  margin-top: 5vh;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 3px;
+  color: var(--dim);
+}
+.ch-close b { color: var(--ink); font-weight: 500; }
+
+/* stats */
+.stats { display: flex; gap: clamp(28px, 5vw, 76px); margin-top: 7vh; justify-content: center; flex-wrap: wrap; }
+.stat .v {
+  font-family: var(--font-disp);
+  font-size: clamp(32px, 4vw, 58px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stat .k {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 3px;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* terminal card (ch3) */
+.term {
+  margin: 7vh auto 0;
+  width: min(620px, 92%);
+  text-align: left;
+  background: rgba(8, 8, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+}
+.term-bar {
+  display: flex;
+  gap: 7px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.term-bar i { width: 10px; height: 10px; border-radius: 50%; background: #333348; }
+.term-bar i:first-child { background: #ff5f57; }
+.term-bar i:nth-child(2) { background: #febc2e; }
+.term-bar i:nth-child(3) { background: #28c840; }
+.term-body {
+  padding: 20px 22px;
+  font-family: var(--font-mono);
+  font-size: clamp(11.5px, 1.4vw, 13.5px);
+  line-height: 1.9;
+  color: #a8b3d6;
+  min-height: 9.5em;
+  white-space: pre-wrap;
+}
+.term-body .kw { color: var(--violet); }
+.term-body .fn { color: var(--cyan); }
+.term-body .st { color: var(--pink); }
+.term-body .caret {
+  display: inline-block;
+  width: 0.6em; height: 1.1em;
+  background: var(--cyan);
+  vertical-align: -0.15em;
+  animation: caret 0.7s steps(1) infinite;
+}
+
+/* ---------- marquee ---------- */
+.marquee {
+  position: relative;
+  z-index: 2;
+  padding: 8vh 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid var(--faint);
+  border-bottom: 1px solid var(--faint);
+}
+.marquee .track { display: inline-flex; animation: mq 26s linear infinite; }
+.marquee span {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: clamp(56px, 9vw, 140px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
+  padding-right: 6vw;
+}
+.marquee span i {
+  font-style: normal;
+  -webkit-text-stroke: 0;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes mq { to { transform: translateX(-50%); } }
+
+/* ---------- split layout (skills / game) ---------- */
+.sec-meta { display: flex; align-items: center; gap: 18px; margin-bottom: 6vh; }
+.sec-meta .idx { font-family: var(--font-disp); font-size: 15px; color: var(--cyan); }
+.sec-meta .rule { width: 70px; height: 1px; background: rgba(255, 255, 255, 0.2); }
+.sec-meta .lab {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 5px;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.h-lg {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 70px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: end; }
+@media (max-width: 900px) { .split { grid-template-columns: 1fr; align-items: start; } }
+.split .copy p { color: var(--dim); font-size: clamp(15px, 1.5vw, 17.5px); max-width: 46ch; }
+.split .copy p strong { color: var(--ink); font-weight: 500; }
+.split .copy p em { font-style: normal; color: var(--cyan); }
+
+/* skills rows */
+.skill-rows { border-top: 1px solid var(--faint); }
+.skill-row {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: center;
+  gap: 3vw;
+  padding: clamp(20px, 3.4vh, 34px) 10px;
+  border-bottom: 1px solid var(--faint);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.skill-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(255, 70, 85, 0.14), rgba(255, 255, 255, 0.08));
+  transform: translateY(101%);
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  z-index: -1;
+}
+.skill-row:hover::before { transform: translateY(0); }
+.skill-row .no { font-family: var(--font-mono); font-size: 12px; color: var(--dim); }
+.skill-row .name {
+  font-family: var(--font-disp);
+  font-size: clamp(24px, 3.6vw, 46px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1), color 0.3s;
+}
+.skill-row:hover .name { transform: translateX(18px); color: #fff; }
+.skill-row .desc { font-size: 13.5px; color: var(--dim); text-align: right; }
+@media (max-width: 700px) {
+  .skill-row { grid-template-columns: 44px 1fr; }
+  .skill-row .desc { display: none; }
+}
+
+/* ---------- game: SIGNAL RUN ---------- */
+.game-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 74vh;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  overflow: hidden;
+  background: #030309;
+  touch-action: none;
+  cursor: crosshair;
+  box-shadow: 0 30px 90px rgba(255, 70, 85, 0.16);
+}
+.game-frame canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
+.g-hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 22px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--dim);
+  pointer-events: none;
+  z-index: 3;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+.g-hud b { color: var(--ink); font-weight: 500; }
+.g-hud .lives { color: var(--pink); letter-spacing: 4px; }
+.g-hud .combo { color: #ffd34f; font-weight: 500; text-shadow: 0 0 12px rgba(255, 211, 79, 0.6); }
+.g-toast {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: clamp(16px, 2.4vw, 26px);
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: #ffd34f;
+  text-shadow: 0 0 18px rgba(255, 211, 79, 0.8);
+  opacity: 0;
+  pointer-events: none;
+}
+.g-toast.show { animation: g-toast-pop 1.1s ease forwards; }
+@keyframes g-toast-pop {
+  0% { opacity: 0; transform: translateX(-50%) scale(0.6); }
+  18% { opacity: 1; transform: translateX(-50%) scale(1.12); }
+  30% { transform: translateX(-50%) scale(1); }
+  75% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-16px) scale(1); }
+}
+.g-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  background: rgba(3, 3, 9, 0.55);
+  backdrop-filter: blur(8px);
+  text-align: center;
+  padding: 20px;
+  transition: opacity 0.5s;
+}
+.g-overlay.hidden { opacity: 0; pointer-events: none; }
+.g-title {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: clamp(34px, 5vw, 64px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.g-desc { color: var(--dim); font-size: 14px; max-width: 46ch; line-height: 1.7; }
+.g-keys {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--dim);
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.g-keys i { font-style: normal; }
+.g-keys .c { color: var(--cyan); }
+.g-keys .p { color: var(--pink); }
+.g-btn {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 3px;
+  padding: 15px 44px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  background: var(--grad);
+  color: #fff;
+  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 10px 34px rgba(255, 70, 85, 0.35);
+}
+.g-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 16px 44px rgba(255, 255, 255, 0.4); }
+.g-score-big {
+  font-family: var(--font-disp);
+  font-size: clamp(50px, 8vw, 110px);
+  font-weight: 300;
+  line-height: 1;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- epilogue / contact ---------- */
+#contact { flex-direction: column; justify-content: center; text-align: center; min-height: 120vh; }
+.mail-link {
+  display: inline-block;
+  margin-top: 6vh;
+  font-family: var(--font-disp);
+  font-weight: 500;
+  font-size: clamp(24px, 4.6vw, 64px);
+  letter-spacing: -0.02em;
+  position: relative;
+  transition: color 0.3s;
+}
+.mail-link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -8px;
+  width: 100%; height: 2px;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.mail-link:hover::after { transform: scaleX(1); transform-origin: left; }
+.mail-link:hover {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.copy-btn {
+  margin-left: 18px;
+  vertical-align: middle;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 9px 18px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--dim);
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.copy-btn:hover {
+  color: #fff;
+  border-color: var(--cyan);
+  background: rgba(255, 255, 255, 0.1);
+}
+.guide.sleep .g-avatar {
+  filter: grayscale(0.45) brightness(0.6) drop-shadow(0 14px 30px rgba(0, 0, 0, 0.4));
+  animation-duration: 6.5s;
+}
+.contact-note {
+  margin-top: 5vh;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--dim);
+}
+
+/* ---------- works: visual artworks ---------- */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+}
+.work-card {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--faint);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0a0a14;
+  cursor: pointer;
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+}
+.work-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 70, 85, 0.5);
+  box-shadow: 0 22px 60px rgba(255, 70, 85, 0.18);
+}
+.work-card img.thumb, .work-card iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+}
+.work-card .wc-grad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(2, 2, 8, 0.88), transparent 55%);
+  z-index: 2;
+  pointer-events: none;
+}
+.work-card .wc-info {
+  position: absolute;
+  left: 14px; right: 14px; bottom: 11px;
+  z-index: 3;
+  pointer-events: none;
+}
+.work-card .wc-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+}
+.work-card .wc-title { font-family: var(--font-disp); font-weight: 700; font-size: 15.5px; }
+.work-card .wc-sub { font-size: 11px; color: var(--dim); }
+.work-card .wc-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(3, 3, 10, 0.5);
+  backdrop-filter: blur(4px);
+  font-size: 17px;
+  color: #fff;
+  transition: 0.3s;
+  pointer-events: none;
+}
+.work-card:hover .wc-play {
+  background: rgba(255, 70, 85, 0.65);
+  transform: translate(-50%, -50%) scale(1.12);
+}
+.work-card.playing .wc-play, .work-card.playing img.thumb { display: none; }
+.work-card.static { cursor: default; }
+.work-card.static .wc-play { display: none; }
+
+/* KHNP delivered series */
+.series-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8vh 0 3.5vh;
+}
+.series-head .idx { color: var(--pink); font-size: 11px; }
+.series-head .rule { width: 54px; height: 1px; background: rgba(255, 255, 255, 0.2); }
+.series-head .lab {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.series-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+.series-grid .wc-title { font-size: 16px; }
+
+/* audio track */
+.audio-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid var(--faint);
+  border-radius: 16px;
+  padding: 20px 26px;
+  margin-top: 26px;
+  background: rgba(255, 255, 255, 0.03);
+  flex-wrap: wrap;
+}
+.au-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+  flex: none;
+}
+.au-btn:hover { background: rgba(255, 70, 85, 0.5); border-color: transparent; }
+.au-title { font-weight: 700; font-size: 16.5px; }
+.au-sub { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 2px; color: var(--dim); margin-top: 3px; }
+.au-eq { display: flex; gap: 3px; height: 22px; align-items: flex-end; margin-left: auto; }
+.au-eq i { width: 3px; height: 5px; background: var(--grad); border-radius: 2px; }
+.audio-row.playing .au-eq i { animation: eq 0.65s ease-in-out infinite alternate; }
+.au-eq i:nth-child(2) { animation-delay: 0.12s; }
+.au-eq i:nth-child(3) { animation-delay: 0.24s; }
+.au-eq i:nth-child(4) { animation-delay: 0.36s; }
+.au-eq i:nth-child(5) { animation-delay: 0.48s; }
+@keyframes eq { to { height: 22px; } }
+
+/* builds: web experiences + AI solutions */
+.web-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 26px;
+  margin-bottom: 8vh;
+}
+.web-card { display: block; }
+.web-frame {
+  border: 1px solid var(--faint);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(8, 8, 18, 0.7);
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+}
+.web-card:hover .web-frame {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 22px 60px rgba(255, 255, 255, 0.14);
+}
+.web-frame img { width: 100%; aspect-ratio: 16 / 9.6; object-fit: cover; display: block; }
+.web-meta { margin-top: 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.web-meta h3 { font-family: var(--font-disp); font-weight: 700; font-size: 20px; }
+.web-meta .visit {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  white-space: nowrap;
+}
+.web-desc { color: var(--dim); font-size: 13.5px; margin-top: 6px; }
+.sol-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.sol-card {
+  display: block;
+  border: 1px solid var(--faint);
+  border-radius: 18px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 0.35s, border-color 0.35s, background 0.35s;
+}
+.sol-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 70, 85, 0.5);
+  background: rgba(255, 70, 85, 0.08);
+}
+.sol-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; }
+.sol-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.sol-head .arr { color: var(--dim); transition: 0.3s; }
+.sol-card:hover .arr { color: #fff; transform: translate(3px, -3px); }
+.sol-card h3 { font-family: var(--font-disp); font-weight: 700; font-size: 20px; margin-bottom: 10px; }
+.sol-card p { color: var(--dim); font-size: 13.5px; }
+
+/* journey timeline */
+.timeline { border-left: 1px solid rgba(255, 255, 255, 0.13); padding-left: 30px; max-width: 720px; }
+.tl-item { position: relative; padding: 16px 0; }
+.tl-item::before {
+  content: "";
+  position: absolute;
+  left: -35px;
+  top: 26px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--violet);
+  box-shadow: 0 0 12px var(--violet);
+}
+.tl-date { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px; color: var(--cyan); }
+.tl-title { font-weight: 700; font-size: 17.5px; margin-top: 4px; }
+.tl-sub { color: var(--dim); font-size: 13px; margin-top: 2px; }
+
+/* epilogue socials */
+.social-row { margin-top: 6vh; display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+.social-row a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  color: var(--dim);
+  position: relative;
+  transition: color 0.25s;
+}
+.social-row a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -5px;
+  width: 100%; height: 1px;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.social-row a:hover { color: var(--ink); }
+.social-row a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* ---------- guide character ---------- */
+.guide {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 120;
+  transform-origin: 80% 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.9s ease;
+  user-select: none;
+}
+.guide.on { opacity: 1; pointer-events: auto; }
+.guide.dim { opacity: 0.15; pointer-events: none; }
+.g-bubble {
+  max-width: 252px;
+  background: rgba(10, 10, 22, 0.88);
+  border: 1px solid rgba(255, 70, 85, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 14px 14px 4px 14px;
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #cfcde0;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s, transform 0.3s;
+  position: relative;
+}
+.g-bubble::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  bottom: -7px;
+  width: 12px; height: 12px;
+  background: rgba(10, 10, 22, 0.88);
+  border-right: 1px solid rgba(255, 70, 85, 0.4);
+  border-bottom: 1px solid rgba(255, 70, 85, 0.4);
+  transform: rotate(45deg);
+}
+.g-bubble b { color: var(--cyan); font-weight: 500; }
+.g-bubble.swap { opacity: 0; transform: translateY(8px); }
+.g-avatar {
+  position: relative;
+  width: 138px;
+  cursor: pointer;
+  animation: g-bob 3.4s ease-in-out infinite;
+  filter: drop-shadow(0 14px 30px rgba(255, 70, 85, 0.45));
+  transition: filter 0.3s, transform 0.3s;
+}
+.g-avatar img.face {
+  width: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.g-avatar img.face:not(:first-child) {
+  position: absolute;
+  top: 0; left: 0;
+}
+.g-avatar img.face.on { opacity: 1; }
+.g-avatar:hover {
+  filter: drop-shadow(0 16px 36px rgba(255, 255, 255, 0.55));
+  transform: scale(1.05);
+}
+.guide.hop .g-avatar { animation: g-hop 0.55s ease; }
+.guide.wiggle .g-avatar { animation: g-wiggle 0.6s ease; }
+@keyframes g-bob { 50% { transform: translateY(-8px); } }
+@keyframes g-hop {
+  30% { transform: translateY(-20px) rotate(-4deg); }
+  60% { transform: translateY(0) rotate(2deg); }
+}
+@keyframes g-wiggle {
+  25% { transform: rotate(-5deg); }
+  50% { transform: rotate(4deg); }
+  75% { transform: rotate(-2deg); }
+}
+@media (max-width: 768px) {
+  .guide { right: 14px; bottom: 14px; }
+  .g-avatar { width: 92px; }
+  .g-bubble { max-width: 195px; font-size: 12px; padding: 10px 13px; }
+}
+
+/* ---------- footer ---------- */
+footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 34px 4.5vw;
+  border-top: 1px solid var(--faint);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--dim);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+</style>
+</head>
+<body>
+
+<!-- preloader: neural boot sequence -->
+<div id="preloader">
+  <div class="boot" id="boot-log"><span class="caret"></span></div>
+  <div class="pl-bar"><i id="boot-bar"></i></div>
+</div>
+
+<canvas id="webgl"></canvas>
+<div class="vignette"></div>
+<div class="grain"></div>
+<div class="progress"><i></i></div>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<nav>
+  <a class="logo" href="#hero">AENGDO<b>.AI</b></a>
+  <div class="nav-right">
+    <a href="#ch1">STORY</a>
+    <a href="#works">WORKS</a>
+    <a href="#builds">BUILDS</a>
+    <a href="#game">PLAY</a>
+    <a href="#contact">EPILOGUE</a>
+    <button class="snd-btn" id="snd">SOUND&nbsp;OFF</button>
+  </div>
+</nav>
+
+<div class="ch-hud">
+  <span class="ch-name" id="ch-name">PROLOGUE — ORIGIN</span>
+  <span class="ch-track"><i id="ch-bar"></i></span>
+</div>
+
+<!-- developer guide character -->
+<div class="guide" id="guide">
+  <div class="g-bubble" id="g-bubble"><span id="g-btext">안녕하세요! 👋</span></div>
+  <div class="g-avatar" id="g-avatar" title="앵두">
+    <img class="face on" data-face="hello" src="assets/aengdu-hello.png" alt="개발자 앵두" draggable="false" />
+    <img class="face" data-face="joy" src="assets/aengdu-joy.png" alt="" draggable="false" />
+    <img class="face" data-face="surprise" src="assets/aengdu-surprise.png" alt="" draggable="false" />
+  </div>
+</div>
+
+<div class="dots">
+  <a href="#hero" data-dot></a>
+  <a href="#ch1" data-dot></a>
+  <a href="#ch2" data-dot></a>
+  <a href="#ch3" data-dot></a>
+  <a href="#ch4" data-dot></a>
+  <a href="#works" data-dot></a>
+  <a href="#builds" data-dot></a>
+  <a href="#skills" data-dot></a>
+  <a href="#journey" data-dot></a>
+  <a href="#game" data-dot></a>
+  <a href="#contact" data-dot></a>
+</div>
+
+<main id="main">
+
+  <!-- ===== PROLOGUE ===== -->
+  <section id="hero">
+    <div class="hero-ghost">INTELLIGENCE</div>
+    <div class="sec-inner">
+      <div class="hero-tag" data-fade>PROLOGUE — A STORY OF TWO SCIENCES</div>
+      <h1 class="h-hero">
+        <span class="rv"><span class="ri">WHERE DOES</span></span>
+        <span class="rv"><span class="ri">A <span class="grad-txt">THOUGHT</span> BEGIN?</span></span>
+      </h1>
+      <p class="hero-sub" data-fade>
+        이 질문 하나로 <strong>뇌과학</strong>에서 <strong>컴퓨터과학</strong>으로,
+        그리고 지금은 <strong>AI</strong>를 만드는 데까지 왔습니다.
+      </p>
+    </div>
+    <div class="hero-foot">
+      <div class="scroll-cue"><span class="wheel"></span> SCROLL TO BEGIN</div>
+      <div>AENGDO — SEOUL, 2026</div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER I : THE FIRST SPARK → neuron ===== -->
+  <section class="chapter" id="ch1">
+    <div class="ch-inner">
+      <div class="ch-kicker" data-fade>Chapter I — The First Spark</div>
+      <h2 class="h-ch">
+        <span class="rv"><span class="ri">ONE IN</span></span>
+        <span class="rv"><span class="ri"><span class="grad-txt">86,000,000,000</span></span></span>
+      </h2>
+      <p class="ch-body" data-fade>
+        모든 것은 뉴런 하나에서 시작합니다.
+        <em>0.1볼트의 불꽃</em>, 1000분의 1초의 침묵.
+        이 단순한 세포가 모여 어떻게 <strong>'나'</strong>라는 것이 되는지 —
+        저는 그게 궁금했습니다.
+      </p>
+      <div class="ch-close" data-fade>그래서, <b>뇌를 전공했습니다.</b></div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER II : THE UNIVERSE WITHIN → brain ===== -->
+  <section class="chapter" id="ch2">
+    <div class="ch-inner">
+      <div class="ch-kicker" data-fade>Chapter II — The Universe Within</div>
+      <h2 class="h-ch">
+        <span class="rv"><span class="ri">1.4KG OF</span></span>
+        <span class="rv"><span class="ri"><span class="grad-txt">UNIVERSE</span></span></span>
+      </h2>
+      <p class="ch-body" data-fade>
+        뉴런 860억 개가 연결되는 순간, <strong>물질은 마음이 됩니다.</strong>
+        학습과 기억, 감정과 꿈 — 뇌과학에서
+        지능의 <em>설계도 읽는 법</em>을 배웠습니다.
+      </p>
+      <div class="stats" data-fade>
+        <div class="stat"><div class="v">86B</div><div class="k">Neurons</div></div>
+        <div class="stat"><div class="v">100T</div><div class="k">Synapses</div></div>
+        <div class="stat"><div class="v">20W</div><div class="k">Power draw</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER III : THE SECOND LANGUAGE → lattice ===== -->
+  <section class="chapter" id="ch3">
+    <div class="ch-inner">
+      <div class="ch-kicker" data-fade>Chapter III — The Second Language</div>
+      <h2 class="h-ch">
+        <span class="rv"><span class="ri">READING</span></span>
+        <span class="rv"><span class="ri">WASN'T <span class="grad-txt">ENOUGH</span></span></span>
+      </h2>
+      <p class="ch-body" data-fade>
+        이해한 것을 직접 만들 수 없다면, 정말 이해한 걸까요.
+        그래서 코드를 배웠습니다. 알고리즘과 자료구조 —
+        생각을 <em>실행 가능한 형태</em>로 옮기는 <strong>두 번째 모국어</strong>를.
+      </p>
+      <div class="term" data-fade>
+        <div class="term-bar"><i></i><i></i><i></i></div>
+        <div class="term-body" id="term-code"><span class="caret"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER IV : COLLISION → galaxy ===== -->
+  <section class="chapter" id="ch4">
+    <div class="ch-inner">
+      <div class="ch-kicker" data-fade>Chapter IV — Convergence</div>
+      <h2 class="h-ch">
+        <span class="rv"><span class="ri">AT THE</span></span>
+        <span class="rv"><span class="ri">INTERSECTION: <span class="grad-txt">AI</span></span></span>
+      </h2>
+      <p class="ch-body" data-fade>
+        뇌의 원리를 코드로 옮기고, 코드로 <strong>지능</strong>을 만듭니다.
+        사람에게 배운 기계가 사람을 넘어서는 순간 —
+        저는 지금 <span class="pk">그 경계선 위</span>에서 일합니다.
+      </p>
+      <div class="ch-close" data-fade>이것이 제가 <b>AI를 만드는 이유</b>입니다. 이제, 만든 것들을 보여드릴게요.</div>
+    </div>
+  </section>
+
+  <!-- ===== marquee ===== -->
+  <div class="marquee">
+    <div class="track">
+      <span>NEUROSCIENCE <i>×</i> COMPUTER SCIENCE <i>=</i> ARTIFICIAL INTELLIGENCE&nbsp;</span>
+      <span>NEUROSCIENCE <i>×</i> COMPUTER SCIENCE <i>=</i> ARTIFICIAL INTELLIGENCE&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== CHAPTER V : THE WORKS (visual artworks + audio) ===== -->
+  <section id="works">
+    <div class="sec-inner">
+      <div class="sec-meta" data-fade>
+        <span class="idx">V</span><span class="rule"></span><span class="lab">Chapter V — The Works</span>
+      </div>
+      <div class="split" style="align-items:start; margin-bottom:7vh;">
+        <h2 class="h-lg">
+          <span class="rv"><span class="ri">SELECTED</span></span>
+          <span class="rv"><span class="ri"><span class="grad-txt">WORKS</span></span></span>
+        </h2>
+        <div class="copy" data-fade>
+          <p>
+            배운 것들은 결국 <strong>작품</strong>이 되었습니다.
+            AI 기술과 예술적 직관을 결합해,
+            머릿속에만 있던 장면을 <em>화면 위로</em> 꺼냅니다.
+          </p>
+        </div>
+      </div>
+      <div class="works-grid" data-fade>
+        <article class="work-card static">
+          <img class="thumb" src="assets/now-art.jpg" alt="N.O.W — 컨셉 아트 전시 작품" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-info">
+            <div class="wc-date">2025.12 — PHOTO ART FOR EXHIBITION</div>
+            <div class="wc-title">N.O.W</div>
+            <div class="wc-sub">Concept Art for Exhibition · 컨셉 아트 전시 작품</div>
+          </div>
+        </article>
+        <article class="work-card" data-video="e9ikiPXcKr0">
+          <img class="thumb" src="https://i.ytimg.com/vi/e9ikiPXcKr0/hqdefault.jpg" alt="ANIMAL COOKING" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">2025.08 — SHORTS</div>
+            <div class="wc-title">ANIMAL COOKING</div>
+            <div class="wc-sub">Short Film · 캐릭터 단편 영상</div>
+          </div>
+        </article>
+        <article class="work-card" data-video="N9XWjBSLfBQ">
+          <img class="thumb" src="https://i.ytimg.com/vi/N9XWjBSLfBQ/hqdefault.jpg" alt="BRAND FILM" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">2025.12 — COMMERCIAL</div>
+            <div class="wc-title">BRAND FILM</div>
+            <div class="wc-sub">Campaign Teaser · 캠페인 티저</div>
+          </div>
+        </article>
+        <article class="work-card" data-video="JMfOA264Tn0">
+          <img class="thumb" src="https://i.ytimg.com/vi/JMfOA264Tn0/hqdefault.jpg" alt="FLUID DYNAMICS" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">2025.12 — EXPERIMENTAL</div>
+            <div class="wc-title">FLUID DYNAMICS</div>
+            <div class="wc-sub">Abstract Motion Graphics · 추상 모션 그래픽</div>
+          </div>
+        </article>
+      </div>
+      <div class="series-head" data-fade>
+        <span class="idx">&#9679;</span><span class="rule"></span>
+        <span class="lab">KHNP &times; AENGDO — 어린이 에너지 교육 시리즈 (납품작 · 2026.03)</span>
+      </div>
+      <div class="works-grid series-grid" data-fade>
+        <article class="work-card" data-drive="1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k&amp;sz=w800" alt="한수원 교육 영상 1화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.01</div>
+          </div>
+        </article>
+        <article class="work-card" data-drive="1oCVM7z9ByHbd61RsIWd_DtN5Ya-glV-X">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1oCVM7z9ByHbd61RsIWd_DtN5Ya-glV-X&amp;sz=w800" alt="한수원 교육 영상 2화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.02</div>
+          </div>
+        </article>
+        <article class="work-card" data-drive="1OmeKei2SqGnEZbQDR4XhA7_KWz8U78xq">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1OmeKei2SqGnEZbQDR4XhA7_KWz8U78xq&amp;sz=w800" alt="한수원 교육 영상 3화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.03</div>
+          </div>
+        </article>
+        <article class="work-card" data-drive="1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB&amp;sz=w800" alt="한수원 교육 영상 4화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.04</div>
+          </div>
+        </article>
+        <article class="work-card" data-drive="1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg">
+          <img class="thumb" src="https://drive.google.com/thumbnail?id=1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg&amp;sz=w800" alt="한수원 교육 영상 5화" loading="lazy" />
+          <div class="wc-grad"></div>
+          <div class="wc-play">&#9654;</div>
+          <div class="wc-info">
+            <div class="wc-date">KHNP — EDUCATIONAL</div>
+            <div class="wc-title">EP.05</div>
+          </div>
+        </article>
+      </div>
+      <div class="audio-row" data-fade>
+        <button class="au-btn" id="au-btn" aria-label="재생">&#9654;</button>
+        <div>
+          <div class="au-title">NOT MY FAULT — 내 잘못이 아니야</div>
+          <div class="au-sub">2025.12 · COMPOSED WITH SUNO AI</div>
+        </div>
+        <div class="au-eq"><i></i><i></i><i></i><i></i><i></i></div>
+        <audio id="au-audio" preload="none" src="assets/music01.mp3"></audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER VI : BUILT TO WORK (web + AI solutions) ===== -->
+  <section id="builds">
+    <div class="sec-inner">
+      <div class="sec-meta" data-fade>
+        <span class="idx">VI</span><span class="rule"></span><span class="lab">Chapter VI — Built to Work</span>
+      </div>
+      <div class="split" style="align-items:start; margin-bottom:7vh;">
+        <h2 class="h-lg">
+          <span class="rv"><span class="ri">BUILT &amp;</span></span>
+          <span class="rv"><span class="ri"><span class="grad-txt">SHIPPED</span></span></span>
+        </h2>
+        <div class="copy" data-fade>
+          <p>
+            웹 경험부터 RAG 챗봇, 생성형 AI 파이프라인까지.
+            <strong>링크를 누르면</strong> 바로 들어가서 확인할 수 있습니다.
+          </p>
+        </div>
+      </div>
+      <div class="web-grid" data-fade>
+        <a class="web-card" href="https://hacker-typer.vercel.app/" target="_blank" rel="noopener">
+          <div class="web-frame">
+            <div class="term-bar"><i></i><i></i><i></i></div>
+            <img src="assets/hacker.jpg" alt="HACKER TYPER 스크린샷" loading="lazy" />
+          </div>
+          <div class="web-meta">
+            <h3>HACKER TYPER</h3>
+            <span class="visit">VISIT SITE &#8599;</span>
+          </div>
+          <p class="web-desc">시네마틱 코딩 시뮬레이션 인터페이스 · 2024.11 · React</p>
+        </a>
+        <a class="web-card" href="https://galaxy-oracle.netlify.app/" target="_blank" rel="noopener">
+          <div class="web-frame">
+            <div class="term-bar"><i></i><i></i><i></i></div>
+            <img src="assets/galaxy.jpg" alt="GALAXY ORACLE 스크린샷" loading="lazy" />
+          </div>
+          <div class="web-meta">
+            <h3>GALAXY ORACLE</h3>
+            <span class="visit">VISIT SITE &#8599;</span>
+          </div>
+          <p class="web-desc">우주 배경의 신비로운 3D 타로 경험 · 2024.09 · Three.js</p>
+        </a>
+        <a class="web-card" href="https://word-game-ochre-psi.vercel.app" target="_blank" rel="noopener">
+          <div class="web-frame">
+            <div class="term-bar"><i></i><i></i><i></i></div>
+            <img src="assets/word.jpg" alt="WORD GAME 스크린샷" loading="lazy" />
+          </div>
+          <div class="web-meta">
+            <h3>WORD GAME</h3>
+            <span class="visit">VISIT SITE &#8599;</span>
+          </div>
+          <p class="web-desc">단어 맞추기 웹 게임 · 2026.06 · JavaScript</p>
+        </a>
+        <a class="web-card" href="https://saju-platform.vercel.app" target="_blank" rel="noopener">
+          <div class="web-frame">
+            <div class="term-bar"><i></i><i></i><i></i></div>
+            <img src="assets/saju.jpg" alt="천명(天命) 사주 플랫폼 스크린샷" loading="lazy" />
+          </div>
+          <div class="web-meta">
+            <h3>SAJU PLATFORM 천명</h3>
+            <span class="visit">VISIT SITE &#8599;</span>
+          </div>
+          <p class="web-desc">명리학 AI 알고리즘 사주 풀이 서비스 · 2026.06</p>
+        </a>
+      </div>
+      <div class="sol-grid" data-fade>
+        <a class="sol-card" href="https://github.com/hyunaeee/hacker-typer" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">WEB DEV</span><span class="arr">&#8599;</span></div>
+          <h3>Brand Immersive Site</h3>
+          <p>Three.js를 활용한 반응형 3D 웹사이트 구축. 브랜드 아이덴티티의 시각화.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/med-rag" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">MEDICAL AI</span><span class="arr">&#8599;</span></div>
+          <h3>Diagnosis Support Agent</h3>
+          <p>유방암 진단 서포트 챗봇 개발. RAG 기반 의료 지식 검색.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/comfy-workflow" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">WORKFLOW</span><span class="arr">&#8599;</span></div>
+          <h3>Generative AI Workflow</h3>
+          <p>ComfyUI 기반 콘텐츠 제작 파이프라인 자동화 설계.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">LEGAL AI</span><span class="arr">&#8599;</span></div>
+          <h3>Legal PDF RAG Chatbot</h3>
+          <p>법률 지식이 부족한 사용자를 위한 Solar LLM 기반 RAG 챗봇.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/ppt-test" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">GENAI APP</span><span class="arr">&#8599;</span></div>
+          <h3>AI PPT Studio</h3>
+          <p>Next.js 기반 AI 프레젠테이션 제작 스튜디오. 아이디어에서 슬라이드까지.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/higgsMCP" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">MCP · AUTOMATION</span><span class="arr">&#8599;</span></div>
+          <h3>AI Influencer Automation</h3>
+          <p>Higgsfield MCP 기반 AI 뷰티 인플루언서 콘텐츠 자동화 + AdCast Studio 웹앱.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/meeting-assistant" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">AGENT</span><span class="arr">&#8599;</span></div>
+          <h3>Meeting Notes Agent</h3>
+          <p>회의 녹음을 회의록으로 변환해 Notion 업로드·이메일 전달까지 하는 에이전트.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/3D_char_sign_lang" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">SOCIAL IMPACT</span><span class="arr">&#8599;</span></div>
+          <h3>Sign-Language Avatar</h3>
+          <p>3D 아바타를 이용한 한국어 &rarr; 수어 실시간 변환.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/PR_semantic_image_segmentation_unet" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">RESEARCH</span><span class="arr">&#8599;</span></div>
+          <h3>Brain MRI Segmentation</h3>
+          <p>U-Net 기반 뇌 영상 세그멘테이션 논문 구현 — 챕터 II의 뇌가 실제 연구로.</p>
+        </a>
+        <a class="sol-card" href="https://github.com/hyunaeee/Report-Summary" target="_blank" rel="noopener">
+          <div class="sol-head"><span class="sol-tag">NLP</span><span class="arr">&#8599;</span></div>
+          <h3>Patent Dispute Summarizer</h3>
+          <p>기업연계 프로젝트 — 특허분쟁 문서 자동 요약 파이프라인.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER VII : THE TOOLS ===== -->
+  <section id="skills">
+    <div class="sec-inner">
+      <div class="sec-meta" data-fade>
+        <span class="idx">VII</span><span class="rule"></span><span class="lab">Chapter VII — The Stack</span>
+      </div>
+      <div class="split" style="align-items:start; margin-bottom:7vh;">
+        <h2 class="h-lg">
+          <span class="rv"><span class="ri">THE</span></span>
+          <span class="rv"><span class="ri"><span class="grad-txt">STACK</span></span></span>
+        </h2>
+        <div class="copy" data-fade>
+          <p>연구의 아이디어부터 화면 속 콘텐츠까지 — 무엇이든 <strong>완성으로</strong> 데려가는 손에 익은 도구들입니다.</p>
+        </div>
+      </div>
+      <div class="skill-rows" data-fade>
+        <div class="skill-row"><span class="no">/01</span><span class="name">Python</span><span class="desc">연구와 프로덕션의 기본기</span></div>
+        <div class="skill-row"><span class="no">/02</span><span class="name">PyTorch</span><span class="desc">신경망 설계와 학습</span></div>
+        <div class="skill-row"><span class="no">/03</span><span class="name">LLM · RAG · Agents</span><span class="desc">언어모델 기반 시스템과 에이전트</span></div>
+        <div class="skill-row"><span class="no">/04</span><span class="name">Generative AI</span><span class="desc">ComfyUI · 영상 · 음악 제작 파이프라인</span></div>
+        <div class="skill-row"><span class="no">/05</span><span class="name">React · Next.js</span><span class="desc">인터랙티브 웹 경험</span></div>
+        <div class="skill-row"><span class="no">/06</span><span class="name">Data Engineering</span><span class="desc">수집 · 정제 · 시각화</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER VIII : THE JOURNEY (activities) ===== -->
+  <section id="journey">
+    <div class="sec-inner">
+      <div class="sec-meta" data-fade>
+        <span class="idx">VIII</span><span class="rule"></span><span class="lab">Chapter VIII — The Journey</span>
+      </div>
+      <div class="split" style="align-items:start; margin-bottom:7vh;">
+        <h2 class="h-lg">
+          <span class="rv"><span class="ri">TRACK</span></span>
+          <span class="rv"><span class="ri"><span class="grad-txt">RECORD</span></span></span>
+        </h2>
+        <div class="copy" data-fade>
+          <p>
+            전시장에서 강의실까지, 스튜디오에서 데이터실까지.
+            기록은 <strong>지금도 늘어나는 중</strong>입니다.
+          </p>
+        </div>
+      </div>
+      <div class="timeline" data-fade>
+        <div class="tl-item">
+          <div class="tl-date">2026.03</div>
+          <div class="tl-title">한수원 어린이 에너지 교육 시리즈 5부작 납품</div>
+          <div class="tl-sub">KHNP Kids Energy Education Series — Final Delivery (EP.01–05)</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2026.01</div>
+          <div class="tl-title">앵두 스튜디오 오픈</div>
+          <div class="tl-sub">Grand Opening of AENG DO Studio — Official Launch</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.12</div>
+          <div class="tl-title">2025 서울콘 'AI 전람회 : Beyond Fluxus, AI Hallyu' 초대 작가</div>
+          <div class="tl-sub">DDP 동대문디자인플라자 — Invited Artist 'Gaeda'</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.12</div>
+          <div class="tl-title">AI 웹툰 · 쇼츠 제작 강의</div>
+          <div class="tl-sub">충남 아산지역 중학교 — Instructor</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.11</div>
+          <div class="tl-title">한국수력원자력 교육용 AI 영상 제작</div>
+          <div class="tl-sub">KHNP — AI Content Creator</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.09</div>
+          <div class="tl-title">NC AI — AI 데이터실</div>
+          <div class="tl-sub">AI Data Processing &amp; Analysis</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2025.07</div>
+          <div class="tl-title">유튜브 채널 'gaebaldaeramz' 개설</div>
+          <div class="tl-sub">Content Creator &amp; AI Art Tutorial</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTERLUDE : BE THE SIGNAL (game) ===== -->
+  <section id="game">
+    <div class="sec-inner">
+      <div class="sec-meta" data-fade>
+        <span class="idx">◆</span><span class="rule"></span><span class="lab">Interlude — Be the Signal</span>
+      </div>
+      <div class="split" style="align-items:start; margin-bottom:6vh;">
+        <h2 class="h-lg">
+          <span class="rv"><span class="ri">PRESS</span></span>
+          <span class="rv"><span class="ri"><span class="grad-txt">START</span></span></span>
+        </h2>
+        <div class="copy" data-fade>
+          <p>
+            뉴런 사이를 달리는 <strong>전기 신호</strong>가 되어
+            시냅스를 모으고, 억제 신호를 피하세요.
+            당신의 뇌가 <em>초당 수백 번</em> 하고 있는 일입니다.
+          </p>
+        </div>
+      </div>
+      <div class="game-frame" id="game-frame" data-fade>
+        <canvas id="game-canvas"></canvas>
+        <div class="g-hud">
+          <span>SCORE <b id="g-score">0</b></span>
+          <span class="combo" id="g-combo"></span>
+          <span>BEST <b id="g-best">0</b></span>
+          <span class="lives" id="g-lives">&hearts; &hearts; &hearts;</span>
+        </div>
+        <div class="g-toast" id="g-toast"></div>
+        <div class="g-overlay" id="g-start">
+          <div class="g-title">SIGNAL RUN</div>
+          <p class="g-desc">당신은 축삭을 따라 달리는 전기 신호입니다.<br />마우스 또는 터치로 움직이세요.</p>
+          <div class="g-keys">
+            <i><span class="c">&#9670; 시냅스</span> = +25</i>
+            <i><span class="p">&#10005; 억제 신호</span> = 라이프 &minus;1</i>
+            <i>속도는 계속 빨라집니다</i>
+          </div>
+          <button class="g-btn" id="g-play">START RUN</button>
+        </div>
+        <div class="g-overlay hidden" id="g-over">
+          <div class="g-title" style="font-size:clamp(26px,3.4vw,44px);">SIGNAL LOST</div>
+          <div class="g-score-big" id="g-final">0</div>
+          <p class="g-desc" id="g-newbest" style="display:none; color:var(--cyan);">&#9733; NEW BEST &#9733;</p>
+          <button class="g-btn" id="g-retry">RETRY</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EPILOGUE ===== -->
+  <section id="contact">
+    <div class="sec-inner">
+      <div class="ch-kicker" data-fade>Epilogue — The Unwritten Chapter</div>
+      <h2 class="h-ch">
+        <span class="rv"><span class="ri">TO BE</span></span>
+        <span class="rv"><span class="ri"><span class="grad-txt">CONTINUED</span></span></span>
+      </h2>
+      <p class="ch-body" data-fade>
+        연구든 프로젝트든 커피챗이든 —<br />
+        <strong>함께 채워주실 분</strong>을 기다립니다.
+      </p>
+      <div data-fade>
+        <a class="mail-link" href="mailto:hyunaeee@gmail.com">hyunaeee@gmail.com</a>
+        <button class="copy-btn" id="copy-mail" title="이메일 복사">COPY</button>
+      </div>
+      <div class="social-row" data-fade>
+        <a href="https://github.com/hyunaeee" target="_blank" rel="noopener">GITHUB</a>
+        <a href="https://velog.io/@hyunaeee/posts" target="_blank" rel="noopener">TECH BLOG</a>
+        <a href="https://instagram.com/gaebal_daeraemz" target="_blank" rel="noopener">INSTAGRAM</a>
+        <a href="https://www.youtube.com/@gaebal_daeraemz" target="_blank" rel="noopener">YOUTUBE</a>
+      </div>
+      <div class="contact-note" data-fade>RESEARCH · PROJECT · COFFEE CHAT — ALWAYS OPEN</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2026 AENGDO</span>
+  <span>MADE WITH A BRAIN, FOR BRAINS</span>
+  <span><a href="classic.html" style="color:inherit;">CLASSIC VER. ↗</a> · FIN.</span>
+</footer>
+
+<!-- ============ libs ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<!-- ============ 3D story scene (module) ============ -->
+<script type="module">
+import * as THREE from "three";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+
+const canvas = document.getElementById("webgl");
+const isMobile = window.innerWidth < 768;
+const COUNT = isMobile ? 9000 : 26000;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: "high-performance" });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x020204, 1);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 120);
+camera.position.set(0, 0, 8.5);
+
+const group = new THREE.Group();
+scene.add(group);
+
+/* ============================================================
+   shape generators — the five acts of the story
+   ============================================================ */
+
+/* Act 0 — the first spark: a tight glowing seed */
+function genSpark(n) {
+  const arr = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    const shellish = Math.random();
+    let r;
+    if (shellish < 0.82) {
+      // dense core
+      r = Math.pow(Math.random(), 2.2) * 0.55;
+    } else {
+      // faint halo of anticipation
+      r = 1.6 + Math.random() * 2.2;
+    }
+    const t = Math.random() * Math.PI * 2;
+    const p = Math.acos(2 * Math.random() - 1);
+    arr[i * 3] = Math.sin(p) * Math.cos(t) * r;
+    arr[i * 3 + 1] = Math.sin(p) * Math.sin(t) * r;
+    arr[i * 3 + 2] = Math.cos(p) * r;
+  }
+  return arr;
+}
+
+/* Act 1 — a single neuron: soma + dendrites + axon, grown procedurally */
+function genNeuron(n) {
+  const skeleton = []; // {x,y,z,w}
+  const somaC = new THREE.Vector3(0, 0.9, 0);
+
+  function grow(origin, dir, len, width, depth) {
+    let p = origin.clone();
+    const d = dir.clone().normalize();
+    const steps = Math.max(3, Math.floor(len / 0.11));
+    for (let s = 0; s < steps; s++) {
+      p = p.clone().addScaledVector(d, 0.11);
+      d.x += (Math.random() - 0.5) * 0.3;
+      d.y += (Math.random() - 0.5) * 0.3;
+      d.z += (Math.random() - 0.5) * 0.3;
+      d.normalize();
+      skeleton.push({ p: p.clone(), w: width });
+      if (depth > 0 && Math.random() < 0.055 && skeleton.length < 4000) {
+        const bd = d.clone();
+        bd.x += (Math.random() - 0.5) * 1.4;
+        bd.y += (Math.random() - 0.5) * 1.4;
+        bd.z += (Math.random() - 0.5) * 1.4;
+        grow(p, bd, len * 0.55, width * 0.75, depth - 1);
+      }
+    }
+    return p; // where this branch actually ended up
+  }
+
+  // dendrites reach upward and outward
+  for (let b = 0; b < 8; b++) {
+    const a = (b / 8) * Math.PI * 2 + Math.random() * 0.5;
+    const dir = new THREE.Vector3(Math.cos(a) * 0.8, 0.75 + Math.random() * 0.5, Math.sin(a) * 0.8);
+    grow(somaC, dir, 1.7 + Math.random() * 0.9, 0.06, 2);
+  }
+  // one long axon dives down, then branches into terminals from its
+  // ACTUAL endpoint (the walk wanders, so a fixed anchor would leave
+  // the terminal tuft floating disconnected)
+  const axonEnd = grow(somaC, new THREE.Vector3(0.06, -1, 0.02), 3.1, 0.05, 0);
+  for (let b = 0; b < 5; b++) {
+    const dir = new THREE.Vector3((Math.random() - 0.5) * 1.6, -0.6, (Math.random() - 0.5) * 1.6);
+    grow(axonEnd, dir, 0.9, 0.04, 1);
+  }
+
+  const arr = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    if (i < n * 0.22 || skeleton.length === 0) {
+      // soma cloud
+      const r = Math.pow(Math.random(), 0.8) * 0.5;
+      const t = Math.random() * Math.PI * 2;
+      const p = Math.acos(2 * Math.random() - 1);
+      arr[i * 3] = somaC.x + Math.sin(p) * Math.cos(t) * r;
+      arr[i * 3 + 1] = somaC.y + Math.sin(p) * Math.sin(t) * r * 0.9;
+      arr[i * 3 + 2] = somaC.z + Math.cos(p) * r;
+    } else {
+      const s = skeleton[(Math.random() * skeleton.length) | 0];
+      arr[i * 3] = s.p.x + (Math.random() - 0.5) * s.w * 3;
+      arr[i * 3 + 1] = s.p.y + (Math.random() - 0.5) * s.w * 3;
+      arr[i * 3 + 2] = s.p.z + (Math.random() - 0.5) * s.w * 3;
+    }
+  }
+  // center & scale to frame
+  for (let i = 0; i < n; i++) {
+    arr[i * 3] *= 0.92;
+    arr[i * 3 + 1] = (arr[i * 3 + 1] + 0.9) * 0.92;
+    arr[i * 3 + 2] *= 0.92;
+  }
+  return arr;
+}
+
+/* Act 2 — the brain. Gyri are grown as winding cords over a sphere
+   (random tangent walks); particles cluster along those cords, so the
+   bright folded ridges and dark grooves between them are geometric,
+   not just a density hint — it reads as cortex even under bloom. */
+function genBrain(n) {
+  const arr = new Float32Array(n * 3);
+  const TAU = Math.PI * 2;
+
+  // grow winding gyri cords on the unit sphere — coverage is tuned to
+  // ~40% per shell layer so the sulci stay dark under additive blending
+  const gyri = [];
+  const CURVES = 34;
+  for (let c = 0; c < CURVES; c++) {
+    const p = new THREE.Vector3().randomDirection();
+    const d = new THREE.Vector3().randomDirection();
+    d.addScaledVector(p, -d.dot(p)).normalize();
+    const steps = 38 + ((Math.random() * 26) | 0);
+    for (let s = 0; s < steps; s++) {
+      p.addScaledVector(d, 0.05).normalize();
+      d.addScaledVector(p, -d.dot(p)).normalize();
+      d.applyAxisAngle(p, (Math.random() - 0.5) * 0.75);
+      gyri.push(p.clone());
+    }
+  }
+
+  for (let i = 0; i < n; i++) {
+    const kind = Math.random();
+    let px, py, pz;
+
+    if (kind < 0.86) {
+      /* --- cerebrum: particles hug the winding gyri cords --- */
+      let x, y, z;
+      {
+        const g = gyri[(Math.random() * gyri.length) | 0];
+        x = g.x + (Math.random() - 0.5) * 0.05;
+        y = g.y + (Math.random() - 0.5) * 0.05;
+        z = g.z + (Math.random() - 0.5) * 0.05;
+        const inv = 1 / Math.sqrt(x * x + y * y + z * z);
+        const shell = 1.0 + (Math.random() - 0.25) * 0.09; // ridges bulge outward
+        x *= inv * shell; y *= inv * shell; z *= inv * shell;
+      }
+
+      // fold into a half-width hemisphere + clean longitudinal fissure
+      x = Math.abs(x) * 0.60 + 0.05;
+      // proportions (front = +z)
+      y *= 0.82; z *= 1.10;
+      // frontal taper
+      if (z > 0) {
+        x *= Math.max(0.6, 1 - z * 0.16);
+        y *= Math.max(0.78, 1 - z * 0.08);
+      }
+      // occipital rounding (back)
+      if (z < -0.6) y *= Math.max(0.8, 1 + (z + 0.6) * 0.2);
+      // temporal lobe bulge on the lower sides
+      if (y < -0.05 && z > -0.45 && z < 0.55) x *= 1.12;
+      // gentle base flattening above the cerebellum
+      if (y < -0.64) y = -0.64 - (y + 0.64) * 0.5;
+
+      const hemi = Math.random() < 0.5 ? 1 : -1;
+      px = x * hemi;
+      py = y + 0.22;
+      pz = z;
+
+    } else if (kind < 0.955) {
+      /* --- cerebellum: finely striped twin lobes at the lower back --- */
+      const hemi = Math.random() < 0.5 ? 1 : -1;
+      let x, y, z, stripe = 0, tries = 0;
+      do {
+        const t = Math.random() * TAU;
+        const p = Math.acos(2 * Math.random() - 1);
+        x = Math.sin(p) * Math.cos(t);
+        y = Math.cos(p);
+        z = Math.sin(p) * Math.sin(t);
+        stripe = Math.sin(y * 22 + z * 2.5);
+        tries++;
+      } while (tries < 6 && Math.random() > 0.2 + 0.8 * Math.pow(0.5 + 0.5 * stripe, 1.8));
+      const shell = 0.85 + 0.15 * Math.random();
+      px = hemi * (Math.abs(x) * 0.30 * shell + 0.03);
+      py = y * 0.26 * shell - 0.50;
+      pz = z * 0.36 * shell - 0.88;
+
+    } else {
+      /* --- brainstem: a short stalk angling down and forward --- */
+      const tt = Math.random();
+      const ang = Math.random() * TAU;
+      const rad = (0.13 - tt * 0.035) * Math.sqrt(Math.random());
+      px = Math.cos(ang) * rad;
+      py = -0.40 - tt * 0.55;
+      pz = -0.42 - tt * 0.22 + Math.sin(ang) * rad;
+    }
+
+    const s = 1.62;
+    arr[i * 3] = px * s;
+    arr[i * 3 + 1] = py * s;
+    arr[i * 3 + 2] = pz * s;
+  }
+  return arr;
+}
+
+/* Act 3 — the second language: a lattice of computation */
+function genLattice(n) {
+  const arr = new Float32Array(n * 3);
+  const S = 3.6, DIV = 5;
+  const grid = [];
+  for (let g = 0; g <= DIV; g++) grid.push(-S / 2 + (S * g) / DIV);
+  for (let i = 0; i < n; i++) {
+    const axis = i % 3;
+    const free = (Math.random() - 0.5) * S;
+    const a = grid[(Math.random() * grid.length) | 0];
+    const b = grid[(Math.random() * grid.length) | 0];
+    let x, y, z;
+    if (axis === 0) { x = free; y = a; z = b; }
+    else if (axis === 1) { x = a; y = free; z = b; }
+    else { x = a; y = b; z = free; }
+    arr[i * 3] = x + (Math.random() - 0.5) * 0.02;
+    arr[i * 3 + 1] = y + (Math.random() - 0.5) * 0.02;
+    arr[i * 3 + 2] = z + (Math.random() - 0.5) * 0.02;
+  }
+  return arr;
+}
+
+/* Act 4 — collision: a newborn galaxy of intelligence */
+function genGalaxy(n) {
+  const arr = new Float32Array(n * 3);
+  const BRANCHES = 4, SPIN = 1.25, RAND_POW = 3, RAND = 0.42;
+  for (let i = 0; i < n; i++) {
+    if (i < n * 0.08) {
+      const r = Math.pow(Math.random(), 2) * 0.5;
+      const t = Math.random() * Math.PI * 2;
+      const p = Math.acos(2 * Math.random() - 1);
+      arr[i * 3] = Math.sin(p) * Math.cos(t) * r;
+      arr[i * 3 + 1] = Math.cos(p) * r * 0.6;
+      arr[i * 3 + 2] = Math.sin(p) * Math.sin(t) * r;
+      continue;
+    }
+    const radius = Math.pow(Math.random(), 0.65) * 2.9;
+    const branch = ((i % BRANCHES) / BRANCHES) * Math.PI * 2;
+    const angle = branch + radius * SPIN;
+    const rx = Math.pow(Math.random(), RAND_POW) * (Math.random() < 0.5 ? 1 : -1) * RAND * radius * 0.6;
+    const ry = Math.pow(Math.random(), RAND_POW) * (Math.random() < 0.5 ? 1 : -1) * RAND * radius * 0.25;
+    const rz = Math.pow(Math.random(), RAND_POW) * (Math.random() < 0.5 ? 1 : -1) * RAND * radius * 0.6;
+    arr[i * 3] = Math.cos(angle) * radius + rx;
+    arr[i * 3 + 1] = ry;
+    arr[i * 3 + 2] = Math.sin(angle) * radius + rz;
+  }
+  return arr;
+}
+
+/* ============================================================
+   particle system with 5-way morph shader
+   ============================================================ */
+const geo = new THREE.BufferGeometry();
+geo.setAttribute("position", new THREE.BufferAttribute(genSpark(COUNT), 3));
+geo.setAttribute("aS0", new THREE.BufferAttribute(genSpark(COUNT), 3));
+geo.setAttribute("aS1", new THREE.BufferAttribute(genNeuron(COUNT), 3));
+geo.setAttribute("aS2", new THREE.BufferAttribute(genBrain(COUNT), 3));
+geo.setAttribute("aS3", new THREE.BufferAttribute(genLattice(COUNT), 3));
+geo.setAttribute("aS4", new THREE.BufferAttribute(genGalaxy(COUNT), 3));
+const rand = new Float32Array(COUNT);
+for (let i = 0; i < COUNT; i++) rand[i] = Math.random();
+geo.setAttribute("aRand", new THREE.BufferAttribute(rand, 1));
+
+const uniforms = {
+  uTime: { value: 0 },
+  uMorph: { value: 0 },   // 0 spark → 1 neuron → 2 brain → 3 lattice → 4 galaxy
+  uIntro: { value: 0 },
+  uSize: { value: isMobile ? 26.0 : 20.0 },
+  uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+  uColA: { value: new THREE.Color(0xb4b9cc) }, // silver
+  uColB: { value: new THREE.Color(0xd9e4f0) }, // ice white
+  uColC: { value: new THREE.Color(0xffc37a) }, // champagne gold (galaxy)
+  uPointer: { value: new THREE.Vector3(999, 999, 999) }, // cursor in group-local space
+  uPtrStr: { value: 0 },
+};
+
+const NOISE = /* glsl */ `
+vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
+vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}
+vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);}
+vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}
+float snoise(vec3 v){
+  const vec2 C=vec2(1.0/6.0,1.0/3.0);
+  const vec4 D=vec4(0.0,0.5,1.0,2.0);
+  vec3 i=floor(v+dot(v,C.yyy));
+  vec3 x0=v-i+dot(i,C.xxx);
+  vec3 g=step(x0.yzx,x0.xyz);
+  vec3 l=1.0-g;
+  vec3 i1=min(g.xyz,l.zxy);
+  vec3 i2=max(g.xyz,l.zxy);
+  vec3 x1=x0-i1+C.xxx;
+  vec3 x2=x0-i2+C.yyy;
+  vec3 x3=x0-D.yyy;
+  i=mod289(i);
+  vec4 p=permute(permute(permute(i.z+vec4(0.0,i1.z,i2.z,1.0))+i.y+vec4(0.0,i1.y,i2.y,1.0))+i.x+vec4(0.0,i1.x,i2.x,1.0));
+  float n_=0.142857142857;
+  vec3 ns=n_*D.wyz-D.xzx;
+  vec4 j=p-49.0*floor(p*ns.z*ns.z);
+  vec4 x_=floor(j*ns.z);
+  vec4 y_=floor(j-7.0*x_);
+  vec4 x=x_*ns.x+ns.yyyy;
+  vec4 y=y_*ns.x+ns.yyyy;
+  vec4 h=1.0-abs(x)-abs(y);
+  vec4 b0=vec4(x.xy,y.xy);
+  vec4 b1=vec4(x.zw,y.zw);
+  vec4 s0=floor(b0)*2.0+1.0;
+  vec4 s1=floor(b1)*2.0+1.0;
+  vec4 sh=-step(h,vec4(0.0));
+  vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;
+  vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+  vec3 p0=vec3(a0.xy,h.x);
+  vec3 p1=vec3(a0.zw,h.y);
+  vec3 p2=vec3(a1.xy,h.z);
+  vec3 p3=vec3(a1.zw,h.w);
+  vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));
+  p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;
+  vec4 m=max(0.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.0);
+  m=m*m;
+  return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
+}
+`;
+
+const mat = new THREE.ShaderMaterial({
+  uniforms,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+  vertexShader: NOISE + /* glsl */ `
+    attribute vec3 aS0;
+    attribute vec3 aS1;
+    attribute vec3 aS2;
+    attribute vec3 aS3;
+    attribute vec3 aS4;
+    attribute float aRand;
+    uniform float uTime;
+    uniform float uMorph;
+    uniform float uIntro;
+    uniform float uSize;
+    uniform float uPixelRatio;
+    uniform vec3 uPointer;
+    uniform float uPtrStr;
+    varying float vRand;
+    varying float vShape;
+    varying float vAlpha;
+
+    float seg(float m, float k) {
+      return smoothstep(0.0, 1.0, clamp(m - k, 0.0, 1.0));
+    }
+
+    void main() {
+      vRand = aRand;
+
+      float s1 = seg(uMorph, 0.0);
+      float s2 = seg(uMorph, 1.0);
+      float s3 = seg(uMorph, 2.0);
+      float s4 = seg(uMorph, 3.0);
+      vShape = s1 + s2 + s3 + s4;
+
+      vec3 p = aS0;
+      p = mix(p, aS1, s1);
+      p = mix(p, aS2, s2);
+      p = mix(p, aS3, s3);
+      p = mix(p, aS4, s4);
+
+      // turbulence peaks in the middle of every transition
+      float act = sin(s1 * 3.14159) + sin(s2 * 3.14159) + sin(s3 * 3.14159) + sin(s4 * 3.14159);
+      vec3 curl = vec3(
+        snoise(p * 0.8 + vec3(0.0, uTime * 0.18, 0.0)),
+        snoise(p * 0.8 + vec3(31.4, uTime * 0.18, 12.3)),
+        snoise(p * 0.8 + vec3(-17.2, uTime * 0.18, 51.7))
+      );
+      p += curl * act * (0.55 + aRand * 0.35);
+
+      // idle organic drift (kept subtle so fine structures like gyri stay crisp)
+      p += curl * 0.026;
+
+      // cursor repulsion: particles flow away from the pointer like water
+      vec3 away = p - uPointer;
+      float pd = length(away);
+      float push = smoothstep(1.5, 0.0, pd) * uPtrStr;
+      p += normalize(away + vec3(0.0001)) * push * (0.45 + aRand * 0.3);
+
+      // spark heartbeat while in act 0
+      float sparkness = 1.0 - clamp(vShape, 0.0, 1.0);
+      p *= 1.0 + sparkness * sin(uTime * 2.2 + aRand * 6.28) * 0.06;
+
+      // intro: particles converge out of the void
+      float ir = 1.0 - uIntro;
+      vec3 dir = normalize(p + vec3(0.0001, 0.0002, 0.0001));
+      p += dir * (2.5 + aRand * 9.0) * ir * ir;
+      p += vec3(
+        sin(aRand * 78.233),
+        cos(aRand * 43.71),
+        sin(aRand * 12.9898)
+      ) * 3.0 * ir;
+
+      vec4 mv = modelViewMatrix * vec4(p, 1.0);
+      gl_Position = projectionMatrix * mv;
+
+      float sizeShape = mix(1.0, 0.75, s4);        // galaxy: finer dust
+      sizeShape *= 1.0 + sparkness * 0.35;         // spark: chunky embers
+      gl_PointSize = uSize * sizeShape * (0.35 + aRand * 0.9) * uPixelRatio / max(0.1, -mv.z);
+
+      vAlpha = mix(0.25, 1.0, uIntro);
+      vAlpha *= mix(0.5, 1.0, clamp(vShape, 0.0, 1.0)); // keep the dense spark from blowing out
+    }
+  `,
+  fragmentShader: /* glsl */ `
+    uniform vec3 uColA; // violet
+    uniform vec3 uColB; // cyan
+    uniform vec3 uColC; // pink
+    varying float vRand;
+    varying float vShape;
+    varying float vAlpha;
+
+    void main() {
+      vec2 uv = gl_PointCoord - 0.5;
+      float d = length(uv);
+      if (d > 0.5) discard;
+      float a = smoothstep(0.5, 0.03, d);
+
+      // story palette: white spark → cyan neuron → violet brain → cyan code → pink galaxy
+      vec3 col;
+      if (vShape < 1.0)      col = mix(vec3(0.98, 0.95, 0.9), uColB, vShape);
+      else if (vShape < 2.0) col = mix(uColB, uColA, vShape - 1.0);
+      else if (vShape < 3.0) col = mix(uColA, uColB, vShape - 2.0);
+      else                   col = mix(uColB, uColC, vShape - 3.0);
+
+      col = mix(col, uColA, vRand * 0.3);
+      col += vec3(1.0) * pow(max(0.0, 1.0 - d * 2.6), 3.0) * 0.85;
+
+      gl_FragColor = vec4(col, a * vAlpha * (0.55 + vRand * 0.45));
+    }
+  `,
+});
+
+group.add(new THREE.Points(geo, mat));
+
+/* ---------- distant stars ---------- */
+{
+  const N = 1600;
+  const sp = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    const r = 18 + Math.random() * 45;
+    const t = Math.random() * Math.PI * 2;
+    const ph = Math.acos(2 * Math.random() - 1);
+    sp[i * 3] = Math.sin(ph) * Math.cos(t) * r;
+    sp[i * 3 + 1] = Math.sin(ph) * Math.sin(t) * r;
+    sp[i * 3 + 2] = Math.cos(ph) * r;
+  }
+  const sg = new THREE.BufferGeometry();
+  sg.setAttribute("position", new THREE.BufferAttribute(sp, 3));
+  scene.add(new THREE.Points(sg, new THREE.PointsMaterial({
+    size: 0.06, color: 0xa8adbe, transparent: true, opacity: 0.4,
+    depthWrite: false, blending: THREE.AdditiveBlending,
+  })));
+}
+
+/* ---------- soft nebula clouds for cinematic depth ---------- */
+{
+  function nebulaTex(hex) {
+    const c = document.createElement("canvas");
+    c.width = c.height = 128;
+    const g = c.getContext("2d");
+    const col = new THREE.Color(hex);
+    const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+    gr.addColorStop(0, `rgba(${(col.r * 255) | 0},${(col.g * 255) | 0},${(col.b * 255) | 0},0.85)`);
+    gr.addColorStop(0.5, `rgba(${(col.r * 255) | 0},${(col.g * 255) | 0},${(col.b * 255) | 0},0.25)`);
+    gr.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = gr;
+    g.fillRect(0, 0, 128, 128);
+    return new THREE.CanvasTexture(c);
+  }
+  // very faint — bloom (threshold 0) amplifies anything additive
+  const NEB = [0x8b93b0, 0xb99e6f, 0x6a7290, 0x8b93b0];
+  NEB.forEach((hex, i) => {
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: nebulaTex(hex),
+      transparent: true,
+      opacity: 0.018 + (i % 2) * 0.008,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    }));
+    const a = (i / NEB.length) * Math.PI * 2 + 0.7;
+    const r = 8 + (i % 3) * 4;
+    // always far behind the subject — never between camera and particles
+    sp.position.set(Math.cos(a) * r, (i % 2 ? 1 : -1) * (3 + i), -22 - (i % 3) * 6);
+    sp.scale.setScalar(10 + (i % 3) * 4);
+    scene.add(sp);
+  });
+}
+
+/* ---------- occasional shooting stars ---------- */
+const shooters = [];
+for (let i = 0; i < 3; i++) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(6), 3));
+  const line = new THREE.Line(g, new THREE.LineBasicMaterial({
+    color: 0xcfe8ff, transparent: true, opacity: 0,
+    blending: THREE.AdditiveBlending, depthWrite: false,
+  }));
+  scene.add(line);
+  shooters.push({ line, active: false, t: 0, pos: new THREE.Vector3(), vel: new THREE.Vector3() });
+}
+let shootTimer = 4;
+function spawnShoot() {
+  const s = shooters.find((x) => !x.active);
+  if (!s) return;
+  s.active = true;
+  s.t = 0;
+  s.pos.set((Math.random() - 0.5) * 34, 8 + Math.random() * 7, -14 - Math.random() * 10);
+  s.vel.set(-(7 + Math.random() * 9) * (Math.random() < 0.5 ? 1 : -1), -(4 + Math.random() * 3), 0);
+}
+
+/* ---------- bloom ---------- */
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  isMobile ? 0.7 : 1.0, 0.5, 0.0
+);
+composer.addPass(bloom);
+
+let maxDPR = 2; // lowered automatically if the device can't keep up
+function resize() {
+  const w = window.innerWidth, h = window.innerHeight;
+  const pr = Math.min(window.devicePixelRatio, maxDPR);
+  renderer.setPixelRatio(pr);
+  renderer.setSize(w, h, false);
+  composer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  uniforms.uPixelRatio.value = pr;
+}
+window.addEventListener("resize", resize);
+resize();
+
+/* ---------- pointer parallax ---------- */
+const ptr = { x: 0, y: 0, tx: 0, ty: 0 };
+let lastPtrMove = -1e9;
+window.addEventListener("pointermove", (e) => {
+  ptr.tx = (e.clientX / window.innerWidth) * 2 - 1;
+  ptr.ty = (e.clientY / window.innerHeight) * 2 - 1;
+  lastPtrMove = performance.now();
+});
+
+/* ---------- scroll choreography: deterministic keyframes ----------
+   Each act's values are fully reached by the time its section top hits
+   22% of the viewport; between acts, values hold. Computed directly
+   from scrollY every frame — no tween state, no race conditions. */
+const BASE_BLOOM = isMobile ? 0.62 : 0.88;
+const BASE = { morph: 0, camZ: 8.5, rotX: 0, rotY: 0, posY: 0, bloom: BASE_BLOOM, bgR: 0.008, bgG: 0.008, bgB: 0.016 };
+const view = { ...BASE };
+
+// per-chapter color grade — analogous blue-violet family, kept subtle
+const ACTS = [
+  ["#ch1",     { morph: 1, camZ: 7.6,  rotY: 1.1, rotX: 0,     posY: 0,     bloom: BASE_BLOOM, bgR: 0.008, bgG: 0.012, bgB: 0.020 }], // neutral blue-grey
+  ["#ch2",     { morph: 2, camZ: 6.4,  rotY: 2.2, rotX: 0,     posY: 0.1,   bloom: BASE_BLOOM, bgR: 0.012, bgG: 0.012, bgB: 0.022 }],
+  ["#ch3",     { morph: 3, camZ: 8.4,  rotY: 3.3, rotX: 0.35,  posY: 0,     bloom: 1.02,       bgR: 0.008, bgG: 0.014, bgB: 0.022 }],
+  ["#ch4",     { morph: 4, camZ: 9.6,  rotY: 4.5, rotX: -0.5,  posY: 0,     bloom: 1.12,       bgR: 0.011, bgG: 0.010, bgB: 0.012 }], // neutral — let the gold particles carry the color
+  ["#works",   { morph: 4, camZ: 11.5, rotY: 4.8, rotX: -0.35, posY: 0.2,   bloom: 0.92,       bgR: 0.012, bgG: 0.008, bgB: 0.014 }],
+  ["#builds",  { morph: 4, camZ: 10.5, rotY: 5.1, rotX: -0.3,  posY: 0.1,   bloom: 0.92,       bgR: 0.008, bgG: 0.010, bgB: 0.018 }],
+  ["#skills",  { morph: 4, camZ: 8.6,  rotY: 5.4, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.012, bgG: 0.008, bgB: 0.016 }],
+  ["#journey", { morph: 4, camZ: 10.2, rotY: 5.7, rotX: -0.35, posY: 0.15,  bloom: 0.96,       bgR: 0.010, bgG: 0.008, bgB: 0.016 }],
+  ["#game",    { morph: 4, camZ: 10.6, rotY: 6.0, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.008, bgG: 0.010, bgB: 0.018 }],
+  ["#contact", { morph: 4, camZ: 13.0, rotY: 6.5, rotX: -0.72, posY: -0.35, bloom: 1.15,       bgR: 0.010, bgG: 0.008, bgB: 0.011 }],
+];
+let acts = [];
+function computeActs() {
+  const vh = window.innerHeight;
+  acts = ACTS.map(([sel, v]) => {
+    const el = document.querySelector(sel);
+    const top = el ? el.offsetTop : 0;
+    return { start: top - vh, end: top - vh * 0.22, v };
+  });
+}
+computeActs();
+window.addEventListener("resize", computeActs);
+window.addEventListener("load", computeActs);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(computeActs);
+
+function smooth01(x) {
+  x = Math.min(1, Math.max(0, x));
+  return x * x * (3 - 2 * x);
+}
+function targetView() {
+  const y = window.scrollY;
+  const out = { ...BASE };
+  for (const a of acts) {
+    const t = smooth01((y - a.start) / Math.max(1, a.end - a.start));
+    if (t <= 0) break; // acts are in document order; nothing later applies
+    for (const k in a.v) out[k] += (a.v[k] - out[k]) * t;
+  }
+  return out;
+}
+
+/* ---------- render loop ---------- */
+const clock = new THREE.Clock();
+let autoRot = 0;
+const clearCol = new THREE.Color();
+const ptrNdc = new THREE.Vector3();
+const ptrWorld = new THREE.Vector3();
+let fpsFrames = 0, fpsTime = 0;
+function tick() {
+  const dt = Math.min(clock.getDelta(), 0.05);
+  const t = clock.elapsedTime;
+
+  // damp view toward the scroll-derived target (replaces gsap scrub)
+  const tv = targetView();
+  const damp = Math.min(1, dt * 3.2);
+  for (const k in tv) view[k] += (tv[k] - view[k]) * damp;
+
+  uniforms.uTime.value = t;
+  uniforms.uMorph.value = view.morph;
+  bloom.strength = view.bloom;
+
+  // chapter color grade — values are authored in sRGB; without the explicit
+  // color space, setRGB treats them as linear and the bloom pass turns the
+  // whole background into a bright haze
+  clearCol.setRGB(view.bgR, view.bgG, view.bgB, THREE.SRGBColorSpace);
+  renderer.setClearColor(clearCol, 1);
+
+  ptr.x += (ptr.tx - ptr.x) * 0.04;
+  ptr.y += (ptr.ty - ptr.y) * 0.04;
+
+  // cursor → group-local point on the z=0 plane, for particle repulsion
+  const wantPtr = !isMobile && performance.now() - lastPtrMove < 1600 && uniforms.uIntro.value > 0.8 ? 1 : 0;
+  uniforms.uPtrStr.value += (wantPtr - uniforms.uPtrStr.value) * Math.min(1, dt * 4);
+  if (uniforms.uPtrStr.value > 0.01) {
+    ptrNdc.set(ptr.tx, -ptr.ty, 0.5).unproject(camera);
+    ptrNdc.sub(camera.position).normalize();
+    const tt = (0 - camera.position.z) / (ptrNdc.z || -1);
+    ptrWorld.copy(camera.position).addScaledVector(ptrNdc, tt);
+    group.updateMatrixWorld();
+    uniforms.uPointer.value.copy(group.worldToLocal(ptrWorld));
+  }
+
+  // shooting stars
+  shootTimer -= dt;
+  if (shootTimer <= 0) { spawnShoot(); shootTimer = 5 + Math.random() * 7; }
+  for (const s of shooters) {
+    if (!s.active) continue;
+    s.t += dt;
+    s.pos.addScaledVector(s.vel, dt);
+    const a = s.line.geometry.getAttribute("position");
+    a.setXYZ(0, s.pos.x, s.pos.y, s.pos.z);
+    a.setXYZ(1, s.pos.x - s.vel.x * 0.16, s.pos.y - s.vel.y * 0.16, s.pos.z);
+    a.needsUpdate = true;
+    s.line.material.opacity = Math.sin(Math.min(1, s.t / 1.3) * 3.14159) * 0.75;
+    if (s.t > 1.3) { s.active = false; s.line.material.opacity = 0; }
+  }
+
+  // adaptive quality: drop pixel ratio if the device can't hold the frame rate
+  fpsFrames++; fpsTime += dt;
+  if (fpsTime >= 4) {
+    const fps = fpsFrames / fpsTime;
+    fpsFrames = 0; fpsTime = 0;
+    if (fps < 32 && maxDPR > 1) {
+      maxDPR = maxDPR > 1.4 ? 1.4 : 1;
+      resize();
+    }
+  }
+
+  const galaxySpin = Math.max(0, view.morph - 3);
+  autoRot += dt * (0.06 + galaxySpin * 0.22);
+
+  group.rotation.y = autoRot + view.rotY + ptr.x * 0.25;
+  group.rotation.x = view.rotX + ptr.y * 0.15 + Math.sin(t * 0.4) * 0.03;
+  group.position.y = view.posY;
+
+  camera.position.x = ptr.x * 0.5;
+  camera.position.y = -ptr.y * 0.35;
+  camera.position.z = view.camZ;
+  camera.lookAt(0, view.posY * 0.5, 0);
+
+  if (!window.__gameActive) composer.render(); // freeze bg while the game runs
+  requestAnimationFrame(tick);
+}
+tick();
+
+/* ---------- intro handshake ---------- */
+function enter() {
+  if (window.gsap) gsap.to(uniforms.uIntro, { value: 1, duration: 2.8, ease: "power3.out" });
+  else uniforms.uIntro.value = 1;
+}
+if (window.__siteEntered) enter();
+else window.addEventListener("site:enter", enter, { once: true });
+
+window.__sceneReady = true;
+window.__u = uniforms; // debug handle
+window.dispatchEvent(new Event("scene:ready"));
+
+/* ============================================================
+   SIGNAL RUN — 3D mini game
+   ============================================================ */
+(function initGame() {
+  const frame = document.getElementById("game-frame");
+  const gCanvas = document.getElementById("game-canvas");
+  if (!frame || !gCanvas) return;
+
+  const gRenderer = new THREE.WebGLRenderer({ canvas: gCanvas, antialias: true, powerPreference: "high-performance" });
+  gRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  gRenderer.setClearColor(0x020208, 1);
+
+  const gScene = new THREE.Scene();
+  gScene.fog = new THREE.FogExp2(0x020208, 0.026);
+  const gCam = new THREE.PerspectiveCamera(72, 16 / 9, 0.1, 200);
+  gCam.position.set(0, 0, 6);
+
+  const gComposer = new EffectComposer(gRenderer);
+  gComposer.addPass(new RenderPass(gScene, gCam));
+  gComposer.addPass(new UnrealBloomPass(new THREE.Vector2(960, 540), isMobile ? 0.8 : 1.1, 0.5, 0));
+
+  const R = 3.3;
+  const PLAY_R = R - 0.85;
+
+  /* tunnel rings */
+  const ringPts = [];
+  for (let i = 0; i <= 48; i++) {
+    const a = (i / 48) * Math.PI * 2;
+    ringPts.push(new THREE.Vector3(Math.cos(a) * R, Math.sin(a) * R, 0));
+  }
+  const ringGeo = new THREE.BufferGeometry().setFromPoints(ringPts);
+  const RINGS = 26, RING_GAP = 4.2;
+  const rings = [];
+  for (let i = 0; i < RINGS; i++) {
+    const ring = new THREE.Line(ringGeo, new THREE.LineBasicMaterial({
+      color: i % 4 === 0 ? 0xff4655 : 0x8e96ac,
+      transparent: true, opacity: 0.3,
+      blending: THREE.AdditiveBlending,
+    }));
+    ring.position.z = -i * RING_GAP;
+    ring.rotation.z = Math.random() * Math.PI;
+    gScene.add(ring);
+    rings.push(ring);
+  }
+
+  /* wall dust */
+  const DUST = 450;
+  const dustArr = new Float32Array(DUST * 3);
+  for (let i = 0; i < DUST; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const rr = R * (0.9 + Math.random() * 0.12);
+    dustArr[i * 3] = Math.cos(a) * rr;
+    dustArr[i * 3 + 1] = Math.sin(a) * rr;
+    dustArr[i * 3 + 2] = -Math.random() * 110 + 6;
+  }
+  const dustGeo = new THREE.BufferGeometry();
+  dustGeo.setAttribute("position", new THREE.BufferAttribute(dustArr, 3));
+  gScene.add(new THREE.Points(dustGeo, new THREE.PointsMaterial({
+    size: 0.06, color: 0xaab0c2, transparent: true, opacity: 0.65,
+    depthWrite: false, blending: THREE.AdditiveBlending,
+  })));
+  const dustAttr = dustGeo.getAttribute("position");
+
+  /* player */
+  function glowTexture(inner, outer) {
+    const c = document.createElement("canvas");
+    c.width = c.height = 128;
+    const g = c.getContext("2d");
+    const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+    gr.addColorStop(0, inner);
+    gr.addColorStop(0.3, outer);
+    gr.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = gr;
+    g.fillRect(0, 0, 128, 128);
+    return new THREE.CanvasTexture(c);
+  }
+  const player = new THREE.Group();
+  const core = new THREE.Mesh(
+    new THREE.SphereGeometry(0.3, 24, 24),
+    new THREE.MeshBasicMaterial({ color: 0xbfefff })
+  );
+  const glow = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: glowTexture("rgba(255,255,255,1)", "rgba(214,228,242,0.75)"),
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+  }));
+  glow.scale.setScalar(2.4);
+  player.add(core, glow);
+  gScene.add(player);
+
+  /* comet trail */
+  const TRAIL = 16;
+  const trailPos = new Float32Array(TRAIL * 3);
+  const trailCol = new Float32Array(TRAIL * 3);
+  const trailGeo = new THREE.BufferGeometry();
+  trailGeo.setAttribute("position", new THREE.BufferAttribute(trailPos, 3));
+  trailGeo.setAttribute("color", new THREE.BufferAttribute(trailCol, 3));
+  gScene.add(new THREE.Line(trailGeo, new THREE.LineBasicMaterial({
+    vertexColors: true, transparent: true, opacity: 0.9,
+    blending: THREE.AdditiveBlending, depthWrite: false,
+  })));
+  const hist = [];
+  for (let i = 0; i < TRAIL; i++) hist.push({ x: 0, y: 0 });
+  const cTrail = new THREE.Color(0xd9e4f0);
+
+  /* entities: cyan synapses (+), pink inhibitors (-), rare gold shields */
+  const orbGeo = new THREE.IcosahedronGeometry(0.3, 0);
+  const mineGeo = new THREE.OctahedronGeometry(0.44, 0);
+  const goldGeo = new THREE.IcosahedronGeometry(0.34, 1);
+  const pools = { orb: [], mine: [], gold: [] };
+  function getEntity(kind) {
+    const arr = pools[kind];
+    let e = arr.find((p) => !p.visible);
+    if (!e) {
+      const geo = kind === "mine" ? mineGeo : kind === "gold" ? goldGeo : orbGeo;
+      const color = kind === "mine" ? 0xff2f4a : kind === "gold" ? 0xffd34f : 0xd9e4f0;
+      e = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color, wireframe: true }));
+      e.userData.kind = kind;
+      gScene.add(e);
+      arr.push(e);
+    }
+    return e;
+  }
+  function spawn() {
+    const r = Math.random();
+    const kind = r < 0.05 ? "gold" : r < 0.37 ? "mine" : "orb";
+    const e = getEntity(kind);
+    const a = Math.random() * Math.PI * 2;
+    const rr = Math.random() * PLAY_R;
+    e.position.set(Math.cos(a) * rr, Math.sin(a) * rr, -95);
+    e.rotation.set(Math.random() * 3, Math.random() * 3, 0);
+    e.visible = true;
+  }
+  function clearEntities() {
+    pools.orb.concat(pools.mine, pools.gold).forEach((e) => { e.visible = false; });
+  }
+
+  /* shield ring around the player */
+  const shieldRing = new THREE.Mesh(
+    new THREE.TorusGeometry(0.58, 0.035, 8, 40),
+    new THREE.MeshBasicMaterial({
+      color: 0xffd34f, transparent: true, opacity: 0.9,
+      blending: THREE.AdditiveBlending, depthWrite: false,
+    })
+  );
+  shieldRing.visible = false;
+  player.add(shieldRing);
+
+  /* tiny synth sfx */
+  let ac = null;
+  function sfx(freq, dur, type, vol, slide) {
+    try {
+      ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+      if (ac.state === "suspended") ac.resume();
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = type; o.frequency.setValueAtTime(freq, ac.currentTime);
+      if (slide) o.frequency.exponentialRampToValueAtTime(Math.max(40, freq + slide), ac.currentTime + dur);
+      g.gain.setValueAtTime(vol, ac.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + dur);
+      o.connect(g); g.connect(ac.destination);
+      o.start(); o.stop(ac.currentTime + dur);
+    } catch (err) { /* audio is optional */ }
+  }
+
+  /* HUD / overlays */
+  const $ = (id) => document.getElementById(id);
+  const elScore = $("g-score"), elBest = $("g-best"), elLives = $("g-lives");
+  const ovStart = $("g-start"), ovOver = $("g-over");
+  const elFinal = $("g-final"), elNewBest = $("g-newbest");
+  const elCombo = $("g-combo"), elToast = $("g-toast");
+  let best = parseInt(localStorage.getItem("aengdo-best") || "0", 10);
+  elBest.textContent = best;
+
+  function toast(txt) {
+    if (!elToast) return;
+    elToast.textContent = txt;
+    elToast.classList.remove("show");
+    void elToast.offsetWidth; // restart animation
+    elToast.classList.add("show");
+  }
+
+  /* state */
+  let playing = false;
+  let score = 0, lives = 3, speed = 24, spawnT = 0, invuln = 0, shake = 0, pulse = 0;
+  let combo = 0, mult = 1, shield = false;
+  const target = new THREE.Vector2(0, 0);
+
+  function setLives() {
+    elLives.innerHTML = lives > 0 ? "&hearts; ".repeat(lives).trim() : "&mdash;";
+  }
+
+  function startGame() {
+    score = 0; lives = 3; speed = 24; spawnT = 0.4; invuln = 0; shake = 0;
+    combo = 0; mult = 1; shield = false;
+    shieldRing.visible = false;
+    if (elCombo) elCombo.textContent = "";
+    clearEntities();
+    player.position.set(0, 0, 0);
+    target.set(0, 0);
+    setLives();
+    ovStart.classList.add("hidden");
+    ovOver.classList.add("hidden");
+    playing = true;
+    window.__gameActive = true;
+    sfx(520, 0.25, "sine", 0.14, 320);
+  }
+
+  function endGame() {
+    playing = false;
+    window.__gameActive = false;
+    const final = Math.floor(score);
+    elFinal.textContent = final;
+    if (final > best) {
+      best = final;
+      localStorage.setItem("aengdo-best", String(best));
+      elBest.textContent = best;
+      elNewBest.style.display = "block";
+    } else {
+      elNewBest.style.display = "none";
+    }
+    ovOver.classList.remove("hidden");
+    sfx(200, 0.6, "triangle", 0.18, -150);
+  }
+
+  $("g-play").addEventListener("click", startGame);
+  $("g-retry").addEventListener("click", startGame);
+
+  /* input */
+  frame.addEventListener("pointermove", (e) => {
+    const r = frame.getBoundingClientRect();
+    const nx = ((e.clientX - r.left) / r.width) * 2 - 1;
+    const ny = -(((e.clientY - r.top) / r.height) * 2 - 1);
+    target.set(nx * PLAY_R * 1.15, ny * PLAY_R * 1.15);
+    if (target.length() > PLAY_R) target.setLength(PLAY_R);
+  });
+  const keys = {};
+  window.addEventListener("keydown", (e) => {
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key) && playing) e.preventDefault();
+    keys[e.key.toLowerCase()] = true;
+  });
+  window.addEventListener("keyup", (e) => { keys[e.key.toLowerCase()] = false; });
+
+  /* sizing / visibility */
+  function gResize() {
+    const w = frame.clientWidth, h = frame.clientHeight;
+    if (!w || !h) return;
+    gRenderer.setSize(w, h, false);
+    gComposer.setSize(w, h);
+    gCam.aspect = w / h;
+    gCam.updateProjectionMatrix();
+  }
+  if (typeof ResizeObserver !== "undefined") new ResizeObserver(gResize).observe(frame);
+  window.addEventListener("resize", gResize);
+  gResize();
+
+  let inView = false;
+  new IntersectionObserver((es) => {
+    inView = es[0].isIntersecting;
+    if (!inView && playing) {
+      playing = false;
+      window.__gameActive = false;
+      ovStart.classList.remove("hidden");
+    }
+  }, { rootMargin: "120px" }).observe(frame);
+
+  /* game loop */
+  const gClock = new THREE.Clock();
+  let hudT = 0;
+  function gTick() {
+    requestAnimationFrame(gTick);
+    const dt = Math.min(gClock.getDelta(), 0.05);
+    if (!inView) return;
+    const t = gClock.elapsedTime;
+
+    const spd = playing ? speed : 9;
+
+    for (const rg of rings) {
+      rg.position.z += spd * dt;
+      rg.rotation.z += dt * 0.25;
+      if (rg.position.z > 6.5) rg.position.z -= RINGS * RING_GAP;
+    }
+    for (let i = 0; i < DUST; i++) {
+      let z = dustAttr.getZ(i) + spd * dt * 1.15;
+      if (z > 6.5) z -= 116;
+      dustAttr.setZ(i, z);
+    }
+    dustAttr.needsUpdate = true;
+
+    if (playing) {
+      speed = Math.min(60, speed + dt * 1.0);
+      score += dt * speed * 0.5;
+      invuln = Math.max(0, invuln - dt);
+
+      spawnT -= dt;
+      if (spawnT <= 0) {
+        spawn();
+        spawnT = Math.max(0.16, 0.6 - speed * 0.006);
+      }
+
+      const kx = (keys.d || keys.arrowright ? 1 : 0) - (keys.a || keys.arrowleft ? 1 : 0);
+      const ky = (keys.w || keys.arrowup ? 1 : 0) - (keys.s || keys.arrowdown ? 1 : 0);
+      if (kx || ky) {
+        target.x += kx * 7 * dt;
+        target.y += ky * 7 * dt;
+        if (target.length() > PLAY_R) target.setLength(PLAY_R);
+      }
+
+      player.position.x += (target.x - player.position.x) * Math.min(1, dt * 10);
+      player.position.y += (target.y - player.position.y) * Math.min(1, dt * 10);
+
+      const all = pools.orb.concat(pools.mine, pools.gold);
+      for (const e of all) {
+        if (!e.visible) continue;
+        e.position.z += spd * dt;
+        e.rotation.x += dt * 2.2;
+        e.rotation.y += dt * 2.8;
+        if (e.position.z > 7) { e.visible = false; continue; }
+        if (Math.abs(e.position.z) < 1.0) {
+          const dx = e.position.x - player.position.x;
+          const dy = e.position.y - player.position.y;
+          const kind = e.userData.kind;
+          const hitR = kind === "mine" ? 0.5 : kind === "gold" ? 0.85 : 0.75;
+          if (dx * dx + dy * dy < hitR) {
+            e.visible = false;
+            if (kind === "mine") {
+              if (invuln <= 0) {
+                if (shield) {
+                  shield = false;
+                  shieldRing.visible = false;
+                  invuln = 1.0; shake = 0.35;
+                  toast("SHIELD BREAK");
+                  sfx(320, 0.3, "square", 0.16, -140);
+                } else {
+                  lives -= 1; invuln = 1.6; shake = 0.6;
+                  if (mult > 1) toast("COMBO LOST");
+                  combo = 0; mult = 1;
+                  setLives();
+                  sfx(180, 0.35, "sawtooth", 0.2, -120);
+                  if (lives <= 0) endGame();
+                }
+              }
+            } else if (kind === "gold") {
+              shield = true;
+              shieldRing.visible = true;
+              score += 50; pulse = 1;
+              toast("SHIELD!");
+              sfx(1100, 0.22, "sine", 0.15, 500);
+            } else {
+              combo += 1;
+              const newMult = Math.min(5, 1 + Math.floor(combo / 5));
+              if (newMult > mult) {
+                toast("COMBO x" + newMult + "!");
+                sfx(660 + newMult * 130, 0.2, "sine", 0.15, 420);
+              }
+              mult = newMult;
+              score += 25 * mult; pulse = 1;
+              sfx(880 + combo * 6, 0.16, "sine", 0.12, 480);
+            }
+          }
+        }
+      }
+
+      // shield ring lives on the player
+      if (shieldRing.visible) {
+        shieldRing.rotation.x += dt * 1.6;
+        shieldRing.rotation.y += dt * 2.3;
+      }
+
+      hudT -= dt;
+      if (hudT <= 0) {
+        elScore.textContent = Math.floor(score);
+        if (elCombo) elCombo.textContent = mult > 1 ? "COMBO x" + mult : "";
+        hudT = 0.1;
+      }
+    } else {
+      player.position.x += (Math.sin(t * 0.7) * 0.6 - player.position.x) * dt * 2;
+      player.position.y += (Math.cos(t * 0.9) * 0.4 - player.position.y) * dt * 2;
+    }
+
+    hist.pop();
+    hist.unshift({ x: player.position.x, y: player.position.y });
+    for (let i = 0; i < TRAIL; i++) {
+      const f = 1 - i / TRAIL;
+      trailPos[i * 3] = hist[i].x;
+      trailPos[i * 3 + 1] = hist[i].y;
+      trailPos[i * 3 + 2] = player.position.z + i * 0.22;
+      trailCol[i * 3] = cTrail.r * f;
+      trailCol[i * 3 + 1] = cTrail.g * f;
+      trailCol[i * 3 + 2] = cTrail.b * f;
+    }
+    trailGeo.getAttribute("position").needsUpdate = true;
+    trailGeo.getAttribute("color").needsUpdate = true;
+
+    pulse = Math.max(0, pulse - dt * 3);
+    glow.scale.setScalar(2.4 + pulse * 1.4 + Math.sin(t * 6) * 0.12);
+    core.material.color.setHex(invuln > 0 && Math.floor(t * 14) % 2 ? 0xff2f6d : 0xbfefff);
+
+    shake = Math.max(0, shake - dt);
+    gCam.position.x = player.position.x * 0.35 + (Math.random() - 0.5) * shake * 0.5;
+    gCam.position.y = player.position.y * 0.35 + (Math.random() - 0.5) * shake * 0.5;
+    gCam.lookAt(player.position.x * 0.6, player.position.y * 0.6, -8);
+
+    gComposer.render();
+  }
+  gTick();
+})();
+</script>
+
+<!-- ============ UI orchestration ============ -->
+<script>
+(function () {
+  "use strict";
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+  var hasGsap = typeof gsap !== "undefined";
+  if (hasGsap && typeof ScrollTrigger !== "undefined") gsap.registerPlugin(ScrollTrigger);
+  var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reducedMotion) {
+    var grainEl = document.querySelector(".grain");
+    if (grainEl) grainEl.style.display = "none";
+  }
+
+  /* ---------- smooth scroll ---------- */
+  var lenis = null;
+  if (typeof Lenis !== "undefined" && hasGsap && !reducedMotion) {
+    lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1.0 });
+    window.lenis = lenis;
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    document.documentElement.classList.add("lenis", "lenis-smooth");
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var target = document.querySelector(a.getAttribute("href"));
+        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: 0, duration: 1.6 }); }
+      });
+    });
+  }
+
+  /* ---------- preloader: neural boot sequence ---------- */
+  var pl = document.getElementById("preloader");
+  var bootLog = document.getElementById("boot-log");
+  var bootBar = document.getElementById("boot-bar");
+  var bootDone = false, entered = false;
+
+  var BOOT_LINES = [
+    '> boot <span class="fn">neural-interface</span> v5.0',
+    '> loading neurons ......... <span class="num">86,000,000,000</span> <span class="ok">[ok]</span>',
+    '> wiring synapses ......... <span class="num">100T</span> <span class="ok">[ok]</span>',
+    '> igniting first spark .... <span class="ok">[ok]</span>',
+    '> begin story_',
+  ];
+
+  function typeBoot(lineIdx, done) {
+    if (lineIdx >= BOOT_LINES.length) { done(); return; }
+    var html = BOOT_LINES[lineIdx];
+    // type by visible character, injecting tags instantly
+    var out = "", i = 0;
+    function step() {
+      if (i >= html.length) {
+        bootLog.innerHTML = bootLog.innerHTML.replace(/<span class="caret"><\/span>$/, "") + "\n" ;
+        bootBar.style.width = Math.round(((lineIdx + 1) / BOOT_LINES.length) * 100) + "%";
+        setTimeout(function () { typeBoot(lineIdx + 1, done); }, 130);
+        return;
+      }
+      if (html[i] === "<") {
+        var close = html.indexOf(">", i);
+        out += html.slice(i, close + 1);
+        i = close + 1;
+      } else {
+        out += html[i];
+        i++;
+      }
+      var prev = "";
+      for (var k = 0; k < lineIdx; k++) prev += stripDone(BOOT_LINES[k]) + "\n";
+      bootLog.innerHTML = prev + out + '<span class="caret"></span>';
+      setTimeout(step, 9);
+    }
+    function stripDone(s) { return s; }
+    step();
+  }
+
+  function fireEnter() {
+    if (entered) return;
+    entered = true;
+    window.__siteEntered = true;
+    window.dispatchEvent(new Event("site:enter"));
+
+    if (hasGsap) {
+      gsap.timeline()
+        .to(pl, { yPercent: -100, duration: 1.0, ease: "power4.inOut" })
+        .set(pl, { display: "none" })
+        .to("nav", { opacity: 1, duration: 1.2, ease: "power2.out" }, "-=0.4")
+        .to(".dots", { opacity: 1, duration: 1.2 }, "<")
+        .to(".ch-hud", { opacity: 1, duration: 1.2 }, "<")
+        .add(function () { document.getElementById("guide").classList.add("on"); }, "<+0.5");
+      gsap.to("#hero .ri", { y: 0, rotate: 0, duration: 1.4, stagger: 0.14, ease: "expo.out", delay: 0.55 });
+      gsap.to("#hero [data-fade]", { opacity: 1, y: 0, duration: 1.2, stagger: 0.15, ease: "power3.out", delay: 1.0 });
+      gsap.from(".hero-ghost", { scale: 1.25, opacity: 0, duration: 2.4, ease: "power2.out", delay: 0.4 });
+    } else {
+      pl.style.display = "none";
+      document.querySelector("nav").style.opacity = 1;
+      document.getElementById("guide").classList.add("on");
+      document.querySelectorAll(".ri").forEach(function (el) { el.style.transform = "none"; });
+      document.querySelectorAll("[data-fade]").forEach(function (el) {
+        el.style.opacity = 1; el.style.transform = "none";
+      });
+    }
+  }
+
+  function maybeEnter() {
+    if (bootDone && window.__sceneReady) fireEnter();
+  }
+
+  if (reducedMotion) {
+    bootLog.textContent = "> begin story_";
+    bootDone = true;
+    setTimeout(maybeEnter, 200);
+  } else {
+    typeBoot(0, function () {
+      bootDone = true;
+      setTimeout(maybeEnter, 250);
+    });
+  }
+  window.addEventListener("scene:ready", maybeEnter);
+  setTimeout(function () { bootDone = true; fireEnter(); }, 6000); // never trap the user
+
+  /* ---------- chapter HUD + guide script ---------- */
+  var CHAPTERS = [
+    ["#hero", "PROLOGUE — ORIGIN"],
+    ["#ch1", "CH.I — THE QUESTION"],
+    ["#ch2", "CH.II — 1.4KG"],
+    ["#ch3", "CH.III — SECOND LANGUAGE"],
+    ["#ch4", "CH.IV — CONVERGENCE"],
+    ["#works", "CH.V — SELECTED WORKS"],
+    ["#builds", "CH.VI — BUILT & SHIPPED"],
+    ["#skills", "CH.VII — THE STACK"],
+    ["#journey", "CH.VIII — TRACK RECORD"],
+    ["#game", "INTERLUDE — PRESS START"],
+    ["#contact", "EPILOGUE — TO BE CONTINUED"],
+  ];
+  var chName = document.getElementById("ch-name");
+  var chBar = document.getElementById("ch-bar");
+
+  /* ---------- developer guide character ---------- */
+  var guide = document.getElementById("guide");
+  var gBubble = document.getElementById("g-bubble");
+  var gText = document.getElementById("g-btext");
+  var GUIDE_LINES = [
+    "안녕하세요! 이 이야기를 안내할 개발자 <b>앵두</b>예요 🍒 같이 내려가 볼까요?",
+    "모든 건 이 작은 <b>뉴런 하나</b>에서 시작됐어요. 예쁘죠?",
+    "몇 년을 파고든 <b>1.4kg</b>이에요. 주름 하나하나가 다 기억이죠. 🧠",
+    "이건 <b>두 번째 모국어</b>예요. 방금 컴파일도 통과했어요 😎",
+    "뇌 + 코드 = <b>AI</b>. 제가 지금 하는 일이에요 ✨",
+    "제 <b>작품들</b>이에요! 영상 카드는 클릭하면 재생돼요 🎬",
+    "전부 <b>직접 들어가볼 수 있어요</b>. 눌러서 구경해보세요 ⚙️",
+    "제 연장통이에요. 제일 아끼는 건 <b>PyTorch</b>!",
+    "DDP에서 <b>전시</b>도 했어요! 이야기는 계속되는 중 🚶‍♀️",
+    "심심하시죠? 게임 하나 준비했어요. <b>최고 기록</b> 깨보실래요? 🎮",
+    "여기까지 와주셔서 고마워요. <b>다음 장</b>, 같이 쓰실래요? ✉️",
+  ];
+  var GUIDE_FACES = ["hello", "hello", "hello", "hello", "joy", "joy", "hello", "hello", "joy", "joy", "joy"];
+  // time-aware greeting
+  (function () {
+    var h = new Date().getHours();
+    var hi = h < 6 ? "이 새벽에 와주시다니... 🌙 " : h < 12 ? "좋은 아침이에요 ☀️ " : h < 18 ? "안녕하세요! " : "좋은 밤이에요 ✨ ";
+    GUIDE_LINES[0] = hi + "저는 이 이야기를 안내할 개발자 <b>앵두</b>예요 🍒 같이 내려가 볼까요?";
+  })();
+  var QUIPS = [
+    "앗, 간지러워요 😆",
+    "제 이름은 앵두예요. 그래서 머리핀도 체리 🍒",
+    "커피가 필요한 시점이에요... ☕",
+    "오늘도 모델이 안 돌아가요 🥲",
+    "버그가 아니라 기능이에요. 진짜예요.",
+    "스크롤 계속 해보세요, 뒤에 더 있어요!",
+  ];
+  var sayTimer = null;
+  function say(txt) {
+    if (!gBubble || !gText) return;
+    clearTimeout(sayTimer);
+    gBubble.classList.add("swap");
+    sayTimer = setTimeout(function () {
+      gText.innerHTML = txt;
+      gBubble.classList.remove("swap");
+    }, 300);
+  }
+
+  /* expression system: crossfade between face images + wiggle */
+  var faceTimer = null;
+  function wiggle() {
+    if (!guide) return;
+    guide.classList.remove("wiggle");
+    void guide.offsetWidth; // restart the animation
+    guide.classList.add("wiggle");
+  }
+  function setFace(name, revertMs, quiet) {
+    document.querySelectorAll(".g-avatar .face").forEach(function (f) {
+      f.classList.toggle("on", f.getAttribute("data-face") === name);
+    });
+    if (!quiet) wiggle();
+    clearTimeout(faceTimer);
+    if (revertMs) faceTimer = setTimeout(function () { setFace("hello", 0, true); }, revertMs);
+  }
+  window.__setFace = setFace;
+
+  var gAvatar = document.getElementById("g-avatar");
+  if (gAvatar) {
+    gAvatar.addEventListener("click", function () {
+      guide.classList.add("hop");
+      setTimeout(function () { guide.classList.remove("hop"); }, 600);
+      setFace("joy", 2600, true);
+      say(QUIPS[(Math.random() * QUIPS.length) | 0]);
+    });
+  }
+
+  // cheer when the game starts; step aside while it runs
+  var gPlayBtn = document.getElementById("g-play");
+  var gRetryBtn = document.getElementById("g-retry");
+  function cheer() {
+    setFace("joy", 3000);
+    say("화이팅! <b>✕ 억제 신호</b>만 조심하세요!");
+  }
+  if (gPlayBtn) gPlayBtn.addEventListener("click", cheer);
+  if (gRetryBtn) gRetryBtn.addEventListener("click", cheer);
+  setInterval(function () {
+    if (guide && guide.classList.contains("on")) {
+      guide.classList.toggle("dim", !!window.__gameActive);
+    }
+  }, 500);
+
+  // react to the game ending: shock on game over, joy on a new best
+  var ovOverEl = document.getElementById("g-over");
+  if (ovOverEl && typeof MutationObserver !== "undefined") {
+    new MutationObserver(function () {
+      if (!ovOverEl.classList.contains("hidden")) {
+        var nb = document.getElementById("g-newbest");
+        var isBest = nb && nb.style.display !== "none";
+        setFace(isBest ? "joy" : "surprise", 5000);
+        say(isBest ? "대박!! <b>신기록</b>이에요! 🎉" : "앗... 신호가 끊겼어요 😵 한 번 더 해봐요!");
+      }
+    }).observe(ovOverEl, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  // idle life: occasional wiggle + lean into fast scrolls
+  setInterval(function () {
+    if (guide && guide.classList.contains("on") && !window.__gameActive && Math.random() < 0.4) wiggle();
+  }, 9000);
+  (function leanLoop() {
+    var lastY = window.scrollY, lean = 0;
+    function step() {
+      var y = window.scrollY;
+      var v = y - lastY;
+      lastY = y;
+      lean += (Math.max(-10, Math.min(10, v * 0.22)) - lean) * 0.1;
+      if (guide) guide.style.transform = "rotate(" + lean.toFixed(2) + "deg)";
+      requestAnimationFrame(step);
+    }
+    step();
+  })();
+
+  // falls asleep when you idle too long; startles awake on your return
+  var lastInteract = Date.now(), asleep = false;
+  function wake() {
+    lastInteract = Date.now();
+    if (asleep) {
+      asleep = false;
+      guide.classList.remove("sleep");
+      setFace("surprise", 1800, true);
+      say("헉! 깜빡 졸았어요 😳");
+    }
+  }
+  ["pointermove", "scroll", "click", "keydown", "touchstart"].forEach(function (ev) {
+    window.addEventListener(ev, wake, { passive: true });
+  });
+  setInterval(function () {
+    if (!asleep && !window.__gameActive && guide && guide.classList.contains("on") &&
+        Date.now() - lastInteract > 45000) {
+      asleep = true;
+      guide.classList.add("sleep");
+      say("쿨쿨... 💤");
+    }
+  }, 5000);
+
+  // video cards: click to swap the thumbnail for a playing embed
+  // (data-video = YouTube, data-drive = Google Drive deliverables)
+  document.querySelectorAll(".work-card[data-video], .work-card[data-drive]").forEach(function (card) {
+    card.addEventListener("click", function () {
+      if (card.classList.contains("playing")) return;
+      var yt = card.getAttribute("data-video");
+      var dr = card.getAttribute("data-drive");
+      var f = document.createElement("iframe");
+      f.src = yt
+        ? "https://www.youtube.com/embed/" + yt + "?autoplay=1&rel=0&playsinline=1"
+        : "https://drive.google.com/file/d/" + dr + "/preview";
+      f.title = card.querySelector(".wc-title").textContent;
+      f.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+      f.setAttribute("allowfullscreen", "");
+      card.insertBefore(f, card.querySelector(".wc-grad"));
+      card.classList.add("playing");
+    });
+  });
+
+  // audio track player
+  var auBtn = document.getElementById("au-btn");
+  var auAudio = document.getElementById("au-audio");
+  if (auBtn && auAudio) {
+    var auRow = auBtn.closest(".audio-row");
+    auBtn.addEventListener("click", function () {
+      if (auAudio.paused) {
+        auAudio.play();
+        auBtn.innerHTML = "&#10073;&#10073;";
+        auRow.classList.add("playing");
+        say("이 노래, <b>SUNO</b>랑 같이 만들었어요 🎵");
+        setFace("joy", 2600, true);
+      } else {
+        auAudio.pause();
+        auBtn.innerHTML = "&#9654;";
+        auRow.classList.remove("playing");
+      }
+    });
+    auAudio.addEventListener("ended", function () {
+      auBtn.innerHTML = "&#9654;";
+      auRow.classList.remove("playing");
+    });
+  }
+
+  // click-to-copy email
+  var copyBtn = document.getElementById("copy-mail");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", function () {
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText("hyunaeee@gmail.com").then(function () {
+        copyBtn.textContent = "COPIED!";
+        setFace("joy", 2200, true);
+        say("이메일 복사 완료! 답장 기다릴게요 📋");
+        setTimeout(function () { copyBtn.textContent = "COPY"; }, 2000);
+      }).catch(function () {});
+    });
+  }
+
+  /* ---------- scroll-triggered reveals + HUD + dots ---------- */
+  if (hasGsap && typeof ScrollTrigger !== "undefined") {
+    document.querySelectorAll("section:not(#hero)").forEach(function (sec) {
+      var lines = sec.querySelectorAll(".ri");
+      if (lines.length) {
+        gsap.to(lines, {
+          y: 0, rotate: 0, duration: 1.3, stagger: 0.13, ease: "expo.out",
+          scrollTrigger: { trigger: sec, start: "top 62%" },
+        });
+      }
+      var fades = sec.querySelectorAll("[data-fade]");
+      if (fades.length) {
+        gsap.to(fades, {
+          opacity: 1, y: 0, duration: 1.2, stagger: 0.12, ease: "power3.out",
+          scrollTrigger: { trigger: sec, start: "top 58%" },
+        });
+      }
+    });
+
+    gsap.from(".skill-row", {
+      opacity: 0, y: 34, duration: 0.9, stagger: 0.08, ease: "power3.out",
+      scrollTrigger: { trigger: ".skill-rows", start: "top 75%" },
+    });
+
+    gsap.to(".progress i", {
+      scaleX: 1, ease: "none",
+      scrollTrigger: { trigger: document.body, start: "top top", end: "bottom bottom", scrub: 0.3 },
+    });
+
+    gsap.to(".hero-ghost", {
+      yPercent: 40, opacity: 0, ease: "none",
+      scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true },
+    });
+
+    var dots = document.querySelectorAll("[data-dot]");
+    // which nav link lights up for each chapter index
+    var NAV_MAP = [null, "#ch1", "#ch1", "#ch1", "#ch1", "#works", "#builds", "#builds", "#builds", "#game", "#contact"];
+    var navLinks = document.querySelectorAll(".nav-right a");
+    CHAPTERS.forEach(function (ch, i) {
+      ScrollTrigger.create({
+        trigger: ch[0], start: "top 50%", end: "bottom 50%",
+        onToggle: function (st) {
+          if (st.isActive) {
+            dots.forEach(function (d) { d.classList.remove("active"); });
+            if (dots[i]) dots[i].classList.add("active");
+            navLinks.forEach(function (a) {
+              a.classList.toggle("active", NAV_MAP[i] !== null && a.getAttribute("href") === NAV_MAP[i]);
+            });
+            if (chName) {
+              chName.style.opacity = 0;
+              setTimeout(function () {
+                chName.textContent = ch[1];
+                chName.style.opacity = 1;
+              }, 200);
+            }
+            if (chBar) chBar.style.width = Math.round(((i + 1) / CHAPTERS.length) * 100) + "%";
+            say(GUIDE_LINES[i]);
+            if (window.__setFace) window.__setFace(GUIDE_FACES[i], 0, true);
+          }
+        },
+      });
+    });
+
+    /* ch3 terminal: typed code, once */
+    var CODE =
+      '<span class="kw">class</span> <span class="fn">Mind</span>(nn.Module):\n' +
+      '    <span class="kw">def</span> <span class="fn">forward</span>(self, world):\n' +
+      '        memory = self.remember(world)\n' +
+      '        focus  = self.attend(memory)\n' +
+      '        <span class="kw">return</span> self.imagine(focus)  <span class="st"># 뇌에서 배운 대로</span>';
+    var termEl = document.getElementById("term-code");
+    var typed = false;
+    ScrollTrigger.create({
+      trigger: ".term", start: "top 75%",
+      onEnter: function () {
+        if (typed || !termEl) return;
+        typed = true;
+        var i = 0, out = "";
+        (function step() {
+          if (i >= CODE.length) {
+            termEl.innerHTML = out + '<span class="caret"></span>';
+            return;
+          }
+          if (CODE[i] === "<") {
+            var close = CODE.indexOf(">", i);
+            out += CODE.slice(i, close + 1);
+            i = close + 1;
+          } else {
+            out += CODE[i];
+            i++;
+          }
+          termEl.innerHTML = out + '<span class="caret"></span>';
+          setTimeout(step, 14);
+        })();
+      },
+    });
+  }
+
+  /* ---------- ambient sound toggle ---------- */
+  var sndBtn = document.getElementById("snd");
+  var ambCtx = null, ambOn = false;
+  function buildAmbient() {
+    ambCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var g = ambCtx.createGain();
+    g.gain.value = 0.0;
+    var filt = ambCtx.createBiquadFilter();
+    filt.type = "lowpass";
+    filt.frequency.value = 240;
+    [55, 110.4, 164.8].forEach(function (f, i) {
+      var o = ambCtx.createOscillator();
+      o.type = i === 2 ? "triangle" : "sine";
+      o.frequency.value = f;
+      var og = ambCtx.createGain();
+      og.gain.value = i === 0 ? 1 : 0.35;
+      o.connect(og); og.connect(filt);
+      o.start();
+    });
+    var lfo = ambCtx.createOscillator();
+    lfo.frequency.value = 0.08;
+    var lfoG = ambCtx.createGain();
+    lfoG.gain.value = 60;
+    lfo.connect(lfoG); lfoG.connect(filt.frequency);
+    lfo.start();
+    filt.connect(g); g.connect(ambCtx.destination);
+    return g;
+  }
+  var ambGain = null;
+  if (sndBtn) {
+    sndBtn.addEventListener("click", function () {
+      try {
+        if (!ambCtx) ambGain = buildAmbient();
+        if (ambCtx.state === "suspended") ambCtx.resume();
+        ambOn = !ambOn;
+        ambGain.gain.linearRampToValueAtTime(ambOn ? 0.05 : 0.0, ambCtx.currentTime + 0.8);
+        sndBtn.innerHTML = ambOn ? "SOUND&nbsp;ON" : "SOUND&nbsp;OFF";
+        sndBtn.classList.toggle("on", ambOn);
+      } catch (err) { /* audio unsupported */ }
+    });
+  }
+
+  /* ---------- custom cursor ---------- */
+  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (fine) {
+    var dot = document.querySelector(".cursor-dot");
+    var ring = document.querySelector(".cursor-ring");
+    var cx = -100, cy = -100, rx = -100, ry = -100;
+    window.addEventListener("pointermove", function (e) { cx = e.clientX; cy = e.clientY; });
+    (function loop() {
+      rx += (cx - rx) * 0.16;
+      ry += (cy - ry) * 0.16;
+      dot.style.left = cx + "px"; dot.style.top = cy + "px";
+      ring.style.left = rx + "px"; ring.style.top = ry + "px";
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll("a, .skill-row, .g-btn, .snd-btn, .g-avatar, .copy-btn").forEach(function (el) {
+      el.addEventListener("mouseenter", function () { ring.classList.add("is-hover"); });
+      el.addEventListener("mouseleave", function () { ring.classList.remove("is-hover"); });
+    });
+  }
+})();
+</script>
+</body>
+</html>
