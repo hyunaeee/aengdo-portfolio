@@ -69,6 +69,12 @@
   .titlebar button:active { border-color: #0c0d12 #4a4d5c #4a4d5c #0c0d12; }
   .wbody { padding: 12px; font-size: 13px; line-height: 1.9; }
   .wbody b { color: #ff8f99; }
+  .storyline {
+    font-family: "Noto Sans KR", sans-serif; font-weight: 300; font-size: 12px;
+    color: #8f94a6; padding: 8px 12px 10px; border-top: 1px solid #383b48;
+    line-height: 1.7;
+  }
+  .storyline i { font-style: normal; color: #ff8f99; }
   .wbody a { color: #8fc7ff; }
   .wbody canvas { display: block; background: #0b0c12; border: 1.5px solid #0c0d12; max-width: 100%; }
   .win iframe { display: block; border: 1.5px solid #0c0d12; background: #000; width: 100%; }
@@ -210,18 +216,19 @@
 </div>
 
 <!-- ================= windows ================= -->
-<div class="win" id="w-readme" style="right:6%; top:10%;" data-title="📄 README.TXT">
+<div class="win" id="w-readme" style="left:26%; top:9%;" data-title="📄 README.TXT">
   <div class="titlebar"><span>📄 README.TXT — 메모장</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
-  <div class="wbody" style="max-width:360px;">
-    안녕하세요, <b>앵두</b>입니다.<br/>
-    뇌과학과 컴퓨터과학을 전공했고, 지금은 <b>AI</b>를 만듭니다.<br/><br/>
-    여긴 제 컴퓨터예요. 마음껏 뒤져보세요:<br/>
-    · 아이콘 클릭 = 실행<br/>
-    · 창은 제목줄 드래그로 이동<br/>
-    · <b>STORY.EXE</b>에 스크롤 스토리 원본이 있어요<br/>
-    · 오래 가만히 있으면... 불이 꺼집니다 🔦
+  <div class="wbody" style="max-width:370px;">
+    <b>"생각은 어디에서 오는가."</b><br/>
+    이 질문 하나로 뇌과학에서 컴퓨터과학으로,<br/>
+    그리고 지금은 <b>AI를 만드는 데까지</b> 왔습니다.<br/><br/>
+    이 컴퓨터에 그 여정을 전부 담아뒀어요:<br/>
+    · 아이콘 클릭 = 실행 / 창은 제목줄로 드래그<br/>
+    · 이야기의 전문은 <b>STORY.EXE</b><br/>
+    · 그 이야기가 남긴 결과물은 <b>WORKS</b> 폴더
   </div>
+  <div class="storyline">— 앵두 <i>🍒</i>, 이 컴퓨터의 주인</div>
 </div>
 
 <div class="win" id="w-chat" style="left:24%; bottom:14%;" data-title="🍒 앵두 메신저">
@@ -237,6 +244,7 @@
     <canvas id="brainCv" width="520" height="340"></canvas>
     <div style="margin-top:7px; font-size:11px; color:#9aa0b0;">drag to rotate — neurons: 86,000,000,000 — cpu 20W</div>
   </div>
+  <div class="storyline">전공 시절 4년 내내 들여다본 기관이에요. 이제는 <i>문자 몇 줄</i>로도 그릴 수 있게 됐네요.</div>
 </div>
 
 <div class="win" id="w-blueprint" style="left:18%; top:16%;" data-title="📐 FIG01.DWG">
@@ -246,6 +254,7 @@
     <canvas id="bpCv" width="560" height="380"></canvas>
     <div style="margin-top:7px; font-size:11px; color:#9aa0b0;">AGD-2026-001 · SCALE 1:1 · MASS 1.4kg · DRAWN BY AENGDO 🍒</div>
   </div>
+  <div class="storyline">무언가를 만들려면 먼저 설계도부터 읽어야 하니까 — <i>지능의 도면</i>을 그려봤습니다.</div>
 </div>
 
 <div class="win" id="w-story" style="left:10%; top:6%;" data-title="📖 STORY.EXE">
@@ -254,6 +263,7 @@
   <div class="wbody" style="padding-bottom:8px;">
     <iframe data-src="story.html" style="width:min(920px,86vw); height:min(600px,64vh);"></iframe>
   </div>
+  <div class="storyline">이 이야기의 <i>전문(全文)</i>이에요. 불꽃에서 시작해 은하에서 끝납니다.</div>
   <div class="linkbar"><a href="story.html" target="_blank">전체화면으로 열기 ↗</a></div>
 </div>
 
@@ -263,6 +273,7 @@
   <div class="wbody" style="padding-bottom:8px;">
     <iframe data-src="times.html" style="width:min(920px,86vw); height:min(600px,64vh); background:#efe9da;"></iframe>
   </div>
+  <div class="storyline">기자 앵두가 개발자 앵두를 <i>단독 취재</i>한 창간호입니다. 구독료는 무료예요.</div>
   <div class="linkbar"><a href="times.html" target="_blank">전체화면으로 열기 ↗</a></div>
 </div>
 
@@ -272,6 +283,7 @@
   <div class="wbody" style="padding-bottom:8px;">
     <iframe data-src="game.html" style="width:min(880px,86vw); height:min(560px,62vh);"></iframe>
   </div>
+  <div class="storyline">당신의 뇌가 <i>초당 수백 번</i> 하는 일을 직접 해보세요. 이번엔 당신이 신호입니다.</div>
   <div class="linkbar"><a href="game.html" target="_blank">전체화면으로 열기 ↗</a></div>
 </div>
 
@@ -279,6 +291,7 @@
   <div class="titlebar"><span>📁 C:\AENGDO\WORKS</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
   <div class="wbody"><div class="files" id="files"></div></div>
+  <div class="storyline">뇌에서 배우고 코드로 지은 것들이, 결국 <i>이 폴더</i>가 됐습니다. 영상은 클릭하면 재생돼요.</div>
 </div>
 
 <div class="win" id="w-viewer" style="left:30%; top:18%;" data-title="👁 VIEWER">
@@ -300,6 +313,7 @@
     <span class="d">[2025.07]</span> 유튜브 'gaebaldaeramz' 개설<br/>
     <span style="color:#7ee2a8">[NOW]</span> 기록은 계속 늘어나는 중_
   </div>
+  <div class="storyline">이야기가 <i>현실이 된 날짜들</i>이에요. 한 줄마다 밤샘이 들어있습니다.</div>
 </div>
 
 <div class="win" id="w-mail" style="left:28%; top:26%;" data-title="✉️ MAIL.EXE">
@@ -310,6 +324,7 @@
     제목: 다음 장을 같이 쓰고 싶어요<br/>
     <span style="color:#9aa0b0; font-size:12px;">연구 · 프로젝트 · 커피챗 — 무엇이든 환영합니다.</span>
   </div>
+  <div class="storyline">이 이야기의 <i>다음 장</i>은 아직 비어 있어요. 함께 채워주실 분을 기다립니다.</div>
   <div class="linkbar">
     <a href="mailto:hyunaeee@gmail.com">보내기</a>
     <button id="copymail">주소 복사</button>
@@ -323,13 +338,15 @@
 <!-- ================= fullscreen apps ================= -->
 <div class="fsapp" id="fs-dive">
   <canvas id="diveCv"></canvas>
-  <div class="fslabel"><b id="dive-label">THE BRAIN</b> — <span id="dive-depth">10^0 M</span> · 스크롤로 다이브</div>
+  <div class="fslabel"><b id="dive-label">THE BRAIN</b> — <span id="dive-depth">10^0 M</span> · 스크롤로 다이브<br/>
+    <span style="font-family:'Noto Sans KR',sans-serif;font-weight:300;font-size:12px;">뇌를 파고들면 원자가 나오고, 멀어지면 은하가 됩니다 — 생각의 스케일 여행</span></div>
   <button class="fsclose" data-fsclose>ESC 종료 ×</button>
 </div>
 <div class="fsapp" id="fs-type">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet" />
   <div id="ts-stage"></div>
-  <div class="fslabel"><b>TYPESTORM.EXE</b> — 커서로 휘고, 클릭하면 폭발</div>
+  <div class="fslabel"><b>TYPESTORM.EXE</b> — 커서로 휘고, 클릭하면 폭발<br/>
+    <span style="font-family:'Noto Sans KR',sans-serif;font-weight:300;font-size:12px;">코드는 제 두 번째 모국어예요 — 근데 이 글자들은 가만히 있질 않네요</span></div>
   <button class="fsclose" data-fsclose>ESC 종료 ×</button>
 </div>
 <div class="fsapp" id="saver">
@@ -340,7 +357,7 @@
     <div class="sv-line" style="bottom:20%; left:16%;">뇌과학 × 컴퓨터과학 = <b>AI</b></div>
     <div class="sv-line" style="bottom:26%; right:12%;">화면보호기까지 보는 당신, <b>집요하다</b></div>
   </div>
-  <div id="sv-hint">화면보호기 — 클릭하면 돌아갑니다</div>
+  <div id="sv-hint">생각은 어둠 속에서 켜진다 — 클릭하면 돌아갑니다</div>
 </div>
 
 <!-- ================= taskbar ================= -->
@@ -366,26 +383,57 @@
 
 <script>
 "use strict";
-/* ================= wallpaper: quiet stars + gold galaxy ================= */
+/* ================= wallpaper: plain dark + ASCII Aengdu =================
+   The mascot image itself is converted to ASCII characters at runtime —
+   an old-terminal wallpaper that IS the character. Reddish pixels
+   (cherry hairpin, drawstrings) keep a dim red tint. */
 (function () {
   const cv = document.getElementById("wallpaper"), ctx = cv.getContext("2d");
+  const img = new Image();
+  img.src = "assets/aengdu-hello.png";
+  const RAMP = " .,:;+ox*#@";
   function paint() {
     const W = cv.width = innerWidth, H = cv.height = innerHeight;
-    const g = ctx.createRadialGradient(W*0.72, H*0.3, 0, W*0.72, H*0.3, Math.max(W,H)*0.8);
-    g.addColorStop(0, "#181a24"); g.addColorStop(1, "#0b0c12");
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    for (let i = 0; i < 260; i++) {
-      ctx.fillStyle = "rgba(220,225,238," + (0.06 + Math.random()*0.3).toFixed(2) + ")";
-      ctx.fillRect(Math.random()*W, Math.random()*H, 1.2, 1.2);
+    ctx.fillStyle = "#0e0f15";
+    ctx.fillRect(0, 0, W, H);
+    if (!img.complete || !img.naturalWidth) return;
+    const cw = Math.max(9, Math.min(15, W / 95));       // chunkier cells read better
+    const chh = cw * 1.85;                               // char cell height
+    const cols = Math.min(72, ((W * 0.44) / cw) | 0);
+    const rows = Math.max(10, (cols * (img.naturalHeight / img.naturalWidth) / 1.85) | 0);
+    const off = document.createElement("canvas");
+    off.width = cols; off.height = rows;
+    const octx = off.getContext("2d");
+    octx.drawImage(img, 0, 0, cols, rows);
+    const px = octx.getImageData(0, 0, cols, rows).data;
+    const x0 = W - cols * cw - W * 0.045;
+    const y0 = Math.max(10, (H - 46 - rows * chh) / 2 + 10);
+    ctx.font = "700 " + (chh * 0.8).toFixed(0) + "px Consolas, monospace";
+    ctx.textBaseline = "top";
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const i = (r * cols + c) * 4;
+        const a = px[i + 3] / 255;
+        if (a < 0.25) continue;
+        const R = px[i], G = px[i + 1], B = px[i + 2];
+        const lum = ((R + G + B) / 765) * a;
+        const idx = Math.min(RAMP.length - 1, Math.round(lum * (RAMP.length + 3)));
+        if (idx === 0) continue;
+        const reddish = R > 110 && R > G * 1.45 && R > B * 1.35;
+        ctx.fillStyle = reddish
+          ? "rgba(190, 64, 78, " + (0.34 + lum * 0.45).toFixed(2) + ")"
+          : "rgba(104, 111, 134, " + (0.14 + lum * 0.52).toFixed(2) + ")";
+        ctx.fillText(RAMP[idx], x0 + c * cw, y0 + r * chh);
+      }
     }
-    for (let b = 0; b < 4; b++) for (let i = 0; i < 320; i++) {
-      const t = i/320, r = t * Math.min(W,H) * 0.3;
-      const a = b*1.571 + t*4 + Math.random()*0.3;
-      ctx.fillStyle = "rgba(255,195,122," + (0.28*(1-t)).toFixed(2) + ")";
-      ctx.fillRect(W*0.72 + Math.cos(a)*r*1.2, H*0.3 + Math.sin(a)*r*0.55, 1.2, 1.2);
-    }
+    // her signature, terminal-style
+    ctx.font = "12px Consolas, monospace";
+    ctx.fillStyle = "rgba(96,102,122,.55)";
+    ctx.fillText("> aengdu.render(--charset ascii)  // 자화상", x0, y0 + rows * chh + 10);
   }
-  addEventListener("resize", paint); paint();
+  img.onload = paint;
+  addEventListener("resize", paint);
+  paint();
 })();
 
 /* ================= boot ================= */
@@ -535,12 +583,14 @@ function react(id) {
 function chatApp() {
   const log = document.getElementById("chatlog");
   const SCRIPT = [
-    ["her", "왔네요! 여기는 제 컴퓨터예요 🍒"],
-    ["her", "바탕화면 아이콘, 전부 진짜로 실행됩니다"],
-    ["me", "STORY.EXE는 뭐야?"],
-    ["her", "원래 홈페이지요. 하나도 안 버리고 창 안에 넣어놨어요"],
-    ["her", "심심하면 SIGNAL_RUN.EXE… 제 기록 깨보시든가요 😏"],
-    ["her", "아 그리고 오래 가만히 있으면 불 꺼져요. 놀라지 마요 🔦"],
+    ["her", "어서 오세요, 제 컴퓨터예요 🍒"],
+    ["her", "저는 뇌과학이랑 컴퓨터과학을 전공했어요"],
+    ["me", "그래서 바탕화면에 뇌가 있구나"],
+    ["her", "네. 뇌를 공부하다가, 직접 만들어보고 싶어져서, 지금은 AI를 만들어요"],
+    ["her", "그 여정은 STORY.EXE에 담아뒀어요. 스크롤로 읽는 이야기예요 📖"],
+    ["me", "게임도 있네?"],
+    ["her", "SIGNAL_RUN이요. 당신이 뉴런 사이를 달리는 신호가 되는 거예요 ⚡"],
+    ["her", "아, 가만히 있으면 불이 꺼져요. 생각은 어둠 속에서 켜지거든요 🔦"],
   ];
   let i = 0;
   function push(role, text) {
