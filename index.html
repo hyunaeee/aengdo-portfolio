@@ -383,55 +383,66 @@
 
 <script>
 "use strict";
-/* ================= wallpaper: plain dark + ASCII Aengdu =================
-   The mascot image itself is converted to ASCII characters at runtime —
-   an old-terminal wallpaper that IS the character. Reddish pixels
-   (cherry hairpin, drawstrings) keep a dim red tint. */
+/* ================= wallpaper: plain dark + hand-drawn ASCII cherry ====
+   Two cherries, a forked stem, one leaf — unmistakably 앵두. */
 (function () {
   const cv = document.getElementById("wallpaper"), ctx = cv.getContext("2d");
-  const img = new Image();
-  img.src = "assets/aengdu-hello.png";
-  const RAMP = " .,:;+ox*#@";
+  const ART = [
+    "                       __",
+    "                    _-'  ;;",
+    "                  ,-'   ;;;;;",
+    "                ,'     ;;;;;;;",
+    "              ,'       ;;;;;;;",
+    "             /          ;;;;;",
+    "            /            ;;;",
+    "           / \\",
+    "          /   \\",
+    "         /     \\",
+    "        /       \\",
+    "       /         \\",
+    "      |           \\",
+    "      |            \\",
+    "   ,o@@@o.          \\",
+    "  o@@@@@@@o          |",
+    " o@@@@@@@@@o     ,o@@@o.",
+    " o@@*@@@@@@o    o@@@@@@@o",
+    " o@@@@@@@@@o   o@@@@@@@@@o",
+    "  o@@@@@@@o    o@@*@@@@@@o",
+    "   'o@@@o'     o@@@@@@@@@o",
+    "                o@@@@@@@o",
+    "                 'o@@@o'",
+  ];
+  function colorFor(ch) {
+    if (ch === "@") return "rgba(198, 60, 74, 0.60)";   // cherry body
+    if (ch === "o") return "rgba(198, 60, 74, 0.34)";   // cherry edge
+    if (ch === "*") return "rgba(255, 176, 186, 0.75)"; // shine
+    if (ch === ";") return "rgba(122, 152, 112, 0.50)"; // leaf
+    return "rgba(118, 124, 142, 0.42)";                 // stem
+  }
   function paint() {
     const W = cv.width = innerWidth, H = cv.height = innerHeight;
     ctx.fillStyle = "#0e0f15";
     ctx.fillRect(0, 0, W, H);
-    if (!img.complete || !img.naturalWidth) return;
-    const cw = Math.max(9, Math.min(15, W / 95));       // chunkier cells read better
-    const chh = cw * 1.85;                               // char cell height
-    const cols = Math.min(72, ((W * 0.44) / cw) | 0);
-    const rows = Math.max(10, (cols * (img.naturalHeight / img.naturalWidth) / 1.85) | 0);
-    const off = document.createElement("canvas");
-    off.width = cols; off.height = rows;
-    const octx = off.getContext("2d");
-    octx.drawImage(img, 0, 0, cols, rows);
-    const px = octx.getImageData(0, 0, cols, rows).data;
-    const x0 = W - cols * cw - W * 0.045;
-    const y0 = Math.max(10, (H - 46 - rows * chh) / 2 + 10);
-    ctx.font = "700 " + (chh * 0.8).toFixed(0) + "px Consolas, monospace";
+    const cols = Math.max(...ART.map(l => l.length));
+    const cw = Math.max(10, Math.min(19, (W * 0.30) / cols));
+    const chh = cw * 1.65;
+    const x0 = W - cols * cw - W * 0.05;
+    const y0 = Math.max(14, (H - 46 - ART.length * chh) / 2);
+    ctx.font = "700 " + (chh * 0.86).toFixed(0) + "px Consolas, monospace";
     ctx.textBaseline = "top";
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const i = (r * cols + c) * 4;
-        const a = px[i + 3] / 255;
-        if (a < 0.25) continue;
-        const R = px[i], G = px[i + 1], B = px[i + 2];
-        const lum = ((R + G + B) / 765) * a;
-        const idx = Math.min(RAMP.length - 1, Math.round(lum * (RAMP.length + 3)));
-        if (idx === 0) continue;
-        const reddish = R > 110 && R > G * 1.45 && R > B * 1.35;
-        ctx.fillStyle = reddish
-          ? "rgba(190, 64, 78, " + (0.34 + lum * 0.45).toFixed(2) + ")"
-          : "rgba(104, 111, 134, " + (0.14 + lum * 0.52).toFixed(2) + ")";
-        ctx.fillText(RAMP[idx], x0 + c * cw, y0 + r * chh);
+    for (let r = 0; r < ART.length; r++) {
+      const line = ART[r];
+      for (let c = 0; c < line.length; c++) {
+        const ch = line[c];
+        if (ch === " ") continue;
+        ctx.fillStyle = colorFor(ch);
+        ctx.fillText(ch, x0 + c * cw, y0 + r * chh);
       }
     }
-    // her signature, terminal-style
     ctx.font = "12px Consolas, monospace";
     ctx.fillStyle = "rgba(96,102,122,.55)";
-    ctx.fillText("> aengdu.render(--charset ascii)  // 자화상", x0, y0 + rows * chh + 10);
+    ctx.fillText('> print("aengdo")  // 앵두 = 체리', x0 + cw, y0 + ART.length * chh + 12);
   }
-  img.onload = paint;
   addEventListener("resize", paint);
   paint();
 })();
