@@ -36,6 +36,9 @@
   }
   #boot b { color: #ff4655; font-weight: 400; }
   #boot .ok { color: #7ee2a8; }
+  .bootopt { color: #8a8fa0; cursor: pointer; padding: 3px 0 3px 26px; position: relative; }
+  .bootopt.sel { color: #fff; }
+  .bootopt.sel::before { content: "▶"; position: absolute; left: 4px; color: #ff4655; }
 
   /* ---------- desktop icons ---------- */
   .icons { position: fixed; left: 18px; top: 18px; z-index: 2;
@@ -210,6 +213,7 @@
 
 <!-- ================= desktop icons ================= -->
 <div class="icons" id="icons">
+  <div class="icon" data-app="w-portfolio"><div class="glyph">⭐</div><div class="name">PORTFOLIO<br/>한눈에 보기</div></div>
   <div class="icon" data-app="w-story"><div class="glyph">📖</div><div class="name">STORY.EXE</div></div>
   <div class="icon" data-app="w-works"><div class="glyph">📁</div><div class="name">WORKS</div></div>
   <div class="icon" data-app="w-game"><div class="glyph">🎮</div><div class="name">SIGNAL_RUN.EXE</div></div>
@@ -236,7 +240,8 @@
     이 컴퓨터에 그 여정을 전부 담아뒀어요:<br/>
     · 아이콘 클릭 = 실행 / 창은 제목줄로 드래그<br/>
     · 이야기의 전문은 <b>STORY.EXE</b><br/>
-    · 그 이야기가 남긴 결과물은 <b>WORKS</b> 폴더
+    · 그 이야기가 남긴 결과물은 <b>WORKS</b> 폴더<br/>
+    · 바쁘시면 <b>⭐ PORTFOLIO</b> — 전부 한 장에 있어요
   </div>
   <div class="storyline">— 앵두 <i>🍒</i>, 이 컴퓨터의 주인</div>
 </div>
@@ -344,6 +349,16 @@
     <div style="margin-top:7px; font-size:11px; color:#9aa0b0;">AGD-2026-002 · 방을 클릭하면 그 방으로 이동합니다 · DRAWN BY AENGDO 🍒</div>
   </div>
   <div class="storyline">이 컴퓨터를 <i>집</i>이라고 치면 이런 구조예요. 서재에서 시작해서, 현관에서 편지를 기다립니다.</div>
+</div>
+
+<div class="win" id="w-portfolio" style="left:8%; top:5%;" data-title="⭐ PORTFOLIO">
+  <div class="titlebar"><span>⭐ PORTFOLIO.ONE — 한눈에 보기</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding-bottom:8px;">
+    <iframe data-src="portfolio.html" style="width:min(960px,88vw); height:min(620px,66vh); background:#0d0e13;"></iframe>
+  </div>
+  <div class="storyline">구경할 시간이 없으시다면, <i>이 한 장</i>이면 충분해요. 만든 것 전부 여기 있습니다.</div>
+  <div class="linkbar"><a href="portfolio.html" target="_blank">전체화면으로 열기 ↗</a></div>
 </div>
 
 <div class="win" id="w-story" style="left:10%; top:6%;" data-title="📖 STORY.EXE">
@@ -457,6 +472,7 @@
 </div>
 <div id="startmenu">
   <div class="head">AENGDO OS — 앵두의 컴퓨터</div>
+  <div class="item" data-app="w-portfolio">⭐ PORTFOLIO — 한눈에 보기</div>
   <div class="item" data-app="w-story">📖 STORY.EXE <span style="margin-left:auto;color:#8a8fa0;font-size:10px">원본</span></div>
   <div class="item" data-app="w-works">📁 WORKS</div>
   <div class="item" data-app="w-game">🎮 SIGNAL_RUN.EXE</div>
@@ -570,12 +586,47 @@
   (function next() {
     if (i < LINES.length) {
       el.innerHTML += LINES[i++] + "\n";
-      setTimeout(next, 200 + Math.random()*230);
-    } else setTimeout(() => {
+      setTimeout(next, 180 + Math.random()*200);
+    } else setTimeout(showMenu, 350);
+  })();
+
+  /* dual boot: explore the OS, or jump straight to the one-page portfolio */
+  function showMenu() {
+    el.innerHTML += "\nSELECT BOOT MODE:\n\n";
+    const menu = document.createElement("div");
+    menu.innerHTML =
+      '<div class="bootopt sel" data-v="os">1. AENGDO_OS &nbsp;&nbsp;&nbsp;&nbsp;— 탐험하며 구경하기 🍒</div>' +
+      '<div class="bootopt" data-v="pf">2. PORTFOLIO.ONE — 한눈에 보기 (바쁘신 분)</div>' +
+      '<div style="margin-top:16px;color:#6b7280;font-size:12px" id="bootcount"></div>';
+    el.appendChild(menu);
+    const opts = menu.querySelectorAll(".bootopt");
+    const cdEl = menu.querySelector("#bootcount");
+    let sel = 0, count = 8;
+    function upd() { opts.forEach((o, j) => o.classList.toggle("sel", j === sel)); }
+    function choose(v) {
+      clearInterval(cd);
+      if (v === "pf") { location.href = "portfolio.html"; return; }
       el.style.transition = "opacity .5s"; el.style.opacity = 0;
       setTimeout(() => { el.remove(); openWin("w-readme"); openWin("w-chat"); }, 520);
-    }, 450);
-  })();
+    }
+    opts.forEach((o, j) => {
+      o.addEventListener("click", () => choose(o.dataset.v));
+      o.addEventListener("mouseenter", () => { sel = j; upd(); });
+    });
+    addEventListener("keydown", function h(e) {
+      if (!document.body.contains(menu)) { removeEventListener("keydown", h); return; }
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") { sel = 1 - sel; upd(); }
+      else if (e.key === "1") choose("os");
+      else if (e.key === "2") choose("pf");
+      else if (e.key === "Enter") choose(opts[sel].dataset.v);
+    });
+    cdEl.textContent = count + "초 후 AENGDO_OS로 자동 부팅...";
+    const cd = setInterval(() => {
+      count--;
+      cdEl.textContent = count + "초 후 AENGDO_OS로 자동 부팅...";
+      if (count <= 0) choose(opts[sel].dataset.v);
+    }, 1000);
+  }
 })();
 
 /* ================= window manager ================= */
@@ -674,6 +725,7 @@ setInterval(() => {
 
 /* ================= 앵두 reactions ================= */
 const REACT = {
+  "w-portfolio": "바쁘신 분을 위한 한 장 요약이에요 ⭐ 천천히 볼 거면 다른 창들도!",
   "w-story": "그 스크롤 스토리, 원본 그대로예요. 추억이 아니라 현역 📖",
   "w-works": "포폴 구경 오셨네요! 영상은 더블클릭이에요",
   "w-game": "화이팅! 제 최고기록은 안 알려드림 🎮",

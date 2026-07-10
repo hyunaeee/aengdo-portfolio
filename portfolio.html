@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AENGDO — Portfolio at a Glance</title>
+<meta name="description" content="앵두 포트폴리오 한눈에 보기 — 영상·웹·AI 프로젝트·연혁" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍒</text></svg>" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@300;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0d0e13; --card: #15161d; --line: rgba(255,255,255,0.09);
+    --ink: #eceef4; --dim: #8f93a3; --red: #ff4655;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: "Noto Sans KR", sans-serif;
+    font-weight: 300; line-height: 1.75; padding-bottom: 90px; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+  header { padding: 60px 0 34px; border-bottom: 1px solid var(--line); }
+  .name { font-family: "Space Grotesk", sans-serif; font-weight: 700;
+    font-size: clamp(34px, 5vw, 54px); letter-spacing: -0.02em; }
+  .name i { font-style: normal; color: var(--red); }
+  .tagline { color: var(--dim); margin-top: 6px; font-size: 15.5px; }
+  .tagline b { color: var(--ink); font-weight: 500; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+  .btn { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 1.5px;
+    padding: 9px 18px; border-radius: 100px; border: 1px solid var(--line);
+    color: var(--dim); transition: 0.2s; }
+  .btn:hover { color: #fff; border-color: var(--red); }
+  .btn.hot { background: var(--red); color: #fff; border-color: var(--red); }
+
+  h2 { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 21px;
+    letter-spacing: 0.5px; margin: 46px 0 6px; }
+  h2 i { font-style: normal; color: var(--red); margin-right: 8px; }
+  .sub { color: var(--dim); font-size: 13.5px; margin-bottom: 18px; }
+
+  .works { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .work { position: relative; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden;
+    background: var(--card); border: 1px solid var(--line); display: block; transition: 0.2s; }
+  .work:hover { transform: translateY(-4px); border-color: var(--red); }
+  .work img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .work .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 10px 7px;
+    background: linear-gradient(transparent, rgba(6,6,10,0.92));
+    font-size: 11.5px; font-weight: 500; }
+  .work .cap small { display: block; font-family: "JetBrains Mono", monospace;
+    font-size: 9px; color: var(--dim); letter-spacing: 1px; }
+
+  .audio-line { display: flex; align-items: center; gap: 14px; margin-top: 12px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+  .audio-line .t { font-size: 13.5px; font-weight: 500; }
+  .audio-line small { color: var(--dim); font-family: "JetBrains Mono", monospace; font-size: 10px; }
+  .audio-line audio { margin-left: auto; height: 34px; max-width: 44vw; }
+
+  .webs { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .web { border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    background: var(--card); display: block; transition: 0.2s; }
+  .web:hover { transform: translateY(-4px); border-color: var(--red); }
+  .web img { width: 100%; aspect-ratio: 16/9.4; object-fit: cover; object-position: top; display: block; }
+  .web .m { padding: 10px 13px; }
+  .web .m b { font-family: "Space Grotesk", sans-serif; font-size: 14.5px; font-weight: 500; }
+  .web .m span { display: block; color: var(--dim); font-size: 12px; }
+
+  .repos { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 8px; }
+  .repo { display: flex; gap: 12px; align-items: baseline; padding: 11px 14px;
+    border: 1px solid var(--line); border-radius: 9px; background: var(--card); transition: 0.2s; }
+  .repo:hover { border-color: var(--red); }
+  .repo b { font-family: "JetBrains Mono", monospace; font-size: 12.5px; font-weight: 500;
+    color: var(--ink); white-space: nowrap; }
+  .repo span { color: var(--dim); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .repo i { font-style: normal; color: var(--red); font-size: 10px; margin-left: auto; }
+
+  .tl { border-left: 1px solid var(--line); padding-left: 20px; }
+  .tl div { position: relative; padding: 5px 0; font-size: 13.5px; }
+  .tl div::before { content: ""; position: absolute; left: -24px; top: 14px;
+    width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+  .tl b { font-family: "JetBrains Mono", monospace; font-weight: 500; color: var(--dim);
+    font-size: 11.5px; margin-right: 10px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: 1px;
+    padding: 7px 14px; border-radius: 100px; border: 1px solid var(--line); color: var(--dim); }
+
+  footer { margin-top: 60px; padding-top: 26px; border-top: 1px solid var(--line);
+    display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  footer .mail { font-family: "Space Grotesk", sans-serif; font-size: 19px; font-weight: 500; }
+  footer .mail:hover { color: var(--red); }
+  footer .soc { font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: 1.5px; color: var(--dim); }
+  footer .soc:hover { color: #fff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="name">AENGDO<i>.</i></div>
+    <div class="tagline"><b>AI Engineer & Content Creator</b> — 뇌과학 × 컴퓨터과학을 전공하고, 지금은 AI를 만듭니다.</div>
+    <div class="actions">
+      <a class="btn hot" href="mailto:hyunaeee@gmail.com">✉ CONTACT</a>
+      <a class="btn" href="https://github.com/hyunaeee" target="_blank">GITHUB</a>
+      <a class="btn" href="index.html">🍒 AENGDO OS로 부팅</a>
+      <a class="btn" href="story.html">📖 스토리 모드</a>
+    </div>
+  </header>
+
+  <h2><i>01</i>SELECTED WORKS</h2>
+  <div class="sub">영상 · 이미지 — 클릭하면 원본으로 이동합니다</div>
+  <div class="works">
+    <a class="work" href="assets/now-art.jpg" target="_blank">
+      <img src="assets/now-art.jpg" alt="N.O.W" loading="lazy"/>
+      <div class="cap">N.O.W<small>EXHIBITION ART · 2025.12 · 서울콘 DDP</small></div>
+    </a>
+    <a class="work" href="https://youtu.be/e9ikiPXcKr0" target="_blank">
+      <img src="https://i.ytimg.com/vi/e9ikiPXcKr0/hqdefault.jpg" alt="ANIMAL COOKING" loading="lazy"/>
+      <div class="cap">ANIMAL COOKING<small>SHORT FILM · 2025.08</small></div>
+    </a>
+    <a class="work" href="https://youtu.be/N9XWjBSLfBQ" target="_blank">
+      <img src="https://i.ytimg.com/vi/N9XWjBSLfBQ/hqdefault.jpg" alt="BRAND FILM" loading="lazy"/>
+      <div class="cap">BRAND FILM<small>CAMPAIGN TEASER · 2025.12</small></div>
+    </a>
+    <a class="work" href="https://youtu.be/JMfOA264Tn0" target="_blank">
+      <img src="https://i.ytimg.com/vi/JMfOA264Tn0/hqdefault.jpg" alt="FLUID DYNAMICS" loading="lazy"/>
+      <div class="cap">FLUID DYNAMICS<small>MOTION GRAPHICS · 2025.12</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k/view" target="_blank">
+      <img src="https://drive.google.com/thumbnail?id=1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k&sz=w800" alt="KHNP EP.01" loading="lazy"/>
+      <div class="cap">KHNP EP.01<small>어린이 에너지 교육 · 납품작 2026.03</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1oCVM7z9ByHbd61RsIWd_DtN5Ya-glV-X/view" target="_blank">
+      <img src="https://drive.google.com/thumbnail?id=1oCVM7z9ByHbd61RsIWd_DtN5Ya-glV-X&sz=w800" alt="KHNP EP.02" loading="lazy"/>
+      <div class="cap">KHNP EP.02<small>어린이 에너지 교육 시리즈</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1OmeKei2SqGnEZbQDR4XhA7_KWz8U78xq/view" target="_blank">
+      <img src="https://drive.google.com/thumbnail?id=1OmeKei2SqGnEZbQDR4XhA7_KWz8U78xq&sz=w800" alt="KHNP EP.03" loading="lazy"/>
+      <div class="cap">KHNP EP.03<small>어린이 에너지 교육 시리즈</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB/view" target="_blank">
+      <img src="https://drive.google.com/thumbnail?id=1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB&sz=w800" alt="KHNP EP.04" loading="lazy"/>
+      <div class="cap">KHNP EP.04<small>어린이 에너지 교육 시리즈</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg/view" target="_blank">
+      <img src="https://drive.google.com/thumbnail?id=1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg&sz=w800" alt="KHNP EP.05" loading="lazy"/>
+      <div class="cap">KHNP EP.05<small>어린이 에너지 교육 시리즈</small></div>
+    </a>
+  </div>
+  <div class="audio-line">
+    <div>🎵</div>
+    <div><div class="t">NOT MY FAULT — 내 잘못이 아니야</div><small>COMPOSED WITH SUNO · 2025.12</small></div>
+    <audio controls preload="none" src="assets/music01.mp3"></audio>
+  </div>
+
+  <h2><i>02</i>BUILT &amp; SHIPPED</h2>
+  <div class="sub">직접 만들고 배포한 웹 서비스</div>
+  <div class="webs">
+    <a class="web" href="https://hacker-typer.vercel.app/" target="_blank">
+      <img src="assets/hacker.jpg" alt="HACKER TYPER" loading="lazy"/>
+      <div class="m"><b>HACKER TYPER</b><span>시네마틱 코딩 시뮬레이션 · React</span></div>
+    </a>
+    <a class="web" href="https://galaxy-oracle.netlify.app/" target="_blank">
+      <img src="assets/galaxy.jpg" alt="GALAXY ORACLE" loading="lazy"/>
+      <div class="m"><b>GALAXY ORACLE</b><span>3D 타로 · Three.js</span></div>
+    </a>
+    <a class="web" href="https://word-game-ochre-psi.vercel.app" target="_blank">
+      <img src="assets/word.jpg" alt="WORD GAME" loading="lazy"/>
+      <div class="m"><b>WORD GAME</b><span>단어 맞추기 게임</span></div>
+    </a>
+    <a class="web" href="https://saju-platform.vercel.app" target="_blank">
+      <img src="assets/saju.jpg" alt="SAJU 천명" loading="lazy"/>
+      <div class="m"><b>SAJU PLATFORM 천명</b><span>명리학 AI 사주 풀이</span></div>
+    </a>
+  </div>
+
+  <h2><i>03</i>AI PROJECTS</h2>
+  <div class="sub">GitHub — 클릭하면 레포로 이동</div>
+  <div class="repos">
+    <a class="repo" href="https://github.com/hyunaeee/med-rag" target="_blank"><b>med-rag</b><span>유방암 진단 서포트 RAG 에이전트</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank"><b>legal-pdf-rag</b><span>법률 PDF RAG 챗봇 (Solar LLM)</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/higgsMCP" target="_blank"><b>higgsMCP</b><span>AI 인플루언서 자동화 (Higgsfield MCP)</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/meeting-assistant" target="_blank"><b>meeting-assistant</b><span>회의록 작성→Notion·메일 에이전트</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/ppt-test" target="_blank"><b>ai-ppt-studio</b><span>Next.js 기반 AI 프레젠테이션 스튜디오</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/comfy-workflow" target="_blank"><b>comfy-workflow</b><span>생성형 콘텐츠 파이프라인 자동화</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/3D_char_sign_lang" target="_blank"><b>sign-avatar</b><span>3D 아바타 한국어→수어 변환</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/PR_semantic_image_segmentation_unet" target="_blank"><b>brain-unet</b><span>U-Net 뇌 MRI 세그멘테이션 구현</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/Report-Summary" target="_blank"><b>report-summary</b><span>기업연계 특허분쟁 문서 요약</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/hacker-typer" target="_blank"><b>hacker-typer</b><span>브랜드 몰입형 3D 웹</span><i>↗</i></a>
+  </div>
+
+  <h2><i>04</i>TRACK RECORD</h2>
+  <div class="tl">
+    <div><b>2026.03</b>한수원 어린이 에너지 교육 시리즈 5부작 납품</div>
+    <div><b>2026.01</b>앵두 스튜디오 오픈</div>
+    <div><b>2025.12</b>서울콘 DDP 'AI 전람회 : Beyond Fluxus' 초대 작가</div>
+    <div><b>2025.12</b>충남 아산 중학교 AI 웹툰·쇼츠 강의</div>
+    <div><b>2025.11</b>한국수력원자력 교육용 AI 영상 제작</div>
+    <div><b>2025.09</b>NC AI — AI 데이터실</div>
+    <div><b>2025.07</b>유튜브 'gaebaldaeramz' 개설</div>
+  </div>
+
+  <h2><i>05</i>STACK</h2>
+  <div class="chips">
+    <span class="chip">Python</span><span class="chip">PyTorch</span>
+    <span class="chip">LLM · RAG · Agents</span><span class="chip">Generative AI (ComfyUI)</span>
+    <span class="chip">React · Next.js</span><span class="chip">Three.js</span>
+    <span class="chip">Data Engineering</span><span class="chip">Suno · 영상 파이프라인</span>
+  </div>
+
+  <footer>
+    <a class="mail" href="mailto:hyunaeee@gmail.com">hyunaeee@gmail.com</a>
+    <a class="soc" href="https://github.com/hyunaeee" target="_blank">GITHUB</a>
+    <a class="soc" href="https://velog.io/@hyunaeee/posts" target="_blank">VELOG</a>
+    <a class="soc" href="https://instagram.com/gaebal_daeraemz" target="_blank">INSTAGRAM</a>
+    <a class="soc" href="https://www.youtube.com/@gaebal_daeraemz" target="_blank">YOUTUBE</a>
+    <span class="soc" style="margin-left:auto;">© 2026 AENGDO 🍒</span>
+  </footer>
+</div>
+</body>
+</html>
