@@ -1956,7 +1956,7 @@ const uniforms = {
   uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
   uColA: { value: new THREE.Color(0xb4b9cc) }, // silver
   uColB: { value: new THREE.Color(0xd9e4f0) }, // ice white
-  uColC: { value: new THREE.Color(0xff4655) }, // cherry (galaxy)
+  uColC: { value: new THREE.Color(0xffc37a) }, // champagne gold (galaxy)
   uPointer: { value: new THREE.Vector3(999, 999, 999) }, // cursor in group-local space
   uPtrStr: { value: 0 },
 };
@@ -2159,7 +2159,7 @@ group.add(new THREE.Points(geo, mat));
     return new THREE.CanvasTexture(c);
   }
   // very faint — bloom (threshold 0) amplifies anything additive
-  const NEB = [0x8b93b0, 0xff4655, 0x6a7290, 0x8b93b0];
+  const NEB = [0x8b93b0, 0xb99e6f, 0x6a7290, 0x8b93b0];
   NEB.forEach((hex, i) => {
     const sp = new THREE.Sprite(new THREE.SpriteMaterial({
       map: nebulaTex(hex),
@@ -2244,13 +2244,13 @@ const ACTS = [
   ["#ch1",     { morph: 1, camZ: 7.6,  rotY: 1.1, rotX: 0,     posY: 0,     bloom: BASE_BLOOM, bgR: 0.008, bgG: 0.012, bgB: 0.020 }], // neutral blue-grey
   ["#ch2",     { morph: 2, camZ: 6.4,  rotY: 2.2, rotX: 0,     posY: 0.1,   bloom: BASE_BLOOM, bgR: 0.012, bgG: 0.012, bgB: 0.022 }],
   ["#ch3",     { morph: 3, camZ: 8.4,  rotY: 3.3, rotX: 0.35,  posY: 0,     bloom: 1.02,       bgR: 0.008, bgG: 0.014, bgB: 0.022 }],
-  ["#ch4",     { morph: 4, camZ: 9.6,  rotY: 4.5, rotX: -0.5,  posY: 0,     bloom: 1.12,       bgR: 0.022, bgG: 0.008, bgB: 0.012 }], // faint cherry warmth
+  ["#ch4",     { morph: 4, camZ: 9.6,  rotY: 4.5, rotX: -0.5,  posY: 0,     bloom: 1.12,       bgR: 0.011, bgG: 0.010, bgB: 0.012 }], // neutral — let the gold particles carry the color
   ["#works",   { morph: 4, camZ: 11.5, rotY: 4.8, rotX: -0.35, posY: 0.2,   bloom: 0.92,       bgR: 0.012, bgG: 0.008, bgB: 0.014 }],
   ["#builds",  { morph: 4, camZ: 10.5, rotY: 5.1, rotX: -0.3,  posY: 0.1,   bloom: 0.92,       bgR: 0.008, bgG: 0.010, bgB: 0.018 }],
   ["#skills",  { morph: 4, camZ: 8.6,  rotY: 5.4, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.012, bgG: 0.008, bgB: 0.016 }],
   ["#journey", { morph: 4, camZ: 10.2, rotY: 5.7, rotX: -0.35, posY: 0.15,  bloom: 0.96,       bgR: 0.010, bgG: 0.008, bgB: 0.016 }],
   ["#game",    { morph: 4, camZ: 10.6, rotY: 6.0, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.008, bgG: 0.010, bgB: 0.018 }],
-  ["#contact", { morph: 4, camZ: 13.0, rotY: 6.5, rotX: -0.72, posY: -0.35, bloom: 1.15,       bgR: 0.016, bgG: 0.006, bgB: 0.010 }], // cherry dusk
+  ["#contact", { morph: 4, camZ: 13.0, rotY: 6.5, rotX: -0.72, posY: -0.35, bloom: 1.15,       bgR: 0.010, bgG: 0.008, bgB: 0.011 }],
 ];
 let acts = [];
 function computeActs() {
