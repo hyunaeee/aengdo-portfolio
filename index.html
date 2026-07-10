@@ -595,8 +595,8 @@
     el.innerHTML += "\nSELECT BOOT MODE:\n\n";
     const menu = document.createElement("div");
     menu.innerHTML =
-      '<div class="bootopt sel" data-v="os">1. AENGDO_OS &nbsp;&nbsp;&nbsp;&nbsp;— 탐험하며 구경하기 🍒</div>' +
-      '<div class="bootopt" data-v="pf">2. PORTFOLIO.ONE — 한눈에 보기 (바쁘신 분)</div>' +
+      '<div class="bootopt sel" data-v="pf">1. PORTFOLIO.ONE — 한눈에 보기 (기본)</div>' +
+      '<div class="bootopt" data-v="os">2. AENGDO_OS &nbsp;&nbsp;&nbsp;&nbsp;— 탐험하며 구경하기 🍒</div>' +
       '<div style="margin-top:16px;color:#6b7280;font-size:12px" id="bootcount"></div>';
     el.appendChild(menu);
     const opts = menu.querySelectorAll(".bootopt");
@@ -616,14 +616,14 @@
     addEventListener("keydown", function h(e) {
       if (!document.body.contains(menu)) { removeEventListener("keydown", h); return; }
       if (e.key === "ArrowDown" || e.key === "ArrowUp") { sel = 1 - sel; upd(); }
-      else if (e.key === "1") choose("os");
-      else if (e.key === "2") choose("pf");
+      else if (e.key === "1") choose("pf");
+      else if (e.key === "2") choose("os");
       else if (e.key === "Enter") choose(opts[sel].dataset.v);
     });
-    cdEl.textContent = count + "초 후 AENGDO_OS로 자동 부팅...";
+    cdEl.textContent = count + "초 후 PORTFOLIO로 자동 부팅...";
     const cd = setInterval(() => {
       count--;
-      cdEl.textContent = count + "초 후 AENGDO_OS로 자동 부팅...";
+      cdEl.textContent = count + "초 후 PORTFOLIO로 자동 부팅...";
       if (count <= 0) choose(opts[sel].dataset.v);
     }, 1000);
   }
