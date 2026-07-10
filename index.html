@@ -47,10 +47,10 @@
   --ink: #eceaf6;
   --dim: #8b8a9e;
   --faint: rgba(255, 255, 255, 0.07);
-  --violet: #8a75f5;
-  --cyan: #4fd6f0;
-  --pink: #f06ec8;
-  --grad: linear-gradient(100deg, var(--violet) 0%, var(--cyan) 60%, var(--pink) 120%);
+  --violet: #ff4655;  /* cherry — the single accent */
+  --cyan: #d3d8e2;    /* silver — labels & details */
+  --pink: #ff4655;
+  --grad: linear-gradient(100deg, #ff4655 0%, #ff7d88 70%, #ffb3ba 130%);
   --font-disp: "Space Grotesk", "Noto Sans KR", sans-serif;
   --font-kr: "Noto Sans KR", sans-serif;
   --font-serif: "Noto Serif KR", serif;
@@ -73,7 +73,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: rgba(124, 92, 255, 0.45); color: #fff; }
+::selection { background: rgba(255, 70, 85, 0.45); color: #fff; }
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: #06060c; }
 ::-webkit-scrollbar-thumb { background: #2a2a3e; border-radius: 3px; }
@@ -261,8 +261,8 @@ nav {
   transition: all 0.3s;
 }
 .dots a.active {
-  background: var(--cyan);
-  box-shadow: 0 0 12px var(--cyan);
+  background: var(--violet);
+  box-shadow: 0 0 12px var(--violet);
   transform: scale(1.3);
 }
 @media (max-width: 768px) { .dots { display: none; } }
@@ -322,7 +322,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   font-size: clamp(42px, 7.4vw, 104px);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  text-shadow: 0 4px 44px rgba(124, 92, 255, 0.3);
+  text-shadow: 0 4px 44px rgba(255, 70, 85, 0.3);
 }
 .hero-sub {
   margin-top: 4.5vh;
@@ -545,7 +545,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, rgba(124, 92, 255, 0.14), rgba(0, 229, 255, 0.08));
+  background: linear-gradient(100deg, rgba(255, 70, 85, 0.14), rgba(255, 255, 255, 0.08));
   transform: translateY(101%);
   transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
   z-index: -1;
@@ -578,7 +578,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   background: #030309;
   touch-action: none;
   cursor: crosshair;
-  box-shadow: 0 30px 90px rgba(124, 92, 255, 0.16);
+  box-shadow: 0 30px 90px rgba(255, 70, 85, 0.16);
 }
 .game-frame canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
 .g-hud {
@@ -674,9 +674,9 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   background: var(--grad);
   color: #fff;
   transition: transform 0.25s, box-shadow 0.25s;
-  box-shadow: 0 10px 34px rgba(124, 92, 255, 0.35);
+  box-shadow: 0 10px 34px rgba(255, 70, 85, 0.35);
 }
-.g-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 16px 44px rgba(0, 229, 255, 0.4); }
+.g-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 16px 44px rgba(255, 255, 255, 0.4); }
 .g-score-big {
   font-family: var(--font-disp);
   font-size: clamp(50px, 8vw, 110px);
@@ -734,7 +734,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 .copy-btn:hover {
   color: #fff;
   border-color: var(--cyan);
-  background: rgba(0, 229, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 .guide.sleep .g-avatar {
   filter: grayscale(0.45) brightness(0.6) drop-shadow(0 14px 30px rgba(0, 0, 0, 0.4));
@@ -766,8 +766,8 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 }
 .work-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(124, 92, 255, 0.5);
-  box-shadow: 0 22px 60px rgba(124, 92, 255, 0.18);
+  border-color: rgba(255, 70, 85, 0.5);
+  box-shadow: 0 22px 60px rgba(255, 70, 85, 0.18);
 }
 .work-card img.thumb, .work-card iframe {
   position: absolute;
@@ -817,7 +817,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   pointer-events: none;
 }
 .work-card:hover .wc-play {
-  background: rgba(124, 92, 255, 0.65);
+  background: rgba(255, 70, 85, 0.65);
   transform: translate(-50%, -50%) scale(1.12);
 }
 .work-card.playing .wc-play, .work-card.playing img.thumb { display: none; }
@@ -866,7 +866,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   transition: 0.3s;
   flex: none;
 }
-.au-btn:hover { background: rgba(124, 92, 255, 0.5); border-color: transparent; }
+.au-btn:hover { background: rgba(255, 70, 85, 0.5); border-color: transparent; }
 .au-title { font-weight: 700; font-size: 16.5px; }
 .au-sub { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 2px; color: var(--dim); margin-top: 3px; }
 .au-eq { display: flex; gap: 3px; height: 22px; align-items: flex-end; margin-left: auto; }
@@ -895,8 +895,8 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 }
 .web-card:hover .web-frame {
   transform: translateY(-6px);
-  border-color: rgba(0, 229, 255, 0.5);
-  box-shadow: 0 22px 60px rgba(0, 229, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 22px 60px rgba(255, 255, 255, 0.14);
 }
 .web-frame img { width: 100%; aspect-ratio: 16 / 9.6; object-fit: cover; display: block; }
 .web-meta { margin-top: 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
@@ -924,8 +924,8 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 }
 .sol-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(124, 92, 255, 0.5);
-  background: rgba(124, 92, 255, 0.08);
+  border-color: rgba(255, 70, 85, 0.5);
+  background: rgba(255, 70, 85, 0.08);
 }
 .sol-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; }
 .sol-tag {
@@ -933,7 +933,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   font-size: 10px;
   letter-spacing: 2px;
   color: var(--cyan);
-  border: 1px solid rgba(0, 229, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 4px 10px;
   border-radius: 100px;
 }
@@ -1003,7 +1003,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 .g-bubble {
   max-width: 252px;
   background: rgba(10, 10, 22, 0.88);
-  border: 1px solid rgba(124, 92, 255, 0.4);
+  border: 1px solid rgba(255, 70, 85, 0.4);
   backdrop-filter: blur(8px);
   border-radius: 14px 14px 4px 14px;
   padding: 12px 16px;
@@ -1021,8 +1021,8 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   bottom: -7px;
   width: 12px; height: 12px;
   background: rgba(10, 10, 22, 0.88);
-  border-right: 1px solid rgba(124, 92, 255, 0.4);
-  border-bottom: 1px solid rgba(124, 92, 255, 0.4);
+  border-right: 1px solid rgba(255, 70, 85, 0.4);
+  border-bottom: 1px solid rgba(255, 70, 85, 0.4);
   transform: rotate(45deg);
 }
 .g-bubble b { color: var(--cyan); font-weight: 500; }
@@ -1032,7 +1032,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
   width: 138px;
   cursor: pointer;
   animation: g-bob 3.4s ease-in-out infinite;
-  filter: drop-shadow(0 14px 30px rgba(124, 92, 255, 0.45));
+  filter: drop-shadow(0 14px 30px rgba(255, 70, 85, 0.45));
   transition: filter 0.3s, transform 0.3s;
 }
 .g-avatar img.face {
@@ -1049,7 +1049,7 @@ section { position: relative; min-height: 100vh; display: flex; align-items: cen
 }
 .g-avatar img.face.on { opacity: 1; }
 .g-avatar:hover {
-  filter: drop-shadow(0 16px 36px rgba(0, 229, 255, 0.55));
+  filter: drop-shadow(0 16px 36px rgba(255, 255, 255, 0.55));
   transform: scale(1.05);
 }
 .guide.hop .g-avatar { animation: g-hop 0.55s ease; }
@@ -1954,9 +1954,9 @@ const uniforms = {
   uIntro: { value: 0 },
   uSize: { value: isMobile ? 26.0 : 20.0 },
   uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-  uColA: { value: new THREE.Color(0x8a75f5) },
-  uColB: { value: new THREE.Color(0x4fd6f0) },
-  uColC: { value: new THREE.Color(0xf06ec8) },
+  uColA: { value: new THREE.Color(0xb4b9cc) }, // silver
+  uColB: { value: new THREE.Color(0xd9e4f0) }, // ice white
+  uColC: { value: new THREE.Color(0xff4655) }, // cherry (galaxy)
   uPointer: { value: new THREE.Vector3(999, 999, 999) }, // cursor in group-local space
   uPtrStr: { value: 0 },
 };
@@ -2138,7 +2138,7 @@ group.add(new THREE.Points(geo, mat));
   const sg = new THREE.BufferGeometry();
   sg.setAttribute("position", new THREE.BufferAttribute(sp, 3));
   scene.add(new THREE.Points(sg, new THREE.PointsMaterial({
-    size: 0.06, color: 0x9aa4e8, transparent: true, opacity: 0.42,
+    size: 0.06, color: 0xa8adbe, transparent: true, opacity: 0.4,
     depthWrite: false, blending: THREE.AdditiveBlending,
   })));
 }
@@ -2159,7 +2159,7 @@ group.add(new THREE.Points(geo, mat));
     return new THREE.CanvasTexture(c);
   }
   // very faint — bloom (threshold 0) amplifies anything additive
-  const NEB = [0x7c5cff, 0x00e5ff, 0xff4fd8, 0x7c5cff];
+  const NEB = [0x8b93b0, 0xff4655, 0x6a7290, 0x8b93b0];
   NEB.forEach((hex, i) => {
     const sp = new THREE.Sprite(new THREE.SpriteMaterial({
       map: nebulaTex(hex),
@@ -2241,16 +2241,16 @@ const view = { ...BASE };
 
 // per-chapter color grade — analogous blue-violet family, kept subtle
 const ACTS = [
-  ["#ch1",     { morph: 1, camZ: 7.6,  rotY: 1.1, rotX: 0,     posY: 0,     bloom: BASE_BLOOM, bgR: 0.008, bgG: 0.020, bgB: 0.034 }], // neuron — soft blue
-  ["#ch2",     { morph: 2, camZ: 6.4,  rotY: 2.2, rotX: 0,     posY: 0.1,   bloom: BASE_BLOOM, bgR: 0.024, bgG: 0.012, bgB: 0.048 }], // brain — muted violet
-  ["#ch3",     { morph: 3, camZ: 8.4,  rotY: 3.3, rotX: 0.35,  posY: 0,     bloom: 1.02,       bgR: 0.010, bgG: 0.030, bgB: 0.042 }], // lattice — soft cyan
-  ["#ch4",     { morph: 4, camZ: 9.6,  rotY: 4.5, rotX: -0.5,  posY: 0,     bloom: 1.12,       bgR: 0.036, bgG: 0.012, bgB: 0.042 }], // galaxy — plum
-  ["#works",   { morph: 4, camZ: 11.5, rotY: 4.8, rotX: -0.35, posY: 0.2,   bloom: 0.92,       bgR: 0.020, bgG: 0.010, bgB: 0.036 }], // content first — galaxy recedes
-  ["#builds",  { morph: 4, camZ: 10.5, rotY: 5.1, rotX: -0.3,  posY: 0.1,   bloom: 0.92,       bgR: 0.010, bgG: 0.018, bgB: 0.034 }],
-  ["#skills",  { morph: 4, camZ: 8.6,  rotY: 5.4, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.022, bgG: 0.010, bgB: 0.038 }],
-  ["#journey", { morph: 4, camZ: 10.2, rotY: 5.7, rotX: -0.35, posY: 0.15,  bloom: 0.96,       bgR: 0.014, bgG: 0.010, bgB: 0.032 }],
-  ["#game",    { morph: 4, camZ: 10.6, rotY: 6.0, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.010, bgG: 0.018, bgB: 0.036 }],
-  ["#contact", { morph: 4, camZ: 13.0, rotY: 6.5, rotX: -0.72, posY: -0.35, bloom: 1.15,       bgR: 0.014, bgG: 0.006, bgB: 0.024 }],
+  ["#ch1",     { morph: 1, camZ: 7.6,  rotY: 1.1, rotX: 0,     posY: 0,     bloom: BASE_BLOOM, bgR: 0.008, bgG: 0.012, bgB: 0.020 }], // neutral blue-grey
+  ["#ch2",     { morph: 2, camZ: 6.4,  rotY: 2.2, rotX: 0,     posY: 0.1,   bloom: BASE_BLOOM, bgR: 0.012, bgG: 0.012, bgB: 0.022 }],
+  ["#ch3",     { morph: 3, camZ: 8.4,  rotY: 3.3, rotX: 0.35,  posY: 0,     bloom: 1.02,       bgR: 0.008, bgG: 0.014, bgB: 0.022 }],
+  ["#ch4",     { morph: 4, camZ: 9.6,  rotY: 4.5, rotX: -0.5,  posY: 0,     bloom: 1.12,       bgR: 0.022, bgG: 0.008, bgB: 0.012 }], // faint cherry warmth
+  ["#works",   { morph: 4, camZ: 11.5, rotY: 4.8, rotX: -0.35, posY: 0.2,   bloom: 0.92,       bgR: 0.012, bgG: 0.008, bgB: 0.014 }],
+  ["#builds",  { morph: 4, camZ: 10.5, rotY: 5.1, rotX: -0.3,  posY: 0.1,   bloom: 0.92,       bgR: 0.008, bgG: 0.010, bgB: 0.018 }],
+  ["#skills",  { morph: 4, camZ: 8.6,  rotY: 5.4, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.012, bgG: 0.008, bgB: 0.016 }],
+  ["#journey", { morph: 4, camZ: 10.2, rotY: 5.7, rotX: -0.35, posY: 0.15,  bloom: 0.96,       bgR: 0.010, bgG: 0.008, bgB: 0.016 }],
+  ["#game",    { morph: 4, camZ: 10.6, rotY: 6.0, rotX: -0.3,  posY: 0,     bloom: 1.02,       bgR: 0.008, bgG: 0.010, bgB: 0.018 }],
+  ["#contact", { morph: 4, camZ: 13.0, rotY: 6.5, rotX: -0.72, posY: -0.35, bloom: 1.15,       bgR: 0.016, bgG: 0.006, bgB: 0.010 }], // cherry dusk
 ];
 let acts = [];
 function computeActs() {
@@ -2412,7 +2412,7 @@ window.dispatchEvent(new Event("scene:ready"));
   const rings = [];
   for (let i = 0; i < RINGS; i++) {
     const ring = new THREE.Line(ringGeo, new THREE.LineBasicMaterial({
-      color: i % 4 === 0 ? 0x00e5ff : 0x7c5cff,
+      color: i % 4 === 0 ? 0xff4655 : 0x8e96ac,
       transparent: true, opacity: 0.3,
       blending: THREE.AdditiveBlending,
     }));
@@ -2435,7 +2435,7 @@ window.dispatchEvent(new Event("scene:ready"));
   const dustGeo = new THREE.BufferGeometry();
   dustGeo.setAttribute("position", new THREE.BufferAttribute(dustArr, 3));
   gScene.add(new THREE.Points(dustGeo, new THREE.PointsMaterial({
-    size: 0.06, color: 0x9aa4ff, transparent: true, opacity: 0.7,
+    size: 0.06, color: 0xaab0c2, transparent: true, opacity: 0.65,
     depthWrite: false, blending: THREE.AdditiveBlending,
   })));
   const dustAttr = dustGeo.getAttribute("position");
@@ -2459,7 +2459,7 @@ window.dispatchEvent(new Event("scene:ready"));
     new THREE.MeshBasicMaterial({ color: 0xbfefff })
   );
   const glow = new THREE.Sprite(new THREE.SpriteMaterial({
-    map: glowTexture("rgba(255,255,255,1)", "rgba(0,229,255,0.75)"),
+    map: glowTexture("rgba(255,255,255,1)", "rgba(214,228,242,0.75)"),
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
   }));
   glow.scale.setScalar(2.4);
@@ -2479,7 +2479,7 @@ window.dispatchEvent(new Event("scene:ready"));
   })));
   const hist = [];
   for (let i = 0; i < TRAIL; i++) hist.push({ x: 0, y: 0 });
-  const cTrail = new THREE.Color(0x00e5ff);
+  const cTrail = new THREE.Color(0xd9e4f0);
 
   /* entities: cyan synapses (+), pink inhibitors (-), rare gold shields */
   const orbGeo = new THREE.IcosahedronGeometry(0.3, 0);
@@ -2491,7 +2491,7 @@ window.dispatchEvent(new Event("scene:ready"));
     let e = arr.find((p) => !p.visible);
     if (!e) {
       const geo = kind === "mine" ? mineGeo : kind === "gold" ? goldGeo : orbGeo;
-      const color = kind === "mine" ? 0xff2f6d : kind === "gold" ? 0xffd34f : 0x00e5ff;
+      const color = kind === "mine" ? 0xff2f4a : kind === "gold" ? 0xffd34f : 0xd9e4f0;
       e = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color, wireframe: true }));
       e.userData.kind = kind;
       gScene.add(e);
