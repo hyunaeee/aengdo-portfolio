@@ -42,7 +42,7 @@
 
   /* ---------- desktop icons ---------- */
   .icons { position: fixed; left: 18px; top: 18px; z-index: 2;
-    display: grid; grid-template-rows: repeat(7, auto); grid-auto-flow: column; gap: 6px 8px; }
+    display: grid; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 6px 8px; }
   .icon { width: 96px; text-align: center; cursor: pointer; padding: 9px 2px; border: 1px dotted transparent; }
   .icon:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,.35); }
   .icon .glyph { font-size: 34px; }
@@ -242,20 +242,10 @@
   <div class="icon" data-app="w-story"><div class="glyph">📖</div><div class="name">STORY.EXE</div></div>
   <div class="icon" data-app="w-works"><div class="glyph">📁</div><div class="name">WORKS</div></div>
   <div class="icon" data-app="w-game"><div class="glyph">🎮</div><div class="name">SIGNAL_RUN.EXE</div></div>
-  <div class="icon" data-app="w-times"><div class="glyph">🗞️</div><div class="name">AENGDO TIMES</div></div>
-  <div class="icon" data-app="w-brain"><div class="glyph">🧠</div><div class="name">BRAIN.EXE</div></div>
-  <div class="icon" data-app="w-blueprint"><div class="glyph">📐</div><div class="name">HOUSE.DWG</div></div>
   <div class="icon" data-app="w-chat"><div class="glyph">🍒</div><div class="name">앵두 메신저</div></div>
-  <div class="icon" data-app="fs-dive"><div class="glyph">🌌</div><div class="name">DIVE.EXE</div></div>
-  <div class="icon" data-app="fs-type"><div class="glyph">🌀</div><div class="name">TYPESTORM.EXE</div></div>
-  <div class="icon" data-app="saver"><div class="glyph">🔦</div><div class="name">NOIR.SCR</div></div>
-  <div class="icon" data-app="w-readme"><div class="glyph">📄</div><div class="name">README.TXT</div></div>
-  <div class="icon" data-app="w-log"><div class="glyph">📋</div><div class="name">TRACK.LOG</div></div>
   <div class="icon" data-app="w-mail"><div class="glyph">✉️</div><div class="name">MAIL.EXE</div></div>
-  <div class="icon" data-app="w-term"><div class="glyph">💻</div><div class="name">TERMINAL.EXE</div></div>
-  <div class="icon" data-app="w-secret"><div class="glyph">🔒</div><div class="name">SECRET</div></div>
-  <div class="icon" data-app="w-trash"><div class="glyph">🗑️</div><div class="name">휴지통</div></div>
-  <div class="icon" data-app="dontclick"><div class="glyph">⛔</div><div class="name">DONT_CLICK<br/>.EXE</div></div>
+  <div class="icon" data-app="w-readme"><div class="glyph">📄</div><div class="name">README.TXT</div></div>
+  <div class="icon" data-app="w-toybox"><div class="glyph">🧸</div><div class="name">TOYBOX</div></div>
 </div>
 
 <!-- ================= windows ================= -->
@@ -468,6 +458,27 @@
   </div>
 </div>
 
+<div class="win" id="w-toybox" style="left:24%; top:16%;" data-title="🧸 TOYBOX">
+  <div class="titlebar"><span>🧸 C:\AENGDO\TOYBOX — 잡동사니</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody">
+    <div class="files" style="max-width:480px;">
+      <div class="file" data-app="w-brain"><div class="glyph">🧠</div><div class="name">BRAIN.EXE</div></div>
+      <div class="file" data-app="w-blueprint"><div class="glyph">📐</div><div class="name">HOUSE.DWG</div></div>
+      <div class="file" data-app="w-times"><div class="glyph">🗞️</div><div class="name">AENGDO<br/>TIMES</div></div>
+      <div class="file" data-app="w-log"><div class="glyph">📋</div><div class="name">TRACK.LOG</div></div>
+      <div class="file" data-app="w-term"><div class="glyph">💻</div><div class="name">TERMINAL<br/>.EXE</div></div>
+      <div class="file" data-app="fs-dive"><div class="glyph">🌌</div><div class="name">DIVE.EXE</div></div>
+      <div class="file" data-app="fs-type"><div class="glyph">🌀</div><div class="name">TYPESTORM<br/>.EXE</div></div>
+      <div class="file" data-app="saver"><div class="glyph">🔦</div><div class="name">NOIR.SCR</div></div>
+      <div class="file" data-app="w-secret"><div class="glyph">🔒</div><div class="name">SECRET</div></div>
+      <div class="file" data-app="w-trash"><div class="glyph">🗑️</div><div class="name">휴지통</div></div>
+      <div class="file" data-app="dontclick"><div class="glyph">⛔</div><div class="name">DONT_CLICK<br/>.EXE</div></div>
+    </div>
+  </div>
+  <div class="storyline">부수적인 것들은 여기 정리해뒀어요. 근데 사실 <i>제일 재밌는 건</i> 다 여기 있음.</div>
+</div>
+
 <div class="win" id="w-term" style="left:22%; top:20%;" data-title="💻 TERMINAL">
   <div class="titlebar"><span>💻 AENGDO SHELL — C:\AENGDO</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
@@ -543,7 +554,7 @@
   <div class="item" data-app="w-game">🎮 SIGNAL_RUN.EXE</div>
   <div class="item" data-app="w-times">🗞️ AENGDO TIMES</div>
   <div class="item" data-app="w-chat">🍒 앵두 메신저</div>
-  <div class="item" data-app="saver">🔦 화면보호기</div>
+  <div class="item" data-app="w-toybox">🧸 TOYBOX — 잡동사니</div>
   <div class="sep"></div>
   <a class="item" href="classic.html" target="_blank">🗂️ CLASSIC.HTML (구버전)</a>
   <a class="item" href="https://github.com/hyunaeee" target="_blank">🐙 GitHub</a>
@@ -826,6 +837,7 @@ const REACT = {
   "fs-type": "글자 조심하세요, 물어요 🌀",
   "w-mail": "답장은 빛의 속도로 드릴게요 ✉️",
   "w-log": "한 줄 한 줄이 밤샘의 기록입니다 📋",
+  "w-toybox": "잡동사니 상자예요. 하나씩 다 눌러보는 거 추천 🧸",
   "w-term": "오, 터미널 여는 사람 오랜만이에요. 'fortune' 쳐보세요 💻",
   "w-trash": "남의 휴지통을 왜... 아니 뭐, 보세요 🗑️",
   "w-secret": "암호요? 제 전공을 떠올려보세요 🔒",
