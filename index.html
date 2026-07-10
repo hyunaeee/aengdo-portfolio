@@ -75,6 +75,16 @@
     line-height: 1.7;
   }
   .storyline i { font-style: normal; color: #ff8f99; }
+  /* floor plan */
+  .fpwall { stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: fpdraw 2.2s ease forwards; }
+  @keyframes fpdraw { to { stroke-dashoffset: 0; } }
+  .fproom { cursor: pointer; }
+  .fproom text { pointer-events: none; }
+  .fproom rect { fill: transparent; stroke: none; transition: fill 0.25s; }
+  .fproom:hover rect { fill: rgba(255, 210, 122, 0.12); }
+  .fproom .fpname { fill: #dfe9f5; font-family: "Galmuri11", monospace; font-size: 15px; }
+  .fproom .fpsub { fill: #8fa6c4; font-family: "JetBrains Mono", monospace; font-size: 9.5px; letter-spacing: 1px; }
+  .fproom:hover .fpname { fill: #ffd27a; }
   .wbody a { color: #8fc7ff; }
   .wbody canvas { display: block; background: #0b0c12; border: 1.5px solid #0c0d12; max-width: 100%; }
   .win iframe { display: block; border: 1.5px solid #0c0d12; background: #000; width: 100%; }
@@ -205,7 +215,7 @@
   <div class="icon" data-app="w-game"><div class="glyph">🎮</div><div class="name">SIGNAL_RUN.EXE</div></div>
   <div class="icon" data-app="w-times"><div class="glyph">🗞️</div><div class="name">AENGDO TIMES</div></div>
   <div class="icon" data-app="w-brain"><div class="glyph">🧠</div><div class="name">BRAIN.EXE</div></div>
-  <div class="icon" data-app="w-blueprint"><div class="glyph">📐</div><div class="name">FIG01.DWG</div></div>
+  <div class="icon" data-app="w-blueprint"><div class="glyph">📐</div><div class="name">HOUSE.DWG</div></div>
   <div class="icon" data-app="w-chat"><div class="glyph">🍒</div><div class="name">앵두 메신저</div></div>
   <div class="icon" data-app="fs-dive"><div class="glyph">🌌</div><div class="name">DIVE.EXE</div></div>
   <div class="icon" data-app="fs-type"><div class="glyph">🌀</div><div class="name">TYPESTORM.EXE</div></div>
@@ -247,14 +257,93 @@
   <div class="storyline">전공 시절 4년 내내 들여다본 기관이에요. 이제는 <i>문자 몇 줄</i>로도 그릴 수 있게 됐네요.</div>
 </div>
 
-<div class="win" id="w-blueprint" style="left:18%; top:16%;" data-title="📐 FIG01.DWG">
-  <div class="titlebar"><span>📐 FIG01.DWG — 도면 뷰어</span>
+<div class="win" id="w-blueprint" style="left:18%; top:14%;" data-title="📐 HOUSE.DWG">
+  <div class="titlebar"><span>📐 HOUSE.DWG — 앵두 하우스 평면도</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
-  <div class="wbody">
-    <canvas id="bpCv" width="560" height="380"></canvas>
-    <div style="margin-top:7px; font-size:11px; color:#9aa0b0;">AGD-2026-001 · SCALE 1:1 · MASS 1.4kg · DRAWN BY AENGDO 🍒</div>
+  <div class="wbody" style="padding:10px;">
+    <svg id="floorplan" width="560" height="386" viewBox="0 0 560 386"
+         style="display:block; background:#0d2b52; border:1.5px solid #0c0d12; max-width:82vw; height:auto;">
+      <defs>
+        <pattern id="fpgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M20 0H0V20" fill="none" stroke="rgba(255,255,255,.055)" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="560" height="386" fill="url(#fpgrid)"/>
+      <!-- title + compass -->
+      <text x="30" y="28" fill="#dfe9f5" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="700">AENGDO HOUSE — 이 컴퓨터의 평면도</text>
+      <g transform="translate(524,24)" stroke="#ffd27a" fill="#ffd27a">
+        <line x1="0" y1="10" x2="0" y2="-8" stroke-width="1.5"/><path d="M-4 -2 L0 -10 L4 -2 Z"/>
+        <text x="-4" y="24" font-family="'JetBrains Mono',monospace" font-size="10" stroke="none">N</text>
+      </g>
+      <!-- outer wall -->
+      <rect class="fpwall" x="30" y="46" width="500" height="292" fill="none" stroke="#dfe9f5" stroke-width="2.5"/>
+      <!-- partitions (with door gaps) -->
+      <g class="fpwall" stroke="#dfe9f5" stroke-width="1.6" fill="none">
+        <path d="M225 46 V120 M225 150 V186"/>
+        <path d="M385 46 V90 M385 118 V186"/>
+        <path d="M30 186 H120 M150 186 H330 M360 186 H530"/>
+        <path d="M195 186 V270 M195 298 V338"/>
+        <path d="M350 186 V230 M350 258 V338"/>
+        <path d="M448 186 V222 M448 250 V338"/>
+        <path d="M478 46 V78 M478 100 V104 M478 104 H530" />
+      </g>
+      <!-- rooms (click to enter) -->
+      <g class="fproom" data-app="w-story">
+        <rect x="32" y="48" width="191" height="136"/>
+        <text x="58" y="105" class="fpname">📖 서재</text>
+        <text x="58" y="124" class="fpsub">STORY.EXE — 이야기의 전문</text>
+      </g>
+      <g class="fproom" data-app="w-brain">
+        <rect x="227" y="48" width="156" height="136"/>
+        <text x="252" y="105" class="fpname">🧠 연구실</text>
+        <text x="252" y="124" class="fpsub">BRAIN.EXE</text>
+      </g>
+      <g class="fproom" data-app="w-works">
+        <rect x="387" y="106" width="141" height="78"/>
+        <text x="404" y="141" class="fpname">📁 작업실</text>
+        <text x="404" y="160" class="fpsub">WORKS — 결과물 창고</text>
+      </g>
+      <g class="fproom" data-app="saver">
+        <rect x="480" y="48" width="48" height="54"/>
+        <text x="487" y="72" class="fpname" font-size="13">🔦</text>
+        <text x="486" y="88" class="fpsub">암실</text>
+      </g>
+      <g class="fproom" data-app="w-times">
+        <rect x="387" y="48" width="89" height="56"/>
+        <text x="398" y="72" class="fpname" font-size="12">🗞️ 인쇄실</text>
+        <text x="398" y="88" class="fpsub">TIMES</text>
+      </g>
+      <g class="fproom" data-app="w-game">
+        <rect x="32" y="188" width="161" height="148"/>
+        <text x="58" y="252" class="fpname">🎮 오락실</text>
+        <text x="58" y="271" class="fpsub">SIGNAL_RUN.EXE</text>
+      </g>
+      <g class="fproom" data-app="w-chat">
+        <rect x="197" y="188" width="151" height="148"/>
+        <text x="222" y="252" class="fpname">🍒 거실</text>
+        <text x="222" y="271" class="fpsub">앵두 메신저</text>
+      </g>
+      <g class="fproom" data-app="w-log">
+        <rect x="352" y="188" width="94" height="148"/>
+        <text x="364" y="252" class="fpname" font-size="13">📋 기록실</text>
+        <text x="364" y="271" class="fpsub">TRACK.LOG</text>
+      </g>
+      <g class="fproom" data-app="w-mail">
+        <rect x="450" y="188" width="78" height="148"/>
+        <text x="460" y="252" class="fpname" font-size="13">✉️ 현관</text>
+        <text x="460" y="271" class="fpsub">MAIL.EXE</text>
+      </g>
+      <!-- dimension line -->
+      <g stroke="#ffd27a" fill="#ffd27a" font-family="'JetBrains Mono',monospace">
+        <line x1="30" y1="358" x2="530" y2="358" stroke-width="1"/>
+        <line x1="30" y1="352" x2="30" y2="364" stroke-width="1"/>
+        <line x1="530" y1="352" x2="530" y2="364" stroke-width="1"/>
+        <text x="238" y="376" font-size="10" stroke="none">한 사람의 관심사 전부 (SCALE 1:마음)</text>
+      </g>
+    </svg>
+    <div style="margin-top:7px; font-size:11px; color:#9aa0b0;">AGD-2026-002 · 방을 클릭하면 그 방으로 이동합니다 · DRAWN BY AENGDO 🍒</div>
   </div>
-  <div class="storyline">무언가를 만들려면 먼저 설계도부터 읽어야 하니까 — <i>지능의 도면</i>을 그려봤습니다.</div>
+  <div class="storyline">이 컴퓨터를 <i>집</i>이라고 치면 이런 구조예요. 서재에서 시작해서, 현관에서 편지를 기다립니다.</div>
 </div>
 
 <div class="win" id="w-story" style="left:10%; top:6%;" data-title="📖 STORY.EXE">
@@ -568,7 +657,6 @@ function lazyInit(id) {
   const f = w.querySelector("iframe[data-src]");
   if (f) f.src = f.dataset.src;
   if (id === "w-brain") brainApp();
-  if (id === "w-blueprint") bpApp();
   if (id === "w-works") buildFiles();
   if (id === "w-chat") chatApp();
 }
@@ -591,7 +679,7 @@ const REACT = {
   "w-game": "화이팅! 제 최고기록은 안 알려드림 🎮",
   "w-times": "창간호입니다. 구독료는 무료예요 🗞️",
   "w-brain": "제 자랑 뇌예요. 문자로 그렸어요 🧠",
-  "w-blueprint": "설계도 유출인가...? 축척 1:1 맞아요 📐",
+  "w-blueprint": "이 컴퓨터의 평면도예요. 방을 클릭하면 이동해요 📐",
   "fs-dive": "멀미 조심하세요 🌌",
   "fs-type": "글자 조심하세요, 물어요 🌀",
   "w-mail": "답장은 빛의 속도로 드릴게요 ✉️",
@@ -769,79 +857,14 @@ function brainApp() {
   })();
 }
 
-/* ================= FIG01.DWG — blueprint viewer ================= */
-function bpApp() {
-  const cv = document.getElementById("bpCv"), ctx = cv.getContext("2d");
-  const W = cv.width, H = cv.height, cx = W*0.5, cyy = H*0.54, R = Math.min(W,H)*0.32;
-  function inside(x, y) {
-    let nx = (x-cx)/(R*1.35), ny = (y-cyy)/(R*0.95);
-    if (ny > 0.55) ny = 0.55 + (ny-0.55)*2.2;
-    return nx*nx + ny*ny < 1;
-  }
-  const strokes = [];
-  const outline = [];
-  for (let i = 0; i <= 160; i++) {
-    const a = (i/160)*6.283;
-    let x = Math.cos(a)*1.35, y = Math.sin(a)*0.95;
-    if (y > 0.55) y = 0.55 + (y-0.55)*0.45;
-    outline.push([cx + x*R, cyy + y*R]);
-  }
-  strokes.push(outline);
-  for (let s = 0; s < 20; s++) {
-    const line = [];
-    let x = cx + (Math.random()-.5)*R*2, y = cyy + (Math.random()-.7)*R*1.4;
-    if (!inside(x, y)) { s--; continue; }
-    let dir = Math.random()*6.283;
-    for (let i = 0; i < 70; i++) {
-      dir += (Math.random()-.5)*0.9;
-      const nx = x + Math.cos(dir)*R*0.05, ny = y + Math.sin(dir)*R*0.05;
-      if (!inside(nx, ny)) { dir += Math.PI*0.7; continue; }
-      x = nx; y = ny; line.push([x, y]);
-    }
-    if (line.length > 8) strokes.push(line);
-  }
-  let mx = -99, my = -99, progress = 0;
-  cv.addEventListener("pointermove", e => {
-    const r = cv.getBoundingClientRect();
-    mx = (e.clientX - r.left) * (W / r.width); my = (e.clientY - r.top) * (H / r.height);
+/* ================= HOUSE.DWG — floor plan rooms ================= */
+document.querySelectorAll("#floorplan .fproom").forEach(room => {
+  room.addEventListener("click", () => {
+    const app = room.dataset.app;
+    if (app === "saver") startSaver();
+    else openWin(app);
   });
-  const win = document.getElementById("w-blueprint");
-  (function tick() {
-    requestAnimationFrame(tick);
-    if (!win.classList.contains("open") || win.classList.contains("min")) return;
-    progress = Math.min(1, progress + 0.008);
-    // blueprint paper + grid
-    ctx.fillStyle = "#0d2b52"; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = "rgba(255,255,255,.05)"; ctx.lineWidth = 1;
-    for (let x = 0; x < W; x += 20) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 20) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-    strokes.forEach((line, i) => {
-      const p = Math.max(0, Math.min(1, progress * strokes.length - i));
-      if (p <= 0) return;
-      const n = Math.max(2, (line.length * p) | 0);
-      ctx.strokeStyle = i === 0 ? "rgba(223,233,245,.95)" : "rgba(223,233,245," + (0.35 + (i%3)*0.12) + ")";
-      ctx.beginPath(); ctx.moveTo(line[0][0], line[0][1]);
-      for (let j = 1; j < n; j++) ctx.lineTo(line[j][0], line[j][1]);
-      ctx.stroke();
-    });
-    if (progress > 0.55) {
-      ctx.strokeStyle = "rgba(255,210,122,.9)"; ctx.fillStyle = "#ffd27a";
-      const y0 = cyy - R*1.18;
-      ctx.beginPath(); ctx.moveTo(cx - R*1.35, y0); ctx.lineTo(cx + R*1.35, y0); ctx.stroke();
-      ctx.font = "10px 'JetBrains Mono'"; ctx.textAlign = "center";
-      ctx.fillText("167 mm", cx, y0 - 10);
-    }
-    if (mx > 0) {
-      ctx.strokeStyle = "rgba(255,210,122,.5)"; ctx.lineWidth = 0.75;
-      ctx.beginPath(); ctx.moveTo(0, my); ctx.lineTo(W, my); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(mx, 0); ctx.lineTo(mx, H); ctx.stroke();
-      ctx.strokeStyle = "#ffd27a"; ctx.strokeRect(mx-5, my-5, 10, 10);
-    }
-  })();
-  // redraw drafting animation on every open
-  win.addEventListener("wm:open", () => progress = 0);
-}
-
+});
 /* ================= fullscreen apps ================= */
 function openFs(id) {
   document.getElementById(id).classList.add("open");

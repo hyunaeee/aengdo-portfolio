@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>DEMO E — AENGDO TIMES</title>
+<title>AENGDO TIMES — 창간호</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;800;900&family=Noto+Serif+KR:wght@300;600;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -48,7 +48,19 @@
     float: left; line-height: .8; padding: 6px 8px 0 0; color: #c1272d;
   }
   .halftone-wrap { border: 1.5px solid #1d1a15; padding: 8px; background: #f6f1e4; }
-  #halftone { width: 100%; display: block; }
+  .mug {
+    position: relative; padding: 14px 30px 0; overflow: hidden;
+    background:
+      repeating-linear-gradient(0deg, rgba(29,26,21,.30) 0 2px, transparent 2px 30px),
+      #cfc8b6;
+  }
+  .mug img { width: 100%; display: block; filter: grayscale(1) contrast(1.06) brightness(1.03); }
+  .mug .placard {
+    position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%) rotate(-1.5deg);
+    background: #221e17; color: #efe9da; font-family: "JetBrains Mono", monospace;
+    font-size: 12px; letter-spacing: 2px; padding: 5px 14px; border: 2px solid #efe9da;
+    white-space: nowrap;
+  }
   .caption { font-size: 11.5px; letter-spacing: .08em; color: #6a6458; margin-top: 8px;
     border-top: 1px solid #c9c2b2; padding-top: 8px; }
   .side .story { border-bottom: 1px solid #c9c2b2; padding: 18px 0; }
@@ -83,80 +95,44 @@
   </div>
   <div class="dateline"><span>2026년 7월 10일 금요일</span><span>단기 4359년</span><span>날씨: 흐린 뒤 아이디어</span></div>
 
-  <div class="stamp">BUILT &amp; SHIPPED</div>
+  <div class="stamp">W A N T E D</div>
 
   <div class="grid">
     <div class="lead">
-      <h2>생각은 어디에서 오는가 —<br/>한 개발자, 1.4kg에서 답을 찾다</h2>
-      <div class="deck">뇌과학과 컴퓨터과학을 전공한 개발자 앵두 씨가 두 학문의 교차점에서 인공지능을 만들기 시작했다. 본지는 그 여정을 단독 취재했다.</div>
-      <div class="byline">글 · 사진 앵두 기자 🍒 | hyunaeee@gmail.com</div>
+      <h2>수배 중 —<br/>잠 대신 코드를 택한 개발자</h2>
+      <div class="deck">뇌과학과 컴퓨터과학을 연달아 전공한 뒤 AI 제작에까지 손을 댄 '앵두' 씨. 본지가 용의자의 머그샷과 범행(제작) 일지를 단독 입수했다.</div>
+      <div class="byline">글 · 사진 앵두 기자 🍒 (본인 취재 본인) | hyunaeee@gmail.com</div>
       <div class="cols">
-        <p class="dropcap">모든 것은 뉴런 하나에서 시작됐다. 0.1볼트의 불꽃, 1000분의 1초의 침묵. 앵두 씨는 "이 단순한 세포가 모여 어떻게 '나'가 되는지 견딜 수 없이 궁금했다"고 창간 소감을 밝혔다.</p>
-        <p>취재 결과 그는 읽는 것에 그치지 않고 코드라는 두 번째 모국어를 익혔으며, 유방암 진단 보조 에이전트부터 법률 RAG 챗봇, 한수원 어린이 교육 영상 5부작까지 실제로 배포되는 결과물을 만들어온 것으로 확인됐다.</p>
-        <p>서울콘 DDP 'AI 전람회'에 초대 작가로 전시한 이력도 있다. 업계 관계자는 "감각적인 비주얼과 작동하는 시스템을 모두 만드는 드문 사례"라고 평가했다.</p>
-        <p>한편 그의 홈페이지 한켠에는 시냅스를 모으는 미니게임이 숨겨져 있는 것으로 알려져 독자들의 제보가 잇따르고 있다. 최고 기록 보유자는 아직 본인이라는 후문이다.</p>
+        <p class="dropcap">사건의 시작은 질문 하나였다. "생각은 어디에서 오는가." 목격자들에 따르면 용의자는 이 질문에 답하겠다며 뇌과학에 입문했고, 읽는 것만으로는 부족하다며 컴퓨터과학까지 손을 댔다.</p>
+        <p>이후 행적은 대담하다. 유방암 진단 보조 에이전트, 법률 RAG 챗봇, 한수원 어린이 교육 영상 5부작 — 전부 실제로 배포된 것으로 확인돼 수사진(취재진)을 놀라게 했다.</p>
+        <p>서울콘 DDP 'AI 전람회'에 초대 작가로 나타난 기록도 있다. 관계자는 "비주얼과 시스템을 둘 다 만드는 타입은 오래 못 잡는다"며 "섭외가"라고 덧붙였다.</p>
+        <p>용의자는 현재 자신의 컴퓨터(OS) 안에 미니게임을 심어두고 방문자들의 시간을 훔치는 중이다. 목격 제보는 hyunaeee@gmail.com. 현상금은 커피 한 잔.</p>
       </div>
     </div>
     <div class="side">
       <div class="halftone-wrap">
-        <canvas id="halftone" width="640" height="430"></canvas>
-        <div class="caption">FIG.1 — 취재 중 촬영된 피의자(뇌)의 모습. 하프톤 인쇄.</div>
+        <div class="mug">
+          <img src="assets/aengdu-surprise.png" alt="용의자 앵두 머그샷" />
+          <div class="placard">AENGDO &middot; No.860B &middot; 🍒</div>
+        </div>
+        <div class="caption">FIG.1 — 용의자 앵두(自申 제출). 혐의: 과도한 밤샘 개발 및 상습 배포.</div>
       </div>
       <div class="story"><div class="kicker">EXCLUSIVE</div>
-        <h3><a href="#">KHNP 어린이 에너지 교육 시리즈, 5부작 전격 납품</a></h3>
-        <p>2026년 3월, 최종 납품 완료. 아이들 "재밌다" 증언 확보.</p></div>
+        <h3><a href="#">머그샷 단독 입수 — 본인이 직접 제출했다</a></h3>
+        <p>촬영 직전까지 코드를 보다 그대로 찍혔다는 후문. 놀란 표정이 평소 표정이라는 증언도.</p></div>
       <div class="story"><div class="kicker">TECH</div>
-        <h3><a href="#">단어 게임·사주 플랫폼, Vercel에 연속 배포</a></h3>
-        <p>"보기만 좋은 게 아니라 실제로 작동합니다" 관계자 전언.</p></div>
+        <h3><a href="#">한수원 어린이 교육 시리즈 5부작, 2026년 3월 전격 납품</a></h3>
+        <p>아이들 "재밌다" 증언 확보. 수사망이 좁혀지는 이유다.</p></div>
       <div class="story"><div class="kicker">CULTURE</div>
-        <h3><a href="#">Suno와 함께 만든 신곡 '내 잘못이 아니야' 발표</a></h3>
-        <p>AI 작곡 시대의 서정. 홈페이지에서 감상 가능.</p></div>
+        <h3><a href="#">Suno와 공동작곡 '내 잘못이 아니야' 발표</a></h3>
+        <p>제목부터 혐의를 부인하고 있다. AI 작곡 시대의 서정.</p></div>
     </div>
   </div>
 
   <div class="ticker"><div>
-    <b>속보</b>&nbsp; 앵두 스튜디오 정식 오픈 &nbsp;···&nbsp; 뉴런 860억 개 전원 정상 발화 중 &nbsp;···&nbsp; <b>속보</b>&nbsp; SIGNAL RUN 신기록 경신자 수배 중 &nbsp;···&nbsp; 다음 장은 비어 있습니다. 함께 채워주실 분을 찾습니다 &nbsp;···&nbsp;
-    <b>속보</b>&nbsp; 앵두 스튜디오 정식 오픈 &nbsp;···&nbsp; 뉴런 860억 개 전원 정상 발화 중 &nbsp;···&nbsp; <b>속보</b>&nbsp; SIGNAL RUN 신기록 경신자 수배 중 &nbsp;···&nbsp; 다음 장은 비어 있습니다. 함께 채워주실 분을 찾습니다 &nbsp;···&nbsp;
+    <b>속보</b>&nbsp; 앵두 스튜디오 정식 오픈 &nbsp;···&nbsp; 뉴런 860억 개 전원 정상 발화 중 &nbsp;···&nbsp; <b>속보</b>&nbsp; 용의자 앵두, 여전히 배포 중 · SIGNAL RUN 신기록자도 수배 중 &nbsp;···&nbsp; 다음 장은 비어 있습니다. 함께 채워주실 분을 찾습니다 &nbsp;···&nbsp;
+    <b>속보</b>&nbsp; 앵두 스튜디오 정식 오픈 &nbsp;···&nbsp; 뉴런 860억 개 전원 정상 발화 중 &nbsp;···&nbsp; <b>속보</b>&nbsp; 용의자 앵두, 여전히 배포 중 · SIGNAL RUN 신기록자도 수배 중 &nbsp;···&nbsp; 다음 장은 비어 있습니다. 함께 채워주실 분을 찾습니다 &nbsp;···&nbsp;
   </div></div>
 
-<script>
-/* halftone brain: ink dots sized by density */
-const cv = document.getElementById("halftone"), ctx = cv.getContext("2d");
-const W = cv.width, H = cv.height;
-ctx.fillStyle = "#f6f1e4"; ctx.fillRect(0, 0, W, H);
-const D = 90, field = new Float32Array(D * D);
-function rnd(){ return Math.random() * 2 - 1; }
-/* density field from gyri-like random walks on a squashed disc */
-for (let c = 0; c < 46; c++) {
-  let a = Math.random() * 6.283;
-  let r = 0.25 + Math.random() * 0.6;
-  let x = Math.cos(a) * r, y = Math.sin(a) * r;
-  let dir = Math.random() * 6.283;
-  for (let s = 0; s < 130; s++) {
-    dir += rnd() * 0.5;
-    x += Math.cos(dir) * 0.016; y += Math.sin(dir) * 0.016;
-    const rr = Math.hypot(x / 1.22, y / 0.88);
-    if (rr > 0.96) { dir += Math.PI * 0.8; continue; }
-    const gx = ((x * 0.5 + 0.5) * D) | 0, gy = ((y * 0.5 + 0.5) * D) | 0;
-    for (let oy = -1; oy <= 1; oy++) for (let ox = -1; ox <= 1; ox++) {
-      const ix = gx + ox, iy = gy + oy;
-      if (ix >= 0 && ix < D && iy >= 0 && iy < D) field[iy * D + ix] += (ox || oy) ? 0.35 : 1;
-    }
-  }
-}
-let max = 0; for (const v of field) max = Math.max(max, v);
-const cell = W / D;
-ctx.fillStyle = "#221e17";
-for (let gy = 0; gy < D; gy++) {
-  for (let gx = 0; gx < D; gx++) {
-    const v = field[gy * D + gx] / max;
-    if (v < 0.03) continue;
-    const rad = Math.min(cell * 0.62, Math.pow(v, 0.6) * cell * 0.72);
-    ctx.beginPath();
-    ctx.arc(gx * cell + cell / 2, gy * (H / D) + cell / 2, rad, 0, 7);
-    ctx.fill();
-  }
-}
-</script>
 </body>
 </html>
