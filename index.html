@@ -383,68 +383,86 @@
 
 <script>
 "use strict";
-/* ================= wallpaper: plain dark + hand-drawn ASCII cherry ====
-   Two cherries, a forked stem, one leaf — unmistakably 앵두. */
+/* ================= wallpaper: tiny animated ASCII cherry ================
+   A small cherry charm that sways from its stem, flutters its leaf,
+   twinkles, and gives a happy hop every few seconds. */
 (function () {
   const cv = document.getElementById("wallpaper"), ctx = cv.getContext("2d");
   const ART = [
-    "                       __",
-    "                    _-'  ;;",
-    "                  ,-'   ;;;;;",
-    "                ,'     ;;;;;;;",
-    "              ,'       ;;;;;;;",
-    "             /          ;;;;;",
-    "            /            ;;;",
-    "           / \\",
-    "          /   \\",
-    "         /     \\",
-    "        /       \\",
-    "       /         \\",
-    "      |           \\",
-    "      |            \\",
-    "   ,o@@@o.          \\",
-    "  o@@@@@@@o          |",
-    " o@@@@@@@@@o     ,o@@@o.",
-    " o@@*@@@@@@o    o@@@@@@@o",
-    " o@@@@@@@@@o   o@@@@@@@@@o",
-    "  o@@@@@@@o    o@@*@@@@@@o",
-    "   'o@@@o'     o@@@@@@@@@o",
-    "                o@@@@@@@o",
-    "                 'o@@@o'",
+    "    _.;;.",
+    "  ,'  ;;;;",
+    "  |    ;;",
+    "  | \\",
+    "  |  \\",
+    ",@@@, \\",
+    "@@*@@  |",
+    "'@@@' ,@@@,",
+    "       @@*@@",
+    "       '@@@'",
   ];
-  function colorFor(ch) {
-    if (ch === "@") return "rgba(198, 60, 74, 0.60)";   // cherry body
-    if (ch === "o") return "rgba(198, 60, 74, 0.34)";   // cherry edge
-    if (ch === "*") return "rgba(255, 176, 186, 0.75)"; // shine
-    if (ch === ";") return "rgba(122, 152, 112, 0.50)"; // leaf
-    return "rgba(118, 124, 142, 0.42)";                 // stem
+  const SPARKS = [ // twinkles around the charm: [col, row, phase]
+    [-2.5, 1.5, 0], [12.5, 0.5, 2.1], [13.5, 6.5, 4.2], [-2, 7.5, 1.1], [5, -1.8, 3.2],
+  ];
+  let W = 0, H = 0;
+  function resize() { W = cv.width = innerWidth; H = cv.height = innerHeight; }
+  addEventListener("resize", resize);
+  resize();
+  function colorFor(ch, tw) {
+    if (ch === "@") return "rgba(206, 62, 76, 0.72)";
+    if (ch === "o") return "rgba(206, 62, 76, 0.4)";
+    if (ch === "*") return "rgba(255, 182, 190, " + (0.45 + tw * 0.45).toFixed(2) + ")"; // pulsing shine
+    if (ch === ";") return "rgba(126, 158, 116, 0.62)";
+    return "rgba(128, 134, 152, 0.5)";
   }
-  function paint() {
-    const W = cv.width = innerWidth, H = cv.height = innerHeight;
+  function tick(ms) {
+    requestAnimationFrame(tick);
+    const t = ms / 1000;
     ctx.fillStyle = "#0e0f15";
     ctx.fillRect(0, 0, W, H);
+
     const cols = Math.max(...ART.map(l => l.length));
-    const cw = Math.max(10, Math.min(19, (W * 0.30) / cols));
-    const chh = cw * 1.65;
-    const x0 = W - cols * cw - W * 0.05;
-    const y0 = Math.max(14, (H - 46 - ART.length * chh) / 2);
-    ctx.font = "700 " + (chh * 0.86).toFixed(0) + "px Consolas, monospace";
+    const cw = Math.max(7, Math.min(10, W / 150));
+    const chh = cw * 1.6;
+    // a happy little hop every ~6s
+    const hopT = t % 6;
+    const hop = hopT < 0.5 ? Math.sin(hopT / 0.5 * Math.PI) * chh * 0.8 : 0;
+    const x0 = W - cols * cw - Math.max(40, W * 0.055);
+    const y0 = Math.max(14, H * 0.30) - hop;
+    const sway = Math.sin(t * 1.3);
+
     ctx.textBaseline = "top";
+    ctx.font = "700 " + (chh * 0.9).toFixed(0) + "px Consolas, monospace";
     for (let r = 0; r < ART.length; r++) {
       const line = ART[r];
+      // hangs from the top: lower rows swing further
+      const rowSway = sway * (r / ART.length) * cw * 0.9;
       for (let c = 0; c < line.length; c++) {
         const ch = line[c];
         if (ch === " ") continue;
-        ctx.fillStyle = colorFor(ch);
-        ctx.fillText(ch, x0 + c * cw, y0 + r * chh);
+        let dx = rowSway, dy = 0;
+        if (ch === ";") { // leaf flutter
+          dx += Math.sin(t * 3.1 + c * 0.8) * 1.3;
+          dy += Math.cos(t * 2.7 + c) * 0.9;
+        }
+        const tw = 0.5 + 0.5 * Math.sin(t * 2.2 + r);
+        ctx.fillStyle = colorFor(ch, tw);
+        ctx.fillText(ch, x0 + c * cw + dx, y0 + r * chh + dy);
       }
     }
-    ctx.font = "12px Consolas, monospace";
-    ctx.fillStyle = "rgba(96,102,122,.55)";
-    ctx.fillText('> print("aengdo")  // 앵두 = 체리', x0 + cw, y0 + ART.length * chh + 12);
+    // twinkles
+    ctx.font = (chh * 0.85).toFixed(0) + "px Consolas, monospace";
+    for (const [sc, sr, ph] of SPARKS) {
+      const a = Math.max(0, Math.sin(t * 1.6 + ph));
+      if (a < 0.15) continue;
+      ctx.fillStyle = "rgba(255, 214, 170, " + (a * 0.5).toFixed(2) + ")";
+      ctx.fillText(a > 0.8 ? "+" : "·", x0 + sc * cw + sway * 2, y0 + sr * chh);
+    }
+    // tiny signature
+    ctx.font = "11px Consolas, monospace";
+    ctx.fillStyle = "rgba(96,102,122,.5)";
+    ctx.fillText("aengdo.exe 실행 중 🍒", x0 - cw, y0 + ART.length * chh + 14);
   }
-  addEventListener("resize", paint);
-  paint();
+  requestAnimationFrame(tick);
 })();
 
 /* ================= boot ================= */
