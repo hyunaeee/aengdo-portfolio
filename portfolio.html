@@ -54,13 +54,31 @@
   .audio-line audio { margin-left: auto; height: 34px; max-width: 44vw; }
 
   .webs { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
-  .web { border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+  .web { position: relative; border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
     background: var(--card); display: block; transition: 0.2s; }
   .web:hover { transform: translateY(-4px); border-color: var(--red); }
   .web img { width: 100%; aspect-ratio: 16/9.4; object-fit: cover; object-position: top; display: block; }
   .web .m { padding: 10px 13px; }
   .web .m b { font-family: "Space Grotesk", sans-serif; font-size: 14.5px; font-weight: 500; }
   .web .m span { display: block; color: var(--dim); font-size: 12px; }
+  .web .badge { position: absolute; top: 8px; right: 8px; z-index: 2;
+    font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 1.5px;
+    padding: 3px 9px; border-radius: 100px; }
+  .badge.live { background: rgba(52, 190, 120, 0.16); color: #4fd68f; border: 1px solid rgba(79,214,143,.4); }
+  .badge.upd { background: rgba(255, 70, 85, 0.12); color: #ff8f99; border: 1px solid rgba(255,70,85,.4); }
+  .web .ph {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    aspect-ratio: 16/9.4;
+    background: radial-gradient(circle at 30% 25%, rgba(255,70,85,0.08), transparent 60%), #101118;
+  }
+  .web .ph .e { font-size: 30px; }
+  .web .ph .t { font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: 2px; color: #5e6272; }
+  .minis { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .mini { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: 0.5px;
+    padding: 8px 15px; border-radius: 100px; border: 1px solid var(--line);
+    color: var(--dim); background: var(--card); transition: 0.2s; }
+  .mini:hover { color: #fff; border-color: var(--red); }
 
   .repos { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 8px; }
   .repo { display: flex; gap: 12px; align-items: baseline; padding: 11px 14px;
@@ -183,39 +201,74 @@
   </div>
 
   <h2><i>02</i>BUILT &amp; SHIPPED</h2>
-  <div class="sub">직접 만들고 배포한 웹 서비스</div>
+  <div class="sub">직접 만든 프로덕트 — <span style="color:#4fd68f">LIVE</span>는 바로 접속, <span style="color:#ff8f99">UPDATING</span>은 업데이트 후 배포 예정 (GitHub으로 연결)</div>
   <div class="webs">
-    <a class="web" href="https://hacker-typer.vercel.app/" target="_blank">
-      <img src="assets/hacker.jpg" alt="HACKER TYPER" loading="lazy"/>
-      <div class="m"><b>HACKER TYPER</b><span>시네마틱 코딩 시뮬레이션 · React</span></div>
+    <a class="web" href="https://hyunaeee.github.io/design-gallery/" target="_blank">
+      <span class="badge live">LIVE</span>
+      <img src="assets/dg.jpg" alt="DESIGN GALLERY" loading="lazy"/>
+      <div class="m"><b>DESIGN GALLERY</b><span>유명 디자인을 코드로 배우는 갤러리 · 63개 데모 · KO/EN</span></div>
     </a>
-    <a class="web" href="https://galaxy-oracle.netlify.app/" target="_blank">
-      <img src="assets/galaxy.jpg" alt="GALAXY ORACLE" loading="lazy"/>
-      <div class="m"><b>GALAXY ORACLE</b><span>3D 타로 · Three.js</span></div>
+    <a class="web" href="https://github.com/hyunaeee/ppt-test" target="_blank">
+      <span class="badge upd">UPDATING</span>
+      <div class="ph"><span class="e">📊</span><span class="t">AI_PPT_STUDIO</span></div>
+      <div class="m"><b>AI PPT STUDIO</b><span>아이디어→슬라이드 AI 프레젠테이션 스튜디오 · Next.js</span></div>
     </a>
-    <a class="web" href="https://word-game-ochre-psi.vercel.app" target="_blank">
-      <img src="assets/word.jpg" alt="WORD GAME" loading="lazy"/>
-      <div class="m"><b>WORD GAME</b><span>단어 맞추기 게임</span></div>
+    <a class="web" href="https://github.com/hyunaeee/med-rag" target="_blank">
+      <span class="badge upd">UPDATING</span>
+      <div class="ph"><span class="e">🩺</span><span class="t">MED-RAG</span></div>
+      <div class="m"><b>MED-RAG</b><span>유방암 진단 서포트 RAG 에이전트 · 의료 도메인</span></div>
     </a>
-    <a class="web" href="https://saju-platform.vercel.app" target="_blank">
-      <img src="assets/saju.jpg" alt="SAJU 천명" loading="lazy"/>
-      <div class="m"><b>SAJU PLATFORM 천명</b><span>명리학 AI 사주 풀이</span></div>
+    <a class="web" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank">
+      <span class="badge upd">UPDATING</span>
+      <div class="ph"><span class="e">⚖️</span><span class="t">LEGAL_PDF_RAG</span></div>
+      <div class="m"><b>LEGAL PDF RAG</b><span>법률 PDF 분석 RAG 챗봇 · Solar LLM</span></div>
+    </a>
+    <a class="web" href="https://github.com/hyunaeee/higgsMCP" target="_blank">
+      <span class="badge upd">UPDATING</span>
+      <div class="ph"><span class="e">💄</span><span class="t">HIGGSMCP</span></div>
+      <div class="m"><b>HIGGSMCP</b><span>AI 뷰티 인플루언서 자동화 · Higgsfield MCP + AdCast</span></div>
+    </a>
+    <a class="web" href="https://hyunaeee.github.io/tableon/" target="_blank">
+      <span class="badge live">LIVE</span>
+      <img src="assets/tableon.jpg" alt="테이블ON" loading="lazy"/>
+      <div class="m"><b>테이블ON</b><span>레스토랑 통합 관리 SaaS · 주문·예약·CRM + Claude AI 경영 분석</span></div>
+    </a>
+    <a class="web" href="https://github.com/hyunaeee/daily-book" target="_blank">
+      <span class="badge upd">UPDATING</span>
+      <div class="ph"><span class="e">📔</span><span class="t">DAILY_BOOK</span></div>
+      <div class="m"><b>DAILY BOOK</b><span>일기를 모아 한 권의 책으로 만드는 웹앱</span></div>
+    </a>
+    <a class="web" href="https://github.com/hyunaeee/stress-game" target="_blank">
+      <span class="badge upd">UPDATING</span>
+      <div class="ph"><span class="e">💥</span><span class="t">STRESS_BREAKER</span></div>
+      <div class="m"><b>STRESS BREAKER</b><span>스트레스 타파 미니게임 · 기능 추가 업데이트 중</span></div>
+    </a>
+    <a class="web" href="https://github.com/hyunaeee?tab=repositories" target="_blank">
+      <span class="badge upd">UPDATING</span>
+      <div class="ph"><span class="e">🤖</span><span class="t">PERSONAL_AGENT</span></div>
+      <div class="m"><b>PERSONAL AGENT</b><span>개인 비서 에이전트 · 리뉴얼 준비 중</span></div>
+    </a>
+    <a class="web" href="https://github.com/hyunaeee/ai_travel_guide" target="_blank">
+      <span class="badge upd">UPDATING</span>
+      <div class="ph"><span class="e">🧭</span><span class="t">AI_TRAVEL_GUIDE</span></div>
+      <div class="m"><b>AI TRAVEL GUIDE</b><span>위치 기반 AI 여행 가이드 · 큐레이션 서비스</span></div>
     </a>
   </div>
+  <div class="minis">
+    <a class="mini" href="https://hacker-typer.vercel.app/" target="_blank">🖥 HACKER TYPER ↗</a>
+    <a class="mini" href="https://galaxy-oracle.netlify.app/" target="_blank">🔮 GALAXY ORACLE ↗</a>
+    <a class="mini" href="https://word-game-ochre-psi.vercel.app" target="_blank">📝 WORD GAME ↗</a>
+    <a class="mini" href="https://saju-platform.vercel.app" target="_blank">🌙 SAJU 천명 ↗</a>
+  </div>
 
-  <h2><i>03</i>AI PROJECTS</h2>
-  <div class="sub">GitHub — 클릭하면 레포로 이동</div>
+  <h2><i>03</i>MORE ON GITHUB</h2>
+  <div class="sub">연구·실험 레포</div>
   <div class="repos">
-    <a class="repo" href="https://github.com/hyunaeee/med-rag" target="_blank"><b>med-rag</b><span>유방암 진단 서포트 RAG 에이전트</span><i>↗</i></a>
-    <a class="repo" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank"><b>legal-pdf-rag</b><span>법률 PDF RAG 챗봇 (Solar LLM)</span><i>↗</i></a>
-    <a class="repo" href="https://github.com/hyunaeee/higgsMCP" target="_blank"><b>higgsMCP</b><span>AI 인플루언서 자동화 (Higgsfield MCP)</span><i>↗</i></a>
     <a class="repo" href="https://github.com/hyunaeee/meeting-assistant" target="_blank"><b>meeting-assistant</b><span>회의록 작성→Notion·메일 에이전트</span><i>↗</i></a>
-    <a class="repo" href="https://github.com/hyunaeee/ppt-test" target="_blank"><b>ai-ppt-studio</b><span>Next.js 기반 AI 프레젠테이션 스튜디오</span><i>↗</i></a>
     <a class="repo" href="https://github.com/hyunaeee/comfy-workflow" target="_blank"><b>comfy-workflow</b><span>생성형 콘텐츠 파이프라인 자동화</span><i>↗</i></a>
     <a class="repo" href="https://github.com/hyunaeee/3D_char_sign_lang" target="_blank"><b>sign-avatar</b><span>3D 아바타 한국어→수어 변환</span><i>↗</i></a>
     <a class="repo" href="https://github.com/hyunaeee/PR_semantic_image_segmentation_unet" target="_blank"><b>brain-unet</b><span>U-Net 뇌 MRI 세그멘테이션 구현</span><i>↗</i></a>
     <a class="repo" href="https://github.com/hyunaeee/Report-Summary" target="_blank"><b>report-summary</b><span>기업연계 특허분쟁 문서 요약</span><i>↗</i></a>
-    <a class="repo" href="https://github.com/hyunaeee/hacker-typer" target="_blank"><b>hacker-typer</b><span>브랜드 몰입형 3D 웹</span><i>↗</i></a>
   </div>
 
   <h2><i>04</i>TRACK RECORD</h2>
