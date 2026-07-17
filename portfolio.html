@@ -363,6 +363,12 @@
       <div class="m"><b>태담 (TAEDAM)</b><span>뱃속부터 초등까지 — 아이 이름을 부르며 함께 자라는 AI 이야기 친구 ⭐</span></div>
       <div class="acts"><a class="act go" href="https://taedam.higgsfield.app/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee?tab=repositories" target="_blank">GITHUB ↗</a></div>
     </div>
+    <div class="web" data-cat="ai" data-p="sajumob">
+      <span class="badge live">LIVE</span>
+      <a class="shot" href="https://saju-ai-mobile-demo.vercel.app" target="_blank"><img src="assets/cheongiyeon.jpg" alt="천기연 — AI 사주 풀이" loading="lazy"/></a>
+      <div class="m"><b>천기연 天機緣</b><span>신녀 연화의 AI 사주 풀이 · 만세력·진태양시 보정·대운·신살 — 고민 맞춤 해석 🔮</span></div>
+      <div class="acts"><a class="act go" href="https://saju-ai-mobile-demo.vercel.app" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/saju-ai-mobile" target="_blank">GITHUB ↗</a></div>
+    </div>
     <div class="web" data-cat="play" data-p="hacker">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://hacker-typer.vercel.app/" target="_blank"><img src="assets/hacker.jpg" alt="HACKER TYPER" loading="lazy"/></a>
@@ -612,6 +618,14 @@
       edge: "아이 이름이 이야기 속에 자연스럽게 들어가는 개인화, 임신 주차부터 초등까지 콘텐츠가 함께 자라는 연속성, 프롬프트·설정이 전혀 없는 제로 준비 UX가 차별점입니다.",
       limits: "최근 공개한 서비스라 콘텐츠 라이브러리를 확장하는 중이고, 부모 목소리 기능은 예고 단계예요.",
       next: "부모 목소리로 들려주기, 노래 모드, 구독 플랜 정식 오픈을 준비하고 있습니다."
+    },
+    sajumob: {
+      why: "사주 서비스 대부분이 생년월일만 받아서 누구에게나 비슷한 결과를 줘요. 절기·시각·태어난 지역까지 제대로 계산하는 '진짜' 사주 풀이를 신녀 '연화' 캐릭터의 모바일 UX로 만들고 싶었습니다.",
+      design: "자체 계산 엔진(lunar.js·saju.js)이 절기 기준 만세력으로 연주·월주를 세우고 60갑자 일주를 산출, 출생지 경도로 진태양시를 보정(서울 출생 −32분)하고 성별·생년 기반 10년 대운과 신살까지 계산합니다. 그 결과와 사용자의 고민을 Claude API(Vercel 서버리스 함수)에 넘겨 맞춤 해석을 생성해요.",
+      stack: ["HTML/CSS/JS (바닐라)", "자체 만세력·사주 엔진", "Claude API", "Vercel Functions"],
+      edge: "같은 날 태어나도 시각과 지역에 따라 결과가 달라지는 계산 정밀도가 핵심 차별점. 일반 운세가 아니라 지금의 고민을 받아 그 질문에 답하는 해석, 신녀 연화의 몰입형 캐릭터 UX를 더했습니다.",
+      limits: "데모 사이트라 실제 결제·정산은 없고 후기는 샘플입니다. 레포는 공개 준비 중이에요.",
+      next: "결제 연동 정식 출시, 궁합·택일 등 풀이 종류 확장, 앱 패키징을 계획하고 있습니다."
     },
     hacker: {
       why: "영화 속 해커처럼 아무 키나 눌러도 코드가 쏟아지는 장면을 장난감으로 만들었어요.",
