@@ -85,10 +85,8 @@
     box-shadow: 0 0 0 2px #3a3d4a, 8px 8px 0 rgba(0,0,0,.45);
   }
   .pscreen { position: relative; border-radius: 26px; overflow: hidden; background: #f7ecdc; }
-  .pages { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-  .pages::-webkit-scrollbar { display: none; }
-  .ppage { flex: 0 0 100%; scroll-snap-align: center; }
-  .ppage img { width: 100%; display: block; user-select: none; -webkit-user-drag: none; }
+  .pscale { width: 430px; height: 880px; transform-origin: top left; }
+  .pscale iframe { width: 430px; height: 880px; border: 0; display: block; background: #f7ecdc; }
   .pnotch { position: absolute; top: 0; left: 50%; transform: translateX(-50%);
     width: 96px; height: 17px; background: #15161c; border-radius: 0 0 12px 12px; z-index: 3; }
   .phome { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%);
@@ -500,14 +498,9 @@
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
   <div class="wbody" style="padding:14px 18px 8px;">
     <div class="phone">
-      <div class="pscreen">
+      <div class="pscreen" id="pscreen">
         <div class="pnotch"></div>
-        <div class="pages">
-          <div class="ppage"><img src="assets/maeum-p1.jpg" alt="마음 체크인 화면" /></div>
-          <div class="ppage"><img src="assets/maeum-p2.jpg" alt="오늘의 처방 화면" /></div>
-          <div class="ppage"><img src="assets/maeum-p3.jpg" alt="하루 한 문장 화면" /></div>
-          <div class="ppage"><img src="assets/maeum-p4.jpg" alt="기록 화면" /></div>
-        </div>
+        <div class="pscale" id="pscale"><iframe id="pframe" data-psrc="maeum/index.html" title="이불 안 마음친구"></iframe></div>
         <div class="phome"></div>
         <div class="psplash" id="psplash">
           <img src="assets/maeum-icon.png" alt="앱 아이콘" />
@@ -515,9 +508,9 @@
         </div>
       </div>
     </div>
-    <div class="pdots">← 스와이프로 화면 넘기기 →</div>
+    <div class="pdots">진짜로 작동해요 — 체크인하고, 숨도 골라보세요</div>
   </div>
-  <div class="storyline">기획·디자인·개발 전부 직접 만든 멘탈 케어 앱이에요. 출시 전이라 <i>에뮬레이터</i>로 먼저 보여드려요 ☁️</div>
+  <div class="storyline">기획·디자인·개발 전부 직접 만든 멘탈 케어 앱, <i>실제 코드</i>가 돌아가는 데모 빌드예요 ☁️</div>
 </div>
 
 <div class="win" id="w-toybox" style="left:24%; top:16%;" data-title="🧸 TOYBOX">
@@ -879,10 +872,24 @@ function lazyInit(id) {
   if (id === "w-brain") brainApp();
   if (id === "w-works") buildFiles();
   if (id === "w-chat") chatApp();
-  if (id === "w-phone") setTimeout(() => {
-    const s = document.getElementById("psplash");
-    if (s) s.classList.add("off");
-  }, 1500);
+  if (id === "w-phone") {
+    const frame = document.getElementById("pframe");
+    if (frame && !frame.src) frame.src = frame.dataset.psrc; // boot the real app
+    function fitPhone() {
+      const screen = document.getElementById("pscreen");
+      const sc = document.getElementById("pscale");
+      if (!screen || !sc) return;
+      const scale = screen.clientWidth / 430;
+      sc.style.transform = "scale(" + scale + ")";
+      screen.style.height = Math.round(880 * scale) + "px";
+    }
+    fitPhone();
+    window.addEventListener("resize", fitPhone);
+    setTimeout(() => {
+      const s = document.getElementById("psplash");
+      if (s) s.classList.add("off");
+    }, 2200);
+  }
 }
 
 /* start menu + clock */
