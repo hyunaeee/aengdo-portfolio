@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@300;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #0d0e13; --card: #15161d; --line: rgba(255,255,255,0.09);
-    --ink: #eceef4; --dim: #8f93a3; --red: #ff4655;
+    --bg: #f6f5f2; --card: #ffffff; --line: rgba(24,26,34,0.11);
+    --ink: #1c1e26; --dim: #62687a; --red: #e0394a;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg); color: var(--ink); font-family: "Noto Sans KR", sans-serif;
@@ -28,7 +28,7 @@
   .btn { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 1.5px;
     padding: 9px 18px; border-radius: 100px; border: 1px solid var(--line);
     color: var(--dim); transition: 0.2s; }
-  .btn:hover { color: #fff; border-color: var(--red); }
+  .btn:hover { color: var(--ink); border-color: var(--red); }
   .btn.hot { background: var(--red); color: #fff; border-color: var(--red); }
 
   h2 { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 21px;
@@ -64,26 +64,27 @@
   .web .badge { position: absolute; top: 8px; right: 8px; z-index: 2;
     font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 1.5px;
     padding: 3px 9px; border-radius: 100px; }
-  .badge.live, .pmbadge.live { background: rgba(52, 190, 120, 0.16); color: #4fd68f; border: 1px solid rgba(79,214,143,.4); }
-  .badge.upd, .pmbadge.upd { background: rgba(255, 70, 85, 0.12); color: #ff8f99; border: 1px solid rgba(255,70,85,.4); }
-  .badge.soon, .pmbadge.soon { background: rgba(245, 194, 107, 0.14); color: #f5c26b; border: 1px solid rgba(245,194,107,.45); }
+  .badge.live, .pmbadge.live { background: rgba(30, 158, 99, 0.1); color: #157a4c; border: 1px solid rgba(30,158,99,.35); }
+  .badge.upd, .pmbadge.upd { background: rgba(224, 57, 74, 0.08); color: #c93a49; border: 1px solid rgba(224,57,74,.35); }
+  .badge.soon, .pmbadge.soon { background: rgba(196, 145, 42, 0.1); color: #a1751f; border: 1px solid rgba(196,145,42,.4); }
+  .badge { background-clip: padding-box; backdrop-filter: blur(3px); }
   .web .ph {
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
     aspect-ratio: 16/9.4;
-    background: radial-gradient(circle at 30% 25%, rgba(255,70,85,0.08), transparent 60%), #101118;
+    background: radial-gradient(circle at 30% 25%, rgba(224,57,74,0.06), transparent 60%), #eef0f2;
   }
   .web .ph .e { font-size: 30px; }
   .web .ph .t { font-family: "JetBrains Mono", monospace; font-size: 11px;
-    letter-spacing: 2px; color: #5e6272; }
+    letter-spacing: 2px; color: #8b91a0; }
   .web .acts { display: flex; gap: 8px; padding: 0 12px 12px; }
   .act {
     flex: 1; text-align: center; font-family: "JetBrains Mono", monospace;
     font-size: 10.5px; letter-spacing: 1.5px; padding: 8px 0;
     border: 1px solid var(--line); border-radius: 8px; color: var(--dim); transition: 0.2s;
   }
-  .act:hover { border-color: var(--red); color: #fff; }
-  .act.go { color: #4fd68f; border-color: rgba(79, 214, 143, 0.35); }
-  .act.go:hover { border-color: #4fd68f; color: #7dedb2; }
+  .act:hover { border-color: var(--red); color: var(--ink); }
+  .act.go { color: #157a4c; border-color: rgba(30, 158, 99, 0.4); }
+  .act.go:hover { border-color: #157a4c; color: #0e5c37; background: rgba(30,158,99,.06); }
   .act.off { opacity: 0.4; pointer-events: none; }
   .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
   .filter {
@@ -91,7 +92,7 @@
     padding: 8px 15px; border-radius: 100px; border: 1px solid var(--line);
     color: var(--dim); background: var(--card); cursor: pointer; transition: 0.2s;
   }
-  .filter:hover { color: #fff; border-color: var(--red); }
+  .filter:hover { color: var(--ink); border-color: var(--red); }
   .filter.on { background: var(--red); border-color: var(--red); color: #fff; }
   .filter i { font-style: normal; opacity: 0.65; margin-left: 4px; }
   .web.hide { display: none; }
@@ -99,8 +100,8 @@
     position: absolute; top: 8px; left: 8px; z-index: 2;
     font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 1.5px;
     padding: 3px 9px; border-radius: 100px;
-    background: rgba(13, 14, 19, 0.72); color: #aab0c0;
-    border: 1px solid rgba(255, 255, 255, 0.16); backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, 0.82); color: #4c5260;
+    border: 1px solid rgba(24, 26, 34, 0.12); backdrop-filter: blur(4px);
   }
   .web[data-cat="app"]::before { content: "📱 APP"; }
   .web[data-cat="ai"]::before { content: "🤖 AI"; }
@@ -119,13 +120,14 @@
   /* project detail modal */
   .pm-ovl {
     position: fixed; inset: 0; z-index: 60; display: none;
-    background: rgba(7, 8, 12, 0.78); backdrop-filter: blur(6px);
+    background: rgba(24, 26, 34, 0.45); backdrop-filter: blur(6px);
     overflow-y: auto; padding: 6vh 18px 60px;
   }
   .pm-ovl.open { display: block; }
   .pm {
-    max-width: 720px; margin: 0 auto; background: #12131b;
-    border: 1px solid rgba(255, 255, 255, 0.13); border-radius: 16px;
+    max-width: 720px; margin: 0 auto; background: #ffffff;
+    border: 1px solid rgba(24, 26, 34, 0.14); border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(24, 26, 34, 0.18);
     overflow: hidden; animation: pmup 0.26s ease;
   }
   @keyframes pmup { from { transform: translateY(18px); opacity: 0; } }
@@ -137,13 +139,13 @@
   .pm .hd .x { margin-left: auto; cursor: pointer; border: 1px solid var(--line);
     background: none; color: var(--dim); width: 30px; height: 30px; border-radius: 8px;
     font-size: 15px; line-height: 1; transition: 0.2s; }
-  .pm .hd .x:hover { color: #fff; border-color: var(--red); }
+  .pm .hd .x:hover { color: var(--ink); border-color: var(--red); }
   .pm .desc { padding: 12px 22px 0; color: var(--dim); font-size: 13px; }
   .pm .bd { padding: 4px 22px 20px; }
   .pmsec { margin-top: 16px; }
   .pmsec .lb { font-family: "JetBrains Mono", monospace; font-size: 10px;
     letter-spacing: 2.5px; color: var(--red); margin-bottom: 4px; }
-  .pmsec p { font-size: 13.5px; color: #c9cdda; line-height: 1.85; }
+  .pmsec p { font-size: 13.5px; color: #3c4150; line-height: 1.85; }
   .pmstack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
   .pmstack span { font-family: "JetBrains Mono", monospace; font-size: 11px;
     padding: 5px 11px; border-radius: 100px; border: 1px solid var(--line); color: var(--dim); }
@@ -198,7 +200,7 @@
   footer .mail:hover { color: var(--red); }
   footer .soc { font-family: "JetBrains Mono", monospace; font-size: 11px;
     letter-spacing: 1.5px; color: var(--dim); }
-  footer .soc:hover { color: #fff; }
+  footer .soc:hover { color: var(--ink); }
 </style>
 </head>
 <body>
@@ -276,7 +278,7 @@
   </div>
 
   <h2><i>02</i>BUILT &amp; SHIPPED</h2>
-  <div class="sub">웹 및 모바일 서비스 개발·배포 — <span style="color:#eceef4">카드를 누르면 프로젝트 상세</span>(기획 의도·설계·기술 스택·차별점·한계·로드맵)가 열리고, 버튼으로 <span style="color:#4fd68f">라이브 사이트</span>와 GitHub 코드로 바로 이동해요</div>
+  <div class="sub">웹 및 모바일 서비스 개발·배포 — <span style="color:#1c1e26; font-weight:500;">카드를 누르면 프로젝트 상세</span>(기획 의도·설계·기술 스택·차별점·한계·로드맵)가 열리고, 버튼으로 <span style="color:#157a4c">라이브 사이트</span>와 GitHub 코드로 바로 이동해요</div>
   <div class="filters" id="pfilters">
     <button class="filter on" data-f="all">전체</button>
     <button class="filter" data-f="app">📱 모바일 앱</button>
