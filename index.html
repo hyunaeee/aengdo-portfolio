@@ -513,6 +513,26 @@
   <div class="storyline">기획·디자인·개발 전부 직접 만든 멘탈 케어 앱, <i>실제 코드</i>가 돌아가는 데모 빌드예요 ☁️</div>
 </div>
 
+<div class="win" id="w-phone2" style="left:52%; top:6%;" data-title="💔 후방위 EMU">
+  <div class="titlebar"><span>💔 HUBANGWI_EMU — 후방위 (배포 전)</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding:14px 18px 8px;">
+    <div class="phone">
+      <div class="pscreen" id="pscreen2" style="background:#fffaf4;">
+        <div class="pnotch"></div>
+        <div class="pscale" id="pscale2"><iframe id="pframe2" data-psrc="hubangwi/index.html" title="후방위 — 후폭풍방지위원회" style="background:#fffaf4;"></iframe></div>
+        <div class="phome"></div>
+        <div class="psplash" id="psplash2" style="background:#fffaf4; color:#81776f;">
+          <div style="width:74px;height:74px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#ff8a73,#ee7055);color:#fff;font-size:30px;font-weight:900;box-shadow:0 6px 18px rgba(238,112,85,.3);">후</div>
+          <div>후방위 — 후폭풍방지위원회</div>
+        </div>
+      </div>
+    </div>
+    <div class="pdots">감정 쏟아내기, 재회 문자 점검, 90일 여정 — 진짜로 돼요</div>
+  </div>
+  <div class="storyline">이별 후 연락 충동을 막아주는 회복 앱, 이것도 <i>실제 코드</i>가 돌아가는 데모 빌드예요 💔</div>
+</div>
+
 <div class="win" id="w-toybox" style="left:24%; top:16%;" data-title="🧸 TOYBOX">
   <div class="titlebar"><span>🧸 C:\AENGDO\TOYBOX — 잡동사니</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
@@ -723,10 +743,11 @@
 
   /* dual boot: explore the OS, or jump straight to the one-page portfolio */
   function showMenu() {
-    // deep link: index.html#phone boots straight into the OS emulator
-    if (location.hash === "#phone") {
+    // deep link: index.html#phone / #hb boots straight into an OS emulator
+    if (location.hash === "#phone" || location.hash === "#hb") {
+      const phoneWin = location.hash === "#hb" ? "w-phone2" : "w-phone";
       el.style.transition = "opacity .5s"; el.style.opacity = 0;
-      setTimeout(() => { el.remove(); openWin("w-readme"); openWin("w-chat"); openWin("w-phone"); }, 520);
+      setTimeout(() => { el.remove(); openWin("w-readme"); openWin("w-chat"); openWin(phoneWin); }, 520);
       return;
     }
     el.innerHTML += "\nSELECT BOOT MODE:\n\n";
@@ -872,12 +893,13 @@ function lazyInit(id) {
   if (id === "w-brain") brainApp();
   if (id === "w-works") buildFiles();
   if (id === "w-chat") chatApp();
-  if (id === "w-phone") {
-    const frame = document.getElementById("pframe");
+  if (id === "w-phone" || id === "w-phone2") {
+    const sfx = id === "w-phone2" ? "2" : "";
+    const frame = document.getElementById("pframe" + sfx);
     if (frame && !frame.src) frame.src = frame.dataset.psrc; // boot the real app
     function fitPhone() {
-      const screen = document.getElementById("pscreen");
-      const sc = document.getElementById("pscale");
+      const screen = document.getElementById("pscreen" + sfx);
+      const sc = document.getElementById("pscale" + sfx);
       if (!screen || !sc) return;
       const scale = screen.clientWidth / 430;
       sc.style.transform = "scale(" + scale + ")";
@@ -886,7 +908,7 @@ function lazyInit(id) {
     fitPhone();
     window.addEventListener("resize", fitPhone);
     setTimeout(() => {
-      const s = document.getElementById("psplash");
+      const s = document.getElementById("psplash" + sfx);
       if (s) s.classList.add("off");
     }, 2200);
   }
@@ -918,6 +940,7 @@ const REACT = {
   "w-log": "한 줄 한 줄이 밤샘의 기록입니다 📋",
   "w-toybox": "잡동사니 상자예요. 하나씩 다 눌러보는 거 추천 🧸",
   "w-phone": "제 아기… 아니 앱이에요. 살살 스와이프해주세요 ☁️",
+  "w-phone2": "이별은 아파도 후폭풍은 막을 수 있어요. 문자 보내기 전에 여기 먼저 💔",
   "w-term": "오, 터미널 여는 사람 오랜만이에요. 'fortune' 쳐보세요 💻",
   "w-trash": "남의 휴지통을 왜... 아니 뭐, 보세요 🗑️",
   "w-secret": "암호요? 제 전공을 떠올려보세요 🔒",
@@ -992,6 +1015,7 @@ const FILES = [
   { g:"⚛️", n:"khnp_ep05.mp4", type:"drive", id:"1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg", t:"KHNP EP.05" },
   { g:"🎵", n:"not_my_fault.mp3", type:"audio", src:"assets/music01.mp3", t:"NOT MY FAULT — Suno와 작곡 (2025.12)" },
   { g:"☁️", n:"maeum_chingu.app", type:"app", id:"w-phone" },
+  { g:"💔", n:"hubangwi.app", type:"app", id:"w-phone2" },
   { g:"🎨", n:"design_gallery.url", type:"link", href:"https://hyunaeee.github.io/design-gallery/" },
   { g:"🍽️", n:"tableon.url", type:"link", href:"https://hyunaeee.github.io/tableon/" },
   { g:"📊", n:"ppt_studio.url", type:"link", href:"https://hyunaeee.github.io/ppt-test/" },
