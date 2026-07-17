@@ -61,6 +61,8 @@
   .web .m { padding: 10px 13px; }
   .web .m b { font-family: "Space Grotesk", sans-serif; font-size: 14.5px; font-weight: 500; }
   .web .m span { display: block; color: var(--dim); font-size: 12px; }
+  .web .m .dt { display: block; font-style: normal; font-family: "JetBrains Mono", monospace;
+    font-size: 10px; letter-spacing: 1px; color: #949aa8; margin: 1px 0 2px; }
   .web .badge { position: absolute; top: 8px; right: 8px; z-index: 2;
     font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 1.5px;
     padding: 3px 9px; border-radius: 100px; }
@@ -136,6 +138,8 @@
   .pm .hd b { font-family: "Space Grotesk", "Noto Sans KR", sans-serif; font-size: 20px; font-weight: 700; }
   .pm .hd .pmbadge { font-family: "JetBrains Mono", monospace; font-size: 9px;
     letter-spacing: 1.5px; padding: 3px 9px; border-radius: 100px; }
+  .pm .hd .pmdate { font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: 1px; color: var(--dim); }
   .pm .hd .x { margin-left: auto; cursor: pointer; border: 1px solid var(--line);
     background: none; color: var(--dim); width: 30px; height: 30px; border-radius: 8px;
     font-size: 15px; line-height: 1; transition: 0.2s; }
@@ -290,109 +294,109 @@
     <div class="web" data-cat="web" data-p="dg">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://hyunaeee.github.io/design-gallery/" target="_blank"><img src="assets/dg.jpg" alt="DESIGN GALLERY" loading="lazy"/></a>
-      <div class="m"><b>DESIGN GALLERY</b><span>유명 디자인을 코드로 배우는 갤러리 · 63개 데모 · KO/EN</span></div>
+      <div class="m"><b>DESIGN GALLERY</b><em class="dt">2026.07</em><span>유명 디자인을 코드로 배우는 갤러리 · 63개 데모 · KO/EN</span></div>
       <div class="acts"><a class="act go" href="https://hyunaeee.github.io/design-gallery/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/design-gallery" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="ppt">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://hyunaeee.github.io/ppt-test/" target="_blank"><img src="assets/ppt.jpg" alt="PPT Studio" loading="lazy"/></a>
-      <div class="m"><b>AI PPT STUDIO</b><span>브랜드 디자인 시스템 기반 슬라이드 제작 · AI 슬라이드 생성 · PPTX/PDF 내보내기</span></div>
+      <div class="m"><b>AI PPT STUDIO</b><em class="dt">2026.07</em><span>브랜드 디자인 시스템 기반 슬라이드 제작 · AI 슬라이드 생성 · PPTX/PDF 내보내기</span></div>
       <div class="acts"><a class="act go" href="https://hyunaeee.github.io/ppt-test/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/ppt-test" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="app" data-p="maeum">
       <span class="badge soon">PRE-RELEASE</span>
       <a class="shot" href="index.html#phone"><img src="assets/sadout.jpg" alt="이불 안 마음친구" loading="lazy"/></a>
-      <div class="m"><b>이불 안 마음친구</b><span>멘탈 케어 앱 · iOS/Android+웹 · 기획·디자인·개발 전부 직접 — 실제로 작동하는 에뮬레이터 제공</span></div>
+      <div class="m"><b>이불 안 마음친구</b><em class="dt">2026.07</em><span>멘탈 케어 앱 · iOS/Android+웹 · 기획·디자인·개발 전부 직접 — 실제로 작동하는 에뮬레이터 제공</span></div>
       <div class="acts"><a class="act go" href="index.html#phone">에뮬레이터 ▶</a><a class="act" href="https://github.com/AengDo" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="app" data-p="hb">
       <span class="badge soon">PRE-RELEASE</span>
       <a class="shot" href="index.html#hb"><img src="assets/hubangwi.jpg" alt="후방위 — 후폭풍방지위원회" loading="lazy"/></a>
-      <div class="m"><b>후방위 (HEARTBREAKER)</b><span>이별 후폭풍 방지 앱 · 연락 충동 진정·90일 회복 여정·AI 가상 대화 — 이것도 에뮬레이터에서 실제로 작동해요</span></div>
+      <div class="m"><b>후방위 (HEARTBREAKER)</b><em class="dt">2026.07</em><span>이별 후폭풍 방지 앱 · 연락 충동 진정·90일 회복 여정·AI 가상 대화 — 이것도 에뮬레이터에서 실제로 작동해요</span></div>
       <div class="acts"><a class="act go" href="index.html#hb">에뮬레이터 ▶</a><a class="act" href="https://github.com/AengDo" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="medrag">
       <span class="badge upd">UPDATING</span>
       <a class="shot" href="https://github.com/hyunaeee/med-rag" target="_blank"><div class="ph"><span class="e">🩺</span><span class="t">MED-RAG</span></div></a>
-      <div class="m"><b>MED-RAG</b><span>유방암 진료 보조 RAG 에이전트 · 고려대 안암병원 납품 (2025.10)</span></div>
+      <div class="m"><b>MED-RAG</b><em class="dt">2025.10 – 2026.01</em><span>유방암 진료 보조 RAG 에이전트 · 고려대 안암병원 납품 (2025.10)</span></div>
       <div class="acts"><span class="act off">배포 준비 중</span><a class="act" href="https://github.com/hyunaeee/med-rag" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="legal">
       <span class="badge upd">UPDATING</span>
       <a class="shot" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank"><div class="ph"><span class="e">⚖️</span><span class="t">LEGAL_PDF_RAG</span></div></a>
-      <div class="m"><b>LEGAL PDF RAG</b><span>법률 PDF 분석 RAG 챗봇 · Solar LLM</span></div>
+      <div class="m"><b>LEGAL PDF RAG</b><em class="dt">2025.06 – 2026.07</em><span>법률 PDF 분석 RAG 챗봇 · Solar LLM</span></div>
       <div class="acts"><span class="act off">배포 준비 중</span><a class="act" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="higgs">
       <span class="badge upd">UPDATING</span>
       <a class="shot" href="https://github.com/hyunaeee/higgsMCP" target="_blank"><div class="ph"><span class="e">💄</span><span class="t">HIGGSMCP</span></div></a>
-      <div class="m"><b>HIGGSMCP</b><span>AI 뷰티 인플루언서 자동화 · Higgsfield MCP + AdCast</span></div>
+      <div class="m"><b>HIGGSMCP</b><em class="dt">2026.07</em><span>AI 뷰티 인플루언서 자동화 · Higgsfield MCP + AdCast</span></div>
       <div class="acts"><span class="act off">배포 준비 중</span><a class="act" href="https://github.com/hyunaeee/higgsMCP" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="web" data-p="tableon">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://hyunaeee.github.io/tableon/" target="_blank"><img src="assets/tableon.jpg" alt="테이블ON" loading="lazy"/></a>
-      <div class="m"><b>테이블ON</b><span>레스토랑 통합 관리 SaaS · 주문·예약·CRM + Claude AI 경영 분석</span></div>
+      <div class="m"><b>테이블ON</b><em class="dt">2026.07</em><span>레스토랑 통합 관리 SaaS · 주문·예약·CRM + Claude AI 경영 분석</span></div>
       <div class="acts"><a class="act go" href="https://hyunaeee.github.io/tableon/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/tableon" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="web" data-p="dailybook">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://daily-book-bce82.web.app/" target="_blank"><img src="assets/dailybook.jpg" alt="하루 한 장" loading="lazy"/></a>
-      <div class="m"><b>하루 한 장 (DAILY BOOK)</b><span>일기를 모아 한 권의 책으로 만드는 웹앱 · Google 로그인/게스트</span></div>
+      <div class="m"><b>하루 한 장 (DAILY BOOK)</b><em class="dt">2026.01</em><span>일기를 모아 한 권의 책으로 만드는 웹앱 · Google 로그인/게스트</span></div>
       <div class="acts"><a class="act go" href="https://daily-book-bce82.web.app/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/daily-book" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="play" data-p="stress">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://stress-game-ddakbam.vercel.app/" target="_blank"><img src="assets/stress.jpg" alt="직장 상사 스트레스 날리기" loading="lazy"/></a>
-      <div class="m"><b>STRESS BREAKER</b><span>미운 상사 사진 올리고 딱밤 때리는 스트레스 해소 게임 💢</span></div>
+      <div class="m"><b>STRESS BREAKER</b><em class="dt">2026.01</em><span>미운 상사 사진 올리고 딱밤 때리는 스트레스 해소 게임 💢</span></div>
       <div class="acts"><a class="act go" href="https://stress-game-ddakbam.vercel.app/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/stress-game" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="agent">
       <span class="badge upd">UPDATING</span>
       <a class="shot" href="https://github.com/hyunaeee?tab=repositories" target="_blank"><div class="ph"><span class="e">🤖</span><span class="t">PERSONAL_AGENT</span></div></a>
-      <div class="m"><b>PERSONAL AGENT</b><span>개인 비서 에이전트 · 리뉴얼 준비 중</span></div>
+      <div class="m"><b>PERSONAL AGENT</b><em class="dt">2026 · 리뉴얼 중</em><span>개인 비서 에이전트 · 리뉴얼 준비 중</span></div>
       <div class="acts"><span class="act off">배포 준비 중</span><a class="act" href="https://github.com/hyunaeee?tab=repositories" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="travel">
       <span class="badge upd">UPDATING</span>
       <a class="shot" href="https://github.com/hyunaeee/ai_travel_guide" target="_blank"><div class="ph"><span class="e">🧭</span><span class="t">AI_TRAVEL_GUIDE</span></div></a>
-      <div class="m"><b>AI TRAVEL GUIDE</b><span>위치 기반 AI 여행 가이드 · 큐레이션 서비스</span></div>
+      <div class="m"><b>AI TRAVEL GUIDE</b><em class="dt">2025.06</em><span>위치 기반 AI 여행 가이드 · 큐레이션 서비스</span></div>
       <div class="acts"><span class="act off">배포 준비 중</span><a class="act" href="https://github.com/hyunaeee/ai_travel_guide" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="taedam">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://taedam.higgsfield.app/" target="_blank"><img src="assets/taedam.jpg" alt="태담" loading="lazy"/></a>
-      <div class="m"><b>태담 (TAEDAM)</b><span>뱃속부터 초등까지 — 아이 이름을 부르며 함께 자라는 AI 이야기 친구 ⭐</span></div>
+      <div class="m"><b>태담 (TAEDAM)</b><em class="dt">2026.07</em><span>뱃속부터 초등까지 — 아이 이름을 부르며 함께 자라는 AI 이야기 친구 ⭐</span></div>
       <div class="acts"><a class="act go" href="https://taedam.higgsfield.app/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee?tab=repositories" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="sajumob">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://saju-ai-mobile-demo.vercel.app" target="_blank"><img src="assets/cheongiyeon.jpg" alt="천기연 — AI 사주 풀이" loading="lazy"/></a>
-      <div class="m"><b>천기연 天機緣</b><span>신녀 연화의 AI 사주 풀이 · 만세력·진태양시 보정·대운·신살 — 고민 맞춤 해석 🔮</span></div>
+      <div class="m"><b>천기연 天機緣</b><em class="dt">2026.07</em><span>신녀 연화의 AI 사주 풀이 · 만세력·진태양시 보정·대운·신살 — 고민 맞춤 해석 🔮</span></div>
       <div class="acts"><a class="act go" href="https://saju-ai-mobile-demo.vercel.app" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/saju-ai-mobile" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="play" data-p="hacker">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://hacker-typer.vercel.app/" target="_blank"><img src="assets/hacker.jpg" alt="HACKER TYPER" loading="lazy"/></a>
-      <div class="m"><b>HACKER TYPER</b><span>시네마틱 코딩 시뮬레이션 인터페이스 · React</span></div>
+      <div class="m"><b>HACKER TYPER</b><em class="dt">2025.11</em><span>시네마틱 코딩 시뮬레이션 인터페이스 · React</span></div>
       <div class="acts"><a class="act go" href="https://hacker-typer.vercel.app/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/hacker-typer" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="play" data-p="galaxy">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://galaxy-oracle.netlify.app/" target="_blank"><img src="assets/galaxy.jpg" alt="GALAXY ORACLE" loading="lazy"/></a>
-      <div class="m"><b>GALAXY ORACLE</b><span>우주 배경의 신비로운 3D 타로 · Three.js</span></div>
+      <div class="m"><b>GALAXY ORACLE</b><em class="dt">2025.11</em><span>우주 배경의 신비로운 3D 타로 · Three.js</span></div>
       <div class="acts"><a class="act go" href="https://galaxy-oracle.netlify.app/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/galaxy-oracle" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="play" data-p="word">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://word-game-ochre-psi.vercel.app" target="_blank"><img src="assets/word.jpg" alt="WORD GAME" loading="lazy"/></a>
-      <div class="m"><b>WORD GAME</b><span>단어 맞추기 웹 게임 · 레벨/대전 모드</span></div>
+      <div class="m"><b>WORD GAME</b><em class="dt">2026.03 – 2026.06</em><span>단어 맞추기 웹 게임 · 레벨/대전 모드</span></div>
       <div class="acts"><a class="act go" href="https://word-game-ochre-psi.vercel.app" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/word-game" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="saju">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://saju-platform.vercel.app" target="_blank"><img src="assets/saju.jpg" alt="SAJU 천명" loading="lazy"/></a>
-      <div class="m"><b>SAJU PLATFORM 천명</b><span>명리학 AI 알고리즘 사주 풀이 서비스</span></div>
+      <div class="m"><b>SAJU PLATFORM 천명</b><em class="dt">2026.01 – 2026.06</em><span>명리학 AI 알고리즘 사주 풀이 서비스</span></div>
       <div class="acts"><a class="act go" href="https://saju-platform.vercel.app" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/saju-platform" target="_blank">GITHUB ↗</a></div>
     </div>
   </div>
@@ -400,11 +404,11 @@
   <h2><i>03</i>MORE ON GITHUB</h2>
   <div class="sub">연구·실험 레포</div>
   <div class="repos">
-    <a class="repo" href="https://github.com/hyunaeee/meeting-assistant" target="_blank"><b>meeting-assistant</b><span>회의록 작성→Notion·메일 에이전트</span><i>↗</i></a>
-    <a class="repo" href="https://github.com/hyunaeee/comfy-workflow" target="_blank"><b>comfy-workflow</b><span>생성형 콘텐츠 파이프라인 자동화</span><i>↗</i></a>
-    <a class="repo" href="https://github.com/hyunaeee/3D_char_sign_lang" target="_blank"><b>sign-avatar</b><span>3D 아바타 한국어→수어 변환</span><i>↗</i></a>
-    <a class="repo" href="https://github.com/hyunaeee/PR_semantic_image_segmentation_unet" target="_blank"><b>brain-unet</b><span>U-Net 뇌 MRI 세그멘테이션 구현</span><i>↗</i></a>
-    <a class="repo" href="https://github.com/hyunaeee/Report-Summary" target="_blank"><b>report-summary</b><span>기업연계 특허분쟁 문서 요약</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/meeting-assistant" target="_blank"><b>meeting-assistant</b><span>회의록 작성→Notion·메일 에이전트 · 2026.06 – 2026.07</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/comfy-workflow" target="_blank"><b>comfy-workflow</b><span>생성형 콘텐츠 파이프라인 자동화 · 2026.01</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/3D_char_sign_lang" target="_blank"><b>sign-avatar</b><span>3D 아바타 한국어→수어 변환 · 2025.05</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/PR_semantic_image_segmentation_unet" target="_blank"><b>brain-unet</b><span>U-Net 뇌 MRI 세그멘테이션 구현 · 2023.11 – 2025.05</span><i>↗</i></a>
+    <a class="repo" href="https://github.com/hyunaeee/Report-Summary" target="_blank"><b>report-summary</b><span>기업연계 특허분쟁 문서 요약 · 2025.05</span><i>↗</i></a>
   </div>
 
   <h2><i>04</i>TRACK RECORD</h2>
@@ -493,6 +497,7 @@
 <div class="pm-ovl" id="pmovl">
   <div class="pm" role="dialog" aria-modal="true">
     <div class="hd"><b id="pmtitle"></b><span class="pmbadge" id="pmbadge"></span>
+      <span class="pmdate" id="pmdate"></span>
       <button class="x" id="pmclose" aria-label="닫기">×</button></div>
     <div class="desc" id="pmdesc"></div>
     <div class="bd" id="pmbody"></div>
@@ -672,6 +677,8 @@
     const pb = document.getElementById("pmbadge");
     pb.textContent = badge.textContent;
     pb.className = "pmbadge " + (badge.classList.contains("live") ? "live" : badge.classList.contains("upd") ? "upd" : "soon");
+    const dt = card.querySelector(".m .dt");
+    document.getElementById("pmdate").textContent = dt ? dt.textContent : "";
     document.getElementById("pmdesc").textContent = card.querySelector(".m span").textContent;
     document.getElementById("pmbody").innerHTML = SECS.map(([label, key]) => {
       const v = d[key];
