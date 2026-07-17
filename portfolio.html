@@ -90,6 +90,10 @@
   .repo span { color: var(--dim); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .repo i { font-style: normal; color: var(--red); font-size: 10px; margin-left: auto; }
 
+  .trgrid { display: grid; grid-template-columns: 1fr 1.55fr; gap: 26px; }
+  @media (max-width: 860px) { .trgrid { grid-template-columns: 1fr; } }
+  .trcat { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 2px;
+    color: var(--red); margin-bottom: 12px; }
   .tl { border-left: 1px solid var(--line); padding-left: 20px; }
   .tl div { position: relative; padding: 5px 0; font-size: 13.5px; }
   .tl div::before { content: ""; position: absolute; left: -24px; top: 14px;
@@ -145,7 +149,7 @@
         <span>영상 · 이미지 · 음악을 생성형 AI 파이프라인으로. 한수원 교육 시리즈 납품, 서울콘 DDP 전시.</span></div>
       <div class="role"><div class="ic">🤖</div>
         <b>AI <i>에이전트</i> 개발</b>
-        <span>의료·법률 RAG 챗봇, 회의록 자동화 에이전트, MCP 기반 콘텐츠 자동화까지.</span></div>
+        <span>고려대 안암병원에 납품한 유방암 진료 에이전트부터 법률 RAG, 회의록 자동화, MCP 자동화까지.</span></div>
       <div class="role"><div class="ic">🛠️</div>
         <b>웹 <i>서비스</i> 개발·배포</b>
         <span>기획부터 배포까지 혼자서. 게임·사주 플랫폼·3D 웹 등 라이브 서비스 운영 중.</span></div>
@@ -214,15 +218,15 @@
       <div class="ph"><span class="e">📊</span><span class="t">AI_PPT_STUDIO</span></div>
       <div class="m"><b>AI PPT STUDIO</b><span>아이디어→슬라이드 AI 프레젠테이션 스튜디오 · Next.js</span></div>
     </a>
-    <a class="web" href="https://github.com/AengDo" target="_blank">
+    <a class="web" href="index.html#phone">
       <span class="badge soon">PRE-RELEASE</span>
       <img src="assets/sadout.jpg" alt="이불 안 마음친구" loading="lazy"/>
-      <div class="m"><b>이불 안 마음친구</b><span>멘탈 케어 앱 — 마음 체크인·숨 고르기·음악 처방 · iOS/Android+웹 · 기획·디자인·개발 전부 직접</span></div>
+      <div class="m"><b>이불 안 마음친구</b><span>멘탈 케어 앱 · iOS/Android+웹 · 기획·디자인·개발 전부 직접 — 클릭하면 에뮬레이터로 미리보기 📱</span></div>
     </a>
     <a class="web" href="https://github.com/hyunaeee/med-rag" target="_blank">
       <span class="badge upd">UPDATING</span>
       <div class="ph"><span class="e">🩺</span><span class="t">MED-RAG</span></div>
-      <div class="m"><b>MED-RAG</b><span>유방암 진단 서포트 RAG 에이전트 · 의료 도메인</span></div>
+      <div class="m"><b>MED-RAG</b><span>유방암 진료 보조 RAG 에이전트 · 고려대 안암병원 납품 (2025.10)</span></div>
     </a>
     <a class="web" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank">
       <span class="badge upd">UPDATING</span>
@@ -278,14 +282,38 @@
   </div>
 
   <h2><i>04</i>TRACK RECORD</h2>
-  <div class="tl">
-    <div><b>2026.03</b>한수원 어린이 에너지 교육 시리즈 5부작 납품</div>
-    <div><b>2026.01</b>앵두 스튜디오 오픈</div>
-    <div><b>2025.12</b>서울콘 DDP 'AI 전람회 : Beyond Fluxus' 초대 작가</div>
-    <div><b>2025.12</b>충남 아산 중학교 AI 웹툰·쇼츠 강의</div>
-    <div><b>2025.11</b>한국수력원자력 교육용 AI 영상 제작</div>
-    <div><b>2025.09</b>NC AI — AI 데이터실</div>
-    <div><b>2025.07</b>유튜브 'gaebaldaeramz' 개설</div>
+  <div class="sub">학력과 경력 — 뇌에서 시작해 AI까지</div>
+  <div class="trgrid">
+    <div>
+      <div class="trcat">EDUCATION</div>
+      <div class="tl">
+        <div><b>~2023.08</b>고려대학교 — 컴퓨터융합소프트웨어 &amp; 뇌인지융합과학 융합전공 졸업</div>
+        <div><b>2019.12–20.05</b>싱가포르국립대(NUS) Computer Science 교환</div>
+        <div><b>2024.07–25.02</b>Upstage AI Lab 부트캠프 4기</div>
+        <div><b>2023.09–12</b>고려대학교 지능정보 SW아카데미 3기</div>
+      </div>
+    </div>
+    <div>
+      <div class="trcat">EXPERIENCE &amp; ACTIVITIES</div>
+      <div class="tl">
+        <div><b>2026.07</b>고려대 안암병원 앱 스플래시(오프닝·로딩) 디자인 제작</div>
+        <div><b>2026.03</b>한수원 어린이 에너지 교육 시리즈 5부작 납품</div>
+        <div><b>2026.01</b>앵두 스튜디오 오픈</div>
+        <div><b>2025.12</b>서울콘 DDP 'AI 전람회 : Beyond Fluxus' 초대 작가</div>
+        <div><b>2025.12</b>충남 아산 중학교 AI 웹툰·쇼츠 강의</div>
+        <div><b>2025.11</b>한국수력원자력 교육용 AI 영상 제작</div>
+        <div><b>2025.10</b>고려대 안암병원 유방암 진료 에이전트 납품</div>
+        <div><b>2025.09</b>NC AI — AI 데이터실</div>
+        <div><b>2025.07–11</b>구글 스터디잼 AI 스터디 리더</div>
+        <div><b>2025.07</b>유튜브 'gaebaldaeramz' 개설</div>
+        <div><b>2025.06</b>Google 'Built with AI' 미니 해커톤</div>
+        <div><b>2024.04–06</b>솔버엑스(재직 당시 VoltWin) — 스타트업</div>
+        <div><b>2023.10–24.02</b>라잇모멘터스 — 스타트업 초기 멤버 · 개발</div>
+        <div><b>2023.04–25.12</b>비욘드 코딩 — 학생 코딩 강의 (국제학교 · 영어 수업)</div>
+        <div><b>2023.01–03</b>한국뇌연구원</div>
+        <div><b>2019.01–03</b>한국뇌연구원 인지신경랩실</div>
+      </div>
+    </div>
   </div>
 
   <h2><i>05</i>STACK</h2>

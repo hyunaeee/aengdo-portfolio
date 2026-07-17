@@ -78,6 +78,30 @@
     line-height: 1.7;
   }
   .storyline i { font-style: normal; color: #ff8f99; }
+  /* phone emulator */
+  .phone {
+    position: relative; width: min(300px, 74vw); margin: 0 auto;
+    background: #15161c; border-radius: 36px; padding: 10px;
+    box-shadow: 0 0 0 2px #3a3d4a, 8px 8px 0 rgba(0,0,0,.45);
+  }
+  .pscreen { position: relative; border-radius: 26px; overflow: hidden; background: #f7ecdc; }
+  .pages { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .pages::-webkit-scrollbar { display: none; }
+  .ppage { flex: 0 0 100%; scroll-snap-align: center; }
+  .ppage img { width: 100%; display: block; user-select: none; -webkit-user-drag: none; }
+  .pnotch { position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 96px; height: 17px; background: #15161c; border-radius: 0 0 12px 12px; z-index: 3; }
+  .phome { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%);
+    width: 86px; height: 4px; border-radius: 3px; background: rgba(20,20,26,.5); z-index: 3; }
+  .psplash {
+    position: absolute; inset: 0; z-index: 4; background: #fdf3e3;
+    display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center;
+    font-family: "Noto Sans KR", sans-serif; font-size: 13px; color: #8a6f52;
+    transition: opacity .7s;
+  }
+  .psplash img { width: 74px; border-radius: 18px; box-shadow: 0 6px 18px rgba(150,110,60,.25); }
+  .psplash.off { opacity: 0; pointer-events: none; }
+  .pdots { text-align: center; margin-top: 8px; font-size: 11px; color: #9aa0b0; letter-spacing: 2px; }
   /* terminal */
   .termout {
     font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.9;
@@ -426,14 +450,27 @@
 <div class="win" id="w-log" style="right:10%; top:14%;" data-title="📋 TRACK.LOG">
   <div class="titlebar"><span>📋 TRACK.LOG — 활동 기록</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
-  <div class="wbody log">
+  <div class="wbody log" style="max-height:300px; overflow-y:auto;">
+    <span class="d">[2026.07]</span> 고려대 안암병원 앱 스플래시 디자인 제작<br/>
     <span class="d">[2026.03]</span> 한수원 어린이 에너지 교육 시리즈 5부작 납품<br/>
     <span class="d">[2026.01]</span> 앵두 스튜디오 오픈<br/>
     <span class="d">[2025.12]</span> 서울콘 DDP 'AI 전람회 : Beyond Fluxus' 초대 작가<br/>
     <span class="d">[2025.12]</span> 충남 아산 중학교 AI 웹툰·쇼츠 강의<br/>
     <span class="d">[2025.11]</span> 한국수력원자력 교육용 AI 영상 제작<br/>
+    <span class="d">[2025.10]</span> 고려대 안암병원 유방암 진료 에이전트 납품<br/>
     <span class="d">[2025.09]</span> NC AI — AI 데이터실<br/>
+    <span class="d">[2025.07]</span> 구글 스터디잼 AI 스터디 리더 (~11월)<br/>
     <span class="d">[2025.07]</span> 유튜브 'gaebaldaeramz' 개설<br/>
+    <span class="d">[2025.06]</span> Google 'Built with AI' 미니 해커톤<br/>
+    <span class="d">[2024.07]</span> Upstage AI Lab 부트캠프 4기 (~2025.02)<br/>
+    <span class="d">[2024.04]</span> 솔버엑스(당시 VoltWin) — 스타트업 (~06월)<br/>
+    <span class="d">[2023.10]</span> 라잇모멘터스 — 스타트업 초기 멤버·개발 (~2024.02)<br/>
+    <span class="d">[2023.09]</span> 고려대 지능정보 SW아카데미 3기 (~12월)<br/>
+    <span class="d">[2023.08]</span> 고려대 컴퓨터융합소프트웨어 &amp; 뇌인지융합과학 융합전공 졸업<br/>
+    <span class="d">[2023.04]</span> 비욘드 코딩 — 학생 코딩 강의, 국제학교·영어 수업 (~2025.12)<br/>
+    <span class="d">[2023.01]</span> 한국뇌연구원 (~03월)<br/>
+    <span class="d">[2019.12]</span> NUS 싱가포르국립대 CS 교환 (~2020.05)<br/>
+    <span class="d">[2019.01]</span> 한국뇌연구원 인지신경랩실 (~03월)<br/>
     <span style="color:#7ee2a8">[NOW]</span> 기록은 계속 늘어나는 중_
   </div>
   <div class="storyline">이야기가 <i>현실이 된 날짜들</i>이에요. 한 줄마다 밤샘이 들어있습니다.</div>
@@ -456,6 +493,31 @@
     <a href="https://instagram.com/gaebal_daeraemz" target="_blank">Insta</a>
     <a href="https://www.youtube.com/@gaebal_daeraemz" target="_blank">YouTube</a>
   </div>
+</div>
+
+<div class="win" id="w-phone" style="left:38%; top:3%;" data-title="📱 마음친구 EMU">
+  <div class="titlebar"><span>📱 MAEUM_EMU — 이불 안 마음친구 (배포 전)</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding:14px 18px 8px;">
+    <div class="phone">
+      <div class="pscreen">
+        <div class="pnotch"></div>
+        <div class="pages">
+          <div class="ppage"><img src="assets/maeum-p1.jpg" alt="마음 체크인 화면" /></div>
+          <div class="ppage"><img src="assets/maeum-p2.jpg" alt="오늘의 처방 화면" /></div>
+          <div class="ppage"><img src="assets/maeum-p3.jpg" alt="하루 한 문장 화면" /></div>
+          <div class="ppage"><img src="assets/maeum-p4.jpg" alt="기록 화면" /></div>
+        </div>
+        <div class="phome"></div>
+        <div class="psplash" id="psplash">
+          <img src="assets/maeum-icon.png" alt="앱 아이콘" />
+          <div>이불 안 마음친구</div>
+        </div>
+      </div>
+    </div>
+    <div class="pdots">← 스와이프로 화면 넘기기 →</div>
+  </div>
+  <div class="storyline">기획·디자인·개발 전부 직접 만든 멘탈 케어 앱이에요. 출시 전이라 <i>에뮬레이터</i>로 먼저 보여드려요 ☁️</div>
 </div>
 
 <div class="win" id="w-toybox" style="left:24%; top:16%;" data-title="🧸 TOYBOX">
@@ -668,6 +730,12 @@
 
   /* dual boot: explore the OS, or jump straight to the one-page portfolio */
   function showMenu() {
+    // deep link: index.html#phone boots straight into the OS emulator
+    if (location.hash === "#phone") {
+      el.style.transition = "opacity .5s"; el.style.opacity = 0;
+      setTimeout(() => { el.remove(); openWin("w-readme"); openWin("w-chat"); openWin("w-phone"); }, 520);
+      return;
+    }
     el.innerHTML += "\nSELECT BOOT MODE:\n\n";
     const menu = document.createElement("div");
     menu.innerHTML =
@@ -811,6 +879,10 @@ function lazyInit(id) {
   if (id === "w-brain") brainApp();
   if (id === "w-works") buildFiles();
   if (id === "w-chat") chatApp();
+  if (id === "w-phone") setTimeout(() => {
+    const s = document.getElementById("psplash");
+    if (s) s.classList.add("off");
+  }, 1500);
 }
 
 /* start menu + clock */
@@ -838,6 +910,7 @@ const REACT = {
   "w-mail": "답장은 빛의 속도로 드릴게요 ✉️",
   "w-log": "한 줄 한 줄이 밤샘의 기록입니다 📋",
   "w-toybox": "잡동사니 상자예요. 하나씩 다 눌러보는 거 추천 🧸",
+  "w-phone": "제 아기… 아니 앱이에요. 살살 스와이프해주세요 ☁️",
   "w-term": "오, 터미널 여는 사람 오랜만이에요. 'fortune' 쳐보세요 💻",
   "w-trash": "남의 휴지통을 왜... 아니 뭐, 보세요 🗑️",
   "w-secret": "암호요? 제 전공을 떠올려보세요 🔒",
@@ -911,7 +984,7 @@ const FILES = [
   { g:"⚛️", n:"khnp_ep04.mp4", type:"drive", id:"1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB", t:"KHNP EP.04" },
   { g:"⚛️", n:"khnp_ep05.mp4", type:"drive", id:"1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg", t:"KHNP EP.05" },
   { g:"🎵", n:"not_my_fault.mp3", type:"audio", src:"assets/music01.mp3", t:"NOT MY FAULT — Suno와 작곡 (2025.12)" },
-  { g:"☁️", n:"maeum_chingu.app", type:"img", src:"assets/sadout.jpg", t:"이불 안 마음친구 — 멘탈 케어 앱 (기획·디자인·개발, 배포 준비 중)" },
+  { g:"☁️", n:"maeum_chingu.app", type:"app", id:"w-phone" },
   { g:"🎨", n:"design_gallery.url", type:"link", href:"https://hyunaeee.github.io/design-gallery/" },
   { g:"🍽️", n:"tableon.url", type:"link", href:"https://hyunaeee.github.io/tableon/" },
   { g:"🌐", n:"hacker_typer.url", type:"link", href:"https://hacker-typer.vercel.app/" },
@@ -935,6 +1008,7 @@ function buildFiles() {
     d.innerHTML = '<div class="glyph">' + f.g + '</div><div class="name">' + f.n + "</div>";
     d.onclick = () => {
       if (f.type === "link") { window.open(f.href, "_blank"); return; }
+      if (f.type === "app") { openWin(f.id); return; }
       const vb = document.getElementById("viewer-body");
       document.getElementById("viewer-title").textContent = "👁 " + f.n + (f.t ? " — " + f.t : "");
       if (f.type === "yt") vb.innerHTML = '<iframe style="width:min(760px,80vw);aspect-ratio:16/9;" src="https://www.youtube.com/embed/' + f.id + '?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
