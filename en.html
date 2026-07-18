@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AENGDO — AI Engineer · RAG &amp; Agentic Systems</title>
+<meta name="description" content="AI engineer shipping production RAG and agentic systems — from a hospital-deployed clinical assistant to MCP-based automation. Neuroscience × CS, Korean/English bilingual." />
+<meta property="og:title" content="AENGDO — AI Engineer · RAG &amp; Agentic Systems" />
+<meta property="og:description" content="Production RAG shipped to a university hospital · multi-agent & MCP builder · Korean/English bilingual" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍒</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f6f5f2; --card: #ffffff; --line: rgba(24,26,34,0.11);
+    --ink: #1c1e26; --dim: #62687a; --red: #e0394a;
+    --green-bg: rgba(30,158,99,0.1); --green: #157a4c; --green-line: rgba(30,158,99,.35);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink);
+    font-family: "Space Grotesk", "Noto Sans KR", sans-serif;
+    font-weight: 400; line-height: 1.72; padding-bottom: 90px;
+    -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+  ::selection { background: rgba(224,57,74,0.18); }
+
+  /* ---------- header ---------- */
+  header { padding: 64px 0 36px; border-bottom: 1px solid var(--line); }
+  .hello { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: 2.5px;
+    color: var(--red); margin-bottom: 10px; }
+  .name { font-weight: 700; font-size: clamp(36px, 5.4vw, 58px);
+    letter-spacing: -0.02em; line-height: 1.12; }
+  .name i { font-style: normal; color: var(--red); }
+  .tagline { color: var(--dim); margin-top: 14px; font-size: 16px; max-width: 62ch; }
+  .tagline b { color: var(--ink); font-weight: 500; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+  .btn { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 1.5px;
+    padding: 10px 20px; border-radius: 100px; border: 1px solid var(--line);
+    color: var(--dim); transition: 0.2s; }
+  .btn:hover { color: var(--ink); border-color: var(--red); transform: translateY(-2px); }
+  .btn.hot { background: var(--red); color: #fff; border-color: var(--red); }
+
+  /* highlight strip */
+  .high { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 12px; margin-top: 34px; }
+  .hi { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; }
+  .hi .e { font-size: 20px; }
+  .hi b { display: block; font-size: 14.5px; font-weight: 500; margin-top: 6px; }
+  .hi span { display: block; color: var(--dim); font-size: 12.5px; line-height: 1.55; margin-top: 3px; }
+
+  /* ---------- sections ---------- */
+  h2 { font-weight: 700; font-size: 21px; letter-spacing: 0.5px; margin: 52px 0 6px; }
+  h2 i { font-style: normal; color: var(--red); margin-right: 8px; font-family: "JetBrains Mono", monospace; font-size: 15px; }
+  .sub { color: var(--dim); font-size: 13.5px; margin-bottom: 20px; max-width: 74ch; }
+
+  /* ---------- flagship case study ---------- */
+  .case { background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    overflow: hidden; display: grid; grid-template-columns: 1.1fr 1fr; }
+  @media (max-width: 820px) { .case { grid-template-columns: 1fr; } }
+  .case .txt { padding: 28px 30px; }
+  .case .pic { min-height: 260px; background: #0d0f16 url("assets/anam-splash.jpg") center/cover no-repeat; }
+  .badge { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: 1.5px; padding: 4px 12px; border-radius: 100px;
+    background: var(--green-bg); color: var(--green); border: 1px solid var(--green-line);
+    margin-bottom: 12px; }
+  .case h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+  .case .meta { font-family: "JetBrains Mono", monospace; font-size: 11px; color: #949aa8;
+    letter-spacing: 1px; margin: 6px 0 14px; }
+  .case p { font-size: 14.5px; color: #3d4150; margin-bottom: 12px; }
+  .case p b { font-weight: 500; }
+  .fact-rows { border-top: 1px solid var(--line); margin-top: 6px; }
+  .fact { display: grid; grid-template-columns: 130px 1fr; gap: 14px; padding: 9px 0;
+    border-bottom: 1px solid var(--line); font-size: 13px; }
+  .fact b { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: 1px;
+    color: var(--red); font-weight: 500; padding-top: 2px; }
+  .fact span { color: #3d4150; }
+
+  /* ---------- project cards ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 14px; }
+  .pj { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    overflow: hidden; display: flex; flex-direction: column; transition: 0.2s; }
+  .pj:hover { transform: translateY(-4px); border-color: var(--red); }
+  .pj img { width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: top; display: block; }
+  .pj .ph { aspect-ratio: 16/9; display: flex; flex-direction: column; gap: 6px;
+    align-items: center; justify-content: center;
+    background: radial-gradient(circle at 30% 25%, rgba(224,57,74,0.06), transparent 60%), #eef0f2; }
+  .pj .ph .e { font-size: 30px; }
+  .pj .ph .t { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 2px; color: #8b91a0; }
+  .pj .m { padding: 13px 15px 15px; flex: 1; display: flex; flex-direction: column; }
+  .pj .m b { font-size: 15px; font-weight: 500; }
+  .pj .m .dt { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 1px;
+    color: #949aa8; margin: 1px 0 4px; }
+  .pj .m span { color: var(--dim); font-size: 12.5px; line-height: 1.55; flex: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+  .tag { font-family: "JetBrains Mono", monospace; font-size: 9.5px; letter-spacing: 0.5px;
+    padding: 3px 9px; border-radius: 100px; background: rgba(24,26,34,0.05); color: #4c5260; }
+  .tag.hot { background: rgba(224,57,74,0.08); color: #c93a49; }
+
+  /* ---------- skills ---------- */
+  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .sk { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .sk b { display: block; font-size: 14.5px; font-weight: 500; margin-bottom: 8px; }
+  .sk b i { font-style: normal; color: var(--red); margin-right: 6px; }
+  .sk span { color: var(--dim); font-size: 13px; line-height: 1.7; }
+
+  /* ---------- timeline ---------- */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
+  .tl h4 { font-size: 13px; font-family: "JetBrains Mono", monospace; letter-spacing: 2px;
+    color: var(--red); font-weight: 500; margin-bottom: 10px; }
+  .tl > div:not(:first-child) { display: grid; grid-template-columns: 108px 1fr; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .tl > div b { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: 0.5px;
+    color: #949aa8; font-weight: 400; padding-top: 3px; }
+  .tl > div span { color: #3d4150; }
+  .tl > div span em { font-style: normal; color: var(--dim); font-size: 12px; display: block; }
+
+  /* ---------- language / google ---------- */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 760px) { .duo { grid-template-columns: 1fr; } }
+
+  /* ---------- contact ---------- */
+  .contact { margin-top: 60px; background: #16181f; color: #eceaf0; border-radius: 18px;
+    padding: 44px 36px; text-align: center; }
+  .contact h2 { color: #fff; margin: 0 0 8px; }
+  .contact p { color: #a2a6b4; font-size: 14px; }
+  .mail { display: inline-block; margin-top: 18px; font-size: clamp(20px, 3.4vw, 30px);
+    font-weight: 500; letter-spacing: -0.01em; border-bottom: 2px solid var(--red);
+    padding-bottom: 3px; transition: 0.2s; }
+  .mail:hover { color: var(--red); }
+  footer { text-align: center; margin-top: 40px; font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px; letter-spacing: 2px; color: #949aa8; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hello">SEOUL, KOREA · AI ENGINEER</div>
+    <h1 class="name">AENGDO<i>.</i><br />I ship AI systems that survive <i>production</i>.</h1>
+    <p class="tagline">
+      Neuroscience × Computer Science double major turned AI engineer.
+      I take GenAI systems from <b>first prototype to delivered product</b> —
+      a clinical RAG assistant deployed to a university hospital, MCP-based content automation,
+      and a dozen shipped web &amp; mobile services. Working in <b>Korean and English</b>.
+    </p>
+    <div class="actions">
+      <a class="btn hot" href="mailto:hyunaeee@gmail.com">EMAIL ↗</a>
+      <a class="btn" href="https://github.com/hyunaeee" target="_blank" rel="noopener">GITHUB ↗</a>
+      <a class="btn" href="portfolio.html">한국어 버전</a>
+      <a class="btn" href="index.html">INTERACTIVE SITE</a>
+    </div>
+
+    <div class="high">
+      <div class="hi"><span class="e">🏥</span><b>Production RAG, actually delivered</b>
+        <span>Breast-cancer clinical assistant agent shipped to Korea University Anam Hospital (Oct 2025).</span></div>
+      <div class="hi"><span class="e">🤖</span><b>Agentic systems &amp; MCP</b>
+        <span>Custom MCP-server automation, meeting-to-Notion agents, LLM-powered SaaS analytics.</span></div>
+      <div class="hi"><span class="e">🇰🇷🇬🇧</span><b>Bilingual delivery</b>
+        <span>Client work in Korean, 2.5 years teaching CS in English, NUS exchange in Singapore.</span></div>
+      <div class="hi"><span class="e">🧠</span><b>Neuroscience-grounded ML</b>
+        <span>From U-Net brain-MRI segmentation to cognitive-science lab work at Korea Brain Research Institute.</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ 01 FLAGSHIP ============ -->
+  <h2><i>01</i>FLAGSHIP — ENTERPRISE DELIVERY</h2>
+  <p class="sub">The project that best represents how I work: embedded with a real customer,
+    from technical discovery to a system clinicians can actually use.</p>
+
+  <div class="case">
+    <div class="txt">
+      <span class="badge">DELIVERED · IN PRODUCTION USE</span>
+      <h3>MED-RAG — Clinical Assistant Agent for Breast-Cancer Care</h3>
+      <div class="meta">KOREA UNIVERSITY ANAM HOSPITAL · 2025.10 – 2026.01 · FOLLOW-UP APP DESIGN 2026.07</div>
+      <p>A retrieval-augmented agent that helps clinical staff navigate breast-cancer care
+        documentation — built end-to-end and <b>delivered on-site to a university hospital</b>,
+        one of the most conservative production environments an AI system can enter.</p>
+      <div class="fact-rows">
+        <div class="fact"><b>SCOPE</b><span>Conception → data pipeline → RAG architecture → delivery &amp; iteration with hospital stakeholders</span></div>
+        <div class="fact"><b>PIPELINE</b><span>Unstructured medical documents → chunking &amp; embedding → vector retrieval → grounded generation</span></div>
+        <div class="fact"><b>CONSTRAINTS</b><span>Medical-domain accuracy and safety expectations; Korean clinical terminology</span></div>
+        <div class="fact"><b>FOLLOW-UP</b><span>Trusted with continued work — designed the hospital app's splash &amp; loading screens (2026.07)</span></div>
+        <div class="fact"><b>CODE</b><span><a href="https://github.com/hyunaeee/med-rag" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line)">github.com/hyunaeee/med-rag ↗</a></span></div>
+      </div>
+    </div>
+    <div class="pic" role="img" aria-label="Splash screen designed for the Anam Hospital app"></div>
+  </div>
+
+  <!-- ============ 02 AGENTIC ============ -->
+  <h2><i>02</i>AGENTIC SYSTEMS &amp; RAG</h2>
+  <p class="sub">Multi-step agents, MCP servers, and retrieval pipelines — the connective tissue
+    between foundation models and real workflows.</p>
+  <div class="grid">
+    <div class="pj">
+      <a class="ph" href="https://github.com/hyunaeee/higgsMCP" target="_blank" rel="noopener"><span class="e">💄</span><span class="t">HIGGSMCP</span></a>
+      <div class="m"><b>HiggsMCP — Content Automation</b><em class="dt">2026.07</em>
+        <span>End-to-end AI influencer content pipeline orchestrated through a custom MCP-server integration (Higgsfield + AdCast).</span>
+        <div class="tags"><i class="tag hot">MCP</i><i class="tag">Agent orchestration</i><i class="tag">GenAI media</i></div></div>
+    </div>
+    <div class="pj">
+      <a class="ph" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank" rel="noopener"><span class="e">⚖️</span><span class="t">LEGAL_PDF_RAG</span></a>
+      <div class="m"><b>Legal PDF RAG Chatbot</b><em class="dt">2025.06 – 2026.07</em>
+        <span>Question-answering over legal PDFs: document parsing, vector retrieval, and grounded answers with Solar LLM.</span>
+        <div class="tags"><i class="tag hot">RAG</i><i class="tag">Vector DB</i><i class="tag">Unstructured data</i></div></div>
+    </div>
+    <div class="pj">
+      <a class="ph" href="https://github.com/hyunaeee/meeting-assistant" target="_blank" rel="noopener"><span class="e">📝</span><span class="t">MEETING_ASSISTANT</span></a>
+      <div class="m"><b>Meeting Assistant Agent</b><em class="dt">2026.06 – 2026.07</em>
+        <span>Turns raw meetings into minutes, then routes them to Notion and email — a practical tool-using agent workflow.</span>
+        <div class="tags"><i class="tag hot">Tool use</i><i class="tag">Workflow automation</i></div></div>
+    </div>
+    <div class="pj">
+      <img src="assets/tableon.jpg" alt="TableON dashboard" loading="lazy" />
+      <div class="m"><b>TableON — Restaurant SaaS</b><em class="dt">2026.07</em>
+        <span>Orders, reservations and CRM for restaurants, with a Claude-powered analytics layer that turns operational data into business insight.</span>
+        <div class="tags"><i class="tag hot">LLM analytics</i><i class="tag">Full-stack SaaS</i></div></div>
+    </div>
+    <div class="pj">
+      <img src="assets/taedam.jpg" alt="Taedam" loading="lazy" />
+      <div class="m"><b>Taedam — AI Story Companion</b><em class="dt">2026.07</em>
+        <span>A long-horizon conversational companion that grows with a child from pregnancy to elementary school — persona, memory and safety by design.</span>
+        <div class="tags"><i class="tag">Conversational AI</i><i class="tag">State &amp; memory</i></div></div>
+    </div>
+    <div class="pj">
+      <a class="ph" href="https://github.com/hyunaeee/comfy-workflow" target="_blank" rel="noopener"><span class="e">🎬</span><span class="t">COMFY_WORKFLOW</span></a>
+      <div class="m"><b>Generative Content Pipeline</b><em class="dt">2026.01</em>
+        <span>Automated ComfyUI pipelines for repeatable, production-grade generative media output.</span>
+        <div class="tags"><i class="tag">Pipeline automation</i><i class="tag">Diffusion</i></div></div>
+    </div>
+  </div>
+
+  <!-- ============ 03 ML FOUNDATIONS ============ -->
+  <h2><i>03</i>ML FOUNDATIONS</h2>
+  <p class="sub">Before the agent era, the fundamentals: model implementation, computer vision, and the brain itself.</p>
+  <div class="grid">
+    <div class="pj">
+      <a class="ph" href="https://github.com/hyunaeee/PR_semantic_image_segmentation_unet" target="_blank" rel="noopener"><span class="e">🧠</span><span class="t">BRAIN_UNET</span></a>
+      <div class="m"><b>U-Net Brain-MRI Segmentation</b><em class="dt">2023.11 – 2025.05</em>
+        <span>Semantic segmentation of brain MRI implemented from the architecture up — where neuroscience meets deep learning.</span>
+        <div class="tags"><i class="tag">PyTorch</i><i class="tag">Computer vision</i></div></div>
+    </div>
+    <div class="pj">
+      <a class="ph" href="https://github.com/hyunaeee/3D_char_sign_lang" target="_blank" rel="noopener"><span class="e">🫱</span><span class="t">SIGN_AVATAR</span></a>
+      <div class="m"><b>Korean → Sign-Language Avatar</b><em class="dt">2025.05</em>
+        <span>3D avatar that translates Korean into sign language — accessibility through applied ML.</span>
+        <div class="tags"><i class="tag">3D</i><i class="tag">Applied ML</i></div></div>
+    </div>
+    <div class="pj">
+      <a class="ph" href="https://github.com/hyunaeee/Report-Summary" target="_blank" rel="noopener"><span class="e">📄</span><span class="t">REPORT_SUMMARY</span></a>
+      <div class="m"><b>Patent-Dispute Summarization</b><em class="dt">2025.05</em>
+        <span>Industry-partnered NLP project summarizing patent-dispute documents — dense, domain-specific text.</span>
+        <div class="tags"><i class="tag">NLP</i><i class="tag">Industry project</i></div></div>
+    </div>
+  </div>
+
+  <!-- ============ 04 GOOGLE ECOSYSTEM ============ -->
+  <h2><i>04</i>GOOGLE ECOSYSTEM &amp; COMMUNITY</h2>
+  <p class="sub">I don't just use the stack — I teach it and lead with it.</p>
+  <div class="duo">
+    <div class="sk"><b><i>▸</i>Google Study Jam — AI Study Leader</b>
+      <span>Led an AI study cohort through Google's Study Jam program (2025.07–11), guiding developers
+        through Google Cloud's AI curriculum and hands-on labs.</span></div>
+    <div class="sk"><b><i>▸</i>Google "Built with AI" Hackathon</b>
+      <span>Built and shipped under time pressure at Google's Built with AI mini-hackathon (2025.06).</span></div>
+    <div class="sk"><b><i>▸</i>Invited artist — SeoulCon DDP</b>
+      <span>Invited to exhibit at "AI Exhibition: Beyond Fluxus," SeoulCon at Dongdaemun Design Plaza (2025.12).</span></div>
+    <div class="sk"><b><i>▸</i>Teaching &amp; technical communication</b>
+      <span>2.5 years teaching coding at international schools — in English (2023.04–2025.12);
+        AI webtoon/shorts workshops for public-school students; corporate training videos for
+        Korea Hydro &amp; Nuclear Power (5-part series delivered 2026.03).</span></div>
+  </div>
+
+  <!-- ============ 05 STACK ============ -->
+  <h2><i>05</i>WHAT I WORK WITH</h2>
+  <div class="skills">
+    <div class="sk"><b><i>/01</i>Python &amp; ML Engineering</b>
+      <span>Python as a first language for both research and production · PyTorch · C/C++ when performance matters.</span></div>
+    <div class="sk"><b><i>/02</i>RAG &amp; Data Pipelines</b>
+      <span>Chunking &amp; embedding strategies for structured and unstructured data · vector retrieval · grounded generation for high-stakes domains (medical, legal).</span></div>
+    <div class="sk"><b><i>/03</i>Agents &amp; MCP</b>
+      <span>Tool-using agents, custom MCP-server integrations, multi-step workflow orchestration across Claude, Gemini-era LLM APIs and Solar.</span></div>
+    <div class="sk"><b><i>/04</i>Full-Stack Shipping</b>
+      <span>Web &amp; mobile products from design to deployment — 15+ shipped services, apps and games, several in live operation.</span></div>
+  </div>
+
+  <!-- ============ 06 TRACK RECORD ============ -->
+  <h2><i>06</i>TRACK RECORD</h2>
+  <div class="cols">
+    <div class="tl">
+      <h4>EXPERIENCE</h4>
+      <div><b>2026.01 –</b><span>Aengdo Studio — founder<em>AI products, agents &amp; content for clients incl. a university hospital and KHNP</em></span></div>
+      <div><b>2025.09</b><span>NC AI — AI Data Team</span></div>
+      <div><b>2025.10</b><span>Korea Univ. Anam Hospital — clinical RAG agent delivery</span></div>
+      <div><b>2024.04 – 06</b><span>SolverX (then VoltWin) — startup, engineering</span></div>
+      <div><b>2023.10 – 24.02</b><span>LightMomentus — founding engineer</span></div>
+      <div><b>2023.04 – 25.12</b><span>Beyond Coding — CS instructor<em>international schools · taught in English</em></span></div>
+      <div><b>2023.01 – 03</b><span>Korea Brain Research Institute<em>also 2019.01–03, cognitive neuroscience lab</em></span></div>
+    </div>
+    <div class="tl">
+      <h4>EDUCATION</h4>
+      <div><b>– 2023.08</b><span>Korea University — B.S.<em>Computer Science &amp; Software × Brain-Cognitive Science convergence major</em></span></div>
+      <div><b>2019.12 – 20.05</b><span>National University of Singapore<em>Computer Science exchange</em></span></div>
+      <div><b>2024.07 – 25.02</b><span>Upstage AI Lab — 4th cohort<em>intensive ML/LLM engineering program</em></span></div>
+      <div><b>2023.09 – 12</b><span>Korea Univ. Intelligent-Information SW Academy</span></div>
+    </div>
+  </div>
+
+  <!-- ============ CONTACT ============ -->
+  <div class="contact">
+    <h2 style="font-size:26px;">The next chapter is unwritten.</h2>
+    <p>Open to conversations about GenAI engineering, agentic systems, and production AI — in Korean or English.</p>
+    <a class="mail" href="mailto:hyunaeee@gmail.com">hyunaeee@gmail.com</a>
+  </div>
+
+  <footer>© 2026 AENGDO · MADE WITH A BRAIN, FOR BRAINS</footer>
+</div>
+
+</body>
+</html>
