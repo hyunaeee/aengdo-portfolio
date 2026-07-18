@@ -1,0 +1,14 @@
+# clinical documents & index — never committed
+docs_cases/
+docs_guides/
+index/
+
+# eval outputs (regenerated per run)
+eval/report.md
+eval/metrics_*.jsonl
+
+# env & python
+.env
+__pycache__/
+*.pyc
+.venv/
