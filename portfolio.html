@@ -587,11 +587,11 @@
     },
     orchestra: {
       why: "멀티에이전트 시스템의 뼈대 — 오케스트레이션·메모리·평가 — 는 모델 품질과 분리해서 검증할 수 있어야 한다는 생각으로 만든 최소-완결 레퍼런스입니다. med-rag에서 얻은 '검증 가능한 에이전트' 원칙을 일반화했어요.",
-      design: "LangGraph StateGraph로 supervisor → researcher → writer → critic을 배선하고, critic의 조건부 엣지가 승인/재작성 루프를 결정합니다. 모든 에이전트 통신은 A2A 스타일 Envelope(발신·수신·의도)로 기록되고, 공유 메모리(롤링 컨텍스트 윈도우)와 절차적 메모리(승인 시 '교훈'을 JSON으로 영속화 → 이후 실행의 프롬프트에 자동 주입)가 결합돼 실행할수록 결과가 좋아집니다.",
-      stack: ["Python", "LangGraph", "Claude API (선택)", "결정적 오프라인 mock", "평가 하네스 (rule + LLM-judge)"],
+      design: "LangGraph StateGraph에서 supervisor가 관점이 다른 리서처 3명(요구항목·리스크·형식)으로 병렬 fan-out하고, 노트는 리듀서로 병합되어 writer → critic으로 이어집니다. critic의 조건부 엣지가 승인/재작성 루프를 결정하고, 모든 통신은 A2A Envelope로 기록돼요. 공유 메모리(롤링 컨텍스트)와 절차적 메모리(승인 시 '교훈' 영속화 → 이후 실행에 자동 주입)가 결합돼 실행할수록 결과가 좋아집니다.",
+      stack: ["Python", "LangGraph (병렬 fan-out)", "LangSmith 트레이싱", "Claude API (선택)", "결정적 오프라인 mock", "평가 하네스 (rule + LLM-judge)"],
       edge: "API 키 없이도 그래프 배선·메모리 주입·평가 전체가 결정적으로 돌아가서 CI 회귀 테스트가 가능하다는 점, 그리고 평가셋 6개 태스크의 pass rate·재작성 횟수·지연·토큰 리포트가 코드와 함께 제공된다는 점이 차별점입니다.",
       limits: "평가 태스크가 문서 작성 도메인 위주이고, 오프라인 mock은 배선 검증용이지 모델 품질 검증이 아닙니다.",
-      next: "절차 메모리의 임베딩 검색 전환, 병렬 fan-out 워커, LangSmith 트레이싱 연동을 계획하고 있어요."
+      next: "절차 메모리의 임베딩 검색 전환, 도구 사용(tool-calling) 워커, 평가셋 도메인 확장을 계획하고 있어요."
     },
     legal: {
       why: "길고 어려운 법률 PDF에서 필요한 조항을 빨리 찾고, 근거와 함께 답을 받고 싶다는 문제의식에서 만들었습니다.",
