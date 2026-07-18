@@ -319,6 +319,12 @@
       <div class="m"><b>후방위 (HEARTBREAKER)</b><em class="dt">2026.07</em><span>이별 후폭풍 방지 앱 · 연락 충동 진정·90일 회복 여정·AI 가상 대화 — 이것도 에뮬레이터에서 실제로 작동해요</span></div>
       <div class="acts"><a class="act go" href="index.html#hb">에뮬레이터 ▶</a><a class="act" href="https://github.com/AengDo" target="_blank">GITHUB ↗</a></div>
     </div>
+    <div class="web" data-cat="app" data-p="walkmate">
+      <span class="badge live">LIVE</span>
+      <a class="shot" href="https://hyunaeee.github.io/walk-mate/" target="_blank"><img src="assets/walkmate.jpg" alt="워크메이트" loading="lazy"/></a>
+      <div class="m"><b>워크메이트 (WALK-MATE)</b><em class="dt">2026.07</em><span>테마별 서울 산책 코스 추천 · 3D 지도 위를 캐릭터가 실제 보행로 따라 걷는 프리뷰 🚶</span></div>
+      <div class="acts"><a class="act go" href="https://hyunaeee.github.io/walk-mate/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/walk-mate" target="_blank">GITHUB ↗</a></div>
+    </div>
     <div class="web" data-cat="ai" data-p="medrag">
       <span class="badge upd">UPDATING</span>
       <a class="shot" href="https://github.com/hyunaeee/med-rag" target="_blank"><div class="ph"><span class="e">🩺</span><span class="t">MED-RAG</span></div></a>
@@ -557,6 +563,14 @@
       edge: "90초 충동 진정 모드, 술·새벽 연락 방지 같은 '행동 개입' 설계가 핵심 차별점. AI 가상 이별 대화(작별·욕하고 비우기·재회 점검 3모드)와 90일 회복 여정으로 감정 정리를 단계화했어요.",
       limits: "배포 전이고, 번호 보호는 OS 수준 차단이 아닌 앱 내 개입입니다. 에뮬레이터의 AI 응답은 준비된 데모 답변이에요.",
       next: "스토어 출시, 구독 결제 연동, 푸시 알림 기반 야간 방어를 계획 중입니다."
+    },
+    walkmate: {
+      why: "지도 앱은 최단 경로만 알려주지만 산책에도 취향이 있어요. 벚꽃길·야경·숲길 같은 테마와 시간을 고르면 어울리는 코스를 추천받고, 걷기 전에 그 길을 미리 '걸어볼' 수 있는 앱을 만들고 싶었습니다.",
+      design: "Expo(React Native) 코드 하나로 웹·iOS·Android를 커버합니다. MapLibre GL JS로 3D 건물이 솟은 기울어진 지도를 렌더링하고, 캐릭터가 실제 보행로 좌표를 따라 걸으면 카메라가 진행 방향으로 회전하며 따라가요(배속 x12~x48). 서울 8개 큐레이션 코스, 취향 온보딩은 기기에 저장됩니다.",
+      stack: ["Expo SDK 55", "React Native 0.83", "MapLibre GL JS 5", "Higgsfield 일러스트 (Recraft)", "GitHub Pages"],
+      edge: "게임 길찾기 스타일의 3D 경로 프리뷰와 체크포인트 퀘스트(포인트·완주 모달) 게임화, 그리고 '종이 위의 산책' 컨셉의 동화책 일러스트 디자인이 차별점입니다. 폰 1열부터 데스크톱 4열까지 반응형으로 펼쳐져요.",
+      limits: "코스가 서울 8개 큐레이션에 한정되고, 실제 걷기 GPS 트래킹은 아직 없는 프리뷰 중심 단계입니다.",
+      next: "GPS 실걷기 모드, 지역 확장, 완주 기록과 포인트 상점을 계획하고 있어요."
     },
     medrag: {
       why: "LLM의 환각이 가장 위험한 분야가 의료예요. 실제 가이드라인과 논문 근거로만 답하게 만드는 것이 목표였고, 고려대 안암병원 유방암 진료 보조로 납품(2025.10)했습니다.",
