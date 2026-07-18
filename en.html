@@ -99,6 +99,52 @@
   .tag { font-family: "JetBrains Mono", monospace; font-size: 9.5px; letter-spacing: 0.5px;
     padding: 3px 9px; border-radius: 100px; background: rgba(24,26,34,0.05); color: #4c5260; }
   .tag.hot { background: rgba(224,57,74,0.08); color: #c93a49; }
+  .pj .shot { position: relative; display: block; cursor: pointer; }
+  .pj .shot::after {
+    content: "＋ Project details"; position: absolute; inset: 0; z-index: 1;
+    display: grid; place-items: center; background: rgba(10, 11, 16, 0.58);
+    font-family: "JetBrains Mono", monospace; font-size: 11.5px;
+    letter-spacing: 2px; color: #fff; opacity: 0; transition: 0.2s;
+  }
+  .pj:hover .shot::after { opacity: 1; }
+  .acts { display: flex; gap: 8px; margin-top: 12px; }
+  .act { flex: 1; text-align: center; font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px; letter-spacing: 1.5px; padding: 8px 0;
+    border: 1px solid var(--line); border-radius: 8px; color: var(--dim); transition: 0.2s; }
+  .act:hover { border-color: var(--red); color: var(--ink); }
+  .act.go { color: #157a4c; border-color: rgba(30,158,99,.4); }
+  .act.go:hover { border-color: #157a4c; color: #0e5c37; background: rgba(30,158,99,.06); }
+
+  /* project detail modal */
+  .pm-ovl { position: fixed; inset: 0; z-index: 60; display: none;
+    background: rgba(24, 26, 34, 0.45); backdrop-filter: blur(6px);
+    overflow-y: auto; padding: 6vh 18px 60px; }
+  .pm-ovl.open { display: block; }
+  .pm { max-width: 720px; margin: 0 auto; background: #ffffff;
+    border: 1px solid rgba(24, 26, 34, 0.14); border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(24, 26, 34, 0.18);
+    overflow: hidden; animation: pmup 0.26s ease; }
+  @keyframes pmup { from { transform: translateY(18px); opacity: 0; } }
+  .pm .hd { display: flex; align-items: center; gap: 10px; padding: 20px 22px 14px;
+    border-bottom: 1px solid var(--line); }
+  .pm .hd b { font-size: 20px; font-weight: 700; }
+  .pm .hd .pmdate { font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: 1px; color: var(--dim); }
+  .pm .hd .x { margin-left: auto; cursor: pointer; border: 1px solid var(--line);
+    background: none; color: var(--dim); width: 30px; height: 30px; border-radius: 8px;
+    font-size: 15px; line-height: 1; transition: 0.2s; }
+  .pm .hd .x:hover { color: var(--ink); border-color: var(--red); }
+  .pm .bd { padding: 4px 22px 20px; }
+  .pmsec { margin-top: 16px; }
+  .pmsec .lb { font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: 2.5px; color: var(--red); margin-bottom: 4px; }
+  .pmsec p { font-size: 13.5px; color: #3c4150; line-height: 1.85; }
+  .pmstack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .pmstack span { font-family: "JetBrains Mono", monospace; font-size: 11px;
+    padding: 5px 11px; border-radius: 100px; border: 1px solid var(--line); color: var(--dim); }
+  .pm .ft { display: flex; gap: 8px; padding: 16px 22px 20px; border-top: 1px solid var(--line); }
+  .pm .ft .act { padding: 10px 0; }
+  body.pm-lock { overflow: hidden; }
 
   /* ---------- skills ---------- */
   .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
@@ -201,41 +247,54 @@
   <p class="sub">Multi-step agents, MCP servers, and retrieval pipelines — the connective tissue
     between foundation models and real workflows.</p>
   <div class="grid">
-    <div class="pj">
-      <a class="ph" href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex" target="_blank" rel="noopener"><span class="e">☁️</span><span class="t">MED_RAG_VERTEX</span></a>
+    <div class="pj" data-p="vertex">
+      <span class="shot"><span class="ph"><span class="e">☁️</span><span class="t">MED_RAG_VERTEX</span></span></span>
       <div class="m"><b>med-rag-vertex — Cloud Port</b><em class="dt">2026.07</em>
         <span>The hospital-delivered RAG assistant re-architected on Vertex AI: Gemini + ADK sequential agents (researcher → safety reviewer) with an LLM-judge eval pipeline tracking latency, tokens/sec and cost-per-request.</span>
-        <div class="tags"><i class="tag hot">Vertex AI</i><i class="tag hot">ADK multi-agent</i><i class="tag">Evals</i></div></div>
+        <div class="tags"><i class="tag hot">Vertex AI</i><i class="tag hot">ADK multi-agent</i><i class="tag">Evals</i></div>
+        <div class="acts"><a class="act" href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
-    <div class="pj">
-      <a class="ph" href="https://github.com/hyunaeee/higgsMCP" target="_blank" rel="noopener"><span class="e">💄</span><span class="t">HIGGSMCP</span></a>
+    <div class="pj" data-p="orchestra">
+      <span class="shot"><span class="ph"><span class="e">🎻</span><span class="t">AGENT_ORCHESTRA</span></span></span>
+      <div class="m"><b>Agent Orchestra</b><em class="dt">2026.07</em>
+        <span>Minimal-complete LangGraph reference: a supervisor fans out to three parallel researchers, a critic gates a rewrite loop, and procedural memory makes every run better than the last — with an offline-deterministic eval harness.</span>
+        <div class="tags"><i class="tag hot">LangGraph</i><i class="tag hot">Hierarchical delegation</i><i class="tag">Evals</i></div>
+        <div class="acts"><a class="act" href="https://github.com/hyunaeee/agent-orchestra" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
+    </div>
+    <div class="pj" data-p="higgs">
+      <span class="shot"><span class="ph"><span class="e">💄</span><span class="t">HIGGSMCP</span></span></span>
       <div class="m"><b>HiggsMCP — Content Automation</b><em class="dt">2026.07</em>
         <span>End-to-end AI influencer content pipeline orchestrated through a custom MCP-server integration (Higgsfield + AdCast).</span>
-        <div class="tags"><i class="tag hot">MCP</i><i class="tag">Agent orchestration</i><i class="tag">GenAI media</i></div></div>
+        <div class="tags"><i class="tag hot">MCP</i><i class="tag">Agent orchestration</i><i class="tag">GenAI media</i></div>
+        <div class="acts"><a class="act" href="https://github.com/hyunaeee/higgsMCP" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
-    <div class="pj">
-      <a class="ph" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank" rel="noopener"><span class="e">⚖️</span><span class="t">LEGAL_PDF_RAG</span></a>
+    <div class="pj" data-p="legal">
+      <span class="shot"><span class="ph"><span class="e">⚖️</span><span class="t">LEGAL_PDF_RAG</span></span></span>
       <div class="m"><b>Legal PDF RAG Chatbot</b><em class="dt">2025.06 – 2026.07</em>
         <span>Question-answering over legal PDFs: document parsing, vector retrieval, and grounded answers with Solar LLM.</span>
-        <div class="tags"><i class="tag hot">RAG</i><i class="tag">Vector DB</i><i class="tag">Unstructured data</i></div></div>
+        <div class="tags"><i class="tag hot">RAG</i><i class="tag">Vector DB</i><i class="tag">Unstructured data</i></div>
+        <div class="acts"><a class="act" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
+    </div>
+    <div class="pj" data-p="tableon">
+      <span class="shot"><img src="assets/tableon.jpg" alt="TableON dashboard" loading="lazy" /></span>
+      <div class="m"><b>TableON — Restaurant SaaS</b><em class="dt">2026.07</em>
+        <span>Orders, reservations and CRM for restaurants, with a Claude-powered analytics layer that turns operational data into business insight.</span>
+        <div class="tags"><i class="tag hot">LLM analytics</i><i class="tag">Full-stack SaaS</i></div>
+        <div class="acts"><a class="act go" href="https://hyunaeee.github.io/tableon/" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/tableon" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
     <div class="pj">
       <a class="ph" href="https://github.com/hyunaeee/meeting-assistant" target="_blank" rel="noopener"><span class="e">📝</span><span class="t">MEETING_ASSISTANT</span></a>
       <div class="m"><b>Meeting Assistant Agent</b><em class="dt">2026.06 – 2026.07</em>
         <span>Turns raw meetings into minutes, then routes them to Notion and email — a practical tool-using agent workflow.</span>
-        <div class="tags"><i class="tag hot">Tool use</i><i class="tag">Workflow automation</i></div></div>
-    </div>
-    <div class="pj">
-      <img src="assets/tableon.jpg" alt="TableON dashboard" loading="lazy" />
-      <div class="m"><b>TableON — Restaurant SaaS</b><em class="dt">2026.07</em>
-        <span>Orders, reservations and CRM for restaurants, with a Claude-powered analytics layer that turns operational data into business insight.</span>
-        <div class="tags"><i class="tag hot">LLM analytics</i><i class="tag">Full-stack SaaS</i></div></div>
+        <div class="tags"><i class="tag hot">Tool use</i><i class="tag">Workflow automation</i></div>
+        <div class="acts"><a class="act" href="https://github.com/hyunaeee/meeting-assistant" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
     <div class="pj">
       <a class="ph" href="https://github.com/hyunaeee/comfy-workflow" target="_blank" rel="noopener"><span class="e">🎬</span><span class="t">COMFY_WORKFLOW</span></a>
       <div class="m"><b>Generative Content Pipeline</b><em class="dt">2026.01</em>
         <span>Automated ComfyUI pipelines for repeatable, production-grade generative media output.</span>
-        <div class="tags"><i class="tag">Pipeline automation</i><i class="tag">Diffusion</i></div></div>
+        <div class="tags"><i class="tag">Pipeline automation</i><i class="tag">Diffusion</i></div>
+        <div class="acts"><a class="act" href="https://github.com/hyunaeee/comfy-workflow" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
   </div>
 
@@ -288,7 +347,7 @@
     <div class="sk"><b><i>/02</i>RAG &amp; Data Pipelines</b>
       <span>Chunking &amp; embedding strategies for structured and unstructured data · vector retrieval · grounded generation for high-stakes domains (medical, legal).</span></div>
     <div class="sk"><b><i>/03</i>Agents &amp; MCP</b>
-      <span>Tool-using agents, custom MCP-server integrations, multi-step workflow orchestration across Claude, Gemini-era LLM APIs and Solar.</span></div>
+      <span>Multi-agent systems with LangGraph (supervisor fan-out, critic loops) and ADK (sequential agents, self-reflection) · custom MCP-server integrations · tool-using workflows across Claude, Gemini and Solar.</span></div>
     <div class="sk"><b><i>/04</i>Full-Stack Shipping</b>
       <span>Web &amp; mobile products from design to deployment — 15+ shipped services, apps and games, several in live operation.</span></div>
   </div>
@@ -324,6 +383,108 @@
 
   <footer>© 2026 AENGDO · MADE WITH A BRAIN, FOR BRAINS</footer>
 </div>
+
+<div class="pm-ovl" id="pmovl">
+  <div class="pm" role="dialog" aria-modal="true">
+    <div class="hd"><b id="pmtitle"></b><span class="pmdate" id="pmdate"></span>
+      <button class="x" id="pmclose" aria-label="Close">×</button></div>
+    <div class="bd" id="pmbody"></div>
+    <div class="ft" id="pmft"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const P = {
+    vertex: {
+      title: "med-rag-vertex — Cloud Port", date: "2026.07",
+      why: "The delivered hospital system runs fully on-prem (Gemma 3 27B via Ollama) because patient data cannot leave the hospital network. This port answers the follow-up question: what does the same clinical RAG system look like as a cloud-native, enterprise-grade service on Google Cloud?",
+      design: "An ADK SequentialAgent pipeline: a tool-using clinical researcher retrieves past cases first and falls back to newest-first guidelines (Chroma + gemini-embedding-001), drafts an answer, then a safety-reviewer agent re-verifies grounding, case match and stated uncertainty before anything is shown — a self-reflection pass ported from the hospital system's guardrails.",
+      stack: ["Python", "Vertex AI (Gemini 2.5)", "ADK SequentialAgent", "gemini-embedding-001", "Chroma", "LLM-judge evals"],
+      edge: "Keeps the delivered system's clinical guardrails ('same age/sex ≠ same case'), and adds what the on-prem version never had: an evaluation pipeline that drives the same served agent over a fixed eval set, grades groundedness/relevance/safety with a Gemini judge, and reports latency p50/p95, output tokens/sec and cost-per-request.",
+      limits: "The public repo ships with synthetic, PHI-free eval data only; answer quality is bounded by document coverage.",
+      next: "Vertex AI Vector Search migration, a larger eval set, and extension to other clinical departments.",
+      links: [["GITHUB ↗", "https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex"]]
+    },
+    orchestra: {
+      title: "Agent Orchestra", date: "2026.07",
+      why: "The skeleton of a multi-agent system — orchestration, memory, evaluation — should be verifiable independently of model quality. This is a minimal-complete reference that generalizes the 'verifiable agent' principles learned shipping med-rag.",
+      design: "In a LangGraph StateGraph, a supervisor fans out in parallel to three researchers with distinct lenses (requirements, risks, format); their notes merge via reducers into a writer → critic chain, where the critic's conditional edge drives an approve/rewrite loop. Every message is recorded as an A2A envelope. Shared rolling context combines with procedural memory — approved 'lessons' persist and are auto-injected into later runs, so results improve run over run.",
+      stack: ["Python", "LangGraph (parallel fan-out)", "LangSmith tracing", "Claude API (optional)", "Deterministic offline mock", "Eval harness (rule + LLM-judge)"],
+      edge: "The whole graph — wiring, memory injection, evaluation — runs deterministically without an API key, so it works as a CI regression test. Ships with a 6-task eval set reporting pass rate, rewrite counts, latency and tokens.",
+      limits: "Eval tasks are document-writing-centric; the offline mock verifies wiring, not model quality.",
+      next: "Embedding-based retrieval for procedural memory, tool-calling workers, broader eval domains.",
+      links: [["GITHUB ↗", "https://github.com/hyunaeee/agent-orchestra"]]
+    },
+    higgs: {
+      title: "HiggsMCP — Content Automation", date: "2026.07",
+      why: "An experiment in whether a virtual influencer's content pipeline — from generation to posting — can run without human hands, using generative AI end to end.",
+      design: "Higgsfield (image/video/voice generation) is wired to Claude through a custom MCP integration, with Element/Soul locking the character's (Yuna's) appearance for consistency. A FastAPI web app (AdCast Studio) plus CLI automation carries content from generation through Instagram posting.",
+      stack: ["Python 3.12", "FastAPI", "Docker Compose", "Higgsfield REST/MCP", "Claude MCP"],
+      edge: "Locked character appearance so every post reads as the same person; products registered as assets for natural placement; and a Predict-Virality score gating content before it posts.",
+      limits: "Exposed to API/policy changes of external platforms (Higgsfield, Instagram); generation costs money.",
+      next: "Multi-character operation, shorts automation, and a performance-analytics dashboard.",
+      links: [["GITHUB ↗", "https://github.com/hyunaeee/higgsMCP"]]
+    },
+    legal: {
+      title: "Legal PDF RAG Chatbot", date: "2025.06 – 2026.07",
+      why: "Born from a concrete pain: finding the right clause in long, dense legal PDFs quickly — and getting answers with evidence attached.",
+      design: "PyPDF parses documents, Solar embeddings vectorize them into Chroma for semantic search, and Solar LLM generates answers that carry prior conversation context. Conversational Streamlit interface.",
+      stack: ["Python", "LangChain", "Upstage Solar LLM/Embedding", "Chroma", "Streamlit", "PyPDF"],
+      edge: "Answers cite the exact document passages used as evidence, and multi-turn queries remember conversational context.",
+      limits: "A document-search aid, not legal advice; scanned (image-only) PDFs are not handled.",
+      next: "OCR pipeline, case-law database integration, and a web deployment.",
+      links: [["GITHUB ↗", "https://github.com/hyunaeee/legal-pdf-rag-chatbot"]]
+    },
+    tableon: {
+      title: "TableON — Restaurant SaaS", date: "2026.07",
+      why: "Restaurant owners juggle orders, reservations, customers and payroll across separate tools. TableON is an all-in-one subscription SaaS design with AI business analysis layered on top.",
+      design: "The demo runs every feature on an in-browser API simulator (virtual data): dashboard, table ordering, RFM auto-segmented CRM, reservations, staff/payroll. An onboarding interview plus store-data summary builds a per-store system prompt, so Claude answers relative to this store — its menu, revenue patterns and regulars.",
+      stack: ["HTML/CSS/JS", "SVG charts", "Claude API", "In-browser API simulator", "GitHub Pages"],
+      edge: "A dedicated AI that knows the store rather than reciting generalities, automatic 'win-back' detection based on each regular's usual visit cadence, and a full-feature demo that needs no installation.",
+      limits: "The demo simulator resets on refresh; real payments and SMS need integration keys.",
+      next: "Real server/DB, SMS integration, subscription billing — aiming at a pilot store.",
+      links: [["LIVE ↗", "https://hyunaeee.github.io/tableon/", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/tableon"]]
+    }
+  };
+
+  const SECS = [["WHY", "why"], ["DESIGN", "design"], ["STACK", "stack"],
+                ["WHAT MAKES IT DIFFERENT", "edge"], ["HONEST LIMITS", "limits"], ["ROADMAP", "next"]];
+  const ovl = document.getElementById("pmovl");
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+  function open(key) {
+    const d = P[key];
+    if (!d) return;
+    document.getElementById("pmtitle").textContent = d.title;
+    document.getElementById("pmdate").textContent = d.date;
+    document.getElementById("pmbody").innerHTML = SECS.map(([lb, k]) => {
+      if (!d[k]) return "";
+      const body = Array.isArray(d[k])
+        ? '<div class="pmstack">' + d[k].map(s => "<span>" + esc(s) + "</span>").join("") + "</div>"
+        : "<p>" + esc(d[k]) + "</p>";
+      return '<div class="pmsec"><div class="lb">' + lb + "</div>" + body + "</div>";
+    }).join("");
+    document.getElementById("pmft").innerHTML = (d.links || []).map(
+      ([label, href, cls]) => '<a class="act ' + (cls || "") + '" href="' + esc(href) +
+        '" target="_blank" rel="noopener">' + esc(label) + "</a>"
+    ).join("");
+    ovl.classList.add("open");
+    document.body.classList.add("pm-lock");
+  }
+  function close() {
+    ovl.classList.remove("open");
+    document.body.classList.remove("pm-lock");
+  }
+
+  document.querySelectorAll(".pj[data-p] .shot").forEach(el => {
+    el.addEventListener("click", () => open(el.closest(".pj").dataset.p));
+  });
+  document.getElementById("pmclose").addEventListener("click", close);
+  ovl.addEventListener("click", e => { if (e.target === ovl) close(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+})();
+</script>
 
 </body>
 </html>
