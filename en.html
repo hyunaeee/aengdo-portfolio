@@ -134,11 +134,27 @@
     background: none; color: var(--dim); width: 30px; height: 30px; border-radius: 8px;
     font-size: 15px; line-height: 1; transition: 0.2s; }
   .pm .hd .x:hover { color: var(--ink); border-color: var(--red); }
+  .pm .hero { width: 100%; aspect-ratio: 21/9; object-fit: cover; object-position: top;
+    display: block; border-bottom: 1px solid var(--line); background: #eef0f2; }
   .pm .bd { padding: 4px 22px 20px; }
-  .pmsec { margin-top: 16px; }
-  .pmsec .lb { font-family: "JetBrains Mono", monospace; font-size: 10px;
-    letter-spacing: 2.5px; color: var(--red); margin-bottom: 4px; }
+  .pmsec { margin-top: 18px; }
+  .pmsec .lb { font-size: 13.5px; font-weight: 700; color: var(--ink);
+    border-left: 3px solid var(--red); padding-left: 9px; margin-bottom: 7px; }
   .pmsec p { font-size: 13.5px; color: #3c4150; line-height: 1.85; }
+  .pmsec p b, .pmsec li b, .pmres b { font-weight: 700; color: var(--ink); }
+  .pmres { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media (max-width: 560px) { .pmres { grid-template-columns: 1fr; } }
+  .pmres > div { background: rgba(30, 158, 99, 0.07); border: 1px solid rgba(30, 158, 99, 0.22);
+    border-radius: 10px; padding: 9px 13px; font-size: 12.5px; line-height: 1.6; color: #1f5c40; }
+  .pmres > div::before { content: "✓ "; color: #157a4c; font-weight: 700; }
+  .pmsec ul { list-style: none; }
+  .pmsec ul li { font-size: 13.5px; color: #3c4150; line-height: 1.8;
+    padding-left: 16px; position: relative; margin-bottom: 5px; }
+  .pmsec ul li::before { content: "•"; color: var(--red); position: absolute; left: 2px; }
+  .pmlim { display: grid; gap: 6px; }
+  .pmlim > div { font-size: 13px; color: #4c5260; line-height: 1.7;
+    padding: 9px 13px; background: rgba(24, 26, 34, 0.035); border-radius: 8px; }
+  .pmlim b { color: var(--ink); font-weight: 700; margin-right: 7px; }
   .pmstack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
   .pmstack span { font-family: "JetBrains Mono", monospace; font-size: 11px;
     padding: 5px 11px; border-radius: 100px; border: 1px solid var(--line); color: var(--dim); }
@@ -388,6 +404,7 @@
   <div class="pm" role="dialog" aria-modal="true">
     <div class="hd"><b id="pmtitle"></b><span class="pmdate" id="pmdate"></span>
       <button class="x" id="pmclose" aria-label="Close">×</button></div>
+    <img class="hero" id="pmhero" alt="" />
     <div class="bd" id="pmbody"></div>
     <div class="ft" id="pmft"></div>
   </div>
@@ -398,68 +415,95 @@
   const P = {
     vertex: {
       title: "med-rag-vertex — Cloud Port", date: "2026.07",
-      why: "The delivered hospital system runs fully on-prem (Gemma 3 27B via Ollama) because patient data cannot leave the hospital network. This port answers the follow-up question: what does the same clinical RAG system look like as a cloud-native, enterprise-grade service on Google Cloud?",
-      design: "An ADK SequentialAgent pipeline: a tool-using clinical researcher retrieves past cases first and falls back to newest-first guidelines (Chroma + gemini-embedding-001), drafts an answer, then a safety-reviewer agent re-verifies grounding, case match and stated uncertainty before anything is shown — a self-reflection pass ported from the hospital system's guardrails.",
+      results: ["<b>8/8 judge pass</b> · groundedness 4.75/5 · relevance 5/5 · safety 5/5", "<b>$0.006 per request</b> · latency p50 32.6s · 48 tok/s (measured 2026-07)", "The smoke eval caught a real prompt regression (1/1/1 → 5/5/5 after fix)", "Clinical guardrails carried over from the shipped hospital system"],
+      why: "The delivered hospital system runs fully on-prem (Gemma 3 27B via Ollama) because patient data cannot leave the hospital network. This port answers the follow-up question: what does the same clinical RAG system look like as a cloud-native, enterprise-grade service?",
+      build: [
+        "<b>ADK SequentialAgent pipeline</b> — a tool-using clinical researcher (search_cases → search_guidelines, newest-first) drafts an answer; a safety reviewer re-verifies grounding, case match and stated uncertainty before anything is shown",
+        "<b>Retrieval parity</b> — Chroma + gemini-embedding-001 @768d with chunking identical to the shipped on-prem system (800/100)",
+        "<b>Eval pipeline</b> — a Gemini judge grades groundedness / relevance / safety over a fixed eval set, reporting latency p50/p95, tokens/sec and cost-per-request",
+        "<b>Clinical guardrails</b> — cases before guidelines (clinicians trust precedent) and a 'same age/sex ≠ same case' check at two stages"
+      ],
       stack: ["Python", "Vertex AI (Gemini 2.5)", "ADK SequentialAgent", "gemini-embedding-001", "Chroma", "LLM-judge evals"],
-      edge: "Keeps the delivered system's clinical guardrails ('same age/sex ≠ same case'), and adds what the on-prem version never had: an evaluation pipeline that drives the same served agent over a fixed eval set, grades groundedness/relevance/safety with a Gemini judge, and reports latency p50/p95, output tokens/sec and cost-per-request. Measured on Vertex AI (2026-07): 8/8 judge pass, groundedness 4.75/5, relevance 5/5, safety 5/5, latency p50 32.6s, 48 tokens/sec, $0.006 per request. The smoke eval also caught a real regression — the safety reviewer collapsing approved drafts into a one-line note (1/1/1 → 5/5/5 after an instruction fix).",
-      limits: "The public repo ships with a synthetic, PHI-free corpus only; answer quality is bounded by document coverage; the two-stage pipeline trades ~30s latency for verified output.",
-      next: "Vertex AI Vector Search migration, a larger eval set, and extension to other clinical departments.",
+      limits: "The public repo ships a synthetic, PHI-free corpus only; the two-stage pipeline trades ~30s latency for verified output.",
+      next: "Vertex AI Vector Search migration, a larger eval set, extension to other clinical departments.",
       links: [["GITHUB ↗", "https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex"]]
     },
     orchestra: {
       title: "Agent Orchestra", date: "2026.07",
-      why: "The skeleton of a multi-agent system — orchestration, memory, evaluation — should be verifiable independently of model quality. This is a minimal-complete reference that generalizes the 'verifiable agent' principles learned shipping med-rag.",
-      design: "In a LangGraph StateGraph, a supervisor fans out in parallel to three researchers with distinct lenses (requirements, risks, format); their notes merge via reducers into a writer → critic chain, where the critic's conditional edge drives an approve/rewrite loop. Every message is recorded as an A2A envelope. Shared rolling context combines with procedural memory — approved 'lessons' persist and are auto-injected into later runs, so results improve run over run.",
-      stack: ["Python", "LangGraph (parallel fan-out)", "LangSmith tracing", "Claude API (optional)", "Deterministic offline mock", "Eval harness (rule + LLM-judge)"],
-      edge: "The whole graph — wiring, memory injection, evaluation — runs deterministically without an API key, so it works as a CI regression test. Ships with a 6-task eval set reporting pass rate, rewrite counts, latency and tokens.",
+      results: ["<b>6/6 eval pass</b> — deterministic offline run", "3-researcher <b>parallel fan-out</b> + critic rewrite loop", "Procedural memory — results improve run over run", "Runs with zero API keys → usable as a CI regression test"],
+      why: "The skeleton of a multi-agent system — orchestration, memory, evaluation — should be verifiable independently of model quality. A minimal-complete reference that generalizes the 'verifiable agent' principles learned shipping med-rag.",
+      build: [
+        "<b>LangGraph orchestration</b> — a supervisor fans out to three lens-specific researchers (requirements / risks / format); notes merge via reducers into a writer → critic chain",
+        "<b>Rewrite loop</b> — the critic's conditional edge gates approve/revise; every hop is logged as an A2A envelope (sender, recipient, intent)",
+        "<b>Dual memory</b> — shared rolling context plus procedural 'lessons' persisted on approval and auto-injected into later runs",
+        "<b>Evals & tracing</b> — rule-based judge offline, LLM-judge with a key, LangSmith spans layered on top"
+      ],
+      stack: ["Python", "LangGraph (parallel fan-out)", "LangSmith tracing", "Claude API (optional)", "Deterministic offline mock", "Eval harness"],
       limits: "Eval tasks are document-writing-centric; the offline mock verifies wiring, not model quality.",
       next: "Embedding-based retrieval for procedural memory, tool-calling workers, broader eval domains.",
       links: [["GITHUB ↗", "https://github.com/hyunaeee/agent-orchestra"]]
     },
     terracotta: {
       title: "Terracotta — Multi-Model AI Workspace", date: "2026.07",
-      why: "Different AIs are good at different jobs, but juggling browser tabs is friction. Terracotta picks the best model for each request automatically — and turns your usage into a personal knowledge garden that grows.",
-      design: "A multi-model router manages connection state and usage budgets across OpenAI, Anthropic, Perplexity and Higgsfield, while an automatic model registry keeps the latest-model priority fresh (latest-first / GPT-first / Claude-first, user's choice). Completed work earns Sparks that plant grass on a 5×4 bitmap garden and grow a companion character. An MCP Hub connects GitHub, Notion, Figma and more, with security-first OAuth: PKCE S256, AES-GCM token encryption, HTTPS-only and internal-address blocking.",
-      stack: ["TypeScript", "Multi-model router (OpenAI · Anthropic · Perplexity · Higgsfield)", "MCP Hub", "OAuth PKCE + AES-GCM", "Credit/subscription prototype"],
-      edge: "The pairing of automatic model routing (so the user never chooses) with gamified motivation — usage visibly grows a garden — plus MCP connections that were security-hardened from day one.",
+      results: ["Auto-routing across <b>4 providers</b> (GPT · Claude · Perplexity · Higgsfield)", "MCP Hub with security-first OAuth (<b>PKCE S256 · AES-GCM</b>)", "Live public prototype"],
+      why: "Different AIs are good at different jobs, but juggling browser tabs is friction. Terracotta picks the best model for each request automatically — and turns usage into a personal knowledge garden that grows.",
+      build: [
+        "<b>Multi-model router</b> — connection state and usage budgets for every provider in one place; an automatic model registry keeps latest-model priority fresh",
+        "<b>Gamified motivation</b> — completed work earns Sparks that plant a 5×4 bitmap garden and grow a companion character",
+        "<b>MCP Hub</b> — search and manage GitHub, Notion, Figma and more; HTTPS-only with internal-address blocking",
+        "<b>Subscription prototype</b> — credit plans spanning model/search/image/video usage with monthly provider cost guards"
+      ],
+      stack: ["TypeScript", "Multi-model router", "MCP Hub", "OAuth PKCE + AES-GCM", "Credit/subscription prototype"],
       limits: "Prototype stage: subscription/credits are simulated, and real model calls need the user's own API keys.",
-      next: "Routing-quality benchmarks, deeper personal-memory integration with the garden, production launch.",
+      next: "Routing-quality benchmarks, deeper personal-memory integration, production launch.",
       links: [["LIVE ↗", "https://orbit-ai-companion.likecorp817.chatgpt.site"], ["GITHUB ↗", "https://github.com/hyunaeee/terracotta"]]
     },
     higgs: {
       title: "HiggsMCP — Content Automation", date: "2026.07",
+      results: ["Generation → Instagram posting, <b>fully unattended</b>", "Character consistency locked via <b>Element/Soul</b>", "Predict-Virality score gates content before it posts"],
       why: "An experiment in whether a virtual influencer's content pipeline — from generation to posting — can run without human hands, using generative AI end to end.",
-      design: "Higgsfield (image/video/voice generation) is wired to Claude through a custom MCP integration, with Element/Soul locking the character's (Yuna's) appearance for consistency. A FastAPI web app (AdCast Studio) plus CLI automation carries content from generation through Instagram posting.",
+      build: [
+        "<b>MCP wiring</b> — Higgsfield (image/video/voice generation) connected to Claude through a custom MCP integration",
+        "<b>Character system</b> — Element/Soul locks the character's (Yuna's) appearance so every post reads as the same person",
+        "<b>Automation loop</b> — a FastAPI web app (AdCast Studio) plus CLI carries content from generation through Instagram posting",
+        "<b>Product placement</b> — cosmetics registered as assets for natural in-scene placement"
+      ],
       stack: ["Python 3.12", "FastAPI", "Docker Compose", "Higgsfield REST/MCP", "Claude MCP"],
-      edge: "Locked character appearance so every post reads as the same person; products registered as assets for natural placement; and a Predict-Virality score gating content before it posts.",
-      limits: "Exposed to API/policy changes of external platforms (Higgsfield, Instagram); generation costs money.",
-      next: "Multi-character operation, shorts automation, and a performance-analytics dashboard.",
+      limits: "Exposed to API/policy changes of external platforms; generation costs money.",
+      next: "Multi-character operation, shorts automation, performance-analytics dashboard.",
       links: [["GITHUB ↗", "https://github.com/hyunaeee/higgsMCP"]]
     },
     legal: {
       title: "Legal PDF RAG Chatbot", date: "2025.06 – 2026.07",
+      results: ["Answers cite the <b>exact evidence passages</b> used", "<b>Multi-turn</b> context awareness", "Solar LLM + Chroma retrieval"],
       why: "Born from a concrete pain: finding the right clause in long, dense legal PDFs quickly — and getting answers with evidence attached.",
-      design: "PyPDF parses documents, Solar embeddings vectorize them into Chroma for semantic search, and Solar LLM generates answers that carry prior conversation context. Conversational Streamlit interface.",
+      build: [
+        "<b>Document pipeline</b> — PyPDF parsing → Solar embeddings → Chroma semantic search",
+        "<b>Grounded answers</b> — retrieved passages attached to every answer as evidence",
+        "<b>Conversational UI</b> — a multi-turn Streamlit interface that recalls prior context"
+      ],
       stack: ["Python", "LangChain", "Upstage Solar LLM/Embedding", "Chroma", "Streamlit", "PyPDF"],
-      edge: "Answers cite the exact document passages used as evidence, and multi-turn queries remember conversational context.",
       limits: "A document-search aid, not legal advice; scanned (image-only) PDFs are not handled.",
-      next: "OCR pipeline, case-law database integration, and a web deployment.",
+      next: "OCR pipeline, case-law database integration, web deployment.",
       links: [["GITHUB ↗", "https://github.com/hyunaeee/legal-pdf-rag-chatbot"]]
     },
     tableon: {
       title: "TableON — Restaurant SaaS", date: "2026.07",
-      why: "Restaurant owners juggle orders, reservations, customers and payroll across separate tools. TableON is an all-in-one subscription SaaS design with AI business analysis layered on top.",
-      design: "The demo runs every feature on an in-browser API simulator (virtual data): dashboard, table ordering, RFM auto-segmented CRM, reservations, staff/payroll. An onboarding interview plus store-data summary builds a per-store system prompt, so Claude answers relative to this store — its menu, revenue patterns and regulars.",
+      results: ["Orders · reservations · CRM · payroll in <b>one system</b>", "<b>Per-store AI</b> compiled from a 2-minute onboarding interview", "Full-feature demo with zero install"],
+      why: "Restaurant owners juggle separate tools for orders, reservations, customers and payroll. TableON puts them in one subscription with an AI business analyst on top.",
+      build: [
+        "<b>In-browser simulator</b> — the demo runs every feature on generated data, no backend required",
+        "<b>RFM CRM</b> — automatic segments (VIP, at-risk regulars, sleeping customers) and 'customers to call back' detection from visit cadence",
+        "<b>Per-store AI</b> — an onboarding interview plus an automatic data summary compile into a store-specific system prompt, so Claude answers from this store's reality, not generalities",
+        "<b>Ops automation</b> — birthday coupons and SMS, payroll settlement from clock-in records, 3-tier role permissions"
+      ],
       stack: ["HTML/CSS/JS", "SVG charts", "Claude API", "In-browser API simulator", "GitHub Pages"],
-      edge: "A dedicated AI that knows the store rather than reciting generalities, automatic 'win-back' detection based on each regular's usual visit cadence, and a full-feature demo that needs no installation.",
-      limits: "The demo simulator resets on refresh; real payments and SMS need integration keys.",
-      next: "Real server/DB, SMS integration, subscription billing — aiming at a pilot store.",
+      limits: "The demo resets on refresh; real payments/SMS need integration keys.",
+      next: "Real server + DB, SMS integration, subscription billing, pilot restaurants.",
       links: [["LIVE ↗", "https://hyunaeee.github.io/tableon/", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/tableon"]]
     }
   };
 
-  const SECS = [["WHY", "why"], ["DESIGN", "design"], ["STACK", "stack"],
-                ["WHAT MAKES IT DIFFERENT", "edge"], ["HONEST LIMITS", "limits"], ["ROADMAP", "next"]];
   const ovl = document.getElementById("pmovl");
   const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -468,13 +512,20 @@
     if (!d) return;
     document.getElementById("pmtitle").textContent = d.title;
     document.getElementById("pmdate").textContent = d.date;
-    document.getElementById("pmbody").innerHTML = SECS.map(([lb, k]) => {
-      if (!d[k]) return "";
-      const body = Array.isArray(d[k])
-        ? '<div class="pmstack">' + d[k].map(s => "<span>" + esc(s) + "</span>").join("") + "</div>"
-        : "<p>" + esc(d[k]) + "</p>";
-      return '<div class="pmsec"><div class="lb">' + lb + "</div>" + body + "</div>";
-    }).join("");
+    const img = document.querySelector('.pj[data-p="' + key + '"] .shot img');
+    const hero = document.getElementById("pmhero");
+    if (img) { hero.src = img.getAttribute("src"); hero.style.display = "block"; }
+    else { hero.style.display = "none"; }
+    const sec = (lb, inner) => '<div class="pmsec"><div class="lb">' + lb + "</div>" + inner + "</div>";
+    let html = "";
+    if (d.results) html += sec("Key results", '<div class="pmres">' + d.results.map(r => "<div>" + r + "</div>").join("") + "</div>");
+    if (d.why) html += sec("Problem", "<p>" + d.why + "</p>");
+    if (d.build) html += sec("What I built", "<ul>" + d.build.map(b => "<li>" + b + "</li>").join("") + "</ul>");
+    if (d.stack) html += sec("Stack", '<div class="pmstack">' + d.stack.map(s => "<span>" + esc(s) + "</span>").join("") + "</div>");
+    if (d.limits || d.next) html += sec("Limits & next", '<div class="pmlim">'
+      + (d.limits ? "<div><b>Limits</b>" + d.limits + "</div>" : "")
+      + (d.next ? "<div><b>Next</b>" + d.next + "</div>" : "") + "</div>");
+    document.getElementById("pmbody").innerHTML = html;
     document.getElementById("pmft").innerHTML = (d.links || []).map(
       ([label, href, cls]) => '<a class="act ' + (cls || "") + '" href="' + esc(href) +
         '" target="_blank" rel="noopener">' + esc(label) + "</a>"
