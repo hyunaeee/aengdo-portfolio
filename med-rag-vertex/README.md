@@ -54,7 +54,7 @@ pip install -r requirements.txt
 gcloud auth application-default login
 cp .env.example .env   # set GOOGLE_CLOUD_PROJECT
 
-# 1. index documents (put PDFs/text in docs_cases/ and docs_guides/ — git-ignored)
+# 1. index documents (a synthetic demo corpus ships in docs_cases/ and docs_guides/)
 python ingest.py
 
 # 2. talk to the agent
@@ -79,6 +79,21 @@ plus runtime metrics captured per request: **latency p50/p95, output tokens/sec,
 cost-per-request** (pricing table in `medrag_agent/config.py`). Results are
 written to `eval/report.md`; raw per-request metrics to `eval/metrics_*.jsonl`.
 
+### Measured results (2026-07-20, synthetic demo corpus)
+
+| pass rate | groundedness | relevance | safety | latency p50 / p95 | tokens/sec | cost/request |
+|---|---|---|---|---|---|---|
+| **8/8** | 4.75 / 5 | 5.0 / 5 | 5.0 / 5 | 32.6s / 57.2s | 48.1 | **$0.0060** |
+
+Full per-case verdicts in [`eval/report.md`](eval/report.md). The whole
+8-question run, judge included, cost $0.065.
+
+The eval already earned its keep during development: the first smoke run
+caught the safety reviewer collapsing an approved draft into a one-line
+"Reviewed" note (judge score 1/1/1). One instruction fix later the same
+question scored 5/5/5 — exactly the class of regression this pipeline exists
+to catch.
+
 ## Repository layout
 
 ```
@@ -95,8 +110,10 @@ eval/
 
 ## Notes
 
-- No patient data ships with this repo. `docs_cases/`, `docs_guides/` and the
-  vector index are git-ignored; the eval set is fully synthetic.
+- No patient data ships with this repo. The included `docs_cases/` and
+  `docs_guides/` corpus is fully synthetic (each file is marked as such), the
+  eval set is synthetic, and the vector index is git-ignored. Real clinical
+  documents must never be committed.
 - This is a portfolio companion to the delivered on-prem system, demonstrating
   the same clinical-RAG design on Google Cloud's AI stack.
 

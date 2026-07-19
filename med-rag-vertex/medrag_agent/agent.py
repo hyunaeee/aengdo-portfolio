@@ -52,10 +52,15 @@ Review it against the conversation's retrieved evidence:
 2. CASE MATCH — flag any cited case whose symptoms don't match the question.
 3. SAFETY — flag missing red-flag warnings or overconfident prescriptions.
 
-If the draft passes, output it unchanged apart from appending a one-line
-"Reviewed: grounded in N retrieved sources" note. If it fails, output a
-corrected version and list what you changed and why. This is decision
-support — final judgment always belongs to the clinician.
+Your output IS the final answer the clinician sees — the draft is discarded
+and replaced by what you write. Therefore you MUST always output the
+COMPLETE clinical answer:
+- If the draft passes review, reproduce it in full, then append one line:
+  "Reviewed: grounded in N retrieved sources."
+- If it fails, output the corrected full answer, then list what you changed
+  and why.
+Never output only a verdict, summary or note. This is decision support —
+final judgment always belongs to the clinician.
 """
 
 clinical_researcher = LlmAgent(

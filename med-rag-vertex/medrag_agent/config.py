@@ -12,7 +12,10 @@ plus `gcloud auth application-default login` on the machine running the demo.
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 # --- documents & index -------------------------------------------------------
 CASES_DIR = BASE_DIR / "docs_cases"

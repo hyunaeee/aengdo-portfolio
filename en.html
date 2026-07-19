@@ -250,7 +250,7 @@
     <div class="pj" data-p="vertex">
       <span class="shot"><span class="ph"><span class="e">☁️</span><span class="t">MED_RAG_VERTEX</span></span></span>
       <div class="m"><b>med-rag-vertex — Cloud Port</b><em class="dt">2026.07</em>
-        <span>The hospital-delivered RAG assistant re-architected on Vertex AI: Gemini + ADK sequential agents (researcher → safety reviewer) with an LLM-judge eval pipeline tracking latency, tokens/sec and cost-per-request.</span>
+        <span>The hospital-delivered RAG assistant re-architected on Vertex AI: Gemini + ADK sequential agents (researcher → safety reviewer) with an LLM-judge eval pipeline. Measured: 8/8 judge pass, groundedness 4.75/5, $0.006 per request.</span>
         <div class="tags"><i class="tag hot">Vertex AI</i><i class="tag hot">ADK multi-agent</i><i class="tag">Evals</i></div>
         <div class="acts"><a class="act" href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
@@ -401,8 +401,8 @@
       why: "The delivered hospital system runs fully on-prem (Gemma 3 27B via Ollama) because patient data cannot leave the hospital network. This port answers the follow-up question: what does the same clinical RAG system look like as a cloud-native, enterprise-grade service on Google Cloud?",
       design: "An ADK SequentialAgent pipeline: a tool-using clinical researcher retrieves past cases first and falls back to newest-first guidelines (Chroma + gemini-embedding-001), drafts an answer, then a safety-reviewer agent re-verifies grounding, case match and stated uncertainty before anything is shown — a self-reflection pass ported from the hospital system's guardrails.",
       stack: ["Python", "Vertex AI (Gemini 2.5)", "ADK SequentialAgent", "gemini-embedding-001", "Chroma", "LLM-judge evals"],
-      edge: "Keeps the delivered system's clinical guardrails ('same age/sex ≠ same case'), and adds what the on-prem version never had: an evaluation pipeline that drives the same served agent over a fixed eval set, grades groundedness/relevance/safety with a Gemini judge, and reports latency p50/p95, output tokens/sec and cost-per-request.",
-      limits: "The public repo ships with synthetic, PHI-free eval data only; answer quality is bounded by document coverage.",
+      edge: "Keeps the delivered system's clinical guardrails ('same age/sex ≠ same case'), and adds what the on-prem version never had: an evaluation pipeline that drives the same served agent over a fixed eval set, grades groundedness/relevance/safety with a Gemini judge, and reports latency p50/p95, output tokens/sec and cost-per-request. Measured on Vertex AI (2026-07): 8/8 judge pass, groundedness 4.75/5, relevance 5/5, safety 5/5, latency p50 32.6s, 48 tokens/sec, $0.006 per request. The smoke eval also caught a real regression — the safety reviewer collapsing approved drafts into a one-line note (1/1/1 → 5/5/5 after an instruction fix).",
+      limits: "The public repo ships with a synthetic, PHI-free corpus only; answer quality is bounded by document coverage; the two-stage pipeline trades ~30s latency for verified output.",
       next: "Vertex AI Vector Search migration, a larger eval set, and extension to other clinical departments.",
       links: [["GITHUB ↗", "https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex"]]
     },
