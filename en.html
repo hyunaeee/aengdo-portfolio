@@ -261,6 +261,13 @@
         <div class="tags"><i class="tag hot">LangGraph</i><i class="tag hot">Hierarchical delegation</i><i class="tag">Evals</i></div>
         <div class="acts"><a class="act" href="https://github.com/hyunaeee/agent-orchestra" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
+    <div class="pj" data-p="terracotta">
+      <span class="shot"><img src="assets/terracotta.jpg" alt="Terracotta — multi-model AI workspace" loading="lazy" /></span>
+      <div class="m"><b>Terracotta — Multi-Model AI Workspace</b><em class="dt">2026.07</em>
+        <span>One workspace that routes each request across GPT / Claude / Perplexity / Higgsfield, manages MCP connections with security-first OAuth, and gamifies usage into a growing pixel garden.</span>
+        <div class="tags"><i class="tag hot">Model routing</i><i class="tag hot">MCP</i><i class="tag">Product design</i></div>
+        <div class="acts"><a class="act go" href="https://orbit-ai-companion.likecorp817.chatgpt.site" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/terracotta" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
+    </div>
     <div class="pj" data-p="higgs">
       <span class="shot"><span class="ph"><span class="e">💄</span><span class="t">HIGGSMCP</span></span></span>
       <div class="m"><b>HiggsMCP — Content Automation</b><em class="dt">2026.07</em>
@@ -408,6 +415,16 @@
       limits: "Eval tasks are document-writing-centric; the offline mock verifies wiring, not model quality.",
       next: "Embedding-based retrieval for procedural memory, tool-calling workers, broader eval domains.",
       links: [["GITHUB ↗", "https://github.com/hyunaeee/agent-orchestra"]]
+    },
+    terracotta: {
+      title: "Terracotta — Multi-Model AI Workspace", date: "2026.07",
+      why: "Different AIs are good at different jobs, but juggling browser tabs is friction. Terracotta picks the best model for each request automatically — and turns your usage into a personal knowledge garden that grows.",
+      design: "A multi-model router manages connection state and usage budgets across OpenAI, Anthropic, Perplexity and Higgsfield, while an automatic model registry keeps the latest-model priority fresh (latest-first / GPT-first / Claude-first, user's choice). Completed work earns Sparks that plant grass on a 5×4 bitmap garden and grow a companion character. An MCP Hub connects GitHub, Notion, Figma and more, with security-first OAuth: PKCE S256, AES-GCM token encryption, HTTPS-only and internal-address blocking.",
+      stack: ["TypeScript", "Multi-model router (OpenAI · Anthropic · Perplexity · Higgsfield)", "MCP Hub", "OAuth PKCE + AES-GCM", "Credit/subscription prototype"],
+      edge: "The pairing of automatic model routing (so the user never chooses) with gamified motivation — usage visibly grows a garden — plus MCP connections that were security-hardened from day one.",
+      limits: "Prototype stage: subscription/credits are simulated, and real model calls need the user's own API keys.",
+      next: "Routing-quality benchmarks, deeper personal-memory integration with the garden, production launch.",
+      links: [["LIVE ↗", "https://orbit-ai-companion.likecorp817.chatgpt.site"], ["GITHUB ↗", "https://github.com/hyunaeee/terracotta"]]
     },
     higgs: {
       title: "HiggsMCP — Content Automation", date: "2026.07",
