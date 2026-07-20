@@ -280,8 +280,8 @@
     <div class="pj" data-p="terracotta">
       <span class="shot"><img src="assets/terracotta.jpg" alt="Terracotta — multi-model AI workspace" loading="lazy" /></span>
       <div class="m"><b>Terracotta — Multi-Model AI Workspace</b><em class="dt">2026.07</em>
-        <span>One workspace that routes each request across GPT / Claude / Perplexity / Higgsfield, manages MCP connections with security-first OAuth, and gamifies usage into a growing pixel garden.</span>
-        <div class="tags"><i class="tag hot">Model routing</i><i class="tag hot">MCP</i><i class="tag">Product design</i></div>
+        <span>One workspace that routes each request across GPT / Claude / Perplexity / Higgsfield — benchmarked at −52% cost vs a single frontier model — with an approval-gated MCP hub, cost guards, and a growing pixel garden.</span>
+        <div class="tags"><i class="tag hot">Model routing</i><i class="tag hot">MCP</i><i class="tag">Cost guards</i></div>
         <div class="acts"><a class="act go" href="https://orbit-ai-companion.likecorp817.chatgpt.site" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/terracotta" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
     <div class="pj" data-p="higgs">
@@ -445,17 +445,18 @@
     },
     terracotta: {
       title: "Terracotta — Multi-Model AI Workspace", date: "2026.07",
-      results: ["Auto-routing across <b>4 providers</b> (GPT · Claude · Perplexity · Higgsfield)", "MCP Hub with security-first OAuth (<b>PKCE S256 · AES-GCM</b>)", "Live public prototype"],
-      why: "Different AIs are good at different jobs, but juggling browser tabs is friction. Terracotta picks the best model for each request automatically — and turns usage into a personal knowledge garden that grows.",
+      results: ["Routing benchmark: <b>−52.4% cost · +11.5% quality</b> vs the priciest single-model baseline", "<b>Cross-provider review</b> — a backup model from another provider verifies drafts", "MCP tools with <b>approval gating</b> + security-first OAuth (PKCE S256 · AES-GCM)", "Usage ledger + <b>monthly budget guard</b> for provider costs"],
+      why: "Different AIs are good at different jobs, but juggling browser tabs is friction. Terracotta picks the best model for each request, keeps provider costs guarded — and turns usage into a personal knowledge garden that grows.",
       build: [
-        "<b>Multi-model router</b> — connection state and usage budgets for every provider in one place; an automatic model registry keeps latest-model priority fresh",
-        "<b>Gamified motivation</b> — completed work earns Sparks that plant a 5×4 bitmap garden and grow a companion character",
-        "<b>MCP Hub</b> — search and manage GitHub, Notion, Figma and more; HTTPS-only with internal-address blocking",
-        "<b>Subscription prototype</b> — credit plans spanning model/search/image/video usage with monthly provider cost guards"
+        "<b>Multi-model router</b> — classifies each task (general / research / creative), picks a planner by preference and latest-model rank, delegates research to Perplexity; D1-backed automatic model registry",
+        "<b>Agentic orchestration</b> — a multi-step loop where the planner calls MCP tools; write-risk tools pause for approval (with expiry), per-request call caps, every hop recorded as a trace",
+        "<b>Cross-provider review</b> — on 'double-check' requests, a backup model from the other provider reviews the draft for factual errors and gaps",
+        "<b>Personal memory & gamification</b> — toggleable personal memory, completed work earns Sparks that grow a 5×4 bitmap garden",
+        "<b>Policy benchmark</b> — an offline bench mirroring the router's policy and registry price seeds compares 5 policies over 24 tasks on cost and quality"
       ],
-      stack: ["TypeScript", "Multi-model router", "MCP Hub", "OAuth PKCE + AES-GCM", "Credit/subscription prototype"],
-      limits: "Prototype stage: subscription/credits are simulated, and real model calls need the user's own API keys.",
-      next: "Routing-quality benchmarks, deeper personal-memory integration, production launch.",
+      stack: ["TypeScript", "Next.js 16 + Cloudflare Workers", "D1 + Drizzle (registry · usage ledger)", "MCP (Streamable HTTP + OAuth PKCE)", "Routing policy benchmark"],
+      limits: "Prototype stage: subscription/credits are simulated and real calls need the user's own API keys. The benchmark is a rubric-based policy simulation, not a live model eval.",
+      next: "Live-traffic routing evaluation, deeper garden-memory integration, production launch.",
       links: [["LIVE ↗", "https://orbit-ai-companion.likecorp817.chatgpt.site"], ["GITHUB ↗", "https://github.com/hyunaeee/terracotta"]]
     },
     higgs: {

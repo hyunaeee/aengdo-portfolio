@@ -328,7 +328,7 @@
     <div class="web" data-cat="ai" data-p="terracotta">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://orbit-ai-companion.likecorp817.chatgpt.site" target="_blank"><img src="assets/terracotta.jpg" alt="Terracotta — 멀티 모델 AI 작업실" loading="lazy"/></a>
-      <div class="m"><b>TERRACOTTA</b><em class="dt">2026.07</em><span>멀티 모델 AI 작업실 · GPT·Claude·Perplexity 자동 라우팅 + MCP Hub · 쓸수록 자라는 지식 정원 🪴</span></div>
+      <div class="m"><b>TERRACOTTA</b><em class="dt">2026.07</em><span>멀티 모델 AI 작업실 · 4개 공급사 자동 라우팅 — 벤치마크 <b>비용 −52%·품질 ↑</b> · MCP Hub·비용 가드 · 지식 정원 🪴</span></div>
       <div class="acts"><a class="act go" href="https://orbit-ai-companion.likecorp817.chatgpt.site" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/terracotta" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="legal">
@@ -587,17 +587,18 @@
       next: "절차 메모리의 임베딩 검색 전환, 도구 사용(tool-calling) 워커, 평가 도메인 확장."
     },
     terracotta: {
-      results: ["<b>4개 공급사</b>(GPT·Claude·Perplexity·Higgsfield) 자동 라우팅", "MCP Hub + 보안 OAuth(<b>PKCE S256·AES-GCM</b>)", "라이브 프로토타입 공개 운영"],
-      why: "작업마다 잘하는 AI가 다른데 매번 창을 옮겨 다니는 건 비효율이에요. 모델 선택을 대신해주고, 사용한 만큼 나만의 지식 정원이 자라는 개인 AI 작업실을 만들었습니다.",
+      results: ["라우팅 벤치마크: 최고가 단일 모델 대비 <b>비용 −52.4% · 품질 +11.5%</b>", "<b>교차 검토</b> — 다른 공급사 모델이 초안을 검증", "MCP 도구 <b>승인 게이팅</b> + 보안 OAuth(PKCE S256·AES-GCM)", "사용량 원장 + <b>월 예산 가드</b>로 공급사 비용 통제"],
+      why: "작업마다 잘하는 AI가 다른데 매번 창을 옮겨 다니는 건 비효율이에요. 모델 선택을 대신해주고, 비용을 통제하면서, 사용한 만큼 나만의 지식 정원이 자라는 개인 AI 작업실을 만들었습니다.",
       build: [
-        "<b>멀티 모델 라우터</b> — 공급사별 연결 상태·사용량 예산을 통합 관리, 자동 모델 레지스트리가 최신 우선순위 갱신",
-        "<b>게임화 설계</b> — 작업 완료 → Sparks 적립 → 5×4 비트맵 가든에 잔디를 심고 캐릭터를 키움",
-        "<b>MCP Hub</b> — GitHub·Notion·Figma 등 연결 검색·관리, HTTPS 전용·내부망 주소 차단",
-        "<b>구독 프로토타입</b> — 모델·검색·이미지·영상 사용량을 묶은 크레딧 플랜과 공급사 비용 가드"
+        "<b>멀티 모델 라우터</b> — 과제 분류(일반/리서치/창작) 후 선호·최신 랭킹으로 플래너 선택, 리서치는 Perplexity로 위임 · D1 기반 자동 모델 레지스트리",
+        "<b>에이전트 오케스트레이션</b> — 플래너가 MCP 도구를 호출하는 다단계 루프, 쓰기 위험 도구는 승인 대기(만료 포함), 요청당 호출 상한, 전 단계 trace 기록",
+        "<b>교차 검토</b> — '교차 검증' 요청 시 다른 공급사의 백업 모델이 사실 오류·누락을 검토해 최종본 작성",
+        "<b>개인 메모리 & 게임화</b> — 대화 맥락을 잇는 개인 메모리 온/오프, 작업 완료 → Sparks → 5×4 비트맵 가든 성장",
+        "<b>정책 벤치마크</b> — 라우터 정책과 가격 시드를 미러링한 오프라인 벤치로 24개 태스크의 비용·품질을 5개 정책 간 비교"
       ],
-      stack: ["TypeScript", "멀티 모델 라우터", "MCP Hub", "OAuth PKCE + AES-GCM", "구독·크레딧 프로토타입"],
-      limits: "프로토타입 단계 — 구독·크레딧은 시뮬레이션이고, 실제 모델 호출에는 사용자 API 키가 필요합니다.",
-      next: "라우팅 품질 벤치마크, 지식 정원과 개인 메모리 연동 심화, 정식 배포."
+      stack: ["TypeScript", "Next.js 16 + Cloudflare Workers", "D1 + Drizzle (레지스트리·사용량 원장)", "MCP (Streamable HTTP + OAuth PKCE)", "라우팅 정책 벤치마크"],
+      limits: "프로토타입 — 구독·크레딧은 시뮬레이션이고 실호출엔 사용자 API 키가 필요합니다. 벤치마크는 문서화된 루브릭 기반 정책 시뮬레이션이지 라이브 모델 평가가 아니에요.",
+      next: "라이브 트래픽 기반 라우팅 평가, 지식 정원-메모리 연동 심화, 정식 배포."
     },
     legal: {
       results: ["답변마다 <b>근거 문단 인용</b>", "이전 대화를 기억하는 <b>멀티턴</b> 질의", "Solar LLM + Chroma RAG"],
