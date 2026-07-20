@@ -331,6 +331,12 @@
       <div class="m"><b>TERRACOTTA</b><em class="dt">2026.07</em><span>멀티 모델 AI 작업실 · 4개 공급사 자동 라우팅 — 벤치마크 <b>비용 −52%·품질 ↑</b> · MCP Hub·비용 가드 · 지식 정원 🪴</span></div>
       <div class="acts"><a class="act go" href="https://orbit-ai-companion.likecorp817.chatgpt.site" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/terracotta" target="_blank">GITHUB ↗</a></div>
     </div>
+    <div class="web" data-cat="ai" data-p="docent">
+      <span class="badge live">LIVE</span>
+      <a class="shot" href="https://smart-docent-mapbox.vercel.app/" target="_blank"><div class="ph"><span class="e">🗺️</span><span class="t">SMART_DOCENT</span></div></a>
+      <div class="m"><b>스마트 도슨트</b><em class="dt">2025.08 – 진행 중</em><span>실시간 위치 기반 1:1 AI 도슨트 · LangGraph 멀티에이전트 · 한영일중 4개 국어 — 4인 팀 프로젝트 (팀 리더)</span></div>
+      <div class="acts"><a class="act go" href="https://smart-docent-mapbox.vercel.app/" target="_blank">LIVE ↗</a></div>
+    </div>
     <div class="web" data-cat="ai" data-p="legal">
       <span class="badge upd">UPDATING</span>
       <a class="shot" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank"><div class="ph"><span class="e">⚖️</span><span class="t">LEGAL_PDF_RAG</span></div></a>
@@ -468,6 +474,7 @@
         <div><b>2025.11</b>한국수력원자력 교육용 AI 영상 제작</div>
         <div><b>2025.10</b>고려대 안암병원 유방암 진료 에이전트 납품</div>
         <div><b>2025.09</b>NC AI — AI 데이터실</div>
+        <div><b>2025.08–</b>스마트 도슨트 — 4인 팀 리더 · 위치 기반 AI 가이드 (진행 중)</div>
         <div><b>2025.07–11</b>구글 스터디잼 AI 스터디 리더</div>
         <div><b>2025.07</b>유튜브 'gaebaldaeramz' 개설</div>
         <div><b>2025.06</b>Google 'Built with AI' 미니 해커톤</div>
@@ -689,6 +696,19 @@
       limits: "코스가 서울 8개에 한정되고, 실제 걷기 GPS 트래킹은 아직 없습니다.",
       next: "GPS 실걷기 모드, 지역 확장, 완주 기록·포인트 상점."
     },
+    docent: {
+      results: ["<b>LangGraph 멀티에이전트</b> 도슨트 × 실제 Mapbox 지도", "실시간 위치 추적 · 카메라 연출 — 목업이 아닌 움직이는 지도", "한·영·일·중 <b>4개 국어</b> UI·장소 데이터", "2025.08부터 <b>4인 팀</b>으로 진행 중"],
+      why: "관광객은 수백 년의 역사를 안내판 하나로 스쳐 지나가요. 지금 서 있는 위치를 아는 도슨트 — 이동을 따라오며 내 언어로 현지 전문가처럼 답해주는 가이드를 만들고 있습니다.",
+      build: [
+        "<b>내 역할 (팀 리더)</b> — 기획, AI 데이터 전처리(에이전트에 들어가는 장소·관광 콘텐츠), 캐릭터 디자인",
+        "<b>위치 파이프라인</b> — 브라우저 Geolocation 실시간 좌표 + Mapbox GL JS 마커·카메라 연출 (경복궁·북촌·창덕궁·인사동·청계천 데모)",
+        "<b>에이전트 중계</b> — Next.js API가 선택한 장소·질문 맥락을 LangGraph 멀티에이전트 도슨트에 전달, LLM 미연결 시 로컬 응답 폴백",
+        "<b>모듈형 설계</b> — 장소 데이터·지도 스타일·LLM 엔드포인트를 독립적으로 교체 가능, API 키는 서버 환경변수에만"
+      ],
+      stack: ["Next.js App Router", "TypeScript", "Tailwind CSS", "Mapbox GL JS", "LangGraph 멀티에이전트", "Geolocation API"],
+      limits: "공개 데모는 서울 샘플 데이터 기반이고, LLM 엔드포인트 미연결 시 로컬 폴백으로 응답합니다.",
+      next: "팀과 함께 장소 커버리지 확장과 도슨트 응답 고도화를 진행 중이에요."
+    },
     tableon: {
       results: ["주문·예약·CRM·직원/급여 <b>올인원</b>", "온보딩 인터뷰로 만드는 <b>가게별 전용 AI</b>", "설치 없이 전 기능 체험 데모"],
       why: "식당 사장님들이 주문·예약·고객·급여를 제각각의 도구로 관리하는 걸 보고, 올인원에 AI 경영 분석까지 얹은 구독형 SaaS를 설계했습니다.",
@@ -756,7 +776,7 @@
         "<b>신녀 연화 UX</b> — 캐릭터 몰입형 모바일 인터페이스"
       ],
       stack: ["HTML/CSS/JS (바닐라)", "자체 만세력·사주 엔진", "Claude API", "Vercel Functions"],
-      limits: "데모라 실제 결제는 없고 후기는 샘플입니다. 레포는 공개 준비 중이에요.",
+      limits: "데모라 실제 결제는 없고 후기는 샘플입니다 (실서비스 모드는 결제 연동 후 전환).",
       next: "결제 연동 정식 출시, 궁합·택일 확장, 앱 패키징."
     },
     hacker: {

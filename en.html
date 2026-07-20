@@ -284,6 +284,13 @@
         <div class="tags"><i class="tag hot">Model routing</i><i class="tag hot">MCP</i><i class="tag">Cost guards</i></div>
         <div class="acts"><a class="act go" href="https://orbit-ai-companion.likecorp817.chatgpt.site" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/terracotta" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
+    <div class="pj" data-p="docent">
+      <span class="shot"><span class="ph"><span class="e">🗺️</span><span class="t">SMART_DOCENT</span></span></span>
+      <div class="m"><b>Smart Docent — Location-Aware AI Guide</b><em class="dt">2025.08 – ONGOING · TEAM OF 4</em>
+        <span>A real-time, location-aware AI tour guide for K-tourism: a LangGraph multi-agent docent that follows your position on a live Mapbox map and answers in four languages.</span>
+        <div class="tags"><i class="tag hot">LangGraph</i><i class="tag hot">Team project</i><i class="tag">Geo × LLM</i></div>
+        <div class="acts"><a class="act go" href="https://smart-docent-mapbox.vercel.app/" target="_blank" rel="noopener">LIVE ↗</a></div></div>
+    </div>
     <div class="pj" data-p="higgs">
       <span class="shot"><span class="ph"><span class="e">💄</span><span class="t">HIGGSMCP</span></span></span>
       <div class="m"><b>HiggsMCP — Content Automation</b><em class="dt">2026.07</em>
@@ -374,6 +381,7 @@
     <div class="tl">
       <h4>EXPERIENCE</h4>
       <div><b>2026.01 –</b><span>Aengdo Studio — founder<em>AI products, agents &amp; content for clients incl. a university hospital and KHNP</em></span></div>
+      <div><b>2025.08 –</b><span>Smart Docent — team lead, 4-person team<em>location-aware AI tour guide · LangGraph multi-agent · ongoing</em></span></div>
       <div><b>2025.09</b><span>NC AI — AI Data Team</span></div>
       <div><b>2025.10</b><span>Korea Univ. Anam Hospital — clinical RAG agent delivery</span></div>
       <div><b>2024.04 – 06</b><span>SolverX (then VoltWin) — startup, engineering</span></div>
@@ -458,6 +466,21 @@
       limits: "Prototype stage: subscription/credits are simulated and real calls need the user's own API keys. The benchmark is a rubric-based policy simulation, not a live model eval.",
       next: "Live-traffic routing evaluation, deeper garden-memory integration, production launch.",
       links: [["LIVE ↗", "https://orbit-ai-companion.likecorp817.chatgpt.site"], ["GITHUB ↗", "https://github.com/hyunaeee/terracotta"]]
+    },
+    docent: {
+      title: "Smart Docent — Location-Aware AI Guide", date: "2025.08 – ongoing · team of 4",
+      results: ["<b>LangGraph multi-agent</b> docent behind a live Mapbox map — a moving map, not a mockup", "Real-time geolocation tracking with camera choreography", "<b>4 languages</b> (KO/EN/JA/ZH) propagated through UI and place data", "Ongoing 4-person team project since 2025.08"],
+      why: "Tourists walk past centuries of Seoul's history with nothing but static signboards. We wanted a docent that knows where you are actually standing — following your position in real time and answering like a local expert, in your language.",
+      build: [
+        "<b>My role — team lead of 4</b>: product planning, AI data preprocessing for the place/tour content that feeds the agents, and character design",
+        "<b>Location pipeline</b> — browser Geolocation streams live coordinates; Mapbox GL JS renders landmark markers with smooth camera moves (demo: Gyeongbokgung, Bukchon, Changdeokgung, Insadong, Cheonggyecheon)",
+        "<b>Agent relay</b> — a Next.js API route passes the selected place and question context to a LangGraph-based multi-agent docent, with a local fallback when the LLM endpoint is unavailable",
+        "<b>Modular by design</b> — place data, map style and LLM endpoint are independently swappable; API keys live only in server environment variables"
+      ],
+      stack: ["Next.js App Router", "TypeScript", "Tailwind CSS", "Mapbox GL JS", "LangGraph multi-agent", "Geolocation API"],
+      limits: "The public demo ships Seoul sample data, and the docent answers from a local fallback when the LLM endpoint is not connected.",
+      next: "Expanding place coverage and docent-response depth with the team.",
+      links: [["LIVE ↗", "https://smart-docent-mapbox.vercel.app/", "go"]]
     },
     higgs: {
       title: "HiggsMCP — Content Automation", date: "2026.07",
