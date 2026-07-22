@@ -266,7 +266,7 @@
     <div class="pj" data-p="vertex">
       <span class="shot"><span class="ph"><span class="e">☁️</span><span class="t">MED_RAG_VERTEX</span></span></span>
       <div class="m"><b>med-rag-vertex — Cloud Port</b><em class="dt">2026.07</em>
-        <span>The hospital-delivered RAG assistant re-architected on Vertex AI: Gemini + ADK sequential agents (researcher → safety reviewer) with an LLM-judge eval pipeline. Measured: 8/8 judge pass, groundedness 4.75/5, $0.006 per request.</span>
+        <span>The hospital-delivered RAG assistant re-architected on Vertex AI: Gemini + ADK sequential agents (researcher → safety reviewer) with an eval pipeline that scores retrieval objectively, not just the answer. 24 cases: gold document retrieved 24/24, 2/24 distractor traps hit, $0.0071 per request.</span>
         <div class="tags"><i class="tag hot">Vertex AI</i><i class="tag hot">ADK multi-agent</i><i class="tag">Evals</i></div>
         <div class="acts"><a class="act" href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
@@ -420,16 +420,17 @@
   const P = {
     vertex: {
       title: "med-rag-vertex — Cloud Port", date: "2026.07",
-      results: ["<b>8/8 judge pass</b> · groundedness 4.75/5 · relevance 5/5 · safety 5/5", "<b>$0.006 per request</b> · latency p50 32.6s · 48 tok/s (measured 2026-07)", "The smoke eval caught a real prompt regression (1/1/1 → 5/5/5 after fix)", "Clinical guardrails carried over from the shipped hospital system"],
+      results: ["<b>Gold document retrieved 24/24</b> · mean recall 0.965 · 2/24 distractor traps hit — scored from filenames, not by a judge", "<b>$0.0071 per request</b> (generation + embeddings) · latency p50 40.6s / p95 63.1s over 24 runs", "Judge: 24/24 pass, groundedness 5.0/5 — reported alongside the retrieval numbers precisely because a judge score alone is not falsifiable", "The eval caught three defects in its own measurement code, and a prompt regression in the agent"],
       why: "The delivered hospital system runs fully on-prem (Gemma 3 27B via Ollama) because patient data cannot leave the hospital network. This port answers the follow-up question: what does the same clinical RAG system look like as a cloud-native, enterprise-grade service?",
       build: [
-        "<b>ADK SequentialAgent pipeline</b> — a tool-using clinical researcher (search_cases → search_guidelines, newest-first) drafts an answer; a safety reviewer re-verifies grounding, case match and stated uncertainty before anything is shown",
-        "<b>Retrieval parity</b> — Chroma + gemini-embedding-001 @768d with chunking identical to the shipped on-prem system (800/100)",
-        "<b>Eval pipeline</b> — a Gemini judge grades groundedness / relevance / safety over a fixed eval set, reporting latency p50/p95, tokens/sec and cost-per-request",
+        "<b>ADK SequentialAgent pipeline</b> — a tool-using clinical researcher (search_cases → search_guidelines) drafts an answer; a safety reviewer re-verifies grounding, case match and stated uncertainty before anything is shown",
+        "<b>Retrieval parity</b> — Chroma + gemini-embedding-001 @768d with chunking identical to the shipped on-prem system (800/100). Guideline hits rank on similarity with recency as a bounded bonus, so a newer irrelevant guideline can't outrank a relevant one",
+        "<b>Falsifiable evaluation</b> — every case names the gold document that answers it and, for some, a distractor that must NOT be retrieved. Recall and trap rate come from filenames, so they hold even if the judge is generous; a 184-chunk corpus with six planted distractors means k selects ~3% and a wrong retrieval shows up",
+        "<b>Honest instrumentation</b> — latency percentiles are interpolated and withheld below 20 samples rather than reported off 8; unpriced models raise instead of costing zero; embedding calls are metered so cost-per-request includes retrieval",
         "<b>Clinical guardrails</b> — cases before guidelines (clinicians trust precedent) and a 'same age/sex ≠ same case' check at two stages"
       ],
-      stack: ["Python", "Vertex AI (Gemini 2.5)", "ADK SequentialAgent", "gemini-embedding-001", "Chroma", "LLM-judge evals"],
-      limits: "The public repo ships a synthetic, PHI-free corpus only; the two-stage pipeline trades ~30s latency for verified output.",
+      stack: ["Python", "Vertex AI (Gemini 2.5)", "ADK SequentialAgent", "gemini-embedding-001", "Chroma", "Retrieval + LLM-judge evals"],
+      limits: "The public repo ships a synthetic, PHI-free corpus only, so these numbers measure the pipeline, not clinical performance. The two-stage pipeline trades ~40s latency for verified output, and 24 samples is a thin basis for a p95.",
       next: "Vertex AI Vector Search migration, a larger eval set, extension to other clinical departments.",
       links: [["GITHUB ↗", "https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex"]]
     },
