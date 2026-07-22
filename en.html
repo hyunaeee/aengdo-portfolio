@@ -222,7 +222,7 @@
         <span>Breast-cancer clinical assistant agent shipped to Korea University Anam Hospital (Oct 2025).</span></div>
       <div class="hi"><span class="e">🤖</span><b>Agentic systems &amp; MCP</b>
         <span>Custom MCP-server automation, meeting-to-Notion agents, LLM-powered SaaS analytics.</span></div>
-      <div class="hi"><span class="e">🇰🇷🇬🇧</span><b>Bilingual delivery</b>
+      <div class="hi"><span class="e">🗣️</span><b>Bilingual delivery</b>
         <span>Client work in Korean, 2.5 years teaching CS in English, NUS exchange in Singapore.</span></div>
       <div class="hi"><span class="e">🧠</span><b>Neuroscience-grounded</b>
         <span>Brain-cognitive science convergence major at Korea University, with cognitive neuroscience lab work at the Korea Brain Research Institute.</span></div>
@@ -321,8 +321,29 @@
     </div>
   </div>
 
-  <!-- ============ 03 GOOGLE ECOSYSTEM ============ -->
-  <h2><i>03</i>GOOGLE ECOSYSTEM &amp; COMMUNITY</h2>
+  <!-- ============ 03 SHIPPED PRODUCTS ============ -->
+  <h2><i>03</i>SHIPPED PRODUCTS</h2>
+  <p class="sub">Not every problem is an agent. These are products taken all the way to a public URL
+    anyone can open right now.</p>
+  <div class="grid">
+    <div class="pj" data-p="ppt">
+      <span class="shot"><img src="assets/ppt.jpg" alt="PPT Studio editor" loading="lazy" /></span>
+      <div class="m"><b>PPT Studio — AI Deck Builder</b><em class="dt">2026.07</em>
+        <span>Upload a document and Claude turns it into a deck through Structured Outputs, then it exports genuinely editable PPTX — vector text and shapes, not image snapshots.</span>
+        <div class="tags"><i class="tag hot">Structured Outputs</i><i class="tag">Next.js 16</i><i class="tag">OOXML export</i></div>
+        <div class="acts"><a class="act go" href="https://hyunaeee.github.io/ppt-test/" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/ppt-test" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
+    </div>
+    <div class="pj" data-p="dg">
+      <span class="shot"><img src="assets/dg.jpg" alt="Design Gallery" loading="lazy" /></span>
+      <div class="m"><b>Design Gallery</b><em class="dt">2026.07</em>
+        <span>63 dependency-free demos reproducing well-known interface designs in code — one file each, live preview beside its source, bilingual down to the text inside every demo.</span>
+        <div class="tags"><i class="tag">63 demos</i><i class="tag">Zero dependencies</i><i class="tag">KO/EN</i></div>
+        <div class="acts"><a class="act go" href="https://hyunaeee.github.io/design-gallery/" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/design-gallery" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
+    </div>
+  </div>
+
+  <!-- ============ 04 GOOGLE ECOSYSTEM ============ -->
+  <h2><i>04</i>GOOGLE ECOSYSTEM &amp; COMMUNITY</h2>
   <p class="sub">I don't just use the stack — I teach it and lead with it.</p>
   <div class="duo">
     <div class="sk"><b><i>▸</i>Google Study Jam — AI Study Leader</b>
@@ -339,7 +360,7 @@
   </div>
 
   <!-- ============ 05 STACK ============ -->
-  <h2><i>04</i>WHAT I WORK WITH</h2>
+  <h2><i>05</i>WHAT I WORK WITH</h2>
   <div class="skills">
     <div class="sk"><b><i>/01</i>Python &amp; ML Engineering</b>
       <span>Python as a first language for both research and production · PyTorch · C/C++ when performance matters.</span></div>
@@ -352,7 +373,7 @@
   </div>
 
   <!-- ============ 06 TRACK RECORD ============ -->
-  <h2><i>05</i>TRACK RECORD</h2>
+  <h2><i>06</i>TRACK RECORD</h2>
   <div class="cols">
     <div class="tl">
       <h4>EXPERIENCE</h4>
@@ -501,6 +522,36 @@
       limits: "The demo resets on refresh; real payments/SMS need integration keys.",
       next: "Real server + DB, SMS integration, subscription billing, pilot restaurants.",
       links: [["LIVE ↗", "https://hyunaeee.github.io/tableon/", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/tableon"]]
+    },
+    ppt: {
+      title: "PPT Studio — AI Deck Builder", date: "2026.07",
+      results: ["<b>35 brand design systems</b> applied in one click", "Exports <b>genuinely editable PPTX</b> (OOXML), not image snapshots", "Claude converts an entire uploaded document into a deck"],
+      why: "Rebuilding slide design from scratch for every presentation is wasted work. Encode real brands' design systems as tokens, and one click restyles a whole deck.",
+      build: [
+        "<b>Design-system engine</b> — color, type and spacing tokens for 35 brands (Apple, Stripe, Linear and others), swappable across the deck",
+        "<b>Drag-and-drop editor</b> — a Zustand-backed canvas with undo/redo and autosave",
+        "<b>AI conversion</b> — upload a PDF or DOCX and Claude emits slide structure via Structured Outputs (JSON Schema); the deck is then revisable in natural language (\"make this tighter\")",
+        "<b>Real export</b> — pptxgenjs writes vector text and shapes as OOXML, so the result keeps editing in PowerPoint instead of arriving as flat images"
+      ],
+      stack: ["Next.js 16", "React 19", "TypeScript 5", "Tailwind CSS 4", "Zustand", "Claude API", "pptxgenjs"],
+      limits: "The static demo has no API key, so AI generation is disabled there (editing, theming and export all work). Complex PPTX imports lose some fidelity.",
+      next: "Server deployment to open AI features in the public demo, more design systems, collaborative editing.",
+      links: [["LIVE ↗", "https://hyunaeee.github.io/ppt-test/", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/ppt-test"]]
+    },
+    dg: {
+      title: "Design Gallery", date: "2026.07",
+      results: ["<b>63 demos</b>, every one dependency-free working code", "<b>Bilingual KO/EN</b> — down to the text inside each demo", "Published as an open MIT reference"],
+      why: "A design reference you can only look at in a screenshot is dead. I wanted a living one — open it, poke at it, copy it straight into your own project.",
+      build: [
+        "<b>One demo = one file</b> — inline CSS/JS and no build tooling, so any demo runs wherever you paste it",
+        "<b>Gallery viewer</b> — live preview and source shown side by side",
+        "<b>Bilingual propagation</b> — a `?lang=en` parameter switches the gallery chrome and the copy inside each demo",
+        "<b>Asset pipeline</b> — AI-generated imagery background-removed and size-optimized before it ships into a demo"
+      ],
+      stack: ["HTML/CSS/JS (no dependencies)", "Three.js WebGL", "AI-generated assets", "GitHub Pages"],
+      limits: "With no build step there is no component reuse between demos, and curation cost grows with the collection.",
+      next: "Tag and search filters, more demos, better source highlighting.",
+      links: [["LIVE ↗", "https://hyunaeee.github.io/design-gallery/", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/design-gallery"]]
     }
   };
 
