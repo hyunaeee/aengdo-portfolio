@@ -312,12 +312,12 @@
         <div class="tags"><i class="tag hot">LLM analytics</i><i class="tag">Full-stack SaaS</i></div>
         <div class="acts"><a class="act go" href="https://hyunaeee.github.io/tableon/" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/tableon" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
-    <div class="pj">
-      <a class="ph" href="https://github.com/hyunaeee/meeting-assistant" target="_blank" rel="noopener"><span class="e">📝</span><span class="t">MEETING_ASSISTANT</span></a>
+    <div class="pj" data-p="meeting">
+      <span class="shot"><img src="assets/meeting.jpg" alt="Meeting Assistant demo" loading="lazy" /></span>
       <div class="m"><b>Meeting Assistant Agent</b><em class="dt">2026.06 – 2026.07</em>
-        <span>Turns raw meetings into minutes, then routes them to Notion and email — a practical tool-using agent workflow.</span>
-        <div class="tags"><i class="tag hot">Tool use</i><i class="tag">Workflow automation</i></div>
-        <div class="acts"><a class="act" href="https://github.com/hyunaeee/meeting-assistant" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
+        <span>Record a meeting and everything else is automatic: transcription, speaker diarization (56-min file in ~28s), Claude-written minutes, Notion storage and email — with SSO and per-team permissions. Live demo included.</span>
+        <div class="tags"><i class="tag hot">Tool use</i><i class="tag hot">Speech pipeline</i><i class="tag">Workflow automation</i></div>
+        <div class="acts"><a class="act go" href="https://hyunaeee.github.io/meeting-assistant/" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/meeting-assistant" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
   </div>
 
@@ -479,6 +479,21 @@
       limits: "The public demo ships Seoul sample data, and the docent answers from a local fallback when the LLM endpoint is not connected.",
       next: "Expanding place coverage and docent-response depth with the team.",
       links: [["LIVE ↗", "https://smart-docent-mapbox.vercel.app/", "go"]]
+    },
+    meeting: {
+      title: "Meeting Assistant Agent", date: "2026.06 – 2026.07",
+      results: ["<b>56-min meeting → speaker diarization in ~28s</b> (chunked pyannote)", "One pipeline: record → transcribe → minutes → <b>auto-saved to Notion</b> → email", "Google SSO + <b>per-team permissions</b> (users see only their own minutes)", "Live demo — full UI on fake data, nothing stored"],
+      why: "Someone always has to write the minutes. This internal tool makes recording the only manual step — it grew from a local CLI (meeting-notes) into a web UI + Docker service.",
+      build: [
+        "<b>Transcription pipeline</b> — faster-whisper large-v3 (CUDA/float16) with per-meeting language selection (Korean / English / auto-detect)",
+        "<b>Speaker diarization</b> — chunked pyannote 3.1 processes a 56-minute file in ~28 seconds, with AI-inferred speaker names",
+        "<b>Minutes generation & delivery</b> — Claude structures summary, agenda, decisions and action items as JSON → per-team Notion DBs plus an admin-wide DB → SMTP delivery",
+        "<b>Internal-ops design</b> — Google SSO (company accounts only), usage stats by registrant/team/month, admin-only log viewer, Docker Compose deployment"
+      ],
+      stack: ["Python backend", "faster-whisper large-v3 (CUDA)", "pyannote 3.1", "Claude API", "Notion API", "SMTP", "Docker Compose"],
+      limits: "The demo runs on fake data for UI exploration (transcription/minutes/Notion are production-only), and transcription needs a CUDA GPU.",
+      next: "Streaming transcription, minutes search, action-item tracking.",
+      links: [["LIVE ↗", "https://hyunaeee.github.io/meeting-assistant/", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/meeting-assistant"]]
     },
     higgs: {
       title: "HiggsMCP — Content Automation", date: "2026.07",

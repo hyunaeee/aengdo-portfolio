@@ -349,6 +349,12 @@
       <div class="m"><b>HIGGSMCP</b><em class="dt">2026.07</em><span>AI 뷰티 인플루언서 자동화 · Higgsfield MCP + AdCast</span></div>
       <div class="acts"><span class="act off">배포 준비 중</span><a class="act" href="https://github.com/hyunaeee/higgsMCP" target="_blank">GITHUB ↗</a></div>
     </div>
+    <div class="web" data-cat="ai" data-p="meeting">
+      <span class="badge live">LIVE</span>
+      <a class="shot" href="https://hyunaeee.github.io/meeting-assistant/" target="_blank"><img src="assets/meeting.jpg" alt="사내 회의 어시스턴트" loading="lazy"/></a>
+      <div class="m"><b>회의 어시스턴트</b><em class="dt">2026.06 – 2026.07</em><span>녹음 → 전사·화자 분리 → Claude 회의록 → Notion 자동 저장 · 사내 SSO·권한 분리 · 데모 제공 📝</span></div>
+      <div class="acts"><a class="act go" href="https://hyunaeee.github.io/meeting-assistant/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/meeting-assistant" target="_blank">GITHUB ↗</a></div>
+    </div>
     <div class="web" data-cat="web" data-p="dg">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://hyunaeee.github.io/design-gallery/" target="_blank"><img src="assets/dg.jpg" alt="DESIGN GALLERY" loading="lazy"/></a>
@@ -444,7 +450,6 @@
   <h2><i>03</i>MORE ON GITHUB</h2>
   <div class="sub">연구·실험 레포</div>
   <div class="repos">
-    <a class="repo" href="https://github.com/hyunaeee/meeting-assistant" target="_blank"><b>meeting-assistant</b><span>회의록 작성→Notion·메일 에이전트 · 2026.06 – 2026.07</span><i>↗</i></a>
     <a class="repo" href="https://github.com/hyunaeee/agent-orchestra" target="_blank"><b>agent-orchestra</b><span>LangGraph 멀티에이전트 오케스트레이션 레퍼런스 · 2026.07</span><i>↗</i></a>
     <a class="repo" href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex" target="_blank"><b>med-rag-vertex</b><span>Vertex AI + ADK 포팅 · 평가 파이프라인 · 2026.07</span><i>↗</i></a>
   </div>
@@ -616,6 +621,19 @@
       stack: ["Python", "LangChain", "Upstage Solar LLM/Embedding", "Chroma", "Streamlit", "PyPDF"],
       limits: "법률 자문이 아닌 문서 검색 보조이고, 스캔본(이미지 PDF)은 처리하지 못합니다.",
       next: "OCR 파이프라인, 판례 DB 연동, 웹 배포판."
+    },
+    meeting: {
+      results: ["<b>56분 회의 → 화자 분리 약 28초</b> (pyannote 청크 방식)", "녹음 → 전사 → 회의록 → <b>Notion 자동 저장</b> → 메일까지 원파이프라인", "구글 SSO + <b>부서별 권한 분리</b> (본인 회의록만 열람)", "라이브 데모 — 가짜 데이터로 전 화면 체험"],
+      why: "회의가 끝나면 누군가는 회의록을 써야 하죠. 녹음만 하면 나머지가 전부 자동으로 끝나는 사내 도구를 만들었습니다. 로컬 CLI(meeting-notes)로 시작해 웹 UI + Docker 서비스로 확장한 프로젝트예요.",
+      build: [
+        "<b>전사 파이프라인</b> — faster-whisper large-v3(CUDA/float16), 회의별 전사 언어 선택(한국어/영어/자동 감지)",
+        "<b>화자 분리</b> — pyannote 3.1 청크 방식으로 56분 파일을 약 28초에 처리하고, AI가 화자 이름까지 추정",
+        "<b>회의록 생성·배포</b> — Claude가 요약·안건·결정사항·액션 아이템을 구조화된 JSON으로 정리 → 부서별 Notion DB + 관리자 통합 DB 자동 저장 → SMTP로 링크 발송",
+        "<b>사내 운영 설계</b> — 구글 SSO(회사 계정만), 등록자·부서·월별 이용 통계, 관리자 전용 로그 뷰어, Docker Compose 배포"
+      ],
+      stack: ["Python 백엔드", "faster-whisper large-v3 (CUDA)", "pyannote 3.1", "Claude API", "Notion API", "SMTP", "Docker Compose"],
+      limits: "데모는 가짜 데이터로 UI 체험용이고(전사·요약·Notion 저장은 실제 배포판 전용), 전사에 CUDA GPU가 필요합니다.",
+      next: "실시간 스트리밍 전사, 회의록 검색, 액션 아이템 추적을 계획하고 있어요."
     },
     higgs: {
       results: ["생성 → Instagram 게시 <b>무인 자동화</b>", "Element/Soul로 <b>캐릭터 일관성</b> 고정", "게시 전 확산 가능성 점수화(Predict Virality)"],
