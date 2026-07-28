@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>테이블온 — 레스토랑 통합 관리</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 로그인 / 회원가입 -->
+  <div id="auth-screen" class="auth-screen hidden">
+    <div class="auth-side">
+      <div class="auth-brand">
+        <div class="brand-mark big">테</div>
+        <div class="auth-brand-name">테이블<span>ON</span></div>
+      </div>
+      <h2 class="auth-tagline">가맹점 · 테이블 · 예약 · 결제,<br>그리고 AI 경영 분석까지.</h2>
+      <p class="auth-desc">식당을 운영하는 사장님을 위한<br>올인원 구독형 관리 플랫폼</p>
+      <ul class="auth-points">
+        <li>✦ 실시간 매출 대시보드</li>
+        <li>✦ 테이블 · 예약 · 결제 통합 관리</li>
+        <li>✦ Claude AI 기반 경영 인사이트</li>
+      </ul>
+    </div>
+    <div class="auth-main">
+      <div class="auth-card">
+        <!-- 로그인 -->
+        <form id="login-form">
+          <h2>로그인</h2>
+          <div class="field"><label>이메일</label><input id="lg-email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label>비밀번호</label><input id="lg-password" type="password" autocomplete="current-password" required /></div>
+          <button class="btn primary wide" type="submit">로그인</button>
+          <div class="auth-switch">계정이 없으신가요? <a href="#" id="to-signup">무료로 시작하기</a> · <a href="#" id="to-forgot">비밀번호 찾기</a></div>
+          <div class="auth-demo">체험 계정 — <b>demo@tableon.kr</b> / <b>demo1234</b> (프로 플랜, 데모 데이터 포함)</div>
+        </form>
+        <!-- 비밀번호 찾기 -->
+        <form id="forgot-form" class="hidden">
+          <h2>비밀번호 재설정</h2>
+          <p class="auth-sub">가입한 이메일을 입력하면 재설정 링크를 보내드립니다.</p>
+          <div class="field"><label>이메일</label><input id="fg-email" type="email" required /></div>
+          <button class="btn primary wide" type="submit">재설정 링크 보내기</button>
+          <div class="auth-switch"><a href="#" id="forgot-to-login">로그인으로 돌아가기</a></div>
+          <div class="auth-demo hidden" id="forgot-devlink"></div>
+        </form>
+        <!-- 새 비밀번호 설정 (링크 진입) -->
+        <form id="reset-form" class="hidden">
+          <h2>새 비밀번호 설정</h2>
+          <div class="field"><label>새 비밀번호 (8자 이상)</label><input id="rs-password" type="password" minlength="8" required /></div>
+          <div class="field"><label>새 비밀번호 확인</label><input id="rs-password2" type="password" minlength="8" required /></div>
+          <button class="btn primary wide" type="submit">비밀번호 변경</button>
+        </form>
+        <!-- 초대 수락 (링크 진입) -->
+        <form id="invite-form" class="hidden">
+          <h2>팀 초대 수락</h2>
+          <p class="auth-sub" id="invite-desc"></p>
+          <div class="field"><label>이름</label><input id="iv-name" type="text" required /></div>
+          <div class="field"><label>비밀번호 (8자 이상)</label><input id="iv-password" type="password" minlength="8" required /></div>
+          <button class="btn primary wide" type="submit">합류하기</button>
+        </form>
+        <!-- 회원가입 -->
+        <form id="signup-form" class="hidden">
+          <h2>무료로 시작하기</h2>
+          <div class="field"><label>매장 유형</label>
+            <div class="type-cards" id="su-type">
+              <label class="type-card"><input type="radio" name="storetype" value="casual" checked />
+                <b>개인 가게</b><small>동네 단골 중심</small></label>
+              <label class="type-card"><input type="radio" name="storetype" value="fine" />
+                <b>오마카세 · 파인다이닝</b><small>예약 중심 고급 식당</small></label>
+              <label class="type-card"><input type="radio" name="storetype" value="chain" />
+                <b>체인점 · 프랜차이즈</b><small>여러 지점 운영</small></label>
+            </div>
+          </div>
+          <div class="field"><label>브랜드명 (상호)</label><input id="su-company" type="text" required /></div>
+          <div class="field"><label>대표자 이름</label><input id="su-name" type="text" required /></div>
+          <div class="field"><label>이메일</label><input id="su-email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label>비밀번호 (8자 이상)</label><input id="su-password" type="password" autocomplete="new-password" minlength="8" required /></div>
+          <button class="btn primary wide" type="submit">계정 만들기</button>
+          <div class="auth-switch">이미 계정이 있으신가요? <a href="#" id="to-login">로그인</a></div>
+          <div class="auth-demo">가입 후 2분이면 끝나는 <b>가게 설정하기</b>가 매장과 메뉴 준비를 도와드립니다.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout hidden" id="app">
+    <header class="mobile-topbar">
+      <button class="menu-btn" id="btn-menu" aria-label="메뉴 열기">☰</button>
+      <div class="mt-brand">테이블<span>ON</span></div>
+      <span class="badge orange" id="mt-plan"></span>
+    </header>
+    <div id="side-backdrop" class="side-backdrop hidden"></div>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">테</div>
+        <div class="brand-text">테이블<span>ON</span><small id="brand-tenant">레스토랑 통합 관리</small></div>
+      </div>
+      <div class="nav-label">운영</div>
+      <nav>
+        <button class="nav-btn hidden" data-view="staffme"><span class="ico">⏱</span> 내 근무</button>
+        <button class="nav-btn active" data-view="dashboard"><span class="ico">▦</span> 대시보드</button>
+        <button class="nav-btn" data-view="tables"><span class="ico">◫</span> 테이블 / 주문</button>
+        <button class="nav-btn" data-view="reservations"><span class="ico">◷</span> 예약 관리</button>
+        <button class="nav-btn" data-view="payments"><span class="ico">₩</span> 결제 관리</button>
+        <button class="nav-btn" data-view="customers"><span class="ico">♥</span> 고객 관리</button>
+        <button class="nav-btn" data-view="staffmgmt"><span class="ico">👤</span> 직원 관리</button>
+      </nav>
+      <div class="nav-label">설정</div>
+      <nav>
+        <button class="nav-btn" data-view="franchises"><span class="ico">⌂</span> 가맹점 관리</button>
+        <button class="nav-btn" data-view="menu"><span class="ico">≡</span> 메뉴 관리</button>
+        <button class="nav-btn owner-only" data-view="team"><span class="ico">👥</span> 팀 관리</button>
+        <button class="nav-btn owner-only" data-view="billing"><span class="ico">◈</span> 구독 / 요금제</button>
+      </nav>
+      <div class="nav-label">인텔리전스</div>
+      <nav>
+        <button class="nav-btn" data-view="ai"><span class="ico">✦</span> AI 어시스턴트</button>
+      </nav>
+      <div class="user-box">
+        <div class="user-line"><b id="user-name"></b><span id="user-plan" class="badge orange"></span></div>
+        <div class="user-email" id="user-email"></div>
+        <button class="btn small ghost" id="btn-logout" style="width:100%;justify-content:center;margin-top:8px;color:#a99e8f;border-color:#3a322a">로그아웃</button>
+      </div>
+      <div class="sidebar-foot">
+        <div class="foot-date" id="side-date"></div>
+        <div>테이블ON SaaS v0.3</div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- 온보딩: 가게 설정하기 -->
+      <section id="view-onboarding" class="view hidden">
+        <div class="onboard-wrap">
+          <div class="onboard-head">
+            <h1>🏪 가게 설정하기</h1>
+            <p class="subtitle" id="ob-sub">2분이면 끝나요. 언제든 나중에 바꿀 수 있습니다.</p>
+            <div class="onboard-steps">
+              <span class="ob-step active" data-obstep="1">1. 매장 정보</span>
+              <span class="ob-step" data-obstep="2">2. 메뉴</span>
+              <span class="ob-step" data-obstep="3">완료</span>
+            </div>
+          </div>
+
+          <!-- 1단계: 매장 정보 -->
+          <div class="panel ob-page" id="ob-page-1">
+            <div class="field"><label>매장 이름</label><input id="ob-name" type="text" /></div>
+            <div class="field"><label>주소 (선택) — AI 매출 분석에서 지역 날씨·행사 조사에 사용됩니다</label>
+              <div class="row-gap">
+                <input id="ob-zip" type="text" placeholder="우편번호" readonly style="width:110px" />
+                <button type="button" class="btn small" id="ob-addr-btn">🔍 주소 찾기</button>
+              </div>
+              <input id="ob-address" type="text" placeholder="주소 찾기를 눌러 검색하세요" readonly style="margin-top:6px" />
+              <input id="ob-address-detail" type="text" placeholder="상세주소 (층/호수 등, 선택)" style="margin-top:6px" />
+              <div id="ob-addr-box" class="addr-search-box hidden"></div>
+            </div>
+            <div class="field"><label>매장 전화번호 (선택)</label><input id="ob-phone" type="text" /></div>
+            <div class="field"><label>테이블 수</label>
+              <div class="row-gap">
+                <input id="ob-tables" type="number" min="1" max="40" value="8" style="width:90px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px" />
+                <span style="font-size:12.5px;color:var(--muted)">개 — 절반은 2인석, 나머지는 4인석으로 만들어드려요 (나중에 수정 가능)</span>
+              </div>
+            </div>
+            <div class="modal-actions" style="margin-top:24px">
+              <button class="btn primary" id="ob-next-1">다음: 메뉴 만들기 →</button>
+            </div>
+          </div>
+
+          <!-- 2단계: 메뉴 -->
+          <div class="panel ob-page hidden" id="ob-page-2">
+            <div class="type-cards" style="margin-bottom:16px">
+              <label class="type-card"><input type="radio" name="obmenu" value="preset" checked />
+                <b id="ob-preset-title">추천 메뉴로 시작</b><small id="ob-preset-desc">업종에 맞는 기본 메뉴판을 넣어드려요. 나중에 자유롭게 수정하세요.</small></label>
+              <label class="type-card"><input type="radio" name="obmenu" value="custom" />
+                <b>직접 입력할게요</b><small>우리 가게 메뉴를 바로 몇 개 등록합니다.</small></label>
+              <label class="type-card"><input type="radio" name="obmenu" value="skip" />
+                <b>나중에 할게요</b><small>메뉴 관리 탭에서 언제든 추가할 수 있어요.</small></label>
+            </div>
+            <div id="ob-preset-preview" class="ob-menu-preview"></div>
+            <div id="ob-custom-rows" class="hidden">
+              <div class="tier-row tier-head" style="grid-template-columns:1fr 90px 110px 32px"><div>메뉴명</div><div>카테고리</div><div>가격(원)</div><div></div></div>
+              <div id="ob-custom-list"></div>
+              <button class="btn small ghost" id="ob-add-row">+ 메뉴 줄 추가</button>
+            </div>
+            <div class="modal-actions" style="margin-top:24px">
+              <button class="btn ghost" id="ob-back-2">← 이전</button>
+              <button class="btn primary" id="ob-finish">가게 만들기 ✓</button>
+            </div>
+          </div>
+
+          <!-- 3단계: 완료 -->
+          <div class="panel ob-page hidden" id="ob-page-3" style="text-align:center;padding:40px 24px">
+            <div style="font-size:42px">🎉</div>
+            <h2 style="margin:12px 0 6px" id="ob-done-title">가게 준비 완료!</h2>
+            <p style="font-size:14px;color:var(--muted);line-height:1.8" id="ob-done-desc"></p>
+            <div class="ob-next-cards">
+              <button class="btn" data-obgo="customers">♥ 고객 명단 가져오기<br><small>캐치테이블 등 엑셀 그대로</small></button>
+              <button class="btn" data-obgo="staffmgmt">👤 직원 등록하기<br><small>일정·출퇴근·월급 관리</small></button>
+              <button class="btn" data-obgo="tables">◫ 테이블 화면 보기<br><small>착석 → 주문 → 결제</small></button>
+            </div>
+            <button class="btn primary" id="ob-go-dashboard" style="margin-top:18px">대시보드로 가기 →</button>
+          </div>
+        </div>
+      </section>
+
+      <div id="verify-banner" class="verify-banner hidden">
+        ✉️ 이메일 인증이 완료되지 않았습니다.
+        <button class="btn small" id="btn-resend-verify">인증 메일 다시 보내기</button>
+        <span id="verify-devlink"></span>
+      </div>
+      <!-- 대시보드 -->
+      <section id="view-dashboard" class="view">
+        <div class="view-head">
+          <div><h1>대시보드</h1><p class="subtitle">전 지점 통합 현황</p></div>
+          <button class="btn ghost" id="btn-dash-refresh">새로고침</button>
+        </div>
+        <div class="cards" id="dash-cards"></div>
+        <div class="grid-73">
+          <div class="panel">
+            <div class="panel-head"><h2>최근 14일 매출 추이</h2><span class="panel-sub" id="dash-trend-sub"></span></div>
+            <div id="dash-trend"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>결제 수단 비중 <small>· 7일</small></h2></div>
+            <div id="dash-method"></div>
+          </div>
+        </div>
+        <div class="panel" id="dash-alerts-panel">
+          <div class="panel-head"><h2>😟 다시 부를 고객 <small>— 평소 방문 주기보다 오래 안 온 단골</small></h2>
+            <button class="btn small ghost" id="btn-goto-customers">고객 관리로 →</button></div>
+          <div id="dash-alerts"></div>
+        </div>
+        <div class="grid-3">
+          <div class="panel">
+            <div class="panel-head"><h2>시간대별 매출 <small>· 7일</small></h2></div>
+            <div id="dash-hours" class="vbar-chart"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>오늘 지점별 매출</h2></div>
+            <div id="dash-franchise" class="hbar-chart"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>인기 메뉴 TOP 5 <small>· 7일</small></h2></div>
+            <div id="dash-top-menus" class="rank-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 테이블/고객 -->
+      <section id="view-tables" class="view hidden">
+        <div class="view-head">
+          <div><h1>테이블 / 고객</h1><p class="subtitle">착석 · 주문 · 결제를 한 화면에서</p></div>
+          <select id="table-franchise-select" class="select"></select>
+        </div>
+        <div class="legend">
+          <span><i class="dot dot-empty"></i>빈 테이블</span>
+          <span><i class="dot dot-occupied"></i>이용 중</span>
+          <span><i class="dot dot-reserved"></i>예약됨</span>
+        </div>
+        <div id="table-grid" class="table-grid"></div>
+        <div id="order-panel" class="panel hidden">
+          <div class="panel-head"><h2 id="order-title"></h2><button class="btn small ghost" id="btn-close-order">닫기 ✕</button></div>
+          <div class="order-body">
+            <div>
+              <h3>주문 내역</h3>
+              <table class="table" id="order-items-table">
+                <thead><tr><th>메뉴</th><th style="width:120px">수량</th><th class="ta-r">금액</th></tr></thead>
+                <tbody></tbody>
+              </table>
+              <div class="order-total"><span>합계</span><b id="order-total"></b></div>
+              <div class="pay-actions">
+                <button class="btn primary" data-pay="card">💳 카드 결제</button>
+                <button class="btn" data-pay="mobile">📱 간편결제</button>
+                <button class="btn" data-pay="cash">💵 현금</button>
+                <button class="btn danger ghost" id="btn-clear-table">테이블 비우기</button>
+              </div>
+            </div>
+            <div>
+              <h3>메뉴 담기</h3>
+              <div id="order-menu-cats" class="chip-row"></div>
+              <div id="order-menu-list" class="menu-pick-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 예약 -->
+      <section id="view-reservations" class="view hidden">
+        <div class="view-head">
+          <div><h1>예약 관리</h1><p class="subtitle">오늘과 다가오는 예약</p></div>
+          <div class="row-gap">
+            <select id="resv-franchise-filter" class="select"><option value="">전체 지점</option></select>
+            <button class="btn primary" id="btn-add-resv">+ 예약 등록</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="table-scroll">
+            <table class="table" id="resv-table">
+              <thead><tr>
+                <th>예약 일시</th><th>지점</th><th>예약자</th><th>연락처</th><th>인원</th><th>테이블</th><th>메모</th><th>상태</th><th></th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 결제 -->
+      <section id="view-payments" class="view hidden">
+        <div class="view-head">
+          <div><h1>결제 관리</h1><p class="subtitle">전 지점 결제 내역</p></div>
+          <a class="btn ghost" id="btn-export-csv" href="#">⬇ CSV 내보내기</a>
+        </div>
+        <div class="filter-bar">
+          <select id="pay-f-franchise" class="select"><option value="">전체 지점</option></select>
+          <select id="pay-f-method" class="select">
+            <option value="">전체 수단</option>
+            <option value="card">카드</option><option value="mobile">간편결제</option><option value="cash">현금</option>
+          </select>
+          <select id="pay-f-status" class="select">
+            <option value="">전체 상태</option>
+            <option value="completed">완료</option><option value="refunded">환불됨</option>
+          </select>
+          <input id="pay-f-date" type="date" class="select" />
+          <button class="btn small ghost" id="pay-f-reset">초기화</button>
+          <div class="filter-summary" id="pay-summary"></div>
+        </div>
+        <div class="panel">
+          <div class="table-scroll">
+            <table class="table" id="payments-table">
+              <thead><tr>
+                <th>결제ID</th><th>지점</th><th>수단</th><th class="ta-r">금액</th><th>상태</th><th>일시</th><th></th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 가맹점 -->
+      <section id="view-franchises" class="view hidden">
+        <div class="view-head">
+          <div><h1>가맹점 관리</h1><p class="subtitle" id="franchise-limit-note">지점 현황과 오늘 성과</p></div>
+          <button class="btn primary" id="btn-add-franchise">+ 가맹점 등록</button>
+        </div>
+        <div id="franchise-cards" class="fr-cards"></div>
+      </section>
+
+      <!-- 메뉴 -->
+      <section id="view-menu" class="view hidden">
+        <div class="view-head">
+          <div><h1>메뉴 관리</h1><p class="subtitle">전 지점 공통 메뉴</p></div>
+          <button class="btn primary" id="btn-add-menu">+ 메뉴 추가</button>
+        </div>
+        <div id="menu-groups"></div>
+      </section>
+
+      <!-- 고객 관리 -->
+      <section id="view-customers" class="view hidden">
+        <div class="view-head">
+          <div><h1>고객 관리</h1><p class="subtitle">단골을 알아보고, 방문이 자동으로 기록됩니다</p></div>
+          <div class="row-gap">
+            <input type="file" id="cust-file" accept=".xlsx,.xls" class="hidden" />
+            <button class="btn owner-only" id="btn-crm-settings">⚙ 혜택 설정</button>
+            <button class="btn" id="btn-cust-import">📥 엑셀 가져오기</button>
+            <button class="btn primary" id="btn-add-customer">+ 고객 등록</button>
+          </div>
+        </div>
+        <div class="cards" id="cust-stats"></div>
+        <div class="filter-bar" style="align-items:flex-start">
+          <input id="cust-search" class="select" type="search" placeholder="이름·전화번호·메모 검색" style="min-width:220px" />
+          <div class="chip-row" id="cust-grade-chips" style="margin-bottom:0"></div>
+          <div class="filter-summary" id="cust-count"></div>
+        </div>
+        <div class="filter-bar" id="cust-seg-actions">
+          <span id="cust-seg-desc" style="font-size:12.5px;color:var(--muted)"></span>
+          <div class="row-gap" style="margin-left:auto">
+            <button class="btn small" id="btn-sms-history">발송 내역</button>
+            <button class="btn small primary" id="btn-sms-segment">💬 이 그룹에 문자 보내기</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="table-scroll">
+            <table class="table" id="cust-table">
+              <thead><tr>
+                <th>이름</th><th>연락처</th><th>등급</th><th>방문</th><th>노쇼</th><th>누적 매출</th><th>최근 방문</th><th>선호/특징</th><th></th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="pager" id="cust-pager"></div>
+        </div>
+      </section>
+
+      <!-- 직원 관리 -->
+      <section id="view-staffmgmt" class="view hidden">
+        <div class="view-head">
+          <div><h1>직원 관리</h1><p class="subtitle">일정 · 출퇴근 · 월급을 한곳에서</p></div>
+          <button class="btn primary owner-only" id="btn-add-staff">+ 직원 등록</button>
+        </div>
+        <div class="chip-row" id="staff-tabs">
+          <button class="chip active" data-stab="list">직원 목록</button>
+          <button class="chip" data-stab="schedule">주간 일정</button>
+          <button class="chip" data-stab="attendance">출퇴근 기록</button>
+          <button class="chip owner-only" data-stab="payroll">월급 정산</button>
+        </div>
+        <div id="stab-list" class="stab">
+          <div class="panel"><div class="table-scroll">
+            <table class="table" id="staff-table">
+              <thead><tr><th>이름</th><th>지점</th><th>직무</th><th>급여</th><th>입사일</th><th>계정</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div></div>
+        </div>
+        <div id="stab-schedule" class="stab hidden">
+          <div class="filter-bar">
+            <button class="btn small" id="sch-prev">◀ 이전 주</button>
+            <b id="sch-week-label"></b>
+            <button class="btn small" id="sch-next">다음 주 ▶</button>
+            <button class="btn small primary" id="btn-add-schedule" style="margin-left:auto">+ 일정 추가</button>
+          </div>
+          <div class="panel"><div class="table-scroll" id="sch-grid"></div></div>
+        </div>
+        <div id="stab-attendance" class="stab hidden">
+          <div class="filter-bar">
+            <input type="month" id="att-month" class="select" />
+            <button class="btn small primary" id="btn-add-attendance" style="margin-left:auto">+ 수기 기록</button>
+          </div>
+          <div class="panel"><div class="table-scroll">
+            <table class="table" id="att-table">
+              <thead><tr><th>날짜</th><th>직원</th><th>출근</th><th>퇴근</th><th>근무시간</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div></div>
+        </div>
+        <div id="stab-payroll" class="stab hidden">
+          <div class="filter-bar">
+            <input type="month" id="pay-month" class="select" />
+            <div class="filter-summary" id="payroll-total"></div>
+          </div>
+          <div class="panel"><div class="table-scroll">
+            <table class="table" id="payroll-table">
+              <thead><tr><th>직원</th><th>급여 형태</th><th>이번 달 근무</th><th class="ta-r">지급액</th><th>상태</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div></div>
+          <p class="billing-note">※ 시급제는 출퇴근 기록 기준으로 자동 계산됩니다. 주휴수당·세금 공제는 포함되지 않은 참고용 금액입니다.</p>
+        </div>
+      </section>
+
+      <!-- 직원 전용 (출퇴근) -->
+      <section id="view-staffme" class="view hidden">
+        <div class="view-head"><div><h1>내 근무</h1><p class="subtitle" id="staffme-sub"></p></div></div>
+        <div class="cards" id="staffme-cards"></div>
+        <div class="panel" style="text-align:center;padding:32px">
+          <div id="staffme-status" style="font-size:15px;margin-bottom:18px;font-weight:600"></div>
+          <div class="row-gap" style="justify-content:center">
+            <button class="btn primary" id="btn-clock-in" style="font-size:17px;padding:16px 36px">🌅 출근하기</button>
+            <button class="btn" id="btn-clock-out" style="font-size:17px;padding:16px 36px">🌙 퇴근하기</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>이번 주 내 일정</h2></div>
+          <div class="table-scroll">
+            <table class="table" id="staffme-schedule">
+              <thead><tr><th>날짜</th><th>요일</th><th>근무 시간</th><th>메모</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 팀 관리 -->
+      <section id="view-team" class="view hidden">
+        <div class="view-head">
+          <div><h1>팀 관리</h1><p class="subtitle">점주(매니저)를 초대하고 지점별 권한을 관리합니다</p></div>
+          <button class="btn primary" id="btn-invite">+ 팀원 초대</button>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>멤버</h2></div>
+          <div class="table-scroll">
+            <table class="table" id="team-table">
+              <thead><tr><th>이름</th><th>이메일</th><th>역할</th><th>담당 지점</th><th>인증</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel" id="invites-panel">
+          <div class="panel-head"><h2>대기 중인 초대</h2></div>
+          <div class="table-scroll">
+            <table class="table" id="invites-table">
+              <thead><tr><th>이메일</th><th>역할</th><th>담당 지점</th><th>만료</th><th></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 구독 / 요금제 -->
+      <section id="view-billing" class="view hidden">
+        <div class="view-head">
+          <div><h1>구독 / 요금제</h1><p class="subtitle">현재 플랜과 사용량을 확인하고 요금제를 변경합니다</p></div>
+        </div>
+        <div class="panel" id="billing-current"></div>
+        <div class="plan-cards" id="plan-cards"></div>
+        <p class="billing-note" id="billing-note"></p>
+        <div class="grid-73" style="margin-top:16px">
+          <div class="panel">
+            <div class="panel-head"><h2>결제 이력</h2></div>
+            <div class="table-scroll">
+              <table class="table" id="billing-history-table">
+                <thead><tr><th>일시</th><th>플랜</th><th class="ta-r">금액</th><th>상태</th><th>비고</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>주간 리포트 이메일</h2></div>
+            <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px">
+              매주 월요일 오전, 지난주 매출·인기 메뉴·AI 코멘트를 대표 이메일로 보내드립니다.
+            </p>
+            <label class="toggle-row">
+              <input type="checkbox" id="report-toggle" /> <span>주간 리포트 받기</span>
+            </label>
+            <div class="row-gap" style="margin-top:12px">
+              <button class="btn small" id="btn-report-preview">미리보기</button>
+              <button class="btn small primary" id="btn-report-send">지금 발송 (테스트)</button>
+            </div>
+            <div id="report-status" style="font-size:12px;color:var(--muted);margin-top:10px"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI -->
+      <section id="view-ai" class="view hidden">
+        <div class="view-head">
+          <div><h1>AI 어시스턴트</h1><p class="subtitle" id="ai-quota-note">매출 · 메뉴 · 예약 데이터를 근거로 답합니다</p></div>
+          <div class="row-gap">
+            <button class="btn owner-only" id="btn-ai-profile">🛠 우리 가게 AI 설정</button>
+            <button class="btn primary" id="btn-ai-insights">✦ AI 경영 인사이트 생성</button>
+          </div>
+        </div>
+        <div class="panel ai-panel">
+          <div id="ai-messages" class="ai-messages">
+            <div class="ai-msg assistant">안녕하세요, 사장님! 실제 운영 데이터를 기반으로 무엇이든 물어보세요.</div>
+          </div>
+          <div class="chip-row" id="ai-analyze-row">
+            <span style="font-size:12px;font-weight:700;color:var(--muted);align-self:center">심층 분석:</span>
+            <button class="chip" data-analyze="sales">📈 매출 요인 분석 (날씨·행사·시즌)</button>
+            <button class="chip" data-analyze="menu">🍣 신메뉴 AI 추천</button>
+            <button class="chip" data-analyze="customers">💌 단골 마케팅 제안</button>
+          </div>
+          <div class="chip-row" id="ai-suggests">
+            <button class="chip" data-q="이번 주 어느 지점이 제일 잘 팔렸어?">🏪 지점별 성과</button>
+            <button class="chip" data-q="저녁 시간대 매출 흐름 분석해줘">🌙 저녁 매출 분석</button>
+            <button class="chip" data-q="가격 조정을 고려할 만한 메뉴가 있을까?">💰 가격 전략</button>
+            <button class="chip" data-q="다가오는 예약 현황 정리해줘">📅 예약 브리핑</button>
+          </div>
+          <form id="ai-form" class="ai-input-row">
+            <input id="ai-input" type="text" placeholder="무엇이든 물어보세요..." autocomplete="off" />
+            <button class="btn primary" type="submit">전송</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 모달 -->
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <h2 id="modal-title"></h2>
+      <div id="modal-body"></div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="modal-cancel">취소</button>
+        <button class="btn primary" id="modal-ok">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 -->
+  <div id="toasts" class="toasts"></div>
+
+  <script src="demo-api.js"></script>
+  <script src="app.js"></script>
+  <div class="demo-ribbon">
+    🎭 <b>라이브 데모</b> — 모든 데이터는 가상이며 브라우저 안에서만 동작합니다 (새로고침 시 초기화)
+    · <a href="https://github.com/hyunaeee/tableon" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+  <style>
+    .demo-ribbon { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: #201a13; color: #e8e0d3; font-size: 12.5px; text-align: center;
+      padding: 8px 12px; }
+    .demo-ribbon a { color: #ff922b; font-weight: 700; }
+    body { padding-bottom: 36px; }
+  </style>
+</body>
+</html>
