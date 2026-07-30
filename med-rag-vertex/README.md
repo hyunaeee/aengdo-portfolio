@@ -1,6 +1,6 @@
 # med-rag-vertex 🏥
 
-**Cloud-native port of [med-rag](https://github.com/hyunaeee/med-rag) — a clinical
+**Cloud-native port of med-rag (delivered on-premise; repository private — it contains hospital material) — a clinical
 RAG assistant delivered to Korea University Anam Hospital (Oct 2025) — rebuilt on
 Google Cloud Vertex AI with ADK multi-agent orchestration and an evaluation pipeline.**
 
@@ -78,7 +78,8 @@ distractor from adjacent oncology that shares the vocabulary but not the
 diagnosis. Recall and trap rate are computed from source filenames, so they do
 not depend on any model's opinion and cannot drift with judge temperament.
 
-**Answer quality, by LLM judge** (Gemini 2.5 Pro):
+**Answer quality, by LLM judge** (Gemini 2.5 Pro, **given the retrieved documents**
+so that groundedness is checked against evidence rather than plausibility):
 
 - **groundedness** — every claim traceable to retrieved evidence
 - **relevance** — answers the actual clinical question
@@ -90,41 +91,51 @@ p50/p95, output tokens/sec, cost-per-request** (pricing table in
 `medrag_agent/config.py`). Results are written to `eval/report.md`; raw
 per-request metrics to `eval/metrics*.jsonl`.
 
-### Measured results (2026-07-22, 24 cases, synthetic corpus)
+### Measured results (2026-07-29, 24 cases, synthetic corpus)
 
 Retrieval — objective, computed from source filenames, no model opinion involved:
 
 | gold document retrieved | mean recall | distractor traps hit |
 |---|---|---|
-| **24/24** | **0.965** | **2/24** (q13, q24) |
+| **23/24** | **0.903** | **2/24** (q13, q24) |
 
-Answer quality (Gemini 2.5 Pro judge) and runtime:
+Answer quality (Gemini 2.5 Pro judge, **given the retrieved evidence**) and runtime:
 
 | pass rate | grounded | relevant | safe | latency p50 / p95 (n=24) | output tok/s | cost/request |
 |---|---|---|---|---|---|---|
-| 24/24 | 5.0 | 4.96 | 5.0 | 40.6s / 63.1s | 48.0 | **$0.0071** |
+| 20/24 | 4.42 | 4.83 | 4.96 | 36.0s / 53.0s | 49.4 | **$0.0065** |
 
-Cost splits as $0.1711 generation + $0.0001 embeddings over the whole run
-($0.17 total, judge included). Full per-case table in
+Cost splits as $0.157 agent generation + $0.0001 embeddings + $0.111 judge =
+**$0.268 for the full run**. The per-request figure is the agent pipeline only —
+what serving costs; the judge is an evaluation-time cost. Full per-case table in
 [`eval/report.md`](eval/report.md).
 
-**Read the judge scores skeptically.** A near-perfect 5.0 groundedness says as
-much about the judge's generosity as about the system, which is exactly why the
-retrieval metrics above exist: recall and trap rate are computed from filenames
-and cannot be talked up. The 2/24 trap hits are the honest part of that table —
-q13 pulled the fat-necrosis case for a post-mastectomy chest-wall nodule (a
-defensible differential, but not the gold document) and q24 pulled the axillary
-recurrence case for a reactive-lymphadenopathy question.
+**The four failures are the point.** An earlier version of this pipeline scored
+24/24 with groundedness 5.0 — because the judge was never shown the retrieved
+evidence and was therefore grading plausibility, not grounding. Feeding it the
+actual retrieved documents dropped the pass rate to 20/24 and surfaced four real
+hallucinations the previous setup could not see:
+
+- **q06** applied a malignancy-risk range stated for BI-RADS 4 as a whole to the
+  4C subcategory specifically.
+- **q14** quoted a "Teaching point" that does not exist in the retrieved documents.
+- **q22** added a clinically important note on variants of uncertain significance
+  that no retrieved source supports.
+- **q23** presented a detailed pCR definition and an MRI-vs-mammography comparison
+  as evidence-backed when the sources contain neither.
+
+A 24/24 that cannot fail is worth less than a 20/24 that names what broke.
+Fixing these means constraining the researcher prompt, not tuning the judge.
 
 ### What this eval caught in its own tooling
 
-The pipeline earned its keep twice, both times against code in this repo:
+The pipeline has now earned its keep three times, every time against code in this repo:
 
 1. **A regression in the agent.** The first smoke run caught the safety reviewer
    collapsing an approved draft into a one-line "Reviewed" note (judge 1/1/1).
-   One instruction fix restored 5/5/5.
-2. **Three defects in the measurement layer itself**, found when the published
-   numbers were audited rather than trusted:
+   One instruction fix restored it.
+2. **Three defects in the measurement layer**, found when the published numbers
+   were audited rather than trusted:
    - `sorted[int(n * 0.95)]` returns the **maximum** for any n below ~20, so an
      earlier "p95" was the slowest sample relabelled. Now linear interpolation,
      and percentiles are withheld entirely below `MIN_SAMPLES_FOR_P95`.
@@ -134,11 +145,11 @@ The pipeline earned its keep twice, both times against code in this repo:
    - The corpus held fewer chunks than retrieval asked for, so the retriever
      returned everything, could not fail, and any groundedness score on top of it
      was unfalsifiable. The corpus is now 184 chunks across 39 documents —
-     including six deliberate distractors from adjacent oncology — so k selects
-     ~3% and a wrong retrieval is detectable.
-
-   Guideline ranking was also discarding similarity entirely in favour of
-   recency; recency is now a bounded bonus that can only reorder near-ties.
+     including six deliberate distractors from adjacent oncology.
+3. **The judge itself was not grading grounding.** `JUDGE_PROMPT` received the
+   question and the answer but never the retrieved evidence, so "groundedness"
+   was a plausibility score. It now receives the source documents, and the score
+   moved from a flat 5.0 to 4.42 with four named failures.
 
 An evaluation you never attack is a decoration. These were found by attacking it.
 

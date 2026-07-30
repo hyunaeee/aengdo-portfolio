@@ -70,8 +70,8 @@ footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);
     <span>backend: mock (offline)</span>
     <span>rounds: 1</span>
     <span>verdict: approve</span>
-    <span>wall clock: 7ms</span>
-    <span>commit: b096cca</span>
+    <span>wall clock: 8ms</span>
+    <span>commit: 779a837</span>
   </div>
   <div class="btns">
     <a class="btn" href="https://github.com/hyunaeee/agent-orchestra" target="_blank" rel="noopener">GITHUB ↗</a>
@@ -142,13 +142,27 @@ supervisor ───┼─▶ researcher_risks ────────┼─▶
 자동 주입합니다. 같은 교훈이 반복되면 중복 저장 대신 강화 횟수를 올립니다.</p>
 <div class="card"><table>
 <tr><th>교훈</th><th>강화</th></tr>
-<tr><td>요구 항목을 섹션 헤더로 명시하면 누락이 줄어든다.</td><td class="f">7회 강화</td></tr>
+<tr><td>요구 항목을 섹션 헤더로 명시하면 누락이 줄어든다.</td><td class="f">17회 강화</td></tr>
+<tr><td>요구 항목을 섹션 헤더로 명시하면 누락이 줄어든다.</td><td class="f">8회 강화</td></tr>
+<tr><td>요구 항목을 섹션 헤더로 명시하면 누락이 줄어든다.</td><td class="f">8회 강화</td></tr>
+<tr><td>요구 항목을 섹션 헤더로 명시하면 누락이 줄어든다.</td><td class="f">8회 강화</td></tr>
+<tr><td>요구 항목을 섹션 헤더로 명시하면 누락이 줄어든다.</td><td class="f">8회 강화</td></tr>
+<tr><td>요구 항목을 섹션 헤더로 명시하면 누락이 줄어든다.</td><td class="f">8회 강화</td></tr>
 </table></div>
 
-<h2><i>05</i>회귀 하네스</h2>
-<p class="note">오프라인에서 결정적으로 도는 6개 태스크 하네스입니다. 통과율은 <b>모델 품질이 아니라 배선 회귀 신호</b>입니다 —
-fan-out 엣지나 노트 조인을 제거하면 즉시 6/6 → 0/6으로 떨어지고, 리듀서를 제거하면 병렬 업데이트 충돌로 크래시합니다.
-검출력을 변이 주입으로 직접 측정한 결과입니다.</p>
+<h2><i>05</i>회귀 하네스 — 검출력 실측</h2>
+<p class="note">오프라인에서 결정적으로 도는 6개 태스크 하네스입니다. 통과율은 <b>모델 품질이 아니라 배선 회귀 신호</b>입니다.
+아래 변이 주입 표는 <code>python -m tools.mutation_check</code>가 실제로 측정해 커밋한
+<code>eval/mutation_results.json</code>에서 렌더됩니다 — 구조 변이는 잡아내고, 관측 레이어 변이는 통과시키는
+<b>사각지대까지 그대로 공개</b>합니다.</p>
+<div class="card scroll" style="margin-bottom:14px"><table>
+<tr><th>변이</th><th>통과율</th><th>검출</th></tr>
+<tr><td>baseline (no mutation)</td><td class="f">6/6</td><td><span class="pill">BASELINE</span></td></tr>
+<tr><td>drop fan-out edge (researcher_requirements removed)</td><td class="f">0/6</td><td><span class="pill">DETECTED</span></td></tr>
+<tr><td>drop note join (writer sees no notes)</td><td class="f">0/6</td><td><span class="pill">DETECTED</span></td></tr>
+<tr><td>no-op A2A envelope log</td><td class="f">6/6</td><td><span class="pill" style="background:rgba(179,38,30,.1);color:#b3261e">MISSED</span></td></tr>
+<tr><td>block procedural-memory injection</td><td class="f">6/6</td><td><span class="pill" style="background:rgba(179,38,30,.1);color:#b3261e">MISSED</span></td></tr>
+</table></div>
 <div class="card scroll"><table>
 <tr><th>태스크</th><th>결과</th><th>재작성</th><th>누락 항목</th></tr>
 <tr><td class="f">proposal-helpdesk</td><td><span class="pill">PASS</span></td><td class="f">1 라운드</td><td class="f">—</td></tr>
@@ -161,5 +175,5 @@ fan-out 엣지나 노트 조인을 제거하면 즉시 6/6 → 0/6으로 떨어�
 </table></div>
 
 <footer>이 페이지는 <code>python -m tools.make_report</code> 로 실제 실행에서 생성됩니다 ·
-생성 시각 2026-07-28 10:02 · © 2026 hyunaeee</footer>
+생성 시각 2026-07-29 18:06 · © 2026 hyunaeee</footer>
 </div></body></html>
