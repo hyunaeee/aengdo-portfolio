@@ -287,6 +287,13 @@
         <div class="tags"><i class="tag hot">Model routing</i><i class="tag hot">MCP</i><i class="tag">Cost guards</i></div>
         <div class="acts"><span class="act" style="opacity:.45">Private deployment</span><a class="act" href="https://github.com/hyunaeee/terracotta" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
+    <div class="pj" data-p="tune">
+      <span class="shot"><span class="ph"><span class="e">🔬</span><span class="t">MED_RAG_TUNE</span></span></span>
+      <div class="m"><b>med-rag-tune — Measured QLoRA Iteration</b><em class="dt">2026.07</em>
+        <span>Fine-tuned a 7B model against the hallucination my own eval found — v1 cut fabricated quotes 2→0 but over-refused; auditing traced it to 22% mislabelled training data; repairing 8 labels measurably recovered quality (v1→v2). Base still wins, and the README says so.</span>
+        <div class="tags"><i class="tag hot">QLoRA</i><i class="tag hot">Data-quality A/B</i><i class="tag">Honest negative result</i></div>
+        <div class="acts"><a class="act" href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-tune" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
+    </div>
     <div class="pj" data-p="docent">
       <span class="shot"><span class="ph"><span class="e">🗺️</span><span class="t">SMART_DOCENT</span></span></span>
       <div class="m"><b>Smart Docent — Location-Aware AI Guide</b><em class="dt">2025.08 – ONGOING · TEAM OF 4</em>
@@ -467,6 +474,21 @@
       limits: "Prototype stage: subscription/credits are simulated and real calls need the user's own API keys. The benchmark is a rubric-based policy simulation, not a live model eval.",
       next: "Live-traffic routing evaluation, deeper garden-memory integration, production launch.",
       links: [["GITHUB ↗", "https://github.com/hyunaeee/terracotta"]]
+    },
+    tune: {
+      title: "med-rag-tune — Measured QLoRA Iteration", date: "2026.07",
+      results: ["<b>Fabricated quotes 2 → 0</b> (mechanical check, held-out 30) — the exact failure the eval had surfaced", "v1 over-refused as hypothesized in advance; audit found <b>8/37 abstain labels (22%) mislabelled</b> — the data verifier checked that abstention was expressed, not that it was warranted", "<b>Repairing 8 labels → grounding +0.23, helpfulness +0.17</b> on the same held-out (v1→v2) — a measured data-quality→model-quality link", "Base still wins on judge score — published as the engineering conclusion, not hidden"],
+      why: "The med-rag-vertex eval showed retrieval was right (gold 23/24) while the model asserted claims absent from the documents — a behavioural failure. The real deployment is an on-prem model inside a hospital network where the model cannot be swapped for a frontier API, so weight-level behaviour change is the realistic lever worth measuring.",
+      build: [
+        "<b>Targeted dataset</b> — 154 examples in three types (grounded / abstain / partial) generated from the synthetic corpus, mechanically verified before use: any answer quoting text absent from its context was dropped (12 rejected)",
+        "<b>QLoRA on one RTX 4090</b> — Qwen2.5-7B-Instruct, 4-bit NF4, rank 32, loss on the assistant turn only so the model learns the behaviour, not the corpus; 6–8.5 min per run",
+        "<b>Two independent scorers</b> — a mechanical hallucination check (cited filenames must exist, quoted spans must appear verbatim) plus an evidence-fed LLM judge; hypotheses incl. the over-refusal risk written down before the first run",
+        "<b>The iteration that matters</b> — v1's over-refusal was root-caused to mislabelled training data with audit_labels.py (a stronger model asked, with the context: is this actually unanswerable?), labels repaired, v2 retrained and re-measured on the same held-out"
+      ],
+      stack: ["Python", "QLoRA (peft + bitsandbytes)", "Qwen2.5-7B-Instruct", "transformers", "Gemini 2.5 Pro judge", "RTX 4090"],
+      limits: "n=30 held-out; judge deltas of 0.2–0.5 are directionally consistent with the objective counts but small-sample. v2 still over-refuses on 3/30. Production recommendation today: base + strict prompt + the safety-reviewer gate — the adapter is not net-positive at 154 examples.",
+      next: "Scale clean abstain data — the measured v1→v2 delta says data quality, not epochs or rank, is the active ingredient.",
+      links: [["GITHUB ↗", "https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-tune"]]
     },
     docent: {
       title: "Smart Docent — Location-Aware AI Guide", date: "2025.08 – ongoing · team of 4",
