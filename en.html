@@ -14,9 +14,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #f6f5f2; --card: #ffffff; --line: rgba(24,26,34,0.11);
-    --ink: #1c1e26; --dim: #62687a; --red: #e0394a;
-    --green-bg: rgba(30,158,99,0.1); --green: #157a4c; --green-line: rgba(30,158,99,.35);
+    --bg: #fafaf8; --card: #ffffff; --line: rgba(22,24,29,0.10);
+    --ink: #16181d; --dim: #6b7180; --red: #16181d;
+    --hair: rgba(22,24,29,0.17); --soft: rgba(22,24,29,0.04); --live: #2f9e68;
+    --green-bg: rgba(255,255,255,0.9); --green: #5d6472; --green-line: rgba(22,24,29,0.17);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg); color: var(--ink);
@@ -25,7 +26,7 @@
     -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
-  ::selection { background: rgba(224,57,74,0.18); }
+  ::selection { background: rgba(22,24,29,0.12); }
 
   /* ---------- header ---------- */
   header { padding: 64px 0 36px; border-bottom: 1px solid var(--line); }
@@ -65,7 +66,9 @@
   .case .pic { min-height: 260px; background: #0d0f16 url("assets/anam-splash.jpg") center/cover no-repeat; }
   .badge { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 10px;
     letter-spacing: 1.5px; padding: 4px 12px; border-radius: 100px;
-    background: var(--green-bg); color: var(--green); border: 1px solid var(--green-line);
+    background: var(--green-bg); color: var(--green); border: 1px solid var(--green-line); }
+  .badge::before { content: ""; display: inline-block; width: 5px; height: 5px;
+    border-radius: 50%; background: var(--live); margin-right: 6px; vertical-align: 1.5px;
     margin-bottom: 12px; }
   .case h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
   .case .meta { font-family: "JetBrains Mono", monospace; font-size: 11px; color: #949aa8;
@@ -87,7 +90,7 @@
   .pj img { width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: top; display: block; }
   .pj .ph { aspect-ratio: 16/9; display: flex; flex-direction: column; gap: 6px;
     align-items: center; justify-content: center;
-    background: radial-gradient(circle at 30% 25%, rgba(224,57,74,0.06), transparent 60%), #eef0f2; }
+    background: radial-gradient(circle at 30% 25%, rgba(22,24,29,0.05), transparent 60%), #f1f1ee; }
   .pj .ph .e { font-size: 30px; }
   .pj .ph .t { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 2px; color: #8b91a0; }
   .pj .m { padding: 13px 15px 15px; flex: 1; display: flex; flex-direction: column; }
@@ -98,7 +101,7 @@
   .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
   .tag { font-family: "JetBrains Mono", monospace; font-size: 9.5px; letter-spacing: 0.5px;
     padding: 3px 9px; border-radius: 100px; background: rgba(24,26,34,0.05); color: #4c5260; }
-  .tag.hot { background: rgba(224,57,74,0.08); color: #c93a49; }
+  .tag.hot { background: rgba(22,24,29,0.88); color: #f5f5f3; }
   .pj .shot { position: relative; display: block; cursor: pointer; }
   .pj .shot::after {
     content: "＋ Project details"; position: absolute; inset: 0; z-index: 1;
@@ -112,8 +115,8 @@
     font-size: 10.5px; letter-spacing: 1.5px; padding: 8px 0;
     border: 1px solid var(--line); border-radius: 8px; color: var(--dim); transition: 0.2s; }
   .act:hover { border-color: var(--red); color: var(--ink); }
-  .act.go { color: #157a4c; border-color: rgba(30,158,99,.4); }
-  .act.go:hover { border-color: #157a4c; color: #0e5c37; background: rgba(30,158,99,.06); }
+  .act.go { color: var(--ink); font-weight: 500; border-color: var(--hair); }
+  .act.go:hover { border-color: var(--ink); color: var(--ink); background: var(--soft); }
 
   /* project detail modal */
   .pm-ovl { position: fixed; inset: 0; z-index: 60; display: none;
@@ -144,9 +147,9 @@
   .pmsec p b, .pmsec li b, .pmres b { font-weight: 700; color: var(--ink); }
   .pmres { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   @media (max-width: 560px) { .pmres { grid-template-columns: 1fr; } }
-  .pmres > div { background: rgba(30, 158, 99, 0.07); border: 1px solid rgba(30, 158, 99, 0.22);
-    border-radius: 10px; padding: 9px 13px; font-size: 12.5px; line-height: 1.6; color: #1f5c40; }
-  .pmres > div::before { content: "✓ "; color: #157a4c; font-weight: 700; }
+  .pmres > div { background: var(--soft); border: 1px solid var(--line);
+    border-radius: 10px; padding: 9px 13px; font-size: 12.5px; line-height: 1.6; color: #383d49; }
+  .pmres > div::before { content: "✓ "; color: var(--live); font-weight: 700; }
   .pmsec ul { list-style: none; }
   .pmsec ul li { font-size: 13.5px; color: #3c4150; line-height: 1.8;
     padding-left: 16px; position: relative; margin-bottom: 5px; }
@@ -186,7 +189,7 @@
   @media (max-width: 760px) { .duo { grid-template-columns: 1fr; } }
 
   /* ---------- contact ---------- */
-  .contact { margin-top: 60px; background: #16181f; color: #eceaf0; border-radius: 18px;
+  .contact { margin-top: 60px; background: #16181d; color: #edece8; border-radius: 18px;
     padding: 44px 36px; text-align: center; }
   .contact h2 { color: #fff; margin: 0 0 8px; }
   .contact p { color: #a2a6b4; font-size: 14px; }
@@ -308,6 +311,13 @@
         <div class="tags"><i class="tag hot">MCP</i><i class="tag">Agent orchestration</i><i class="tag">GenAI media</i></div>
         <div class="acts"><a class="act" href="https://github.com/hyunaeee/higgsMCP" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
+    <div class="pj" data-p="factory">
+      <span class="shot"><img src="assets/automation.jpg" alt="Factory Studio work-order UI" loading="lazy" /></span>
+      <div class="m"><b>Factory Studio — Video Work-Order Pipeline</b><em class="dt">2026.08</em>
+        <span>One line of intent becomes a script, a compiled work order, a wave of parallel generations and a subtitled cut. A retry ladder rescues rejected shots, and resume-safe manifests mean a restart never pays twice.</span>
+        <div class="tags"><i class="tag hot">Pipeline orchestration</i><i class="tag hot">Idempotent resume</i><i class="tag">GenAI media</i></div>
+        <div class="acts"><span class="act" style="opacity:.45; pointer-events:none;">LOCAL TOOL</span></div></div>
+    </div>
     <div class="pj" data-p="legal">
       <span class="shot"><span class="ph"><span class="e">⚖️</span><span class="t">LEGAL_PDF_RAG</span></span></span>
       <div class="m"><b>Legal PDF RAG Chatbot</b><em class="dt">2025.06 – 2026.07</em>
@@ -349,6 +359,20 @@
         <span>63 dependency-free demos reproducing well-known interface designs in code — one file each, live preview beside its source, bilingual down to the text inside every demo.</span>
         <div class="tags"><i class="tag">63 demos</i><i class="tag">Zero dependencies</i><i class="tag">KO/EN</i></div>
         <div class="acts"><a class="act go" href="https://hyunaeee.github.io/design-gallery/" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/design-gallery" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
+    </div>
+    <div class="pj" data-p="studybrief">
+      <span class="shot"><img src="assets/studybrief.jpg" alt="Daily Study Briefing portal" loading="lazy" /></span>
+      <div class="m"><b>Daily Study Briefing</b><em class="dt">2026.08</em>
+        <span>A learning portal that rewrites itself every morning — three concepts, AI news and papers — then holds on to them with quizzes, mind maps and a review queue built from the questions you got wrong. No backend, no external API.</span>
+        <div class="tags"><i class="tag hot">Scheduled agent</i><i class="tag">Static site</i><i class="tag">Zero backend</i></div>
+        <div class="acts"><a class="act go" href="https://hyunaeee.github.io/daily-study-briefing/" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/daily-study-briefing" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
+    </div>
+    <div class="pj" data-p="universe">
+      <span class="shot"><img src="assets/universe.jpg" alt="3D solar system simulation" loading="lazy" /></span>
+      <div class="m"><b>Universe — 3D Solar System</b><em class="dt">2026.08</em>
+        <span>Pick any date between year 1 and 9999 and the planets move to where they actually were, computed from J2000 elements. Then fly it from a cockpit, or watch 13.8 billion years replay as a cinema.</span>
+        <div class="tags"><i class="tag hot">WebGL</i><i class="tag">Orbital mechanics</i><i class="tag">No build step</i></div>
+        <div class="acts"><a class="act go" href="https://universe-sample.vercel.app" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/universe-sample" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
   </div>
 
@@ -593,6 +617,53 @@
       limits: "With no build step there is no component reuse between demos, and curation cost grows with the collection.",
       next: "Tag and search filters, more demos, better source highlighting.",
       links: [["LIVE ↗", "https://hyunaeee.github.io/design-gallery/", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/design-gallery"]]
+    },
+    factory: {
+      title: "Factory Studio — Video Work-Order Pipeline", date: "2026.08",
+      results: ["One line of intent to a finished, subtitled cut, <b>unattended</b>", "Resume-safe: a restart <b>never re-bills</b> a completed job", "Dry-run exercises the whole pipeline at <b>zero credits</b>", "<b>6 media styles x 5 templates</b> through one compiler"],
+      why: "Every short drama, explainer or ad meant writing prompts from scratch again. Encode the structure once as a work order, and the medium and template become parameters instead of a rewrite.",
+      build: [
+        "<b>Work-order compiler</b> — a spec JSON becomes per-shot-group prompt text; standard library only, so it imports and runs standalone",
+        "<b>Script generation</b> — a one-line premise expands into a four-act arc with a recurring prop, and the dialogue budget is fitted to the shot length automatically",
+        "<b>Parallel waves with a retry ladder</b> — shots generate in waves; a rejected shot is resubmitted, then softened, before it is allowed to fail",
+        "<b>Idempotent resume</b> — the manifest records each job_id <i>before</i> polling, so an interrupted run continues instead of paying twice",
+        "<b>Assembly and receipt</b> — concat, arithmetic SRT, and an assembly.json carrying measured per-group durations and the full retry history"
+      ],
+      stack: ["Python (mostly stdlib)", "ffmpeg", "Higgsfield API", "Single-file UI (KO/EN/JA)", "Local queue runner"],
+      limits: "Generation needs an authenticated external API with credits, so this one is not publicly deployed. It runs locally against a queue runner.",
+      next: "Tighter character-reference locking, more templates, a shared team queue.",
+      links: []
+    },
+    studybrief: {
+      title: "Daily Study Briefing", date: "2026.08",
+      results: ["Regenerates itself <b>every morning</b> with no human step", "Concepts, news, trends and papers on <b>one page</b>", "Quiz to wrong-answer capture to <b>review queue</b>", "<b>No backend and no external API</b> — pure static"],
+      why: "Deciding what to study was eating the time meant for studying. I wanted something that picks the day's material for me and then makes sure I do not lose it a week later.",
+      build: [
+        "<b>Unattended refresh</b> — a scheduled Claude CLI run on my own machine writes the day's JSON, pushes, and GitHub Pages redeploys itself",
+        "<b>Learning loop</b> — deep dive, SVG mind map, then a four-question quiz with explanations; missed questions are collected into a review mode that drops them once answered correctly",
+        "<b>Adherence mechanics</b> — study streak, running accuracy and a GitHub-style 20-week contribution grid, all in localStorage",
+        "<b>Portal UX</b> — full-archive search, a study calendar, a starred library, keyword ranking, and hash routing so any concept is a deep link"
+      ],
+      stack: ["Static HTML/JS/JSON", "GitHub Pages", "Scheduled Claude CLI", "localStorage", "SVG"],
+      limits: "Progress lives only in browser localStorage, so it does not follow you across devices, and the refresh depends on my machine being awake.",
+      next: "Progress sync, selectable subject tracks, a shareable template build.",
+      links: [["LIVE ↗", "https://hyunaeee.github.io/daily-study-briefing/", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/daily-study-briefing"]]
+    },
+    universe: {
+      title: "Universe — 3D Solar System", date: "2026.08",
+      results: ["Planet positions for <b>any date, year 1 to 9999</b>", "8 planets, 5 dwarf planets, 9 moons, 4 satellites", "Cockpit flight and a <b>9-stage, 13.8-billion-year cinema</b>", "Ships as a <b>static site with no build step</b>"],
+      why: "Astronomy simulators tend to be either accurate and inert, or beautiful and empty. I wanted real orbital computation you are allowed to fly through.",
+      build: [
+        "<b>J2000 epoch math</b> — mean longitude plus measured orbital periods gives the configuration for an arbitrary date (circular-orbit approximation)",
+        "<b>Measured physics</b> — rotation periods and axial tilts are real values; Venus, Uranus and Pluto spin retrograde under the IAU convention",
+        "<b>Moon frame correction</b> — 1/T_rel = 1/T_moon − 1/T_planet, so satellites orbit at their true period in the parent's frame",
+        "<b>Cockpit flight</b> — thrust, roll, auto-navigation with obstacle avoidance, radar, a WebAudio engine, and collision handling that tells you what you hit",
+        "<b>Genesis cinema</b> — nine stages from a Big Bang whiteout to today, with 4,500 particles and three cross-faded Earth textures"
+      ],
+      stack: ["Three.js r128", "GLSL shaders", "Vanilla JS, single module", "WebAudio", "Vercel"],
+      limits: "Sizes and distances are exaggerated for legibility (at true scale the screen is empty), and the circular-orbit approximation drifts a few degrees from a real ephemeris.",
+      next: "Orbital eccentricity, comets and asteroids, an observer-location night-sky mode.",
+      links: [["LIVE ↗", "https://universe-sample.vercel.app", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/universe-sample"]]
     }
   };
 

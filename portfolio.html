@@ -9,8 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@300;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #f6f5f2; --card: #ffffff; --line: rgba(24,26,34,0.11);
-    --ink: #1c1e26; --dim: #62687a; --red: #e0394a;
+    --bg: #fafaf8; --card: #ffffff; --line: rgba(22,24,29,0.10);
+    --ink: #16181d; --dim: #6b7180; --red: #16181d;
+    --hair: rgba(22,24,29,0.17); --soft: rgba(22,24,29,0.04); --live: #2f9e68;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg); color: var(--ink); font-family: "Noto Sans KR", sans-serif;
@@ -66,15 +67,17 @@
   .web .badge { position: absolute; top: 8px; right: 8px; z-index: 2;
     font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 1.5px;
     padding: 3px 9px; border-radius: 100px; }
-  .badge.live, .pmbadge.live { background: rgba(30, 158, 99, 0.1); color: #157a4c; border: 1px solid rgba(30,158,99,.35); }
-  .badge.upd, .pmbadge.upd { background: rgba(224, 57, 74, 0.08); color: #c93a49; border: 1px solid rgba(224,57,74,.35); }
-  .badge.soon, .pmbadge.soon { background: rgba(196, 145, 42, 0.1); color: #a1751f; border: 1px solid rgba(196,145,42,.4); }
-  .badge.code, .pmbadge.code { background: rgba(64, 98, 214, 0.08); color: #3a5bc4; border: 1px solid rgba(64,98,214,.35); }
+  .badge.live, .pmbadge.live, .badge.upd, .pmbadge.upd,
+  .badge.soon, .pmbadge.soon, .badge.code, .pmbadge.code {
+    background: rgba(255,255,255,0.9); color: #5d6472; border: 1px solid var(--hair); }
+  .badge.live::before, .pmbadge.live::before {
+    content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--live); margin-right: 5px; vertical-align: 1.5px; }
   .badge { background-clip: padding-box; backdrop-filter: blur(3px); }
   .web .ph {
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
     aspect-ratio: 16/9.4;
-    background: radial-gradient(circle at 30% 25%, rgba(224,57,74,0.06), transparent 60%), #eef0f2;
+    background: radial-gradient(circle at 30% 25%, rgba(22,24,29,0.05), transparent 60%), #f1f1ee;
   }
   .web .ph .e { font-size: 30px; }
   .web .ph .t { font-family: "JetBrains Mono", monospace; font-size: 11px;
@@ -86,9 +89,9 @@
     border: 1px solid var(--line); border-radius: 8px; color: var(--dim); transition: 0.2s;
   }
   .act:hover { border-color: var(--red); color: var(--ink); }
-  .act.go { color: #157a4c; border-color: rgba(30, 158, 99, 0.4); }
-  .act.go:hover { border-color: #157a4c; color: #0e5c37; background: rgba(30,158,99,.06); }
-  .act.off { opacity: 0.4; pointer-events: none; }
+  .act.go { color: var(--ink); font-weight: 500; border-color: var(--hair); }
+  .act.go:hover { border-color: var(--ink); color: var(--ink); background: var(--soft); }
+  .act.off { opacity: 0.55; pointer-events: none; }
   .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
   .filter {
     font-family: "JetBrains Mono", "Noto Sans KR", monospace; font-size: 11.5px; letter-spacing: 0.5px;
@@ -106,10 +109,10 @@
     background: rgba(255, 255, 255, 0.82); color: #4c5260;
     border: 1px solid rgba(24, 26, 34, 0.12); backdrop-filter: blur(4px);
   }
-  .web[data-cat="app"]::before { content: "📱 APP"; }
-  .web[data-cat="ai"]::before { content: "🤖 AI"; }
-  .web[data-cat="web"]::before { content: "🌐 WEB"; }
-  .web[data-cat="play"]::before { content: "🎮 PLAY"; }
+  .web[data-cat="app"]::before { content: "APP"; }
+  .web[data-cat="ai"]::before { content: "AI"; }
+  .web[data-cat="web"]::before { content: "WEB"; }
+  .web[data-cat="play"]::before { content: "PLAY"; }
   .shot { position: relative; display: block; cursor: pointer; }
   .shot::after {
     content: "＋ 프로젝트 상세"; position: absolute; inset: 0; z-index: 1;
@@ -156,9 +159,9 @@
   .pmsec p b, .pmsec li b, .pmres b { font-weight: 700; color: var(--ink); }
   .pmres { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   @media (max-width: 560px) { .pmres { grid-template-columns: 1fr; } }
-  .pmres > div { background: rgba(30, 158, 99, 0.07); border: 1px solid rgba(30, 158, 99, 0.22);
-    border-radius: 10px; padding: 9px 13px; font-size: 12.5px; line-height: 1.6; color: #1f5c40; }
-  .pmres > div::before { content: "✓ "; color: #157a4c; font-weight: 700; }
+  .pmres > div { background: var(--soft); border: 1px solid var(--line);
+    border-radius: 10px; padding: 9px 13px; font-size: 12.5px; line-height: 1.6; color: #383d49; }
+  .pmres > div::before { content: "✓ "; color: var(--live); font-weight: 700; }
   .pmsec ul { list-style: none; }
   .pmsec ul li { font-size: 13.5px; color: #3c4150; line-height: 1.8;
     padding-left: 16px; position: relative; margin-bottom: 5px; }
@@ -202,7 +205,8 @@
     gap: 12px; margin-top: 30px; }
   .role { border: 1px solid var(--line); border-radius: 12px; background: var(--card);
     padding: 18px 20px; }
-  .role .ic { font-size: 22px; }
+  .role .ic { font-family: "JetBrains Mono", monospace; font-size: 11px;
+    letter-spacing: 1.5px; color: var(--dim); }
   .role b { display: block; font-family: "Space Grotesk", "Noto Sans KR", sans-serif;
     font-size: 15.5px; font-weight: 700; margin: 8px 0 4px; }
   .role b i { font-style: normal; color: var(--red); }
@@ -233,21 +237,21 @@
     <div class="actions">
       <a class="btn hot" href="mailto:hyunaeee@gmail.com">✉ CONTACT</a>
       <a class="btn" href="https://github.com/hyunaeee" target="_blank">GITHUB</a>
-      <a class="btn" href="en.html">🌐 ENGLISH</a>
+      <a class="btn" href="en.html">ENGLISH</a>
       <a class="btn" href="index.html">🍒 AENGDO OS로 부팅</a>
-      <a class="btn" href="story.html">📖 스토리 모드</a>
+      <a class="btn" href="story.html">스토리 모드</a>
     </div>
     <div class="roles">
-      <div class="role"><div class="ic">🤖</div>
+      <div class="role"><div class="ic">01</div>
         <b>AI <i>에이전트</i> 개발</b>
         <span>고려대 안암병원에 납품·운영 중인 진료 보조 에이전트(온프렘 LLM), 멀티에이전트 오케스트레이션·평가 파이프라인, 법률 RAG, MCP 자동화까지.</span></div>
-      <div class="role"><div class="ic">🛠️</div>
+      <div class="role"><div class="ic">02</div>
         <b>웹 및 모바일 <i>서비스</i> 개발·배포</b>
         <span>기획부터 배포까지 혼자서. 모바일 앱·SaaS·게임·3D 웹 등 라이브 서비스 운영 중.</span></div>
-      <div class="role"><div class="ic">🎬</div>
+      <div class="role"><div class="ic">03</div>
         <b>AI <i>콘텐츠</i> 제작</b>
         <span>영상 · 이미지 · 음악을 생성형 AI 파이프라인으로. 한수원 교육 시리즈 납품, 서울콘 DDP 전시.</span></div>
-      <div class="role"><div class="ic">🎓</div>
+      <div class="role"><div class="ic">04</div>
         <b>강의 &amp; <i>전시</i></b>
         <span>학교·기관 대상 AI 콘텐츠 제작 강의, 초대 작가 전시, 유튜브 튜토리얼 채널 운영.</span></div>
     </div>
@@ -304,13 +308,13 @@
   </div>
 
   <h2><i>02</i>BUILT &amp; SHIPPED</h2>
-  <div class="sub">웹 및 모바일 서비스 개발·배포 — <span style="color:#1c1e26; font-weight:500;">카드를 누르면 프로젝트 상세</span>(기획 의도·설계·기술 스택·차별점·한계·로드맵)가 열리고, 버튼으로 <span style="color:#157a4c">라이브 사이트</span>와 GitHub 코드로 바로 이동해요</div>
+  <div class="sub">웹 및 모바일 서비스 개발·배포 — <span style="color:#16181d; font-weight:500;">카드를 누르면 프로젝트 상세</span>(기획 의도·설계·기술 스택·차별점·한계·로드맵)가 열리고, 버튼으로 <span style="color:#16181d; font-weight:500;">라이브 사이트</span>와 GitHub 코드로 바로 이동해요</div>
   <div class="filters" id="pfilters">
     <button class="filter on" data-f="all">전체</button>
-    <button class="filter" data-f="app">📱 모바일 앱</button>
-    <button class="filter" data-f="ai">🤖 AI 서비스</button>
-    <button class="filter" data-f="web">🌐 웹 서비스</button>
-    <button class="filter" data-f="play">🎮 게임·토이</button>
+    <button class="filter" data-f="app">모바일 앱</button>
+    <button class="filter" data-f="ai">AI 서비스</button>
+    <button class="filter" data-f="web">웹 서비스</button>
+    <button class="filter" data-f="play">게임·토이</button>
   </div>
   <div class="webs">
     <div class="web" data-cat="ai" data-p="medrag">
@@ -328,7 +332,7 @@
     <div class="web" data-cat="ai" data-p="terracotta">
       <span class="badge soon">PROTOTYPE</span>
       <a class="shot" href="https://github.com/hyunaeee/terracotta" target="_blank"><img src="assets/terracotta.jpg" alt="Terracotta — 멀티 모델 AI 작업실" loading="lazy"/></a>
-      <div class="m"><b>TERRACOTTA</b><em class="dt">2026.07</em><span>멀티 모델 AI 작업실 · 요청 성격별 자동 라우팅 — 오프라인 정책 벤치마크 <b>비용 −52.4%</b> · MCP Hub(승인 게이팅)·예산 가드 · 지식 정원 🪴</span></div>
+      <div class="m"><b>TERRACOTTA</b><em class="dt">2026.07</em><span>멀티 모델 AI 작업실 · 요청 성격별 자동 라우팅 — 오프라인 정책 벤치마크 <b>비용 −52.4%</b> · MCP Hub(승인 게이팅)·예산 가드 · 지식 정원</span></div>
       <div class="acts"><span class="act off">로그인 필요 (비공개 배포)</span><a class="act" href="https://github.com/hyunaeee/terracotta" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="docent">
@@ -340,7 +344,7 @@
     <div class="web" data-cat="ai" data-p="meeting">
       <span class="badge live">LIVE</span>
       <a class="shot" href="meeting/" target="_blank"><img src="assets/meeting.jpg" alt="사내 회의 어시스턴트" loading="lazy"/></a>
-      <div class="m"><b>회의 어시스턴트</b><em class="dt">2026.06 – 2026.07</em><span>녹음 → 전사·화자 분리 → Claude 회의록 → Notion 자동 저장 · 사내 SSO·권한 분리 · 데모 제공 📝</span></div>
+      <div class="m"><b>회의 어시스턴트</b><em class="dt">2026.06 – 2026.07</em><span>녹음 → 전사·화자 분리 → Claude 회의록 → Notion 자동 저장 · 사내 SSO·권한 분리 · 데모 제공</span></div>
       <div class="acts"><a class="act go" href="meeting/" target="_blank">LIVE ↗</a><span class="act off">코드 비공개 (사내)</span></div>
     </div>
     <div class="web" data-cat="web" data-p="dg">
@@ -370,7 +374,7 @@
     <div class="web" data-cat="app" data-p="walkmate">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://hyunaeee.github.io/walk-mate/" target="_blank"><img src="assets/walkmate.jpg" alt="워크메이트" loading="lazy"/></a>
-      <div class="m"><b>워크메이트 (WALK-MATE)</b><em class="dt">2026.07</em><span>테마별 서울 산책 코스 추천 · 3D 지도 위를 캐릭터가 실제 보행로 따라 걷는 프리뷰 🚶</span></div>
+      <div class="m"><b>워크메이트 (WALK-MATE)</b><em class="dt">2026.07</em><span>테마별 서울 산책 코스 추천 · 3D 지도 위를 캐릭터가 실제 보행로 따라 걷는 프리뷰</span></div>
       <div class="acts"><a class="act go" href="https://hyunaeee.github.io/walk-mate/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/walk-mate" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="web" data-p="tableon">
@@ -385,16 +389,28 @@
       <div class="m"><b>하루 한 장 (DAILY BOOK)</b><em class="dt">2026.01</em><span>일기를 모아 한 권의 책으로 만드는 웹앱 · Google 로그인/게스트</span></div>
       <div class="acts"><a class="act go" href="https://daily-book-bce82.web.app/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/daily-book" target="_blank">GITHUB ↗</a></div>
     </div>
-    <div class="web" data-cat="play" data-p="stress">
+    <div class="web" data-cat="ai" data-p="factory">
+      <span class="badge code">LOCAL TOOL</span>
+      <a class="shot" href="#"><img src="assets/automation.jpg" alt="Factory Studio — 워크오더 방식 영상 공장" loading="lazy"/></a>
+      <div class="m"><b>FACTORY STUDIO</b><em class="dt">2026.08</em><span>한 줄 명령 → 대본 → 워크오더 → 병렬 생성 → 자막·조립까지 도는 무인 영상 제작 공장</span></div>
+      <div class="acts"><span class="act off">로컬 실행 전용 (비공개)</span></div>
+    </div>
+    <div class="web" data-cat="web" data-p="studybrief">
       <span class="badge live">LIVE</span>
-      <a class="shot" href="https://stress-game-ddakbam.vercel.app/" target="_blank"><img src="assets/stress.jpg" alt="직장 상사 스트레스 날리기" loading="lazy"/></a>
-      <div class="m"><b>STRESS BREAKER</b><em class="dt">2026.01</em><span>미운 상사 사진 올리고 딱밤 때리는 스트레스 해소 게임 💢</span></div>
-      <div class="acts"><a class="act go" href="https://stress-game-ddakbam.vercel.app/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/stress-game" target="_blank">GITHUB ↗</a></div>
+      <a class="shot" href="https://hyunaeee.github.io/daily-study-briefing/" target="_blank"><img src="assets/studybrief.jpg" alt="매일 학습 브리핑" loading="lazy"/></a>
+      <div class="m"><b>매일 학습 브리핑</b><em class="dt">2026.08</em><span>CS·마케팅·AI를 매일 아침 자동으로 큐레이션하는 학습 포털 · 퀴즈·마인드맵·잔디·복습</span></div>
+      <div class="acts"><a class="act go" href="https://hyunaeee.github.io/daily-study-briefing/" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/daily-study-briefing" target="_blank">GITHUB ↗</a></div>
+    </div>
+    <div class="web" data-cat="play" data-p="universe">
+      <span class="badge live">LIVE</span>
+      <a class="shot" href="https://universe-sample.vercel.app" target="_blank"><img src="assets/universe.jpg" alt="가상 우주 — 인터랙티브 3D 태양계" loading="lazy"/></a>
+      <div class="m"><b>가상 우주 (UNIVERSE)</b><em class="dt">2026.08</em><span>실제 천문 데이터로 도는 3D 태양계 · 날짜 달력·조종석 비행·138억 년 탄생 시네마</span></div>
+      <div class="acts"><a class="act go" href="https://universe-sample.vercel.app" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/universe-sample" target="_blank">GITHUB ↗</a></div>
     </div>
     <div class="web" data-cat="ai" data-p="sajumob">
       <span class="badge live">LIVE</span>
       <a class="shot" href="https://saju-ai-mobile-demo.vercel.app" target="_blank"><img src="assets/cheongiyeon.jpg" alt="천기연 — AI 사주 풀이" loading="lazy"/></a>
-      <div class="m"><b>천기연 天機緣</b><em class="dt">2026.07</em><span>신녀 연화의 AI 사주 풀이 · 만세력·진태양시 보정·대운·신살 — 고민 맞춤 해석 🔮</span></div>
+      <div class="m"><b>천기연 天機緣</b><em class="dt">2026.07</em><span>신녀 연화의 AI 사주 풀이 · 만세력·진태양시 보정·대운·신살 — 고민 맞춤 해석</span></div>
       <div class="acts"><a class="act go" href="https://saju-ai-mobile-demo.vercel.app" target="_blank">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/saju-ai-mobile" target="_blank">GITHUB ↗</a></div>
     </div>
   </div>
@@ -683,18 +699,48 @@
       limits: "PDF·실물 인쇄 내보내기와 검색·태그가 아직 없습니다.",
       next: "PDF/전자책 내보내기, 감정 태그, 월간 회고 요약."
     },
-    stress: {
-      results: ["사진 업로드 → <b>딱밤</b> 즉시 플레이", "설치·로그인 <b>제로</b>"],
-      why: "직장 스트레스를 가장 직관적으로(그리고 안전하게) 푸는 방법 — 미운 사람 사진에 딱밤. 농담에서 시작해 진짜로 만들었습니다.",
-      build: [
-        "<b>캔버스 합성</b> — 업로드한 사진에 클릭(딱밤)마다 타격 이펙트와 리액션",
-        "<b>정적 SPA</b> — Vercel 배포, 바로 실행"
-      ],
-      stack: ["JavaScript", "Canvas", "Vercel"],
-      limits: "순수 오락용이고, 모바일 햅틱은 지원하지 않아요.",
-      next: "타격 콤보·랭킹, 사운드 팩, 공유 카드."
-    },
 
+    factory: {
+      results: ["한 줄 → 완성 영상까지 <b>무인 파이프라인</b>", "재개 설계 — 중간에 죽어도 <b>재과금 없음</b>", "드라이런으로 <b>크레딧 0</b> 전체 테스트", "매체 6종 × 템플릿 5종이 같은 공장에서"],
+      why: "숏드라마·지식쇼츠·광고를 만들 때마다 프롬프트를 처음부터 다시 짜고 있었어요. 매체와 템플릿만 갈아 끼우면 같은 구조로 도는 '공장'을 만들면 그 반복이 사라집니다.",
+      build: [
+        "<b>워크오더 컴파일러</b> — 스펙 JSON → 샷그룹별 프롬프트 전문. 표준 라이브러리만 써서 단독 임포트 가능",
+        "<b>대본 생성</b> — 한 줄/주제에서 기승전결 아크와 관통 소품을 잡고 발화 예산을 자동으로 맞춤",
+        "<b>병렬 생성 + 리트라이 래더</b> — 웨이브 단위로 생성하고, 실패하면 재제출 → 완곡화 순으로 자동 승급",
+        "<b>재개 설계</b> — manifest가 job_id를 폴링 전에 기록해서 재시작해도 이어서 진행 (중복 과금 차단)",
+        "<b>조립·영수증</b> — concat + 산술 SRT + 그룹별 실측 길이와 리트라이 내역이 담긴 assembly.json"
+      ],
+      stack: ["Python (표준 라이브러리 위주)", "ffmpeg", "Higgsfield API", "단일 파일 UI (ko/en/ja)", "로컬 큐 러너"],
+      limits: "영상 생성 단계는 외부 API 로그인·크레딧이 필요해서 공개 배포하지 않았습니다. 로컬에서 <code>python studio/server.py</code> 로 띄웁니다.",
+      next: "레퍼런스 잠금 정확도 개선, 템플릿 추가, 팀 단위 큐."
+    },
+    studybrief: {
+      results: ["<b>매일 아침 7시</b> 자동 갱신 — 사람 손 0", "개념 3분야 + 뉴스·동향·논문을 한 페이지에", "퀴즈 → 오답 수집 → 복습까지 <b>학습 루프</b>", "외부 API·백엔드 없이 <b>정적 사이트</b>"],
+      why: "매일 뭘 공부할지 찾는 데 시간을 다 썼어요. '오늘 볼 것'을 대신 정해주고, 본 걸 잊지 않게 붙잡아주는 개인 포털이 필요했습니다.",
+      build: [
+        "<b>무인 갱신</b> — 로컬 PC의 Claude CLI가 새 콘텐츠 JSON을 만들어 push → GitHub Pages 자동 재배포",
+        "<b>학습 루프</b> — 딥다이브 → SVG 마인드맵 → 4문제 퀴즈(채점·해설) → 틀린 문제 자동 수집 → 복습 모드",
+        "<b>지속 장치</b> — 학습 스트릭·평균 정답률·GitHub식 잔디 20주 그래프, 전부 localStorage",
+        "<b>포털 UX</b> — 지난 날짜 전체 검색, 학습 달력, 보관함(☆ 저장), 키워드 랭킹, 해시 라우팅 딥링크"
+      ],
+      stack: ["순수 정적 HTML/JS/JSON", "GitHub Pages", "Claude CLI 배치", "localStorage", "SVG"],
+      limits: "진도가 브라우저 localStorage에만 남아서 기기를 옮기면 초기화되고, 갱신은 제 PC가 켜져 있어야 돕니다.",
+      next: "진도 동기화, 분야 선택 확장, 공유용 템플릿 배포."
+    },
+    universe: {
+      results: ["행성 배치를 <b>날짜로 재현</b> — 1년~9999년 달력", "행성 8 + 왜소행성 5 + 위성 9 + 인공위성 4기", "조종석 비행 · <b>138억 년 탄생 시네마</b> 9단계", "빌드 과정 없는 <b>순수 정적 사이트</b>"],
+      why: "천문 시뮬레이터는 대개 '정확하지만 지루하거나', '예쁘지만 데이터가 없거나' 둘 중 하나였어요. 실제 궤도 계산 위를 직접 날아다닐 수 있는 우주를 만들고 싶었습니다.",
+      build: [
+        "<b>J2000 역기점 계산</b> — 평균 황경 + 실측 공전 주기로 임의 날짜의 행성 배치 산출 (원 궤도 근사)",
+        "<b>실측 물리</b> — 자전 주기·자전축 기울기 반영, 금성·천왕성·명왕성은 IAU 기준으로 역행 자전",
+        "<b>위성 좌표계 보정</b> — 1/T_rel = 1/T_moon − 1/T_planet 로 모행성 기준 실제 공전 주기 재현",
+        "<b>조종석 비행</b> — 추력·롤·자동 항법(장애물 회피)·레이더·WebAudio 엔진음, 충돌 판정과 폭발 연출",
+        "<b>탄생 시네마</b> — 빅뱅 화이트아웃부터 오늘까지 9단계, 파티클 4,500개 + 지구 텍스처 3장 크로스페이드"
+      ],
+      stack: ["Three.js r128", "GLSL 셰이더", "바닐라 JS 단일 모듈", "WebAudio", "Vercel"],
+      limits: "크기·거리 비율은 교육용으로 과장돼 있고(실제 비율이면 화면에 아무것도 안 보여요), 원 궤도 근사라 실제 천체력과 수 도 차이가 납니다.",
+      next: "궤도 이심률 반영, 혜성·소행성 추가, 관측 지점 기준 밤하늘 모드."
+    },
     sajumob: {
       results: ["자체 만세력 엔진 — <b>진태양시 보정</b>(서울 −32분)", "10년 대운·신살까지 계산", "Claude가 <b>고민 맞춤</b> 해석"],
       why: "사주 서비스 대부분이 생년월일만 받아 누구에게나 비슷한 결과를 줍니다. 절기·시각·태어난 지역까지 제대로 계산하는 '진짜' 사주 풀이를 만들고 싶었어요.",
