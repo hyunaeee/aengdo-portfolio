@@ -201,8 +201,10 @@
   .chip { font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: 1px;
     padding: 7px 14px; border-radius: 100px; border: 1px solid var(--line); color: var(--dim); }
 
-  .roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  .roles { display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 12px; margin-top: 30px; }
+  @media (max-width: 1000px) { .roles { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .roles { grid-template-columns: 1fr; } }
   .role { border: 1px solid var(--line); border-radius: 12px; background: var(--card);
     padding: 18px 20px; }
   .role .ic { font-family: "JetBrains Mono", monospace; font-size: 11px;
@@ -394,6 +396,12 @@
       <a class="shot" href="#"><img src="assets/automation.jpg" alt="Factory Studio — 워크오더 방식 영상 공장" loading="lazy"/></a>
       <div class="m"><b>FACTORY STUDIO</b><em class="dt">2026.08</em><span>한 줄 명령 → 대본 → 워크오더 → 병렬 생성 → 자막·조립까지 도는 무인 영상 제작 공장</span></div>
       <div class="acts"><span class="act off">로컬 실행 전용 (비공개)</span></div>
+    </div>
+    <div class="web" data-cat="web" data-p="realty">
+      <span class="badge live">LIVE</span>
+      <a class="shot" href="https://real-property-checking-system.vercel.app/" target="_blank"><img src="assets/realty.jpg" alt="부동산 종합 분석 시스템" loading="lazy"/></a>
+      <div class="m"><b>부동산 종합 분석 시스템</b><em class="dt">2026.08</em><span>지도 위 실거래가 · 동네 추천 · 대출·세금 자금 계획 · 갈아타기 시나리오 · 재개발 뉴스 시그널 · 규제 모니터링</span></div>
+      <div class="acts"><a class="act go" href="https://real-property-checking-system.vercel.app/" target="_blank">LIVE ↗</a><span class="act off">코드 비공개</span></div>
     </div>
     <div class="web" data-cat="web" data-p="studybrief">
       <span class="badge live">LIVE</span>
@@ -713,6 +721,20 @@
       stack: ["Python (표준 라이브러리 위주)", "ffmpeg", "Higgsfield API", "단일 파일 UI (ko/en/ja)", "로컬 큐 러너"],
       limits: "영상 생성 단계는 외부 API 로그인·크레딧이 필요해서 공개 배포하지 않았습니다. 로컬에서 <code>python studio/server.py</code> 로 띄웁니다.",
       next: "레퍼런스 잠금 정확도 개선, 템플릿 추가, 팀 단위 큐."
+    },
+    realty: {
+      results: ["국토부 실거래가 3종 API + 카카오 지오코딩(영구 캐시)", "<b>LTV·DSR·취득세</b>까지 계산해 매수 가능 여부 판정", "구글 뉴스 크롤링으로 호재·악재 시그널 산출", "API 키 없이도 데모 데이터로 전 기능 동작"],
+      why: "집을 알아볼 때 실거래가, 동네 평판, 대출 한도, 세금, 규제를 전부 다른 사이트에서 찾아야 했습니다. 지도 한 화면에서 '내 자금으로 여기를 살 수 있는가'까지 답이 나오게 만들었습니다.",
+      build: [
+        "<b>매물 수집</b> — 아파트·연립다세대·단독다가구 실거래가 API를 유형별로 호출하고, 오피스텔·도시형생활주택은 제외 규칙으로 걸러냅니다",
+        "<b>동네 검색</b> — 별칭(망리단길 등) → 법정동 이름 매칭 → OSM 지오코딩 후 최근접 법정동 스냅 순으로 해석",
+        "<b>자금 계획 엔진</b> — 보유현금·연봉(부부합산)·생애최초·출산 여부로 LTV·DSR·절대한도 대출 가능액을 추정하고, 취득세 감면과 중개보수를 반영해 실제 필요 현금을 산출",
+        "<b>역세권 계산</b> — 매물과 최근접 역의 하버사인 거리를 도보 67m/분으로 환산해 800m 이내를 역세권으로 표시",
+        "<b>뉴스 시그널</b> — 구글 뉴스 RSS를 크롤링해 호재·악재 키워드 가중치로 상승·하락 시그널을 내고, 규제 뉴스는 별도로 변경을 감지"
+      ],
+      stack: ["FastAPI", "Leaflet 지도 SPA", "국토부 실거래가 API", "카카오 지오코딩", "Vercel 서버리스(Python/ASGI)"],
+      limits: "실거래가 API가 좌표를 주지 않아 지도 마커는 단지별 근사 위치입니다. 뉴스 시그널은 기사 제목 키워드 기반 참고 지표이고 투자 자문이 아닙니다. 규제 정보는 작성 시점 기준이며, 서버리스라 지오코딩 캐시는 인스턴스 메모리에만 유지됩니다.",
+      next: "지오코딩 캐시 외부 저장, 규제 데이터 갱신 주기 단축, 서울 외 지역 확장."
     },
     studybrief: {
       results: ["<b>매일 아침 7시</b> 자동 갱신 — 사람 손 0", "개념 3분야 + 뉴스·동향·논문을 한 페이지에", "퀴즈 → 오답 수집 → 복습까지 <b>학습 루프</b>", "외부 API·백엔드 없이 <b>정적 사이트</b>"],

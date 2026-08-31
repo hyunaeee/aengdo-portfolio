@@ -360,6 +360,13 @@
         <div class="tags"><i class="tag">63 demos</i><i class="tag">Zero dependencies</i><i class="tag">KO/EN</i></div>
         <div class="acts"><a class="act go" href="https://hyunaeee.github.io/design-gallery/" target="_blank" rel="noopener">LIVE ↗</a><a class="act" href="https://github.com/hyunaeee/design-gallery" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
+    <div class="pj" data-p="realty">
+      <span class="shot"><img src="assets/realty.jpg" alt="Seoul property analysis system" loading="lazy" /></span>
+      <div class="m"><b>Seoul Property Analysis System</b><em class="dt">2026.08</em>
+        <span>Transaction prices on a live map, neighbourhood search by local nickname, and a financing engine that turns cash + salary into an LTV/DSR loan ceiling, acquisition tax and the cash you actually need — plus redevelopment news signals and regulation monitoring.</span>
+        <div class="tags"><i class="tag hot">Public-data pipeline</i><i class="tag">FastAPI</i><i class="tag">Geospatial</i></div>
+        <div class="acts"><a class="act go" href="https://real-property-checking-system.vercel.app/" target="_blank" rel="noopener">LIVE ↗</a><span class="act" style="opacity:.45; pointer-events:none;">CODE PRIVATE</span></div></div>
+    </div>
     <div class="pj" data-p="studybrief">
       <span class="shot"><img src="assets/studybrief.jpg" alt="Daily Study Briefing portal" loading="lazy" /></span>
       <div class="m"><b>Daily Study Briefing</b><em class="dt">2026.08</em>
@@ -664,6 +671,22 @@
       limits: "Sizes and distances are exaggerated for legibility (at true scale the screen is empty), and the circular-orbit approximation drifts a few degrees from a real ephemeris.",
       next: "Orbital eccentricity, comets and asteroids, an observer-location night-sky mode.",
       links: [["LIVE ↗", "https://universe-sample.vercel.app", "go"], ["GITHUB ↗", "https://github.com/hyunaeee/universe-sample"]]
+    },
+    realty: {
+      title: "Seoul Property Analysis System", date: "2026.08",
+      results: ["Three government transaction APIs joined with Kakao geocoding", "<b>LTV / DSR / acquisition tax</b> resolved into one buy-or-not answer", "Google News crawled into positive and negative price signals", "Runs fully on demo data with <b>no API keys</b>"],
+      why: "Looking for a flat meant checking transaction prices, neighbourhood reputation, loan limits, tax and regulation on five different sites. This puts them on one map and answers the question that actually matters: can I buy here with what I have?",
+      build: [
+        "<b>Listing pipeline</b> — apartments, row houses and detached houses come from three separate government APIs; officetels and urban-living housing are excluded by rule and reported as a filtered count",
+        "<b>Neighbourhood search</b> — resolves a query through local nicknames, then legal dong names, then OSM geocoding snapped to the nearest legal dong",
+        "<b>Financing engine</b> — cash, household salary, first-time-buyer and childbirth status produce an LTV/DSR/absolute-cap loan estimate, then acquisition-tax relief and broker fees give the real cash requirement",
+        "<b>Transit proximity</b> — haversine distance to the nearest station converted at 67 m per walking minute, flagged within 800 m",
+        "<b>News signals</b> — Google News RSS crawled and weighted by positive/negative keywords, with regulation news monitored separately for change"
+      ],
+      stack: ["FastAPI", "Leaflet SPA", "MOLIT transaction APIs", "Kakao geocoding", "Vercel serverless (Python/ASGI)"],
+      limits: "The transaction API returns no coordinates, so map markers are approximate per complex. News signals are a keyword-based reference, not investment advice, and regulation data is point-in-time. On serverless the geocoding cache lives only in instance memory.",
+      next: "External geocoding cache, faster regulation refresh, coverage beyond Seoul.",
+      links: [["LIVE ↗", "https://real-property-checking-system.vercel.app/", "go"]]
     }
   };
 
