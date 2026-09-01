@@ -253,8 +253,8 @@
         one of the most conservative production environments an AI system can enter.</p>
       <div class="fact-rows">
         <div class="fact"><b>SCOPE</b><span>Conception → data pipeline → RAG architecture → delivery &amp; iteration with hospital stakeholders</span></div>
-        <div class="fact"><b>PIPELINE</b><span>Unstructured medical documents → chunking &amp; embedding → vector retrieval → grounded generation</span></div>
-        <div class="fact"><b>CONSTRAINTS</b><span>Medical-domain accuracy and safety expectations; Korean clinical terminology</span></div>
+        <div class="fact"><b>PIPELINE</b><span>Unstructured medical documents → chunking &amp; embedding → vector retrieval (Chroma + LangChain) → grounded generation (Gemma 3 27B on Ollama, fully on-premise)</span></div>
+        <div class="fact"><b>CONSTRAINTS</b><span>Medical-domain accuracy and safety expectations; Korean clinical terminology; cases retrieved before guidelines, with a 'same age/sex ≠ same case' check so lookalike records are never cited as evidence</span></div>
         <div class="fact"><b>FOLLOW-UP</b><span>Trusted with continued work — designed the hospital app's splash &amp; loading screens (2026.07)</span></div>
         <div class="fact"><b>CLOUD PORT</b><span>Re-architected on Vertex AI — Gemini + ADK multi-agent (researcher → safety reviewer) with an LLM-judge eval pipeline: <a href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line)">med-rag-vertex ↗</a></span></div>
         <div class="fact"><b>LIVE DEMO</b><span>Interactive simulation of the delivered Streamlit UI — retrieval, re-ranking, guideline fallback and feedback learning: <a href="med-rag/" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line)">try it in the browser ↗</a></span></div>
@@ -286,7 +286,7 @@
     <div class="pj" data-p="terracotta">
       <span class="shot"><img src="assets/terracotta.jpg" alt="Terracotta — multi-model AI workspace" loading="lazy" /></span>
       <div class="m"><b>Terracotta — Multi-Model AI Workspace</b><em class="dt">2026.07</em>
-        <span>One workspace that routes each request across GPT / Claude / Perplexity / Higgsfield — benchmarked at −52% cost vs a single frontier model — with an approval-gated MCP hub, cost guards, and a growing pixel garden.</span>
+        <span>One workspace that routes each request across GPT / Claude / Perplexity / Higgsfield — benchmarked in simulation at −52.4% cost vs the priciest single-model baseline — with an approval-gated MCP hub, cost guards, and a growing pixel garden.</span>
         <div class="tags"><i class="tag hot">Model routing</i><i class="tag hot">MCP</i><i class="tag">Cost guards</i></div>
         <div class="acts"><span class="act" style="opacity:.45">Private deployment</span><a class="act" href="https://github.com/hyunaeee/terracotta" target="_blank" rel="noopener">GITHUB ↗</a></div></div>
     </div>
@@ -396,8 +396,8 @@
       <span>Invited to exhibit at "AI Exhibition: Beyond Fluxus," SeoulCon at Dongdaemun Design Plaza (2025.12).</span></div>
     <div class="sk"><b><i>▸</i>Teaching &amp; technical communication</b>
       <span>2.5 years teaching coding at international schools — in English (2023.04–2025.12);
-        AI webtoon/shorts workshops for public-school students; a five-part children's energy-education
-        video series for Korea Hydro &amp; Nuclear Power (delivered 2026.03).</span></div>
+        an AI webtoon/shorts workshop at a public middle school in Asan (2025.12); a five-part children's energy-education
+        video series for Korea Hydro &amp; Nuclear Power (started 2025.11, delivered 2026.03).</span></div>
   </div>
 
   <!-- ============ 05 STACK ============ -->
@@ -408,9 +408,9 @@
     <div class="sk"><b><i>/02</i>RAG &amp; Data Pipelines</b>
       <span>Chunking &amp; embedding strategies for structured and unstructured data · vector retrieval · grounded generation for high-stakes domains (medical, legal).</span></div>
     <div class="sk"><b><i>/03</i>Agents &amp; MCP</b>
-      <span>Multi-agent systems with LangGraph (supervisor fan-out, critic loops) and ADK (sequential agents, self-reflection) · custom MCP-server integrations · tool-using workflows across Claude, Gemini and Solar.</span></div>
+      <span>Multi-agent systems with LangGraph (supervisor fan-out, critic loops) and ADK (sequential agents, self-reflection) · custom MCP-server integrations · A2A-style message envelopes · shared and procedural agent memory · tool-using workflows across Claude, Gemini and Solar.</span></div>
     <div class="sk"><b><i>/04</i>Full-Stack Shipping</b>
-      <span>Web &amp; mobile products from design to deployment — 15+ shipped services, apps and games, several in live operation.</span></div>
+      <span>Web &amp; mobile products from design to deployment — 21 built solo, 13 of them still live.</span></div>
   </div>
 
   <!-- ============ 06 TRACK RECORD ============ -->
@@ -418,20 +418,22 @@
   <div class="cols">
     <div class="tl">
       <h4>EXPERIENCE</h4>
-      <div><b>2025.09 –</b><span>Like Corporation — AI Engineer, Development Division<em>full-time · internal AI systems and agents; customer delivery incl. Korea Univ. Anam Hospital clinical RAG (2025.10) and KHNP</em></span></div>
+      <div><b>2025.09 –</b><span>Like Corporation — Manager, AI Engineering (Development Division)<em>full-time · sole engineer on the company's meeting-automation service; internal AI systems and agents; customer delivery incl. Korea Univ. Anam Hospital clinical RAG (2025.10) and KHNP</em></span></div>
       <div><b>2025.08 –</b><span>Smart Docent — team lead, 4-person team<em>location-aware AI tour guide · LangGraph multi-agent · ongoing</em></span></div>
       <div><b>2025.09</b><span>NC AI (NCSOFT) — AI Research Engineer<em>2-week contract · left for the full-time role above</em></span></div>
       <div><b>2024.04 – 06</b><span>SolverX (then VoltWin) — startup, engineering</span></div>
       <div><b>2023.10 – 24.02</b><span>LightMomentus — founding engineer</span></div>
       <div><b>2023.04 – 25.12</b><span>Beyond Coding — CS instructor<em>international schools · taught in English</em></span></div>
-      <div><b>2023.01 – 03</b><span>Korea Brain Research Institute<em>also 2019.01–03, cognitive neuroscience lab</em></span></div>
+      <div><b>2023.01 – 03</b><span>Korea Brain Research Institute<em>also 2019.01–03 · three stints across three labs — behaviour-experiment tooling, CNN-based analysis, experiment GUI + DeepLabCut</em></span></div>
+      <div><b>2022.04 – 12</b><span>TnbSchoolEdu — freelance instructor<em>nationwide high-school CS career-experience programs</em></span></div>
     </div>
     <div class="tl">
       <h4>EDUCATION</h4>
       <div><b>2017.03 – 23.08</b><span>Korea University — dual B.E. degrees<em>Computer Convergence Software · Brain and Cognitive Sciences</em></span></div>
       <div><b>2019.12 – 20.05</b><span>National University of Singapore<em>Computer Science exchange</em></span></div>
       <div><b>2024.07 – 25.02</b><span>Upstage AI Lab — 4th cohort<em>intensive ML/LLM engineering program</em></span></div>
-      <div><b>2023.09 – 12</b><span>Korea Univ. Intelligent-Information SW Academy</span></div>
+      <div><b>2023.09 – 12</b><span>Korea Univ. Intelligent-Information SW Academy — 3rd cohort</span></div>
+      <div><b>2021</b><span>AWS training courses<em>Deep Learning on AWS · The Machine Learning Pipeline on AWS</em></span></div>
     </div>
   </div>
 
@@ -477,10 +479,10 @@
     },
     orchestra: {
       title: "Agent Orchestra", date: "2026.07",
-      results: ["<b>6/6 eval pass</b> — deterministic offline run", "3-researcher <b>parallel fan-out</b> + critic rewrite loop", "Procedural memory — critic-approved lessons persist as JSON and are re-injected into later runs (deduped, reinforcement-counted)", "Runs with zero API keys → usable as a CI regression test"],
+      results: ["<b>6/6 eval pass</b> — deterministic offline run; mutation injection drops it to 0/6 when the fan-out edge or the note join is removed, so it catches wiring regressions, not quality", "3-researcher <b>parallel fan-out</b> + critic rewrite loop", "Procedural memory — critic-approved lessons persist as JSON and are re-injected into later runs (deduped, reinforcement-counted)", "Runs with zero API keys → usable as a CI regression test"],
       why: "The skeleton of a multi-agent system — orchestration, memory, evaluation — should be verifiable independently of model quality. A minimal-complete reference that generalizes the 'verifiable agent' principles learned shipping med-rag.",
       build: [
-        "<b>LangGraph orchestration</b> — a supervisor fans out to three lens-specific researchers (requirements / risks / format); notes merge via reducers into a writer → critic chain",
+        "<b>LangGraph orchestration</b> — a supervisor fans out to three lens-specific researchers (requirements / risks / format); the three run in one superstep — three 0.5s stubs, 1.5s sequential → 0.51s measured — and their notes merge through an Annotated[list, operator.add] reducer into a writer → critic chain",
         "<b>Rewrite loop</b> — the critic's conditional edge gates approve/revise; every hop is logged as an A2A envelope (sender, recipient, intent)",
         "<b>Dual memory</b> — shared rolling context plus procedural 'lessons' persisted on approval and auto-injected into later runs",
         "<b>Evals & tracing</b> — rule-based judge offline, LLM-judge with a key, LangSmith spans layered on top"
@@ -492,7 +494,7 @@
     },
     terracotta: {
       title: "Terracotta — Multi-Model AI Workspace", date: "2026.07",
-      results: ["Routing benchmark: <b>−52.4% cost · +11.5% quality</b> vs the priciest single-model baseline", "<b>Cross-provider review</b> — a backup model from another provider verifies drafts", "MCP tools with <b>approval gating</b> + security-first OAuth (PKCE S256 · AES-GCM)", "Usage ledger + <b>monthly budget guard</b> for provider costs"],
+      results: ["Routing benchmark: <b>−52.4% cost · +11.5% quality</b> vs the priciest single-model baseline · the reversal is reported too — <b>+58.8%</b> vs pinning a cheap model", "<b>Cross-provider review</b> — a backup model from another provider verifies drafts", "MCP tools with <b>approval gating</b> + security-first OAuth (PKCE S256 · AES-GCM)", "Usage ledger + <b>monthly budget guard</b> for provider costs"],
       why: "Different AIs are good at different jobs, but juggling browser tabs is friction. Terracotta picks the best model for each request, keeps provider costs guarded — and turns usage into a personal knowledge garden that grows.",
       build: [
         "<b>Multi-model router</b> — classifies each task (general / research / creative), picks a planner by preference and latest-model rank, delegates research to Perplexity; D1-backed automatic model registry",
@@ -502,7 +504,7 @@
         "<b>Policy benchmark</b> — an offline bench mirroring the router's policy and registry price seeds compares 5 policies over 24 tasks on cost and quality"
       ],
       stack: ["TypeScript", "Next.js 16 + Cloudflare Workers", "D1 + Drizzle (registry · usage ledger)", "MCP (Streamable HTTP + OAuth PKCE)", "Routing policy benchmark"],
-      limits: "Prototype stage: subscription/credits are simulated and real calls need the user's own API keys. The benchmark is a rubric-based policy simulation, not a live model eval.",
+      limits: "Prototype stage: subscription/credits are simulated and real calls need the user's own API keys. The benchmark is a policy simulation with no live calls, not a live model eval: quality is a self-defined rubric proxy, and swapping in the real classifier shrinks the gain.",
       next: "Live-traffic routing evaluation, deeper garden-memory integration, production launch.",
       links: [["GITHUB ↗", "https://github.com/hyunaeee/terracotta"]]
     },
@@ -526,7 +528,7 @@
       results: ["<b>LangGraph multi-agent</b> docent behind a live Mapbox map — a moving map, not a mockup", "Real-time geolocation tracking with camera choreography", "<b>4 languages</b> (KO/EN/JA/ZH) propagated through UI and place data", "Ongoing 4-person team project since 2025.08"],
       why: "Tourists walk past centuries of Seoul's history with nothing but static signboards. We wanted a docent that knows where you are actually standing — following your position in real time and answering like a local expert, in your language.",
       build: [
-        "<b>My role — team lead of 4</b>: product planning, AI data preprocessing for the place/tour content that feeds the agents, and character design",
+        "<b>My role — team lead of 4</b>: product definition, architecture decisions, the place-data pipeline the agents ground on, and character design — the agent implementation is shared with teammates",
         "<b>Location pipeline</b> — browser Geolocation streams live coordinates; Mapbox GL JS renders landmark markers with smooth camera moves (demo: Gyeongbokgung, Bukchon, Changdeokgung, Insadong, Cheonggyecheon)",
         "<b>Agent relay</b> — a Next.js API route passes the selected place and question context to a LangGraph-based multi-agent docent, with a local fallback when the LLM endpoint is unavailable",
         "<b>Modular by design</b> — place data, map style and LLM endpoint are independently swappable; API keys live only in server environment variables"
@@ -538,11 +540,11 @@
     },
     meeting: {
       title: "Meeting Assistant Agent", date: "2026.06 – 2026.07",
-      results: ["<b>56-min meeting → speaker diarization in ~28s</b> (chunked pyannote)", "One pipeline: record → transcribe → minutes → <b>auto-saved to Notion</b> → email", "Google SSO + <b>per-team permissions</b> (users see only their own minutes)", "Live demo — full UI on fake data, nothing stored"],
-      why: "Someone always has to write the minutes. This internal tool makes recording the only manual step — it grew from a local CLI (meeting-notes) into a web UI + Docker service.",
+      results: ["<b>56-min meeting → speaker diarization in ~28s</b> (chunked pyannote)", "One pipeline: record → transcribe → minutes → <b>auto-saved to Notion</b> → email", "Google SSO restricted to the company domain + <b>four-tier role separation</b> (users see only their own minutes)", "Live demo — full UI on fake data, nothing stored"],
+      why: "Someone always has to write the minutes. This internal tool makes recording the only manual step — it grew from a local CLI (meeting-notes) I wrote alone into a web UI + Docker service, now in internal production at Like Corporation (FastAPI + React, ~3.7K LOC).",
       build: [
         "<b>Transcription pipeline</b> — faster-whisper large-v3 (CUDA/float16) with per-meeting language selection (Korean / English / auto-detect)",
-        "<b>Speaker diarization</b> — chunked pyannote 3.1 processes a 56-minute file in ~28 seconds, with AI-inferred speaker names",
+        "<b>Speaker diarization</b> — pyannote 3.1 clustering is O(n²) in embedding count, so the file is split into 5-minute chunks and speaker embeddings merged globally by cosine similarity — the same 56-minute file went from 40+ minutes to ~28 seconds (RTX 4090, internal measurement), with AI-inferred speaker names",
         "<b>Minutes generation & delivery</b> — Claude structures summary, agenda, decisions and action items as JSON → per-team Notion DBs plus an admin-wide DB → SMTP delivery",
         "<b>Internal-ops design</b> — Google SSO (company accounts only), usage stats by registrant/team/month, admin-only log viewer, Docker Compose deployment"
       ],
