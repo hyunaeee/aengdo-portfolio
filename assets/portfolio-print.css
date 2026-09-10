@@ -1,142 +1,102 @@
-/* The export has its own layout so filters, WebGL and the viewport cannot affect it. */
-#portfolio-print {
-  position: fixed;
-  left: -12000px;
-  top: 0;
-  width: 186mm;
-  color: #17201d;
-  background: #fff;
-  font-family: "Noto Sans KR", Arial, sans-serif;
-  font-size: 9pt;
-  font-weight: 300;
-  line-height: 1.65;
-  pointer-events: none;
-  visibility: hidden;
-}
+/* A separate A4 layout, unaffected by screen filters, modals or 3D rendering. */
+#portfolio-print { position: fixed; left: -12000px; top: 0; width: 186mm; visibility: hidden; pointer-events: none; background: #fff; color: #152721; font-family: "Noto Sans KR", Arial, sans-serif; font-size: 9pt; font-weight: 400; line-height: 1.6; }
 #portfolio-print, #portfolio-print * { box-sizing: border-box; }
 #portfolio-print * { margin: 0; }
-#portfolio-print a { color: #243f35; text-decoration: none; overflow-wrap: anywhere; }
+#portfolio-print h1, #portfolio-print h2, #portfolio-print h3, #portfolio-print p { padding: 0; }
+#portfolio-print a { color: #265444; text-decoration: none; overflow-wrap: anywhere; }
 #portfolio-print img { display: block; max-width: 100%; }
 #portfolio-print strong, #portfolio-print b { font-weight: 700; }
-#portfolio-print .pf-page {
-  width: 186mm;
-  min-height: 271mm;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  break-after: page;
-  page-break-after: always;
-}
+#portfolio-print .pf-page { width: 186mm; min-height: 270mm; display: flex; flex-direction: column; break-after: page; page-break-after: always; }
 #portfolio-print .pf-page:last-child { break-after: auto; page-break-after: auto; }
-#portfolio-print .pf-page-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 0 0 4mm;
-  margin: 0 0 5mm;
-  border-bottom: 0.3mm solid #243f35;
-  gap: 6mm;
-}
-#portfolio-print .pf-page-title {
-  font-family: "Space Grotesk", "Noto Sans KR", sans-serif;
-  font-size: 17pt;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-#portfolio-print .pf-eyebrow {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 7pt;
-  line-height: 1.5;
-  letter-spacing: 0.1em;
-  color: #5b6f64;
-}
-#portfolio-print .pf-page-body { flex: 1; }
-#portfolio-print .pf-page-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5mm;
-  padding-top: 3mm;
-  margin-top: 5mm;
-  border-top: 0.2mm solid #bac4bd;
-  color: #5b6f64;
-  font: 7pt/1.5 "JetBrains Mono", monospace;
-}
-#portfolio-print .pf-cover .pf-page-body { display: flex; flex-direction: column; }
-#portfolio-print .pf-cover-name {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 46pt;
-  font-weight: 700;
-  line-height: 1.06;
-  letter-spacing: -0.05em;
-  margin-top: 4mm;
-}
-#portfolio-print .pf-cover-name span { color: #5b7864; }
-#portfolio-print .pf-cover-role { font: 15pt/1.5 "Space Grotesk", sans-serif; margin-top: 3mm; }
-#portfolio-print .pf-cover-intro { max-width: 162mm; font-size: 11pt; line-height: 1.9; margin-top: 5mm; }
-#portfolio-print .pf-poster {
-  width: 100%;
-  height: 65mm;
-  object-fit: contain;
-  object-position: center;
-  margin: 7mm 0 2mm;
-  border: 0.2mm solid #c8d0ca;
-  border-radius: 3mm;
-  background: #edf1e8;
-}
-#portfolio-print .pf-poster-caption { font-size: 7pt; color: #5b6f64; }
-#portfolio-print .pf-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm 7mm; margin-top: 7mm; }
-#portfolio-print .pf-role { border-top: 0.25mm solid #a8b6ac; padding-top: 3mm; break-inside: avoid; }
-#portfolio-print .pf-role h3 { font-size: 11pt; margin-bottom: 1.5mm; line-height: 1.5; }
-#portfolio-print .pf-role p { font-size: 8.5pt; line-height: 1.8; color: #3f4f46; }
-#portfolio-print .pf-cover-bottom { margin-top: auto; padding-top: 7mm; display: flex; justify-content: space-between; gap: 7mm; font-size: 8pt; }
-#portfolio-print .pf-projects { display: flex; flex-direction: column; gap: 6mm; }
-#portfolio-print .pf-project { border: 0.25mm solid #bac4bd; border-radius: 2.5mm; padding: 4mm; break-inside: avoid; page-break-inside: avoid; }
-#portfolio-print .pf-project-heading { display: flex; gap: 4mm; align-items: flex-start; margin-bottom: 2.5mm; }
-#portfolio-print .pf-project-heading > div { flex: 1; min-width: 0; }
-#portfolio-print .pf-project-shot { width: 44mm; height: 25mm; object-fit: cover; object-position: top; border: 0.2mm solid #d5dcd7; border-radius: 1mm; flex: none; }
-#portfolio-print .pf-project h3 { font: 700 14pt/1.35 "Space Grotesk", "Noto Sans KR", sans-serif; margin: 1mm 0; }
-#portfolio-print .pf-project-meta { font: 6.7pt/1.5 "JetBrains Mono", "Noto Sans KR", monospace; color: #566d5f; letter-spacing: 0.02em; }
-#portfolio-print .pf-project-desc { font-size: 8.2pt; line-height: 1.65; color: #3f4f46; }
-#portfolio-print .pf-project-section { display: grid; grid-template-columns: 15mm 1fr; gap: 3mm; margin-top: 2.2mm; align-items: baseline; }
-#portfolio-print .pf-label { color: #45634f; font-size: 7.5pt; font-weight: 700; }
-#portfolio-print .pf-project-section p, #portfolio-print .pf-project-section ul { font-size: 8.2pt; line-height: 1.7; }
-#portfolio-print .pf-results { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1mm 4mm; }
-#portfolio-print .pf-results li { position: relative; padding-left: 2.5mm; }
-#portfolio-print .pf-results li::before { content: "·"; position: absolute; left: 0; font-weight: 700; }
-#portfolio-print .pf-stack-text { font-family: "JetBrains Mono", "Noto Sans KR", monospace; font-size: 7.2pt !important; color: #3f4f46; }
-#portfolio-print .pf-project-links { display: flex; flex-direction: column; gap: 1mm; margin-top: 3mm; border-top: 0.2mm solid #d5dcd7; padding-top: 2mm; font: 6.5pt/1.55 "JetBrains Mono", "Noto Sans KR", monospace; }
-#portfolio-print .pf-project-links a { display: block; }
-#portfolio-print .pf-link-label { display: inline-block; min-width: 19mm; font-weight: 700; }
-#portfolio-print .pf-access { font-size: 7pt; color: #5b6f64; }
-#portfolio-print .pf-section-heading { font-size: 11pt; font-weight: 700; margin: 5mm 0 3mm; }
-#portfolio-print .pf-section-heading:first-child { margin-top: 0; }
-#portfolio-print .pf-works { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
-#portfolio-print .pf-work { break-inside: avoid; border: 0.2mm solid #bac4bd; padding: 2mm; border-radius: 1.5mm; }
-#portfolio-print .pf-work img { width: 100%; height: 26mm; object-fit: cover; margin-bottom: 2mm; }
-#portfolio-print .pf-work h3 { font-size: 8.5pt; line-height: 1.5; }
-#portfolio-print .pf-work p { font-size: 6.5pt; color: #5b6f64; line-height: 1.6; }
-#portfolio-print .pf-audio { margin: 4mm 0; padding: 3mm 0; border-block: 0.2mm solid #bac4bd; font-size: 8pt; }
-#portfolio-print .pf-stacks { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
-#portfolio-print .pf-stack { padding: 3mm; border: 0.2mm solid #bac4bd; border-radius: 1.5mm; break-inside: avoid; }
-#portfolio-print .pf-stack h3 { font: 700 7.5pt/1.5 "JetBrains Mono", monospace; margin-bottom: 2mm; }
-#portfolio-print .pf-stack p { font-size: 8pt; line-height: 1.9; }
-#portfolio-print .pf-stack small { display: block; font-size: 7pt; color: #5b6f64; margin-top: 2mm; }
-#portfolio-print .pf-timeline { margin-bottom: 5mm; }
-#portfolio-print .pf-timeline h3 { font: 700 8pt/1.5 "JetBrains Mono", monospace; margin: 0 0 3mm; }
-#portfolio-print .pf-timeline-row { display: grid; grid-template-columns: 31mm 1fr; gap: 4mm; padding: 1.7mm 0; border-bottom: 0.15mm solid #dce2dd; break-inside: avoid; }
-#portfolio-print .pf-timeline-row b { font: 7.5pt/1.8 "JetBrains Mono", monospace; color: #506657; }
-#portfolio-print .pf-timeline-row p { font-size: 8.5pt; line-height: 1.7; }
-#portfolio-print .pf-contacts { display: flex; flex-wrap: wrap; gap: 2mm 5mm; margin-top: 3mm; }
-#portfolio-print .pf-contacts a { font: 7.5pt/1.65 "JetBrains Mono", monospace; }
-#portfolio-print .pf-contact-note { font-size: 8pt; margin-top: 4mm; color: #3f4f46; }
+#portfolio-print .pf-page-head { display: flex; justify-content: space-between; align-items: baseline; gap: 7mm; border-bottom: .35mm solid #234938; padding: 0 0 4mm; margin: 0 0 5mm; }
+#portfolio-print .pf-page-title { font-family: "Space Grotesk", "Noto Sans KR", sans-serif; font-size: 14pt; font-weight: 700; line-height: 1.3; letter-spacing: -.025em; }
+#portfolio-print .pf-eyebrow { font: 7pt/1.6 "JetBrains Mono", "Noto Sans KR", monospace; color: #557261; letter-spacing: .06em; }
+#portfolio-print .pf-page-head > .pf-eyebrow { text-align: right; max-width: 100mm; }
+#portfolio-print .pf-page-body { flex: 1; display: flex; flex-direction: column; gap: 3.5mm; }
+#portfolio-print .pf-page-footer { display: flex; justify-content: space-between; gap: 5mm; padding: 3mm 0 0; margin: 5mm 0 0; border-top: .2mm solid #b4c5b9; color: #557261; font: 7pt/1.5 "JetBrains Mono", monospace; }
+#portfolio-print .pf-block { flex: 0 0 auto; break-inside: avoid; page-break-inside: avoid; min-width: 0; }
+#portfolio-print .pf-section-title { font-size: 11pt; line-height: 1.4; font-weight: 700; margin-bottom: 2mm; }
+#portfolio-print .pf-block > .pf-eyebrow { margin-bottom: 1mm; }
+#portfolio-print .pf-copy { font-size: 8.7pt; line-height: 1.8; color: #33493c; }
+#portfolio-print .pf-copy + .pf-copy { margin-top: 1.6mm; }
+#portfolio-print .pf-small { font-size: 7.3pt; line-height: 1.65; color: #5b7062; }
+#portfolio-print .pf-bullets { padding: 0 0 0 4mm; font-size: 8.3pt; line-height: 1.75; color: #33493c; }
+#portfolio-print .pf-bullets li { margin: .7mm 0; }
+#portfolio-print .pf-copy + .pf-bullets { margin-top: 1.5mm; }
+#portfolio-print .pf-name { font: 700 43pt/1.1 "Space Grotesk", Arial, sans-serif; letter-spacing: -.045em; margin: 4mm 0 3mm; }
+#portfolio-print .pf-position { font: 500 14pt/1.6 "Space Grotesk", "Noto Sans KR", sans-serif; color: #365d49; }
+#portfolio-print .pf-headline { font-size: 21pt; font-weight: 700; line-height: 1.5; letter-spacing: -.025em; margin: 9mm 0 5mm; max-width: 177mm; }
+#portfolio-print .pf-intro { font-size: 10.5pt; line-height: 1.95; color: #405548; }
+#portfolio-print .pf-cover-contacts { display: flex; flex-wrap: wrap; gap: 2mm 7mm; margin-top: 6mm; font: 8pt/1.6 "JetBrains Mono", monospace; }
+#portfolio-print .pf-case-index { margin-top: 9mm; }
+#portfolio-print .pf-index-case { display: flex; gap: 5mm; padding: 4mm 0; border-top: .2mm solid #bdccc1; break-inside: avoid; }
+#portfolio-print .pf-index-number { flex: none; font: 9pt/1.6 "JetBrains Mono", monospace; color: #6b8978; }
+#portfolio-print .pf-index-case h3 { font: 700 12pt/1.5 "Space Grotesk", "Noto Sans KR", sans-serif; }
+#portfolio-print .pf-index-case p { font-size: 8.5pt; line-height: 1.75; color: #405548; }
+#portfolio-print .pf-index-case .pf-index-status { font-size: 7.3pt; color: #627a6b; margin-top: 1mm; }
+#portfolio-print .pf-cover-note { margin-top: auto; padding-top: 6mm; }
+#portfolio-print .pf-cover-note > a { display: inline-block; font-size: 8pt; margin-top: 2mm; }
+#portfolio-print .pf-project-top { display: flex; align-items: flex-start; gap: 7mm; }
+#portfolio-print .pf-project-heading { flex: 1; min-width: 0; }
+#portfolio-print .pf-project-title { font: 700 23pt/1.25 "Space Grotesk", "Noto Sans KR", sans-serif; letter-spacing: -.035em; margin: 1mm 0 2mm; }
+#portfolio-print .pf-project-subtitle { font-size: 10pt; line-height: 1.6; color: #486651; }
+#portfolio-print .pf-project-image { width: 48mm; height: 28mm; flex: none; object-fit: contain; object-position: center; border: .2mm solid #cbd7ce; border-radius: 1mm; background: #f3f5f1; }
+#portfolio-print .pf-summary { font-size: 9.5pt; line-height: 1.8; margin: 3mm 0; color: #304839; }
+#portfolio-print .pf-facts { margin-top: 3mm; border-top: .2mm solid #bccfc1; }
+#portfolio-print .pf-facts > div { display: grid; grid-template-columns: 20mm 1fr; gap: 4mm; padding: 1.1mm 0; border-bottom: .15mm solid #dce5df; }
+#portfolio-print .pf-facts dt { font-size: 7.3pt; color: #5c7766; font-weight: 700; }
+#portfolio-print .pf-facts dd { font-size: 8.2pt; line-height: 1.65; }
+#portfolio-print .pf-stack { font: 7.1pt/1.7 "JetBrains Mono", "Noto Sans KR", monospace !important; color: #536e5c; }
+#portfolio-print .pf-compact-intro .pf-project-title { font-size: 18pt; }
+#portfolio-print .pf-compact-intro .pf-project-subtitle { font-size: 8.5pt; }
+#portfolio-print .pf-table { border-collapse: collapse; table-layout: auto; width: 100%; font-size: 8pt; line-height: 1.65; }
+#portfolio-print .pf-table th { font-weight: 700; font-size: 7.2pt; color: #365442; text-align: left; padding: 2mm 2.5mm; border-top: .25mm solid #668573; border-bottom: .2mm solid #b6c8bb; }
+#portfolio-print .pf-table td { vertical-align: top; padding: 2mm 2.5mm; border-bottom: .15mm solid #d1ded5; overflow-wrap: anywhere; }
+#portfolio-print .pf-table th:first-child, #portfolio-print .pf-table td:first-child { padding-left: 0; }
+#portfolio-print .pf-table tr { break-inside: avoid; }
+#portfolio-print .pf-metrics .pf-table td:nth-child(2) { font-weight: 700; color: #1c4631; min-width: 23mm; }
+#portfolio-print .pf-metrics .pf-table td:first-child { width: 30%; }
+#portfolio-print .pf-metrics .pf-table td:last-child { width: 48%; font-size: 7.5pt; color: #4f6657; }
+#portfolio-print .pf-diagram { display: flex; list-style: none; padding: 0; border: .2mm solid #adc2b3; margin-top: 3mm; }
+#portfolio-print .pf-diagram-step { flex: 1; min-width: 0; padding: 3mm; border-right: .2mm solid #cbd8cf; }
+#portfolio-print .pf-diagram-step:last-child { border-right: 0; }
+#portfolio-print .pf-step-number { display: block; font: 6.5pt/1.5 "JetBrains Mono", monospace; color: #72917e; margin-bottom: 1mm; }
+#portfolio-print .pf-diagram-step strong { display: block; font-size: 8pt; line-height: 1.6; }
+#portfolio-print .pf-diagram-step p { font-size: 7.1pt; line-height: 1.75; color: #4e6657; margin-top: 1mm; }
+#portfolio-print .pf-decision { border-left: .6mm solid #739b82; padding-left: 3.5mm; }
+#portfolio-print .pf-decision .pf-section-title { font-size: 10pt; }
+#portfolio-print .pf-limitations { border-top: .2mm solid #bbc9bf; padding-top: 3mm; }
+#portfolio-print .pf-limitations .pf-section-title { font-size: 9pt; }
+#portfolio-print .pf-limitations .pf-bullets { font-size: 7.7pt; }
+#portfolio-print .pf-sources .pf-section-title { font-size: 8pt; }
+#portfolio-print .pf-source-link { display: grid; grid-template-columns: minmax(22mm, auto) 1fr; gap: 4mm; font: 6.6pt/1.6 "JetBrains Mono", "Noto Sans KR", monospace; padding: .8mm 0; }
+#portfolio-print .pf-source-link strong { color: #234e36; font-size: 7pt; }
+#portfolio-print .pf-source-link span { min-width: 0; }
+#portfolio-print .pf-experience-row { display: grid; grid-template-columns: 28mm 1fr; gap: 5mm; border-bottom: .15mm solid #d3ded6; padding: 3mm 0; break-inside: avoid; }
+#portfolio-print .pf-experience-row:first-child { padding-top: 0; }
+#portfolio-print .pf-experience-period { font: 7.2pt/1.7 "JetBrains Mono", monospace; color: #627b6b; }
+#portfolio-print .pf-experience-row h3 { font-size: 10pt; line-height: 1.5; }
+#portfolio-print .pf-experience-role { font-size: 8pt; color: #43634c; margin: 1mm 0; }
+#portfolio-print .pf-experience-row .pf-copy { font-size: 8pt; }
+#portfolio-print .pf-anatomy { padding-top: 3mm; }
+#portfolio-print .pf-anatomy-layout { display: flex; gap: 4mm; align-items: flex-start; }
+#portfolio-print .pf-anatomy-image { width: 57mm; height: 33mm; object-fit: contain; object-position: top; flex: none; border: .15mm solid #c8d6cd; }
+#portfolio-print .pf-anatomy-layout > div { flex: 1; min-width: 0; }
+#portfolio-print .pf-anatomy .pf-copy { font-size: 8pt; }
+#portfolio-print .pf-anatomy .pf-bullets { font-size: 7pt; margin-top: 1mm; }
+#portfolio-print .pf-anatomy .pf-sources { margin-top: 2mm; }
+#portfolio-print .pf-contact { padding-top: 3mm; margin-top: auto; }
+#portfolio-print .pf-email { display: inline-block; font: 500 15pt/1.5 "Space Grotesk", Arial, sans-serif; margin-bottom: 2mm; }
+#portfolio-print .pf-archive-item { padding-top: 3mm; border-top: .2mm solid #bccdbf; }
+#portfolio-print .pf-archive-item .pf-section-title { margin-bottom: 1mm; }
+#portfolio-print .pf-archive-item .pf-copy { margin-top: 1mm; }
+#portfolio-print .pf-archive-item .pf-sources { margin-top: 1mm; }
 @page { size: A4 portrait; margin: 12mm; }
 @media print {
   html { margin: 0 !important; padding: 0 !important; background: #fff !important; }
   body, body.pm-lock { margin: 0 !important; padding: 0 !important; width: auto !important; height: auto !important; min-height: 0 !important; overflow: visible !important; background: #fff !important; }
-  body > *:not(#portfolio-print) { display: none !important; }
-  #portfolio-print { position: static; left: auto; top: auto; visibility: visible; pointer-events: auto; display: block !important; width: 186mm; }
+  body:has(#portfolio-print) > *:not(#portfolio-print) { display: none !important; }
+  #portfolio-print { position: static; left: auto; top: auto; width: 186mm; visibility: visible; pointer-events: auto; display: block !important; }
   #portfolio-print .pf-page { break-inside: avoid-page; page-break-inside: avoid; }
   #portfolio-print a { text-decoration: none !important; }
   #portfolio-print a::after { content: none !important; }

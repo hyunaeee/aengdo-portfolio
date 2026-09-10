@@ -1,0 +1,90 @@
+# Manual, isolated lab only. Nothing here was executed as part of CPU verification.
+services:
+  engine:
+    image: ${VLLM_IMAGE:?Resolve and pin the vLLM registry digest first}
+    restart: "no"
+    shm_size: 2gb
+    command:
+      - --model
+      - ${MODEL_ID:?Locked model id required}
+      - --revision
+      - ${MODEL_REVISION:?Immutable model commit required}
+      - --tokenizer-revision
+      - ${TOKENIZER_REVISION:?Immutable tokenizer commit required}
+      - --served-model-name
+      - ${SERVED_MODEL:?Unique candidate name required}
+      - --dtype
+      - ${MODEL_DTYPE:?Explicit precision required}
+      - --max-model-len
+      - ${MAX_MODEL_LEN:?Locked context limit required}
+      - --max-num-seqs
+      - ${MAX_NUM_SEQS:?Locked engine concurrency required}
+      - --gpu-memory-utilization
+      - ${GPU_MEMORY_UTILIZATION:?Locked memory fraction required}
+      - --enable-prefix-caching
+      - --disable-log-requests
+    volumes:
+      - model-cache:/root/.cache/huggingface
+    expose: ["8000"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["${GPU_DEVICE_UUID:?Confirm one idle GPU UUID; never target the active meeting assistant}"]
+              capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)"]
+      interval: 10s
+      timeout: 6s
+      retries: 30
+      start_period: 600s
+    networks: [lab]
+  gateway:
+    build:
+      context: .
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:?Resolve and pin the Python registry digest first}
+    restart: "no"
+    command: ["python", "-m", "serving_lab", "gateway", "--manifest", "/release/manifest.json", "--host", "0.0.0.0", "--port", "8080", "--max-inflight", "${MAX_NUM_SEQS:?Locked admission bound required}"]
+    environment:
+      VLLM_IMAGE: ${VLLM_IMAGE:?Locked image required}
+      PYTHON_IMAGE: ${PYTHON_IMAGE:?Locked image required}
+      PROMETHEUS_IMAGE: ${PROMETHEUS_IMAGE:?Locked image required}
+      MODEL_ID: ${MODEL_ID:?Locked model required}
+      MODEL_REVISION: ${MODEL_REVISION:?Locked revision required}
+      TOKENIZER_REVISION: ${TOKENIZER_REVISION:?Locked tokenizer required}
+      SERVED_MODEL: ${SERVED_MODEL:?Locked served name required}
+      MODEL_DTYPE: ${MODEL_DTYPE:?Locked precision required}
+      MAX_MODEL_LEN: ${MAX_MODEL_LEN:?Locked context limit required}
+      MAX_NUM_SEQS: ${MAX_NUM_SEQS:?Locked concurrency required}
+      GPU_MEMORY_UTILIZATION: ${GPU_MEMORY_UTILIZATION:?Locked memory fraction required}
+    volumes:
+      - ${RELEASE_DIR:?Absolute locked experiment or release directory required}:/release:ro
+    ports:
+      - "127.0.0.1:${LAB_PORT:-18080}:8080"
+    depends_on:
+      engine:
+        condition: service_healthy
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/ready', timeout=10)"]
+      interval: 10s
+      timeout: 11s
+      retries: 3
+    networks: [lab]
+  prometheus:
+    image: ${PROMETHEUS_IMAGE:?Resolve and pin the Prometheus registry digest first}
+    profiles: [observability]
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.retention.time=24h"]
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./observability/alerts.yml:/etc/prometheus/alerts.yml:ro
+    ports: ["127.0.0.1:19090:9090"]
+    networks: [lab]
+networks:
+  lab: {}
+volumes:
+  model-cache: {}

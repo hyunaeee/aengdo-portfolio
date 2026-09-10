@@ -1,0 +1,34 @@
+name: Serving lab CPU contracts
+on:
+  pull_request:
+    paths: ["med-rag-serving/**", ".github/workflows/serving-lab.yml"]
+  push:
+    paths: ["med-rag-serving/**", ".github/workflows/serving-lab.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cpu-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        python: ["3.11", "3.12"]
+    defaults:
+      run:
+        working-directory: med-rag-serving
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: CPU unit and local fake HTTP protocol tests
+        run: python -m unittest discover -s tests -v
+      - name: Deliberate good and bad candidate controls (no network or GPU)
+        run: python -m serving_lab cpu-demo --out artifacts/ci-simulated
+      - name: Persist explicitly simulated controls
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulated-cpu-controls-python-${{ matrix.python }}
+          path: med-rag-serving/artifacts/ci-simulated
+          retention-days: 7

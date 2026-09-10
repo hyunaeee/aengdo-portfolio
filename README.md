@@ -1,80 +1,55 @@
-# Hyunae Park — Portfolio
+# Hyunae Park — AI Engineer
 
-**Hyunae Park STUDIO + HYUNAE OS** — AI 엔지니어 · 콘텐츠 크리에이터의 인터랙티브 포트폴리오
+AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사례의 문제, 본인 역할, 설계 선택, 평가 근거와 공개 범위를 연결합니다.
 
-**Live** → https://hyunaeee.github.io/aengdo-portfolio/
+- [포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/portfolio.html) · [English](https://hyunaeee.github.io/aengdo-portfolio/en.html)
+- 대표 사례: **MED-RAG → Terracotta → Meeting Assistant**
+- **Anatomy Atlas**: 실제 전체 구조 / 계통 분해 캡처 비교와 라이브 링크
+- **Archive**: 20개 프로젝트 검색·분야·라이브 필터
+- **Creative**: 영상·이미지·음악. 기존 레트로 OS는 **Playground**에서 실행
 
-접속하면 BIOS 부팅 후 **부팅 모드**를 고릅니다:
+## 편집과 실행
 
-| 모드 | 대상 | 내용 |
-|---|---|---|
-| `1. PORTFOLIO.STUDIO` (기본) | 작업을 보러 오신 분 | 3D 스튜디오 · 프로젝트 검색 · PDF 저장 — 8초 후 자동 부팅 |
-| `2. HYUNAE_OS` | 구경 오신 분 | 창을 드래그하며 탐험하는 레트로 데스크톱 |
-
-이력서용 직링크: https://hyunaeee.github.io/aengdo-portfolio/portfolio.html
-
-## ⭐ PORTFOLIO.STUDIO (`portfolio.html`)
-
-2026.09 업데이트:
-- **3D GUIDE** — Higgsfield 3D Jutsu에서 제작한 안내 캐릭터가 화면에 떠서 인사합니다. 말풍선으로 포트폴리오를 소개하고, 안내 버튼으로 프로젝트와 다른 섹션으로 이동합니다. `assets/hyunae-guide.glb`와 정지 이미지 `assets/hyunae-guide-poster.png`를 사용합니다.
-- **SELECTED PROJECTS** — 최신 `anatomy-sample`과 MED-RAG 대표 작업. Anatomy Atlas는 계통별 인체 구조를 분리해 보여주는 `assets/anatomy-exploded.jpg`로 소개합니다.
-- **PROJECT ARCHIVE** — 18개 프로젝트, 라이브/분야 필터와 이름·기술 검색. 기획·설계·성과·한계 상세 보기.
-- **CREATIVE WORK / JOURNEY / TOOLKIT** — 영상·전시·음악, 경력과 기술 스택.
-- **PDF 저장** — 상단 버튼 → 브라우저 인쇄 창에서 **PDF로 저장** 선택. 기본 파일명은 `Hyunae_Park_Portfolio.pdf`입니다. A4 기본 12쪽에 전체 프로젝트·성과·기획·스택·한계·원본 링크를 담습니다. 검색·필터·열린 상세창은 출력 대상에 영향을 주지 않습니다. 인쇄 머리글/바닥글을 끄면 문서 자체 페이지 번호만 남습니다.
-
-### 포트폴리오 업데이트
-
-프로젝트의 `.web[data-p]` 카드와 같은 키의 `P` 상세 데이터를 수정하면 웹 상세창과 PDF에 함께 반영됩니다. 수동 스크린샷 PDF가 아니라 텍스트를 검색할 수 있고 링크를 클릭할 수 있는 인쇄 문서를 만듭니다. 3D는 PDF에서 정지 이미지로 표시됩니다. 전체 페이지 인쇄는 데스크톱 Chromium에서 검증했습니다.
-
-3D 원본: [Higgsfield 3D Jutsu / Portfolio Guide](https://higgsfield.ai/3d-jutsu/c6e6b80f-2b0c-40a9-949c-d13740d9e6ba), revision 3. GLB의 `GreetingLoop`는 손 흔들기와 몸 움직임을 담은 4초 루프입니다. 스크롤 위치에 따라 6개 섹션의 안내 문구를 바꾸고, 처음 화면에서 페이지 모서리로 이동합니다. 안내 접기·다시 인사·움직임 일시정지를 지원하며, 동작 줄이기 설정에서는 정지 상태로 안내합니다. 배포용 GLB와 포스터는 `assets/`에 저장되어 임시 다운로드 URL에 의존하지 않습니다. PDF에는 캐릭터 포스터 전체가 표시됩니다. 뷰어는 `@google/model-viewer` 4.1.0을 로컬에 포함하며 라이선스는 `assets/vendor/model-viewer-LICENSE.txt`에 있습니다.
-
-## 🖥️ HYUNAE_OS (`index.html`)
-
-체리 아스키 아트가 살랑거리는 바탕화면 위, 전부 진짜로 실행되는 프로그램들.
-
-**바탕화면 (핵심 8)**
-- ⭐ `PORTFOLIO` — 한눈에 보기 (창 안에서)
-- 📖 `STORY.EXE` — 스크롤 스토리 원본: 맥 윈도우 셸 안에서 읽는 11챕터 내러티브 (밝은 모노크롬 테마)
-- 📁 `WORKS` — 탐색기: 영상(유튜브/드라이브 재생)·음악·웹·레포가 파일로
-- 🎮 `SIGNAL_RUN.EXE` — 뉴런 터널 러너 (콤보 배수·골드 실드·최고기록 저장)
-- 🍒 `HYUNAE 메신저` — 캐릭터가 여정을 들려주고, 앱을 열 때마다 반응 토스트
-- ✉️ `MAIL.EXE` · 📄 `README.TXT` · 🧸 `TOYBOX`
-
-**🧸 TOYBOX (부수 11)**
-- 🧠 `BRAIN.EXE` — 아스키 문자로 실시간 렌더링되는 3D 뇌 (드래그 회전)
-- 📐 `HOUSE.DWG` — 이 OS의 청사진 평면도. **방을 클릭하면 그 앱이 열림**
-- 🗞️ `HYUNAE TIMES` — 수배(WANTED) 특별판 신문 + 개발자 캐릭터 머그샷
-- 💻 `TERMINAL.EXE` — `whoami` `fortune` `hack` `open <app>` `sudo`(거부됨) 되는 셸
-- 🌌 `DIVE.EXE` — 뇌→뉴런→원자→은하 무한 줌 / 🌀 `TYPESTORM.EXE` — 커서에 반응하는 키네틱 타이포
-- 🔦 `NOIR.SCR` — 손전등 화면보호기 (75초 방치 시 자동 실행)
-- 🔒 `SECRET` — 뉴런 개수 퀴즈를 풀면 제작 비하인드 공개
-- 📋 `TRACK.LOG` · 🗑️ `휴지통`(버린 아이디어들) · ⛔ `DONT_CLICK.EXE`(경고했음)
-
-**OS 시스템**: 창 드래그/최소화/포커스 · 작업표시줄 + 실시간 시계 · 🍒 시작 메뉴 · 듀얼 부트 메뉴 · 안내 캐릭터 표정 3종(인사/신남/놀람)
-
-## 📁 파일 구성
-
-| 파일 | 설명 |
-|---|---|
-| `index.html` | HYUNAE OS 셸 (부팅 메뉴 포함) |
-| `portfolio.html` | 3D 포트폴리오 · 전체 프로젝트 · PDF 저장 |
-| `story.html` | 스크롤 스토리 — 맥 윈도우 셸 안에서 읽는 11챕터 내러티브 |
-| `game.html` | SIGNAL RUN 단독 실행 |
-| `times.html` | HYUNAE TIMES 수배 특별판 |
-| `classic.html` | 최초 버전 홈페이지 (보존) |
-| `assets/` | 3D 모델/포스터 · 캐릭터 · 작품 이미지 · 스크린샷 · 음악 · 스튜디오/인쇄 CSS와 JS |
-
-## 로컬 실행
-
-전부 정적 파일입니다:
-
-```bash
-python -m http.server 8000
-# http://localhost:8000
+```sh
+node scripts/build-portfolio.cjs
+python -m http.server 8765
+# http://localhost:8765/
 ```
 
-Three.js / GSAP / Lenis / 폰트는 CDN 로드라 인터넷 연결이 필요합니다.
+`assets/portfolio-content.js`의 한·영 데이터를 수정한 뒤 빌드합니다. 전체 아카이브 데이터는 `assets/portfolio-archive.js`입니다. 빌드는 홈, 아카이브, Creative, 4개 사례의 한·영 정적 HTML과 sitemap을 생성합니다. 생성된 HTML도 커밋하므로 GitHub Pages에서 별도 빌드 서버 없이 제공합니다. 웹과 PDF가 같은 콘텐츠를 사용합니다.
 
----
+| 경로 | 역할 |
+|---|---|
+| `index.html`, `portfolio.html`, `en.html` | 채용용 홈. 진입 시 부팅 대기 없음 |
+| `work/{med-rag,terracotta,meeting,anatomy}/` | 사례별 한국어 `index.html`, 영어 `en.html` |
+| `archive.html`, `archive-en.html` | 프로젝트 검색과 공개 범위 |
+| `creative.html`, `creative-en.html` | 창작 작업 |
+| `playground.html` | 기존 HYUNAE OS와 앱 에뮬레이터 |
+| `assets/portfolio.css`, `assets/portfolio-app.js` | 반응형 레이아웃과 탐색·비교 기능 |
+| `assets/portfolio-export.js`, `assets/portfolio-print.css` | A4 인쇄·PDF 구성 |
+| `med-rag-serving/` | CPU 검증을 마친 MLOps 실험 기반과 실행 조건 |
 
-만든 사람: **Hyunae Park** (hyunaeee@gmail.com) — 뇌과학 × 컴퓨터과학 → AI
+기존 `index.html#os`, `#phone`, `#hb` 주소는 Playground로 이어집니다. `story.html`, `classic.html`, `game.html`, `times.html`과 기존 제품 UI 데모는 보존합니다.
+
+## PDF
+
+상단 **PDF** 버튼에서 언어와 강조 역량을 선택하고 브라우저 인쇄 창의 **PDF로 저장**을 사용합니다. 기본판은 대표 사례 중심의 A4 7쪽이며 전체 아카이브는 별도 선택입니다. 일반판, 서빙·운영 중심(Toss), 제품 구현 중심(Motif), 고객 문제·평가 중심(Cohere)의 순서와 소개가 달라집니다. 회사별 경력이나 실측 성과를 새로 만들어 넣지 않습니다.
+
+PDF는 검색 가능한 텍스트, 원문 링크, 실제 캡처를 포함합니다. 브라우저 머리글·바닥글은 끄는 편이 좋습니다. Chromium에서 화면·중첩 사례 경로·인쇄를 확인했습니다. `output/`의 로컬 PDF와 `tmp/` 검수 캡처는 저장소에서 제외합니다.
+
+## 3D 안내 캐릭터
+
+[Higgsfield 3D Jutsu / Portfolio Guide](https://higgsfield.ai/3d-jutsu/c6e6b80f-2b0c-40a9-949c-d13740d9e6ba) revision 3에서 만든 캐릭터입니다. `hyunae-guide-v2.glb`는 원본 메시·재질·리그·4초 `GreetingLoop`를 보존하고 로컬에서 `Idle` 4.8초와 `Point` 2.8초 클립을 추가한 파생 파일입니다. 출처와 검증 기록은 `assets/hyunae-guide-v2.source.json`에 있습니다.
+
+처음 인사한 뒤 대기하고, 안내 버튼에 반응합니다. 모바일에서는 본문으로 이동하면 접히고 상단 체리 버튼으로 다시 엽니다. 일시정지, 동작 줄이기 설정, 정지 이미지 대체를 지원합니다. 모델 뷰어 4.1.0과 라이선스는 `assets/vendor/`에 있습니다. PDF에는 정지 이미지를 사용합니다.
+
+## 근거와 MLOps 범위
+
+- MED-RAG 초기 로컬 실행은 사용자 확인 **RTX 5090**, 현재 회의 어시스턴트 운영은 **RTX 4090**입니다. QLoRA 기록의 RTX 4090 학습과 별도로 설명합니다.
+- 공개 MED-RAG 평가는 합성 데이터입니다. 거부 예제 오라벨 22%의 분모는 **37개 중 8개**이며 전체 학습셋이 아닙니다.
+- Terracotta 정책 시뮬레이션, 컨테이너 발행, 서비스 가용성은 서로 다른 근거입니다.
+- Serving Lab의 버전 고정·gate·SSE client·release 준비는 CPU에서 검증했습니다. **실제 GPU 추론, 성능 개선, 장애 복구 시간은 아직 측정하지 않았습니다.** 운영 중인 회의 서비스와 분리한 환경에서 후속 실험합니다.
+
+설계안: [포트폴리오 개편안](PORTFOLIO_REDESIGN_PLAN.md), [MLOps 실행 계획](MLOPS_TARGET_ROADMAP.md). 실제 검증 범위는 [Serving Lab 상태](med-rag-serving/reports/STATUS.md)를 참조합니다.
+
+Hyunae Park · hyunaeee@gmail.com

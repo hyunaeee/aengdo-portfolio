@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+artifacts/
+experiments/
+releases/
+*.env
+.env*
+*.env.*
+private/
+credentials*.json
+service-account*.json
+*.pem
+*.key
+deployment-state.json

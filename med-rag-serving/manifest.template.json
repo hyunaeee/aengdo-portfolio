@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "test_fixture": false,
+  "experiment": "med-rag-serving-baseline",
+  "model": {
+    "id": "Qwen/Qwen2.5-7B-Instruct",
+    "revision": "UNRESOLVED_HF_COMMIT",
+    "tokenizer_revision": "UNRESOLVED_HF_COMMIT",
+    "served_name": "med-rag-baseline",
+    "dtype": "bfloat16"
+  },
+  "images": {
+    "vllm": "UNRESOLVED_REGISTRY_DIGEST",
+    "python": "UNRESOLVED_REGISTRY_DIGEST",
+    "prometheus": "UNRESOLVED_REGISTRY_DIGEST"
+  },
+  "prompt": {"path": "eval/system-prompt.txt", "sha256": "LOCK_COMPUTES_THIS"},
+  "runtime": {"path": "runtime", "sha256": "LOCK_COMPUTES_THIS"},
+  "dataset": {"path": "eval/cases.jsonl", "kind": "synthetic", "scope": "public-smoke-contract-not-heldout", "sha256": "LOCK_COMPUTES_THIS"},
+  "serving": {"max_model_len": 2048, "max_num_seqs": 4, "gpu_memory_utilization": 0.7},
+  "slo": {"ttft_ms": null, "tpot_ms": null, "e2e_ms": null, "calibrated": false, "rationale": "Freeze realistic thresholds after an isolated pilot; these are not measured results."},
+  "acceptance": {"max_error_rate": 0.01, "max_overrefusal_rate": 0.0, "min_goodput_ratio": 0.95, "min_completed_requests": 100},
+  "hardware": {"target_device_uuid": "UNCONFIRMED", "notes": "Historical RTX5090 local MED-RAG run; current device availability and compatibility are unverified. Active RTX4090 meeting assistant must not be touched."}
+}

@@ -1,0 +1,90 @@
+{
+  "name": "Hyunae Guide — local animation extension",
+  "createdWith": "Higgsfield 3D Jutsu",
+  "projectId": "c6e6b80f-2b0c-40a9-949c-d13740d9e6ba",
+  "projectUrl": "https://higgsfield.ai/3d-jutsu/c6e6b80f-2b0c-40a9-949c-d13740d9e6ba",
+  "revision": 3,
+  "operationId": "hyunae-final-friendly-smile-20260910",
+  "model": "hyunae-guide-v2.glb",
+  "poster": "hyunae-guide-poster.png",
+  "posterSize": [
+    768,
+    768
+  ],
+  "posterHasAlpha": true,
+  "modelBytes": 736744,
+  "posterBytes": 400243,
+  "meshes": 25,
+  "materials": 8,
+  "skins": 1,
+  "animations": [
+    {
+      "name": "GreetingLoop",
+      "durationSeconds": 4,
+      "fps": 24,
+      "samples": 97,
+      "unchanged": true
+    },
+    {
+      "name": "Idle",
+      "durationSeconds": 4.8,
+      "fps": 30,
+      "samples": 145,
+      "maxSeamError": 0,
+      "maxQuaternionNormError": 2.220446049250313e-16
+    },
+    {
+      "name": "Point",
+      "durationSeconds": 2.8,
+      "fps": 30,
+      "samples": 85,
+      "maxSeamError": 0,
+      "maxQuaternionNormError": 2.220446049250313e-16
+    }
+  ],
+  "verification": {
+    "binaryPrefixUnchanged": true,
+    "originalAnimationUnchanged": true,
+    "meshRigMaterialNodesUnchanged": true,
+    "originalSourceFileUnchanged": true,
+    "newClipsFirstLastSamplesMatch": true,
+    "quaternionsNormalized": true,
+    "visualPlaybackChecked": true,
+    "visualPlaybackEnvironment": "Local Google Chrome with Playwright and bundled model-viewer; SwiftShader WebGL",
+    "availableAnimations": [
+      "GreetingLoop",
+      "Idle",
+      "Point"
+    ],
+    "allClipsAdvancedDuringPlayback": true,
+    "renderedRestAndMidpointPosesInspected": true,
+    "pageErrors": [],
+    "float32MaxQuaternionNormError": 4.090167227133179e-8,
+    "float32MaxLoopSeamError": 0,
+    "minAdjacentQuaternionDot": 0.9991078739157053,
+    "visualQaScreenshots": [
+      "../tmp/guide-v2-poses.png",
+      "../tmp/guide-v2-rest.png"
+    ]
+  },
+  "sourceModel": "hyunae-guide.glb",
+  "sourceSha256": "01ac308f0df18e856294395f2dd57c5172b2d1e0ec431a91196683d371784130",
+  "modelSha256": "7ef3e123077e65120580d7345ffea52a09c349c3d31a5fe0f2bfc43a263332d9",
+  "derivative": {
+    "createdAt": "2026-09-10",
+    "method": "Local GLB JSON and binary accessor extension; no new generation or remote Higgsfield revision.",
+    "preserved": [
+      "all 25 meshes",
+      "all 8 materials",
+      "one skin and inverse bind matrices",
+      "all 34 nodes",
+      "original binary prefix",
+      "original GreetingLoop animation object"
+    ],
+    "notes": [
+      "Idle lowers the right arm and gently moves the Body bone; no separate head bone exists.",
+      "Point raises the existing left mitten hand toward screen-left; individual fingers are not rigged.",
+      "Both new clips have identical rest poses and exact first/last sample equality. Model-viewer crossfade should bridge the raised-arm GreetingLoop and lowered-arm Idle."
+    ]
+  }
+}

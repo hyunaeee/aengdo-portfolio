@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HYUNAE OS — Hyunae Park의 컴퓨터</title>
+<meta name="description" content="뇌과학 × 컴퓨터과학 → AI. Hyunae Park의 레트로 OS 포트폴리오 — 창을 열고, 드래그하고, 게임하세요." />
+<meta name="theme-color" content="#14161f" />
+<meta property="og:title" content="HYUNAE OS — Hyunae Park의 컴퓨터" />
+<meta property="og:description" content="바탕화면 아이콘을 더블클릭하세요. 뇌 뷰어, 신문, 게임, 그리고 원본 스토리까지 전부 들어있습니다 🍒" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://hyunaeee.github.io/aengdo-portfolio/" />
+<meta property="og:image" content="https://hyunaeee.github.io/aengdo-portfolio/assets/hyunae-og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://hyunaeee.github.io/aengdo-portfolio/playground.html" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍒</text></svg>" />
+<link href="https://fonts.googleapis.com/css2?family=Galmuri11&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    font-family: "Galmuri11", "JetBrains Mono", monospace;
+    color: #e8eaf2; user-select: none; background: #0b0c12;
+  }
+  #wallpaper { position: fixed; inset: 0; z-index: 0; }
+  .watermark {
+    position: fixed; right: 18px; bottom: 56px; z-index: 1; text-align: right;
+    font-size: 12px; color: rgba(255,255,255,0.22); line-height: 1.7; pointer-events: none;
+  }
+
+  /* ---------- boot ---------- */
+  #boot {
+    position: fixed; inset: 0; z-index: 9999; background: #050507;
+    font-family: "JetBrains Mono", monospace; color: #cfd4de;
+    padding: 6vh 6vw; font-size: clamp(12px, 1.6vw, 15px); line-height: 2.1; white-space: pre-wrap;
+  }
+  #boot b { color: #ff4655; font-weight: 400; }
+  #boot .ok { color: #7ee2a8; }
+  .bootopt { color: #8a8fa0; cursor: pointer; padding: 3px 0 3px 26px; position: relative; }
+  .bootopt.sel { color: #fff; }
+  .bootopt.sel::before { content: "▶"; position: absolute; left: 4px; color: #ff4655; }
+
+  /* ---------- desktop icons ---------- */
+  .icons { position: fixed; left: 18px; top: 18px; z-index: 2;
+    display: grid; grid-template-rows: repeat(8, auto); grid-auto-flow: column; gap: 6px 8px; }
+  .icon { width: 96px; text-align: center; cursor: pointer; padding: 9px 2px; border: 1px dotted transparent; }
+  .icon:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,.35); }
+  .icon .glyph { font-size: 34px; }
+  .icon .name { font-size: 11.5px; margin-top: 5px; text-shadow: 1px 1px 0 #000; line-height: 1.35; }
+
+  /* ---------- windows ---------- */
+  .win {
+    position: absolute; z-index: 20; min-width: 280px; background: #23252f;
+    border: 2px solid; border-color: #4a4d5c #0c0d12 #0c0d12 #4a4d5c;
+    box-shadow: 6px 6px 0 rgba(0,0,0,.45); display: none;
+  }
+  .win.open { display: block; }
+  .win.min { display: none; }
+  .titlebar {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    background: linear-gradient(90deg, #3a3d4a, #23252f); color: #b9bdcb;
+    padding: 5px 8px; font-size: 13px; cursor: grab; white-space: nowrap;
+  }
+  .win.focus .titlebar { background: linear-gradient(90deg, #ff4655, #7a1b26); color: #fff; }
+  .titlebar:active { cursor: grabbing; }
+  .titlebar > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .titlebar .btns { display: flex; gap: 4px; flex: none; }
+  .titlebar button {
+    width: 21px; height: 19px; font-size: 11px; font-family: inherit; cursor: pointer;
+    background: #23252f; color: #e8eaf2; border: 1.5px solid;
+    border-color: #4a4d5c #0c0d12 #0c0d12 #4a4d5c;
+  }
+  .titlebar button:active { border-color: #0c0d12 #4a4d5c #4a4d5c #0c0d12; }
+  .wbody { padding: 12px; font-size: 13px; line-height: 1.9; }
+  .wbody b { color: #ff8f99; }
+  .storyline {
+    font-family: "Noto Sans KR", sans-serif; font-weight: 300; font-size: 12px;
+    color: #8f94a6; padding: 8px 12px 10px; border-top: 1px solid #383b48;
+    line-height: 1.7;
+  }
+  .storyline i { font-style: normal; color: #ff8f99; }
+  /* phone emulator */
+  .phone {
+    position: relative; width: min(300px, 74vw); margin: 0 auto;
+    background: #15161c; border-radius: 36px; padding: 10px;
+    box-shadow: 0 0 0 2px #3a3d4a, 8px 8px 0 rgba(0,0,0,.45);
+  }
+  .pscreen { position: relative; border-radius: 26px; overflow: hidden; background: #f7ecdc; }
+  .pscale { width: 430px; height: 880px; transform-origin: top left; }
+  .pscale iframe { width: 430px; height: 880px; border: 0; display: block; background: #f7ecdc; }
+  .pnotch { position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 96px; height: 17px; background: #15161c; border-radius: 0 0 12px 12px; z-index: 3; }
+  .phome { position: absolute; bottom: 7px; left: 50%; transform: translateX(-50%);
+    width: 86px; height: 4px; border-radius: 3px; background: rgba(20,20,26,.5); z-index: 3; }
+  .psplash {
+    position: absolute; inset: 0; z-index: 4; background: #fdf3e3;
+    display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center;
+    font-family: "Noto Sans KR", sans-serif; font-size: 13px; color: #8a6f52;
+    transition: opacity .7s;
+  }
+  .psplash img { width: 74px; border-radius: 18px; box-shadow: 0 6px 18px rgba(150,110,60,.25); }
+  .psplash.off { opacity: 0; pointer-events: none; }
+  .pdots { text-align: center; margin-top: 8px; font-size: 11px; color: #9aa0b0; letter-spacing: 2px; }
+  /* terminal */
+  .termout {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.9;
+    width: min(520px, 80vw); height: 240px; overflow-y: auto;
+    background: #0b0c12; border: 1.5px solid #0c0d12; padding: 10px 12px;
+    white-space: pre-wrap; word-break: break-all; color: #c6cad6;
+  }
+  .termout b { color: #ff8f99; }
+  .termout .ok { color: #7ee2a8; }
+  .termline { display: flex; align-items: center; font-family: "JetBrains Mono", monospace;
+    font-size: 12px; margin-top: 8px; color: #7ee2a8; }
+  .termline input { flex: 1; background: transparent; border: none; outline: none;
+    color: #e8eaf2; font-family: inherit; font-size: 12px; }
+  /* trash */
+  .trashitem { display: flex; align-items: baseline; gap: 6px; padding: 8px 0;
+    border-bottom: 1px solid #383b48; font-size: 12.5px; }
+  .trashitem span { color: #8f94a6; font-size: 11.5px; flex: 1; }
+  .restore { font-family: inherit; font-size: 11px; padding: 3px 10px; cursor: pointer;
+    background: #2e313d; color: #e8eaf2; border: 1.5px solid;
+    border-color: #4a4d5c #0c0d12 #0c0d12 #4a4d5c; flex: none; }
+  .restore:active { border-color: #0c0d12 #4a4d5c #4a4d5c #0c0d12; }
+  /* cherry rain */
+  .cherrydrop { position: fixed; top: -50px; z-index: 950; pointer-events: none;
+    animation: cfall linear forwards; }
+  @keyframes cfall { to { transform: translateY(115vh) rotate(420deg); } }
+  /* floor plan */
+  .fpwall { stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: fpdraw 2.2s ease forwards; }
+  @keyframes fpdraw { to { stroke-dashoffset: 0; } }
+  .fproom { cursor: pointer; }
+  .fproom text { pointer-events: none; }
+  .fproom rect { fill: transparent; stroke: none; transition: fill 0.25s; }
+  .fproom:hover rect { fill: rgba(255, 210, 122, 0.12); }
+  .fproom .fpname { fill: #dfe9f5; font-family: "Galmuri11", monospace; font-size: 15px; }
+  .fproom .fpsub { fill: #8fa6c4; font-family: "JetBrains Mono", monospace; font-size: 9.5px; letter-spacing: 1px; }
+  .fproom:hover .fpname { fill: #ffd27a; }
+  .wbody a { color: #8fc7ff; }
+  .wbody canvas { display: block; background: #0b0c12; border: 1.5px solid #0c0d12; max-width: 100%; }
+  .win iframe { display: block; border: 1.5px solid #0c0d12; background: #000; width: 100%; }
+  .linkbar { display: flex; gap: 8px; padding: 0 12px 10px; }
+  .linkbar a, .linkbar button {
+    font-family: inherit; font-size: 11.5px; color: #e8eaf2; text-decoration: none; cursor: pointer;
+    background: #2e313d; padding: 4px 12px; border: 1.5px solid; border-color: #4a4d5c #0c0d12 #0c0d12 #4a4d5c;
+  }
+  .linkbar a:active, .linkbar button:active { border-color: #0c0d12 #4a4d5c #4a4d5c #0c0d12; }
+
+  /* explorer */
+  .files { display: grid; grid-template-columns: repeat(auto-fill, 92px); gap: 8px; max-width: 560px; }
+  .file { text-align: center; padding: 8px 2px; cursor: pointer; border: 1px dotted transparent; }
+  .file:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,.35); }
+  .file .glyph { font-size: 30px; }
+  .file .name { font-size: 10.5px; margin-top: 4px; word-break: break-all; line-height: 1.3; color: #c6cad6; }
+
+  /* messenger */
+  .chatlog { width: 320px; max-height: 320px; overflow-y: auto; padding-right: 4px; }
+  .msg { display: flex; gap: 8px; margin: 8px 0; align-items: flex-end; }
+  .msg .avatar { width: 34px; height: 34px; flex: none; border-radius: 6px; background: #14161f;
+    border: 1.5px solid #0c0d12; object-fit: cover; object-position: top; }
+  .msg .bubble { max-width: 76%; padding: 7px 11px; font-size: 12.5px; line-height: 1.6;
+    background: #2e313d; border: 1.5px solid #0c0d12; }
+  .msg.me { justify-content: flex-end; }
+  .msg.me .bubble { background: #7a1b26; }
+  .typing i { display: inline-block; animation: tp 1s infinite; }
+  .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+  @keyframes tp { 50% { transform: translateY(-3px); } }
+
+  /* log */
+  .log { font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 2.1; color: #c6cad6; }
+  .log .d { color: #ffd34f; }
+
+  /* ---------- taskbar ---------- */
+  .taskbar {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 46px; z-index: 500;
+    background: #23252f; border-top: 2px solid #4a4d5c;
+    display: flex; align-items: center; gap: 8px; padding: 0 10px;
+  }
+  .start {
+    display: flex; align-items: center; gap: 8px; padding: 6px 14px; font-size: 14px; flex: none;
+    background: #2e313d; border: 2px solid; border-color: #4a4d5c #0c0d12 #0c0d12 #4a4d5c;
+    cursor: pointer; font-family: inherit; color: #e8eaf2;
+  }
+  .start:active, .start.on { border-color: #0c0d12 #4a4d5c #4a4d5c #0c0d12; }
+  #tasks { display: flex; gap: 6px; overflow-x: auto; flex: 1; }
+  #tasks button {
+    font-family: inherit; font-size: 11.5px; padding: 5px 12px; white-space: nowrap; cursor: pointer;
+    background: #1b1d26; color: #9aa0b0; border: 1.5px solid #0c0d12;
+  }
+  #tasks button.active { background: #2e313d; color: #fff; border-color: #0c0d12 #4a4d5c #4a4d5c #0c0d12; }
+  .clock { margin-left: auto; flex: none; font-size: 13px; padding: 5px 12px;
+    border: 1.5px solid; border-color: #0c0d12 #4a4d5c #4a4d5c #0c0d12; }
+
+  /* start menu */
+  #startmenu {
+    position: fixed; left: 8px; bottom: 52px; z-index: 600; width: 250px; display: none;
+    background: #23252f; border: 2px solid; border-color: #4a4d5c #0c0d12 #0c0d12 #4a4d5c;
+    box-shadow: 6px 6px 0 rgba(0,0,0,.45);
+  }
+  #startmenu.open { display: block; }
+  #startmenu .head { background: linear-gradient(90deg, #ff4655, #7a1b26); color: #fff;
+    padding: 10px 12px; font-size: 13px; }
+  #startmenu .item { display: flex; gap: 10px; align-items: center; padding: 8px 12px;
+    font-size: 12.5px; cursor: pointer; color: #d6dae6; text-decoration: none; }
+  #startmenu .item:hover { background: #7a1b26; color: #fff; }
+  #startmenu .sep { height: 1px; background: #4a4d5c; margin: 4px 0; }
+
+  /* toasts (Hyunae Park 반응) */
+  #toasts { position: fixed; right: 14px; bottom: 58px; z-index: 700; display: flex;
+    flex-direction: column; gap: 8px; align-items: flex-end; pointer-events: none; }
+  .toast {
+    display: flex; gap: 10px; align-items: center; background: #23252f; padding: 9px 14px 9px 9px;
+    border: 2px solid; border-color: #4a4d5c #0c0d12 #0c0d12 #4a4d5c; box-shadow: 4px 4px 0 rgba(0,0,0,.45);
+    font-size: 12.5px; max-width: 300px; animation: tin .3s ease;
+  }
+  .toast img { width: 36px; height: 36px; border-radius: 6px; object-fit: cover; object-position: top; }
+  .toast b { color: #ff8f99; }
+  @keyframes tin { from { transform: translateX(30px); opacity: 0; } }
+
+  /* ---------- fullscreen apps & screensaver ---------- */
+  .fsapp { position: fixed; inset: 0; z-index: 800; background: #05050a; display: none; }
+  .fsapp.open { display: block; }
+  .fsapp canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .fsapp .fsclose {
+    position: absolute; top: 16px; right: 16px; z-index: 10; font-family: inherit; font-size: 13px;
+    background: #23252f; color: #fff; padding: 8px 16px; cursor: pointer;
+    border: 2px solid; border-color: #4a4d5c #0c0d12 #0c0d12 #4a4d5c;
+  }
+  .fslabel { position: absolute; top: 22px; left: 26px; z-index: 5; font-size: 13px; color: #9aa0b0; }
+  .fslabel b { color: #ff4655; }
+  #fs-type { overflow: hidden; }
+  #ts-stage { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: .6vh; }
+  .ts-row { display: flex; white-space: nowrap; font-family: "Archivo", sans-serif;
+    font-size: clamp(46px, 8.5vw, 120px); line-height: .94; letter-spacing: -.02em; color: #e9eaee; }
+  .ts-row.red span { color: #ff4655; }
+  .ts-row.ghost span { color: transparent; -webkit-text-stroke: 1.5px rgba(233,234,238,.5); }
+  .ts-row span { display: inline-block; will-change: transform; }
+  .ts-row span.sp { width: .34em; }
+
+  #saver { z-index: 900; cursor: none; }
+  #sv-world { position: absolute; inset: 0; }
+  #sv-world canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sv-line { position: absolute; font-size: 14px; color: #b8b2a6; letter-spacing: .15em;
+    font-family: "Noto Sans KR", sans-serif; font-weight: 300; }
+  .sv-line b { color: #ffc37a; }
+  #sv-hint { position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
+    font-size: 12px; letter-spacing: .5em; color: #3d3a34; }
+
+  @media (max-width: 760px) {
+    .win { min-width: 0; width: 94vw !important; left: 3vw !important; }
+    .chatlog { width: auto; }
+    .icons { gap: 2px 4px; } .icon { width: 82px; } .icon .glyph { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<canvas id="wallpaper"></canvas>
+<div class="watermark">HYUNAE OS v5.0<br/>build 2026.07 · 🍒</div>
+
+<div id="boot"></div>
+
+<!-- ================= desktop icons ================= -->
+<div class="icons" id="icons">
+  <div class="icon" data-app="w-portfolio"><div class="glyph">⭐</div><div class="name">PORTFOLIO<br/>한눈에 보기</div></div>
+  <div class="icon" data-app="w-story"><div class="glyph">📖</div><div class="name">STORY.EXE</div></div>
+  <div class="icon" data-app="w-works"><div class="glyph">📁</div><div class="name">WORKS</div></div>
+  <div class="icon" data-app="w-game"><div class="glyph">🎮</div><div class="name">SIGNAL_RUN.EXE</div></div>
+  <div class="icon" data-app="w-chat"><div class="glyph">🍒</div><div class="name">HYUNAE 메신저</div></div>
+  <div class="icon" data-app="w-mail"><div class="glyph">✉️</div><div class="name">MAIL.EXE</div></div>
+  <div class="icon" data-app="w-readme"><div class="glyph">📄</div><div class="name">README.TXT</div></div>
+  <div class="icon" data-app="w-toybox"><div class="glyph">🧸</div><div class="name">TOYBOX</div></div>
+</div>
+
+<!-- ================= windows ================= -->
+<div class="win" id="w-readme" style="left:26%; top:9%;" data-title="📄 README.TXT">
+  <div class="titlebar"><span>📄 README.TXT — 메모장</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="max-width:370px;">
+    <b>"생각은 어디에서 오는가."</b><br/>
+    이 질문 하나로 뇌과학에서 컴퓨터과학으로,<br/>
+    그리고 지금은 <b>AI를 만드는 데까지</b> 왔습니다.<br/><br/>
+    이 컴퓨터에 그 여정을 전부 담아뒀어요:<br/>
+    · 아이콘 클릭 = 실행 / 창은 제목줄로 드래그<br/>
+    · 이야기의 전문은 <b>STORY.EXE</b><br/>
+    · 그 이야기가 남긴 결과물은 <b>WORKS</b> 폴더<br/>
+    · <b>⭐ PORTFOLIO</b> — 3D 탐색 · 프로젝트 검색 · PDF 저장
+  </div>
+  <div class="storyline">— Hyunae Park <i>🍒</i>, 이 컴퓨터의 주인</div>
+</div>
+
+<div class="win" id="w-chat" style="left:24%; bottom:14%;" data-title="🍒 HYUNAE 메신저">
+  <div class="titlebar"><span>🍒 HYUNAE 메신저 — 온라인</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody"><div class="chatlog" id="chatlog"></div></div>
+</div>
+
+<div class="win" id="w-brain" style="left:34%; top:8%;" data-title="🧠 BRAIN.EXE">
+  <div class="titlebar"><span>🧠 BRAIN.EXE — ascii renderer</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody">
+    <canvas id="brainCv" width="520" height="340"></canvas>
+    <div style="margin-top:7px; font-size:11px; color:#9aa0b0;">drag to rotate — neurons: 86,000,000,000 — cpu 20W</div>
+  </div>
+  <div class="storyline">전공 시절 4년 내내 들여다본 기관이에요. 이제는 <i>문자 몇 줄</i>로도 그릴 수 있게 됐네요.</div>
+</div>
+
+<div class="win" id="w-blueprint" style="left:18%; top:14%;" data-title="📐 HOUSE.DWG">
+  <div class="titlebar"><span>📐 HOUSE.DWG — HYUNAE HOUSE 평면도</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding:10px;">
+    <svg id="floorplan" width="560" height="386" viewBox="0 0 560 386"
+         style="display:block; background:#0d2b52; border:1.5px solid #0c0d12; max-width:82vw; height:auto;">
+      <defs>
+        <pattern id="fpgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M20 0H0V20" fill="none" stroke="rgba(255,255,255,.055)" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="560" height="386" fill="url(#fpgrid)"/>
+      <!-- title + compass -->
+      <text x="30" y="28" fill="#dfe9f5" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="700">HYUNAE HOUSE — 이 컴퓨터의 평면도</text>
+      <g transform="translate(524,24)" stroke="#ffd27a" fill="#ffd27a">
+        <line x1="0" y1="10" x2="0" y2="-8" stroke-width="1.5"/><path d="M-4 -2 L0 -10 L4 -2 Z"/>
+        <text x="-4" y="24" font-family="'JetBrains Mono',monospace" font-size="10" stroke="none">N</text>
+      </g>
+      <!-- outer wall -->
+      <rect class="fpwall" x="30" y="46" width="500" height="292" fill="none" stroke="#dfe9f5" stroke-width="2.5"/>
+      <!-- partitions (with door gaps) -->
+      <g class="fpwall" stroke="#dfe9f5" stroke-width="1.6" fill="none">
+        <path d="M225 46 V120 M225 150 V186"/>
+        <path d="M385 46 V90 M385 118 V186"/>
+        <path d="M30 186 H120 M150 186 H330 M360 186 H530"/>
+        <path d="M195 186 V270 M195 298 V338"/>
+        <path d="M350 186 V230 M350 258 V338"/>
+        <path d="M448 186 V222 M448 250 V338"/>
+        <path d="M478 46 V78 M478 100 V104 M478 104 H530" />
+      </g>
+      <!-- rooms (click to enter) -->
+      <g class="fproom" data-app="w-story">
+        <rect x="32" y="48" width="191" height="136"/>
+        <text x="58" y="105" class="fpname">📖 서재</text>
+        <text x="58" y="124" class="fpsub">STORY.EXE — 이야기의 전문</text>
+      </g>
+      <g class="fproom" data-app="w-brain">
+        <rect x="227" y="48" width="156" height="136"/>
+        <text x="252" y="105" class="fpname">🧠 연구실</text>
+        <text x="252" y="124" class="fpsub">BRAIN.EXE</text>
+      </g>
+      <g class="fproom" data-app="w-works">
+        <rect x="387" y="106" width="141" height="78"/>
+        <text x="404" y="141" class="fpname">📁 작업실</text>
+        <text x="404" y="160" class="fpsub">WORKS — 결과물 창고</text>
+      </g>
+      <g class="fproom" data-app="saver">
+        <rect x="480" y="48" width="48" height="54"/>
+        <text x="487" y="72" class="fpname" font-size="13">🔦</text>
+        <text x="486" y="88" class="fpsub">암실</text>
+      </g>
+      <g class="fproom" data-app="w-times">
+        <rect x="387" y="48" width="89" height="56"/>
+        <text x="398" y="72" class="fpname" font-size="12">🗞️ 인쇄실</text>
+        <text x="398" y="88" class="fpsub">TIMES</text>
+      </g>
+      <g class="fproom" data-app="w-game">
+        <rect x="32" y="188" width="161" height="148"/>
+        <text x="58" y="252" class="fpname">🎮 오락실</text>
+        <text x="58" y="271" class="fpsub">SIGNAL_RUN.EXE</text>
+      </g>
+      <g class="fproom" data-app="w-chat">
+        <rect x="197" y="188" width="151" height="148"/>
+        <text x="222" y="252" class="fpname">🍒 거실</text>
+        <text x="222" y="271" class="fpsub">HYUNAE 메신저</text>
+      </g>
+      <g class="fproom" data-app="w-log">
+        <rect x="352" y="188" width="94" height="148"/>
+        <text x="364" y="252" class="fpname" font-size="13">📋 기록실</text>
+        <text x="364" y="271" class="fpsub">TRACK.LOG</text>
+      </g>
+      <g class="fproom" data-app="w-mail">
+        <rect x="450" y="188" width="78" height="148"/>
+        <text x="460" y="252" class="fpname" font-size="13">✉️ 현관</text>
+        <text x="460" y="271" class="fpsub">MAIL.EXE</text>
+      </g>
+      <!-- dimension line -->
+      <g stroke="#ffd27a" fill="#ffd27a" font-family="'JetBrains Mono',monospace">
+        <line x1="30" y1="358" x2="530" y2="358" stroke-width="1"/>
+        <line x1="30" y1="352" x2="30" y2="364" stroke-width="1"/>
+        <line x1="530" y1="352" x2="530" y2="364" stroke-width="1"/>
+        <text x="238" y="376" font-size="10" stroke="none">한 사람의 관심사 전부 (SCALE 1:마음)</text>
+      </g>
+    </svg>
+    <div style="margin-top:7px; font-size:11px; color:#9aa0b0;">AGD-2026-002 · 방을 클릭하면 그 방으로 이동합니다 · DRAWN BY Hyunae Park 🍒</div>
+  </div>
+  <div class="storyline">이 컴퓨터를 <i>집</i>이라고 치면 이런 구조예요. 서재에서 시작해서, 현관에서 편지를 기다립니다.</div>
+</div>
+
+<div class="win" id="w-portfolio" style="left:8%; top:5%;" data-title="⭐ PORTFOLIO">
+  <div class="titlebar"><span>⭐ PORTFOLIO.ONE — 한눈에 보기</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding-bottom:8px;">
+    <iframe data-src="portfolio.html" style="width:min(960px,88vw); height:min(620px,66vh); background:#0d0e13;"></iframe>
+  </div>
+  <div class="storyline">구경할 시간이 없으시다면, <i>이 한 장</i>이면 충분해요. 만든 것 전부 여기 있습니다.</div>
+  <div class="linkbar"><a href="portfolio.html" target="_blank">전체화면으로 열기 ↗</a></div>
+</div>
+
+<div class="win" id="w-story" style="left:10%; top:6%;" data-title="📖 STORY.EXE">
+  <div class="titlebar"><span>📖 STORY.EXE — 스크롤 스토리 (원본)</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding-bottom:8px;">
+    <iframe data-src="story.html" style="width:min(920px,86vw); height:min(600px,64vh);"></iframe>
+  </div>
+  <div class="storyline">이 이야기의 <i>전문(全文)</i>이에요. 불꽃에서 시작해 은하에서 끝납니다.</div>
+  <div class="linkbar"><a href="story.html" target="_blank">전체화면으로 열기 ↗</a></div>
+</div>
+
+<div class="win" id="w-times" style="left:14%; top:9%;" data-title="🗞️ HYUNAE TIMES">
+  <div class="titlebar"><span>🗞️ HYUNAE TIMES — 창간호</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding-bottom:8px;">
+    <iframe data-src="times.html" style="width:min(920px,86vw); height:min(600px,64vh); background:#efe9da;"></iframe>
+  </div>
+  <div class="storyline">Hyunae Park의 <i>셀프 인터뷰</i>를 담은 창간호입니다. 구독료는 무료예요.</div>
+  <div class="linkbar"><a href="times.html" target="_blank">전체화면으로 열기 ↗</a></div>
+</div>
+
+<div class="win" id="w-game" style="left:16%; top:10%;" data-title="🎮 SIGNAL_RUN">
+  <div class="titlebar"><span>🎮 SIGNAL_RUN.EXE</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding-bottom:8px;">
+    <iframe data-src="game.html" style="width:min(880px,86vw); height:min(560px,62vh);"></iframe>
+  </div>
+  <div class="storyline">당신의 뇌가 <i>초당 수백 번</i> 하는 일을 직접 해보세요. 이번엔 당신이 신호입니다.</div>
+  <div class="linkbar"><a href="game.html" target="_blank">전체화면으로 열기 ↗</a></div>
+</div>
+
+<div class="win" id="w-works" style="right:8%; top:22%;" data-title="📁 WORKS">
+  <div class="titlebar"><span>📁 C:\HYUNAE\WORKS</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody"><div class="files" id="files"></div></div>
+  <div class="storyline">뇌에서 배우고 코드로 지은 것들이, 결국 <i>이 폴더</i>가 됐습니다. 영상은 클릭하면 재생돼요.</div>
+</div>
+
+<div class="win" id="w-viewer" style="left:30%; top:18%;" data-title="👁 VIEWER">
+  <div class="titlebar"><span id="viewer-title">👁 VIEWER.EXE</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" id="viewer-body"></div>
+</div>
+
+<div class="win" id="w-log" style="right:10%; top:14%;" data-title="📋 TRACK.LOG">
+  <div class="titlebar"><span>📋 TRACK.LOG — 활동 기록</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody log" style="max-height:300px; overflow-y:auto;">
+    <span class="d">[2026.07]</span> 고려대 안암병원 앱 스플래시 디자인 제작<br/>
+    <span class="d">[2026.03]</span> 한수원 어린이 에너지 교육 시리즈 5부작 납품<br/>
+    <span class="d">[2025.12]</span> 서울콘 DDP 'AI 전람회 : Beyond Fluxus' 초대 작가<br/>
+    <span class="d">[2025.12]</span> 충남 아산 중학교 AI 웹툰·쇼츠 강의<br/>
+    <span class="d">[2025.11]</span> 한국수력원자력 교육용 AI 영상 제작<br/>
+    <span class="d">[2025.10]</span> 고려대 안암병원 유방암 진료 에이전트 납품<br/>
+    <span class="d">[2025.09]</span> NC AI — AI 데이터실<br/>
+    <span class="d">[2025.07]</span> 구글 스터디잼 AI 스터디 리더 (~11월)<br/>
+    <span class="d">[2025.07]</span> 유튜브 'gaebaldaeramz' 개설<br/>
+    <span class="d">[2025.06]</span> Google 'Built with AI' 미니 해커톤<br/>
+    <span class="d">[2024.07]</span> Upstage AI Lab 부트캠프 4기 (~2025.02)<br/>
+    <span class="d">[2024.04]</span> 솔버엑스(당시 VoltWin) — 스타트업 (~06월)<br/>
+    <span class="d">[2023.10]</span> 라잇모멘터스 — 스타트업 초기 멤버·개발 (~2024.02)<br/>
+    <span class="d">[2023.09]</span> 고려대 지능정보 SW아카데미 3기 (~12월)<br/>
+    <span class="d">[2023.08]</span> 고려대 컴퓨터융합소프트웨어 &amp; 뇌인지융합과학 융합전공 졸업<br/>
+    <span class="d">[2023.04]</span> 비욘드 코딩 — 학생 코딩 강의, 국제학교·영어 수업 (~2025.12)<br/>
+    <span class="d">[2023.01]</span> 한국뇌연구원 (~03월)<br/>
+    <span class="d">[2019.12]</span> NUS 싱가포르국립대 CS 교환 (~2020.05)<br/>
+    <span class="d">[2019.01]</span> 한국뇌연구원 인지신경랩실 (~03월)<br/>
+    <span style="color:#7ee2a8">[NOW]</span> 기록은 계속 늘어나는 중_
+  </div>
+  <div class="storyline">이야기가 <i>현실이 된 날짜들</i>이에요. 한 줄마다 밤샘이 들어있습니다.</div>
+</div>
+
+<div class="win" id="w-mail" style="left:28%; top:26%;" data-title="✉️ MAIL.EXE">
+  <div class="titlebar"><span>✉️ MAIL.EXE — 새 메일</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="max-width:360px;">
+    받는 사람: <b>hyunaeee@gmail.com</b><br/>
+    제목: 다음 장을 같이 쓰고 싶어요<br/>
+    <span style="color:#9aa0b0; font-size:12px;">연구 · 프로젝트 · 커피챗 — 무엇이든 환영합니다.</span>
+  </div>
+  <div class="storyline">이 이야기의 <i>다음 장</i>은 아직 비어 있어요. 함께 채워주실 분을 기다립니다.</div>
+  <div class="linkbar">
+    <a href="mailto:hyunaeee@gmail.com">보내기</a>
+    <button id="copymail">주소 복사</button>
+    <a href="https://github.com/hyunaeee" target="_blank">GitHub</a>
+    <a href="https://velog.io/@hyunaeee/posts" target="_blank">Velog</a>
+    <a href="https://instagram.com/gaebal_daeraemz" target="_blank">Insta</a>
+    <a href="https://www.youtube.com/@gaebal_daeraemz" target="_blank">YouTube</a>
+  </div>
+</div>
+
+<div class="win" id="w-phone" style="left:38%; top:3%;" data-title="📱 마음친구 EMU">
+  <div class="titlebar"><span>📱 MAEUM_EMU — 이불 안 마음친구 (배포 전)</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding:14px 18px 8px;">
+    <div class="phone">
+      <div class="pscreen" id="pscreen">
+        <div class="pnotch"></div>
+        <div class="pscale" id="pscale"><iframe id="pframe" data-psrc="maeum/index.html" title="이불 안 마음친구"></iframe></div>
+        <div class="phome"></div>
+        <div class="psplash" id="psplash">
+          <img src="assets/maeum-icon.png" alt="앱 아이콘" />
+          <div>이불 안 마음친구</div>
+        </div>
+      </div>
+    </div>
+    <div class="pdots">진짜로 작동해요 — 체크인하고, 숨도 골라보세요</div>
+  </div>
+  <div class="storyline">기획·디자인·개발 전부 직접 만든 멘탈 케어 앱, <i>실제 코드</i>가 돌아가는 데모 빌드예요 ☁️</div>
+</div>
+
+<div class="win" id="w-phone2" style="left:52%; top:6%;" data-title="💔 후방위 EMU">
+  <div class="titlebar"><span>💔 HUBANGWI_EMU — 후방위 (배포 전)</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="padding:14px 18px 8px;">
+    <div class="phone">
+      <div class="pscreen" id="pscreen2" style="background:#fffaf4;">
+        <div class="pnotch"></div>
+        <div class="pscale" id="pscale2"><iframe id="pframe2" data-psrc="hubangwi/index.html" title="후방위 — 후폭풍방지위원회" style="background:#fffaf4;"></iframe></div>
+        <div class="phome"></div>
+        <div class="psplash" id="psplash2" style="background:#fffaf4; color:#81776f;">
+          <div style="width:74px;height:74px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#ff8a73,#ee7055);color:#fff;font-size:30px;font-weight:900;box-shadow:0 6px 18px rgba(238,112,85,.3);">후</div>
+          <div>후방위 — 후폭풍방지위원회</div>
+        </div>
+      </div>
+    </div>
+    <div class="pdots">감정 쏟아내기, 재회 문자 점검, 90일 여정 — 진짜로 돼요</div>
+  </div>
+  <div class="storyline">이별 후 연락 충동을 막아주는 회복 앱, 이것도 <i>실제 코드</i>가 돌아가는 데모 빌드예요 💔</div>
+</div>
+
+<div class="win" id="w-toybox" style="left:24%; top:16%;" data-title="🧸 TOYBOX">
+  <div class="titlebar"><span>🧸 C:\HYUNAE\TOYBOX — 잡동사니</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody">
+    <div class="files" style="max-width:480px;">
+      <div class="file" data-app="w-brain"><div class="glyph">🧠</div><div class="name">BRAIN.EXE</div></div>
+      <div class="file" data-app="w-blueprint"><div class="glyph">📐</div><div class="name">HOUSE.DWG</div></div>
+      <div class="file" data-app="w-times"><div class="glyph">🗞️</div><div class="name">HYUNAE<br/>TIMES</div></div>
+      <div class="file" data-app="w-log"><div class="glyph">📋</div><div class="name">TRACK.LOG</div></div>
+      <div class="file" data-app="w-term"><div class="glyph">💻</div><div class="name">TERMINAL<br/>.EXE</div></div>
+      <div class="file" data-app="fs-dive"><div class="glyph">🌌</div><div class="name">DIVE.EXE</div></div>
+      <div class="file" data-app="fs-type"><div class="glyph">🌀</div><div class="name">TYPESTORM<br/>.EXE</div></div>
+      <div class="file" data-app="saver"><div class="glyph">🔦</div><div class="name">NOIR.SCR</div></div>
+      <div class="file" data-app="w-secret"><div class="glyph">🔒</div><div class="name">SECRET</div></div>
+      <div class="file" data-app="w-trash"><div class="glyph">🗑️</div><div class="name">휴지통</div></div>
+      <div class="file" data-app="dontclick"><div class="glyph">⛔</div><div class="name">DONT_CLICK<br/>.EXE</div></div>
+    </div>
+  </div>
+  <div class="storyline">부수적인 것들은 여기 정리해뒀어요. 근데 사실 <i>제일 재밌는 건</i> 다 여기 있음.</div>
+</div>
+
+<div class="win" id="w-term" style="left:22%; top:20%;" data-title="💻 TERMINAL">
+  <div class="titlebar"><span>💻 HYUNAE SHELL — C:\HYUNAE</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody">
+    <div id="term-out" class="termout">HYUNAE SHELL v1.0 — 'help' 를 입력해보세요.</div>
+    <div class="termline">C:\HYUNAE&gt;&nbsp;<input id="term-in" autocomplete="off" spellcheck="false" /></div>
+  </div>
+  <div class="storyline">개발자의 집엔 역시 터미널이 있어야죠. <i>fortune</i>을 쳐보세요.</div>
+</div>
+
+<div class="win" id="w-trash" style="right:12%; top:26%;" data-title="🗑️ 휴지통">
+  <div class="titlebar"><span>🗑️ 휴지통 — 버린_아이디어들</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="max-width:380px;">
+    <div class="trashitem">🧠 뇌파로 조종하는 마우스 <span>— 하드웨어가 없음</span><button class="restore">복구</button></div>
+    <div class="trashitem">🪙 체리코인 발행 <span>— 양심이 있음</span><button class="restore">복구</button></div>
+    <div class="trashitem">😴 잠 안 자기 챌린지 앱 <span>— 본인이 1등 할 예정이라 폐기</span><button class="restore">복구</button></div>
+    <div class="trashitem">💜 보라색 네온 테마 v1 <span>— 이 사이트의 전신. 촌스러워서 버림</span><button class="restore">복구</button></div>
+  </div>
+  <div class="storyline">버린 것들도 <i>이야기의 일부</i>라 차마 비우진 못했어요.</div>
+</div>
+
+<div class="win" id="w-secret" style="left:30%; top:24%;" data-title="🔒 SECRET">
+  <div class="titlebar"><span>🔒 SECRET — 접근 제한</span>
+    <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
+  <div class="wbody" style="max-width:380px;" id="secret-body">
+    이 폴더는 잠겨 있습니다.<br/><br/>
+    <b>Q. 사람의 뇌에는 뉴런이 몇 십억 개?</b><br/>
+    <span style="color:#9aa0b0; font-size:12px;">(숫자만 입력 — 이 컴퓨터 어딘가에 답이 있어요)</span><br/><br/>
+    <input id="secret-in" style="font-family:inherit; background:#0b0c12; border:1.5px solid #0c0d12; color:#e8eaf2; padding:6px 10px; width:120px;" />
+    <button id="secret-btn" class="restore" style="margin-left:6px;">해제</button>
+    <span id="secret-msg" style="color:#ff8f99; font-size:12px; margin-left:8px;"></span>
+  </div>
+  <div class="storyline">힌트가 필요하면 <i>BRAIN.EXE</i>나 <i>TRACK.LOG</i>… 아니 사실 어디에나 있어요.</div>
+</div>
+
+<!-- ================= fullscreen apps ================= -->
+<div class="fsapp" id="fs-dive">
+  <canvas id="diveCv"></canvas>
+  <div class="fslabel"><b id="dive-label">THE BRAIN</b> — <span id="dive-depth">10^0 M</span> · 스크롤로 다이브<br/>
+    <span style="font-family:'Noto Sans KR',sans-serif;font-weight:300;font-size:12px;">뇌를 파고들면 원자가 나오고, 멀어지면 은하가 됩니다 — 생각의 스케일 여행</span></div>
+  <button class="fsclose" data-fsclose>ESC 종료 ×</button>
+</div>
+<div class="fsapp" id="fs-type">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet" />
+  <div id="ts-stage"></div>
+  <div class="fslabel"><b>TYPESTORM.EXE</b> — 커서로 휘고, 클릭하면 폭발<br/>
+    <span style="font-family:'Noto Sans KR',sans-serif;font-weight:300;font-size:12px;">코드는 제 두 번째 모국어예요 — 근데 이 글자들은 가만히 있질 않네요</span></div>
+  <button class="fsclose" data-fsclose>ESC 종료 ×</button>
+</div>
+<div class="fsapp" id="saver">
+  <div id="sv-world">
+    <canvas id="svCv"></canvas>
+    <div class="sv-line" style="top:16%; left:12%;">뉴런은 어둠 속에서도 <b>초당 수백 번</b> 발화한다</div>
+    <div class="sv-line" style="top:24%; right:10%;">🍒 Hyunae Park의 숨은 문장</div>
+    <div class="sv-line" style="bottom:20%; left:16%;">뇌과학 × 컴퓨터과학 = <b>AI</b></div>
+    <div class="sv-line" style="bottom:26%; right:12%;">화면보호기까지 보는 당신, <b>집요하다</b></div>
+  </div>
+  <div id="sv-hint">생각은 어둠 속에서 켜진다 — 클릭하면 돌아갑니다</div>
+</div>
+
+<!-- ================= taskbar ================= -->
+<div class="taskbar">
+  <button class="start" id="startbtn">🍒 시작</button>
+  <div id="tasks"></div>
+  <span class="clock" id="clock">--:--</span>
+</div>
+<div id="startmenu">
+  <div class="head">HYUNAE OS — Hyunae Park의 컴퓨터</div>
+  <div class="item" data-app="w-portfolio">⭐ PORTFOLIO — 한눈에 보기</div>
+  <div class="item" data-app="w-story">📖 STORY.EXE <span style="margin-left:auto;color:#8a8fa0;font-size:10px">원본</span></div>
+  <div class="item" data-app="w-works">📁 WORKS</div>
+  <div class="item" data-app="w-game">🎮 SIGNAL_RUN.EXE</div>
+  <div class="item" data-app="w-times">🗞️ HYUNAE TIMES</div>
+  <div class="item" data-app="w-chat">🍒 HYUNAE 메신저</div>
+  <div class="item" data-app="w-toybox">🧸 TOYBOX — 잡동사니</div>
+  <div class="sep"></div>
+  <a class="item" href="classic.html" target="_blank">🗂️ CLASSIC.HTML (구버전)</a>
+  <a class="item" href="https://github.com/hyunaeee" target="_blank">🐙 GitHub</a>
+  <a class="item" href="mailto:hyunaeee@gmail.com">✉️ hyunaeee@gmail.com</a>
+</div>
+<div id="toasts"></div>
+
+<script>
+"use strict";
+/* ================= wallpaper: tiny animated ASCII cherry ================
+   A small cherry charm that sways from its stem, flutters its leaf,
+   twinkles, and gives a happy hop every few seconds. */
+(function () {
+  const cv = document.getElementById("wallpaper"), ctx = cv.getContext("2d");
+  const ART = [
+    "    _.;;.",
+    "  ,'  ;;;;",
+    "  |    ;;",
+    "  | \\",
+    "  |  \\",
+    ",@@@, \\",
+    "@@*@@  |",
+    "'@@@' ,@@@,",
+    "       @@*@@",
+    "       '@@@'",
+  ];
+  const SPARKS = [ // twinkles around the charm: [col, row, phase]
+    [-2.5, 1.5, 0], [12.5, 0.5, 2.1], [13.5, 6.5, 4.2], [-2, 7.5, 1.1], [5, -1.8, 3.2],
+  ];
+  let W = 0, H = 0;
+  function resize() { W = cv.width = innerWidth; H = cv.height = innerHeight; }
+  addEventListener("resize", resize);
+  resize();
+  function colorFor(ch, tw) {
+    if (ch === "@") return "rgba(206, 62, 76, 0.72)";
+    if (ch === "o") return "rgba(206, 62, 76, 0.4)";
+    if (ch === "*") return "rgba(255, 182, 190, " + (0.45 + tw * 0.45).toFixed(2) + ")"; // pulsing shine
+    if (ch === ";") return "rgba(126, 158, 116, 0.62)";
+    return "rgba(128, 134, 152, 0.5)";
+  }
+  function tick(ms) {
+    requestAnimationFrame(tick);
+    const t = ms / 1000;
+    ctx.fillStyle = "#0e0f15";
+    ctx.fillRect(0, 0, W, H);
+
+    const cols = Math.max(...ART.map(l => l.length));
+    const cw = Math.max(7, Math.min(10, W / 150));
+    const chh = cw * 1.6;
+    // a happy little hop every ~6s
+    const hopT = t % 6;
+    const hop = hopT < 0.5 ? Math.sin(hopT / 0.5 * Math.PI) * chh * 0.8 : 0;
+    const x0 = W - cols * cw - Math.max(40, W * 0.055);
+    const y0 = Math.max(14, H * 0.30) - hop;
+    const sway = Math.sin(t * 1.3);
+
+    ctx.textBaseline = "top";
+    ctx.font = "700 " + (chh * 0.9).toFixed(0) + "px Consolas, monospace";
+    for (let r = 0; r < ART.length; r++) {
+      const line = ART[r];
+      // hangs from the top: lower rows swing further
+      const rowSway = sway * (r / ART.length) * cw * 0.9;
+      for (let c = 0; c < line.length; c++) {
+        const ch = line[c];
+        if (ch === " ") continue;
+        let dx = rowSway, dy = 0;
+        if (ch === ";") { // leaf flutter
+          dx += Math.sin(t * 3.1 + c * 0.8) * 1.3;
+          dy += Math.cos(t * 2.7 + c) * 0.9;
+        }
+        const tw = 0.5 + 0.5 * Math.sin(t * 2.2 + r);
+        ctx.fillStyle = colorFor(ch, tw);
+        ctx.fillText(ch, x0 + c * cw + dx, y0 + r * chh + dy);
+      }
+    }
+    // twinkles
+    ctx.font = (chh * 0.85).toFixed(0) + "px Consolas, monospace";
+    for (const [sc, sr, ph] of SPARKS) {
+      const a = Math.max(0, Math.sin(t * 1.6 + ph));
+      if (a < 0.15) continue;
+      ctx.fillStyle = "rgba(255, 214, 170, " + (a * 0.5).toFixed(2) + ")";
+      ctx.fillText(a > 0.8 ? "+" : "·", x0 + sc * cw + sway * 2, y0 + sr * chh);
+    }
+    // tiny signature
+    ctx.font = "11px Consolas, monospace";
+    ctx.fillStyle = "rgba(96,102,122,.5)";
+    ctx.fillText("hyunae.exe 실행 중 🍒", x0 - cw, y0 + ART.length * chh + 14);
+  }
+  requestAnimationFrame(tick);
+})();
+
+/* ================= boot ================= */
+(function () {
+  const el = document.getElementById("boot");
+  const LINES = [
+    'HYUNAE BIOS v5.0 — CHERRY FIRMWARE',
+    'MEMORY TEST : 86,000,000,000 NEURONS ......... <span class="ok">OK</span>',
+    'SYNAPSE BUS : 100T LINKS ..................... <span class="ok">OK</span>',
+    'CREATIVITY DRIVER ............................ <span class="ok">OK</span>',
+    'MOUNTING <b>C:\\HYUNAE</b> .......................... <span class="ok">OK</span>',
+    '',
+    'STARTING <b>HYUNAE_OS</b> ...',
+  ];
+  let i = 0;
+  (function next() {
+    if (i < LINES.length) {
+      el.innerHTML += LINES[i++] + "\n";
+      setTimeout(next, 180 + Math.random()*200);
+    } else setTimeout(showMenu, 350);
+  })();
+
+  /* dual boot: explore the OS, or jump straight to the one-page portfolio */
+  function showMenu() {
+    if (location.hash === '#os' || !location.hash) {
+      el.style.transition = 'opacity .5s'; el.style.opacity = 0;
+      setTimeout(() => { el.remove(); openWin('w-readme'); openWin('w-chat'); }, 520);
+      return;
+    }
+    // deep link: index.html#phone / #hb boots straight into an OS emulator
+    if (location.hash === "#phone" || location.hash === "#hb") {
+      const phoneWin = location.hash === "#hb" ? "w-phone2" : "w-phone";
+      el.style.transition = "opacity .5s"; el.style.opacity = 0;
+      setTimeout(() => { el.remove(); openWin("w-readme"); openWin("w-chat"); openWin(phoneWin); }, 520);
+      return;
+    }
+    el.innerHTML += "\nSELECT BOOT MODE:\n\n";
+    const menu = document.createElement("div");
+    menu.innerHTML =
+      '<div class="bootopt sel" data-v="pf">1. PORTFOLIO.STUDIO — 3D 탐색 · PDF 저장 (기본)</div>' +
+      '<div class="bootopt" data-v="os">2. HYUNAE_OS &nbsp;&nbsp;&nbsp;&nbsp;— 탐험하며 구경하기 🍒</div>' +
+      '<div style="margin-top:16px;color:#6b7280;font-size:12px" id="bootcount"></div>';
+    el.appendChild(menu);
+    const opts = menu.querySelectorAll(".bootopt");
+    const cdEl = menu.querySelector("#bootcount");
+    let sel = 0, count = 8;
+    function upd() { opts.forEach((o, j) => o.classList.toggle("sel", j === sel)); }
+    function choose(v) {
+      clearInterval(cd);
+      if (v === "pf") { location.href = "portfolio.html"; return; }
+      el.style.transition = "opacity .5s"; el.style.opacity = 0;
+      setTimeout(() => { el.remove(); openWin("w-readme"); openWin("w-chat"); }, 520);
+    }
+    opts.forEach((o, j) => {
+      o.addEventListener("click", () => choose(o.dataset.v));
+      o.addEventListener("mouseenter", () => { sel = j; upd(); });
+    });
+    addEventListener("keydown", function h(e) {
+      if (!document.body.contains(menu)) { removeEventListener("keydown", h); return; }
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") { sel = 1 - sel; upd(); }
+      else if (e.key === "1") choose("pf");
+      else if (e.key === "2") choose("os");
+      else if (e.key === "Enter") choose(opts[sel].dataset.v);
+    });
+    cdEl.textContent = count + "초 후 PORTFOLIO로 자동 부팅...";
+    const cd = setInterval(() => {
+      count--;
+      cdEl.textContent = count + "초 후 PORTFOLIO로 자동 부팅...";
+      if (count <= 0) choose(opts[sel].dataset.v);
+    }, 1000);
+  }
+})();
+
+/* ================= window manager ================= */
+let topZ = 30;
+const opened = new Set();
+function focusWin(w) {
+  document.querySelectorAll(".win").forEach(x => x.classList.remove("focus"));
+  w.classList.add("focus");
+  w.style.zIndex = ++topZ;
+}
+function openWin(id) {
+  const w = document.getElementById(id);
+  if (!w) return;
+  if (w.classList.contains("fsapp")) { openFs(id); return; }
+  w.classList.add("open"); w.classList.remove("min");
+  focusWin(w);
+  lazyInit(id);
+  opened.add(id);
+  syncTasks();
+  react(id);
+}
+function closeWin(w) { w.classList.remove("open", "min", "focus"); opened.delete(w.id); syncTasks(); }
+function minWin(w) { w.classList.add("min"); w.classList.remove("focus"); syncTasks(); }
+
+document.querySelectorAll("[data-app]").forEach(el =>
+  el.addEventListener("click", () => {
+    document.getElementById("startmenu").classList.remove("open");
+    if (el.dataset.app === "saver") startSaver();
+    else if (el.dataset.app === "dontclick") cherryRain();
+    else openWin(el.dataset.app);
+  }));
+
+/* DONT_CLICK.EXE — you were warned */
+let rainToasted = false;
+function cherryRain() {
+  for (let i = 0; i < 36; i++) {
+    const d = document.createElement("div");
+    d.className = "cherrydrop";
+    d.textContent = "🍒";
+    d.style.left = Math.random() * 100 + "vw";
+    d.style.fontSize = 14 + Math.random() * 22 + "px";
+    d.style.animationDuration = 1.6 + Math.random() * 2.2 + "s";
+    d.style.animationDelay = Math.random() * 0.8 + "s";
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 5000);
+  }
+  if (!rainToasted) {
+    rainToasted = true;
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.innerHTML = '<img src="assets/aengdu-joy.png" alt="Hyunae Park"/><span><b>Hyunae Park</b> — 누르지 말라니까요!! ...예쁘긴 하죠 🍒</span>';
+    document.getElementById("toasts").appendChild(t);
+    setTimeout(() => { t.style.transition = "opacity .4s"; t.style.opacity = 0; setTimeout(() => t.remove(), 420); }, 4200);
+  }
+}
+document.querySelectorAll("[data-close]").forEach(b =>
+  b.addEventListener("click", e => closeWin(e.target.closest(".win"))));
+document.querySelectorAll("[data-min]").forEach(b =>
+  b.addEventListener("click", e => minWin(e.target.closest(".win"))));
+
+document.querySelectorAll(".win").forEach(w => {
+  w.addEventListener("pointerdown", () => focusWin(w));
+  const bar = w.querySelector(".titlebar");
+  let sx, sy, ox, oy, drag = false;
+  bar.addEventListener("pointerdown", e => {
+    if (e.target.tagName === "BUTTON") return;
+    drag = true; sx = e.clientX; sy = e.clientY;
+    const r = w.getBoundingClientRect(); ox = r.left; oy = r.top;
+    bar.setPointerCapture(e.pointerId);
+  });
+  bar.addEventListener("pointermove", e => {
+    if (!drag) return;
+    w.style.left = Math.max(-100, ox + e.clientX - sx) + "px";
+    w.style.top = Math.max(0, oy + e.clientY - sy) + "px";
+    w.style.right = "auto"; w.style.bottom = "auto";
+  });
+  bar.addEventListener("pointerup", () => drag = false);
+});
+
+function syncTasks() {
+  const box = document.getElementById("tasks");
+  box.innerHTML = "";
+  opened.forEach(id => {
+    const w = document.getElementById(id);
+    const b = document.createElement("button");
+    b.textContent = w.dataset.title || id;
+    if (w.classList.contains("focus") && !w.classList.contains("min")) b.classList.add("active");
+    b.onclick = () => {
+      if (w.classList.contains("min")) { w.classList.remove("min"); focusWin(w); }
+      else if (w.classList.contains("focus")) minWin(w);
+      else focusWin(w);
+      syncTasks();
+    };
+    box.appendChild(b);
+  });
+}
+
+/* lazy loading heavy content */
+const inited = new Set();
+function lazyInit(id) {
+  if (inited.has(id)) return;
+  inited.add(id);
+  const w = document.getElementById(id);
+  const f = w.querySelector("iframe[data-src]");
+  if (f) f.src = f.dataset.src;
+  if (id === "w-brain") brainApp();
+  if (id === "w-works") buildFiles();
+  if (id === "w-chat") chatApp();
+  if (id === "w-phone" || id === "w-phone2") {
+    const sfx = id === "w-phone2" ? "2" : "";
+    const frame = document.getElementById("pframe" + sfx);
+    if (frame && !frame.src) frame.src = frame.dataset.psrc; // boot the real app
+    function fitPhone() {
+      const screen = document.getElementById("pscreen" + sfx);
+      const sc = document.getElementById("pscale" + sfx);
+      if (!screen || !sc) return;
+      const scale = screen.clientWidth / 430;
+      sc.style.transform = "scale(" + scale + ")";
+      screen.style.height = Math.round(880 * scale) + "px";
+    }
+    fitPhone();
+    window.addEventListener("resize", fitPhone);
+    setTimeout(() => {
+      const s = document.getElementById("psplash" + sfx);
+      if (s) s.classList.add("off");
+    }, 2200);
+  }
+}
+
+/* start menu + clock */
+const startbtn = document.getElementById("startbtn");
+const startmenu = document.getElementById("startmenu");
+startbtn.addEventListener("click", e => { e.stopPropagation(); startmenu.classList.toggle("open"); startbtn.classList.toggle("on"); });
+addEventListener("pointerdown", e => { if (!startmenu.contains(e.target) && e.target !== startbtn) { startmenu.classList.remove("open"); startbtn.classList.remove("on"); } });
+setInterval(() => {
+  const d = new Date();
+  document.getElementById("clock").textContent =
+    String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
+}, 1000);
+
+/* ================= Hyunae Park reactions ================= */
+const REACT = {
+  "w-portfolio": "바쁘신 분을 위한 한 장 요약이에요 ⭐ 천천히 볼 거면 다른 창들도!",
+  "w-story": "그 스크롤 스토리, 원본 그대로예요. 추억이 아니라 현역 📖",
+  "w-works": "포폴 구경 오셨네요! 영상은 더블클릭이에요",
+  "w-game": "화이팅! 제 최고기록은 안 알려드림 🎮",
+  "w-times": "창간호입니다. 구독료는 무료예요 🗞️",
+  "w-brain": "제 자랑 뇌예요. 문자로 그렸어요 🧠",
+  "w-blueprint": "이 컴퓨터의 평면도예요. 방을 클릭하면 이동해요 📐",
+  "fs-dive": "멀미 조심하세요 🌌",
+  "fs-type": "글자 조심하세요, 물어요 🌀",
+  "w-mail": "답장은 빛의 속도로 드릴게요 ✉️",
+  "w-log": "한 줄 한 줄이 밤샘의 기록입니다 📋",
+  "w-toybox": "잡동사니 상자예요. 하나씩 다 눌러보는 거 추천 🧸",
+  "w-phone": "제 아기… 아니 앱이에요. 살살 스와이프해주세요 ☁️",
+  "w-phone2": "이별은 아파도 후폭풍은 막을 수 있어요. 문자 보내기 전에 여기 먼저 💔",
+  "w-term": "오, 터미널 여는 사람 오랜만이에요. 'fortune' 쳐보세요 💻",
+  "w-trash": "남의 휴지통을 왜... 아니 뭐, 보세요 🗑️",
+  "w-secret": "암호요? 제 전공을 떠올려보세요 🔒",
+};
+const reacted = new Set();
+/* make Aengdu speak in the messenger from anywhere */
+function say(html) {
+  openWin("w-chat");
+  const log = document.getElementById("chatlog");
+  if (!log) return;
+  const m = document.createElement("div");
+  m.className = "msg";
+  m.innerHTML = '<img class="avatar" src="assets/aengdu-hello.png"/><div class="bubble">' + html + "</div>";
+  log.appendChild(m);
+  log.scrollTop = log.scrollHeight;
+}
+function react(id) {
+  if (!REACT[id] || reacted.has(id)) return;
+  reacted.add(id);
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.innerHTML = '<img src="assets/aengdu-hello.png" alt="Hyunae Park"/><span><b>Hyunae Park</b> — ' + REACT[id] + "</span>";
+  document.getElementById("toasts").appendChild(t);
+  setTimeout(() => { t.style.transition = "opacity .4s"; t.style.opacity = 0; setTimeout(() => t.remove(), 420); }, 4200);
+}
+
+/* ================= messenger ================= */
+function chatApp() {
+  const log = document.getElementById("chatlog");
+  const SCRIPT = [
+    ["her", "어서 오세요, 제 컴퓨터예요 🍒"],
+    ["her", "저는 뇌과학이랑 컴퓨터과학을 전공했어요"],
+    ["me", "그래서 바탕화면에 뇌가 있구나"],
+    ["her", "네. 뇌를 공부하다가, 직접 만들어보고 싶어져서, 지금은 AI를 만들어요"],
+    ["her", "그 여정은 STORY.EXE에 담아뒀어요. 스크롤로 읽는 이야기예요 📖"],
+    ["me", "게임도 있네?"],
+    ["her", "SIGNAL_RUN이요. 당신이 뉴런 사이를 달리는 신호가 되는 거예요 ⚡"],
+    ["her", "아, 가만히 있으면 불이 꺼져요. 생각은 어둠 속에서 켜지거든요 🔦"],
+  ];
+  let i = 0;
+  function push(role, text) {
+    const m = document.createElement("div");
+    m.className = "msg" + (role === "me" ? " me" : "");
+    m.innerHTML = (role === "her" ? '<img class="avatar" src="assets/aengdu-hello.png"/>' : "") +
+      '<div class="bubble">' + text + "</div>";
+    log.appendChild(m);
+    log.scrollTop = log.scrollHeight;
+  }
+  (function next() {
+    if (i >= SCRIPT.length) return;
+    const [role, text] = SCRIPT[i++];
+    if (role === "her") {
+      const tp = document.createElement("div");
+      tp.className = "msg";
+      tp.innerHTML = '<img class="avatar" src="assets/aengdu-hello.png"/><div class="bubble typing"><i>·</i><i>·</i><i>·</i></div>';
+      log.appendChild(tp); log.scrollTop = log.scrollHeight;
+      setTimeout(() => { tp.remove(); push(role, text); setTimeout(next, 700 + Math.random()*500); }, 750);
+    } else { push(role, text); setTimeout(next, 800); }
+  })();
+}
+
+/* ================= WORKS explorer + viewer ================= */
+const FILES = [
+  { g:"🧬", n:"anatomy_sample.url", type:"link", href:"https://anatomy-sample.vercel.app/" },
+  { g:"🏥", n:"anam_splash.mp4", type:"drive", id:"1gbLiowTyFQ6U6GwdoBja8qWKGgK_bbvH", t:"고려대 안암병원 앱 스플래시 (납품작 2026.07)" },
+  { g:"🖼️", n:"now_art.png", type:"img", src:"assets/now-art.jpg", t:"N.O.W — 전시 컨셉 아트 (2025.12)" },
+  { g:"⚛️", n:"khnp_ep01.mp4", type:"drive", id:"1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k", t:"KHNP 어린이 에너지 교육 EP.01 (납품작)" },
+  { g:"⚛️", n:"khnp_ep02.mp4", type:"drive", id:"1oCVM7z9ByHbd61RsIWd_DtN5Ya-glV-X", t:"KHNP EP.02" },
+  { g:"⚛️", n:"khnp_ep03.mp4", type:"drive", id:"1OmeKei2SqGnEZbQDR4XhA7_KWz8U78xq", t:"KHNP EP.03" },
+  { g:"⚛️", n:"khnp_ep04.mp4", type:"drive", id:"1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB", t:"KHNP EP.04" },
+  { g:"⚛️", n:"khnp_ep05.mp4", type:"drive", id:"1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg", t:"KHNP EP.05" },
+  { g:"🎵", n:"not_my_fault.mp3", type:"audio", src:"assets/music01.mp3", t:"NOT MY FAULT — Suno와 작곡 (2025.12)" },
+  { g:"☁️", n:"maeum_chingu.app", type:"app", id:"w-phone" },
+  { g:"💔", n:"hubangwi.app", type:"app", id:"w-phone2" },
+  { g:"🎨", n:"design_gallery.url", type:"link", href:"https://hyunaeee.github.io/design-gallery/" },
+  { g:"🍽️", n:"tableon.url", type:"link", href:"tableon/" },
+  { g:"📊", n:"ppt_studio.url", type:"link", href:"https://hyunaeee.github.io/ppt-test/" },
+  { g:"📔", n:"daily_book.url", type:"link", href:"https://daily-book-bce82.web.app/" },
+  { g:"🏠", n:"real_estate.url", type:"link", href:"https://real-property-checking-system.vercel.app/" },
+  { g:"🌌", n:"universe.url", type:"link", href:"https://universe-sample.vercel.app" },
+  { g:"📚", n:"study_briefing.url", type:"link", href:"https://hyunaeee.github.io/daily-study-briefing/" },
+  { g:"🏭", n:"factory_studio.png", type:"img", src:"assets/automation.jpg", t:"FACTORY STUDIO — 워크오더 방식 무인 영상 공장 (로컬 툴, 2026.08)" },
+  { g:"🔮", n:"cheongiyeon.url", type:"link", href:"https://saju-ai-mobile-demo.vercel.app" },
+  { g:"🚶", n:"walk_mate.url", type:"link", href:"https://hyunaeee.github.io/walk-mate/" },
+  { g:"🎻", n:"agent_orchestra.git", type:"link", href:"https://github.com/hyunaeee/agent-orchestra" },
+  { g:"📝", n:"meeting_assistant.url", type:"link", href:"meeting/" },
+  { g:"🩺", n:"med_rag.demo", type:"link", href:"med-rag/" },
+  { g:"🌐", n:"hacker_typer.url", type:"link", href:"https://hacker-typer.vercel.app/" },
+  { g:"🌐", n:"galaxy_oracle.url", type:"link", href:"https://galaxy-oracle.netlify.app/" },
+  { g:"🌐", n:"word_game.url", type:"link", href:"https://word-game-ochre-psi.vercel.app" },
+  { g:"🌐", n:"saju_platform.url", type:"link", href:"https://saju-platform.vercel.app" },
+  { g:"📦", n:"legal_rag.git", type:"link", href:"https://github.com/hyunaeee/legal-pdf-rag-chatbot" },
+  { g:"📦", n:"ppt_studio.git", type:"link", href:"https://github.com/hyunaeee/ppt-test" },
+  { g:"📦", n:"higgs_mcp.git", type:"link", href:"https://github.com/hyunaeee/higgsMCP" },
+];
+function buildFiles() {
+  const box = document.getElementById("files");
+  FILES.forEach(f => {
+    const d = document.createElement("div");
+    d.className = "file";
+    d.innerHTML = '<div class="glyph">' + f.g + '</div><div class="name">' + f.n + "</div>";
+    d.onclick = () => {
+      if (f.type === "link") { window.open(f.href, "_blank"); return; }
+      if (f.type === "app") { openWin(f.id); return; }
+      const vb = document.getElementById("viewer-body");
+      document.getElementById("viewer-title").textContent = "👁 " + f.n + (f.t ? " — " + f.t : "");
+      if (f.type === "yt") vb.innerHTML = '<iframe style="width:min(760px,80vw);aspect-ratio:16/9;" src="https://www.youtube.com/embed/' + f.id + '?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+      else if (f.type === "drive") vb.innerHTML = '<iframe style="width:min(760px,80vw);aspect-ratio:16/9;" src="https://drive.google.com/file/d/' + f.id + '/preview" allow="autoplay"></iframe>';
+      else if (f.type === "img") vb.innerHTML = '<img src="' + f.src + '" style="width:min(760px,80vw);display:block;border:1.5px solid #0c0d12;"/>';
+      else if (f.type === "audio") vb.innerHTML = '<div style="padding:10px 4px;">🎵 ' + f.t + '</div><audio controls autoplay style="width:min(520px,76vw);" src="' + f.src + '"></audio>';
+      openWin("w-viewer");
+    };
+    box.appendChild(d);
+  });
+}
+document.querySelector("#w-viewer [data-close]").addEventListener("click", () => {
+  document.getElementById("viewer-body").innerHTML = ""; // stop playback
+});
+
+/* copy mail */
+document.getElementById("copymail").addEventListener("click", function () {
+  if (navigator.clipboard) navigator.clipboard.writeText("hyunaeee@gmail.com").then(() => {
+    this.textContent = "복사됨!"; setTimeout(() => this.textContent = "주소 복사", 1800);
+  });
+});
+
+/* ================= BRAIN.EXE — ascii renderer ================= */
+function brainApp() {
+  const cv = document.getElementById("brainCv"), ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height, CW = 7, CH = 13;
+  const COLS = (W / CW) | 0, ROWS = (H / CH) | 0;
+  const RAMP = " .,:;i1tfLCG08@";
+  const PTS = [];
+  function rnd() { return Math.random() * 2 - 1; }
+  const cords = [];
+  for (let c = 0; c < 34; c++) {
+    let px = rnd(), py = rnd(), pz = rnd();
+    let l = Math.hypot(px, py, pz) || 1; px/=l; py/=l; pz/=l;
+    let dx = rnd(), dy = rnd(), dz = rnd();
+    for (let s = 0; s < 50; s++) {
+      const dot = dx*px + dy*py + dz*pz;
+      dx -= px*dot; dy -= py*dot; dz -= pz*dot;
+      l = Math.hypot(dx,dy,dz) || 1; dx/=l; dy/=l; dz/=l;
+      px += dx*0.05; py += dy*0.05; pz += dz*0.05;
+      l = Math.hypot(px,py,pz); px/=l; py/=l; pz/=l;
+      dx += rnd()*0.35; dy += rnd()*0.35; dz += rnd()*0.35;
+      cords.push([px,py,pz]);
+    }
+  }
+  for (let i = 0; i < 4200; i++) {
+    const g = cords[(Math.random()*cords.length)|0];
+    let x = g[0]+rnd()*0.05, y = g[1]+rnd()*0.05, z = g[2]+rnd()*0.05;
+    const inv = 1/Math.hypot(x,y,z), sh = 1 + (Math.random()-0.3)*0.08;
+    x*=inv*sh; y*=inv*sh; z*=inv*sh;
+    x = Math.abs(x)*0.62 + 0.05; y *= 0.8; z *= 1.12;
+    if (z > 0) { x *= Math.max(0.6, 1 - z*0.16); y *= Math.max(0.78, 1 - z*0.08); }
+    if (y < -0.6) y = -0.6 - (y+0.6)*0.4;
+    PTS.push([(Math.random()<0.5?1:-1)*x, y + 0.08, z]);
+  }
+  let rotY = 0.6, rotX = -0.15, dragging = false, lx = 0, ly = 0;
+  cv.addEventListener("pointerdown", e => { dragging = true; lx = e.clientX; ly = e.clientY; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointerup", () => dragging = false);
+  cv.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    rotY += (e.clientX - lx) * 0.008; rotX += (e.clientY - ly) * 0.005;
+    lx = e.clientX; ly = e.clientY;
+  });
+  const grid = new Float32Array(COLS * ROWS);
+  const win = document.getElementById("w-brain");
+  (function tick() {
+    requestAnimationFrame(tick);
+    if (!win.classList.contains("open") || win.classList.contains("min")) return;
+    if (!dragging) rotY += 0.006;
+    const cy = Math.cos(rotY), sy = Math.sin(rotY), cx = Math.cos(rotX), sx = Math.sin(rotX);
+    grid.fill(0);
+    const scale = Math.min(W, H) * 0.36;
+    for (let i = 0; i < PTS.length; i++) {
+      const p = PTS[i];
+      let x = p[0]*cy + p[2]*sy, z = -p[0]*sy + p[2]*cy;
+      let y = p[1]*cx - z*sx; z = p[1]*sx + z*cx;
+      const per = 2.6/(2.6+z);
+      const gx = (x*per*scale + W/2)/CW | 0, gy = (-y*per*scale + H/2)/CH | 0;
+      if (gx >= 0 && gx < COLS && gy >= 0 && gy < ROWS) grid[gy*COLS+gx] += (z+1.6)*0.55;
+    }
+    ctx.fillStyle = "#0b0c12"; ctx.fillRect(0, 0, W, H);
+    ctx.font = "700 11px Consolas, monospace"; ctx.textBaseline = "top";
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const v = grid[r*COLS+c];
+      if (v <= 0.12) continue;
+      const idx = Math.min(RAMP.length-1, (v*3.2)|0);
+      if (!idx) continue;
+      ctx.fillStyle = idx >= RAMP.length-3 ? "#ff4655" : "rgba(214,220,232," + Math.min(1, 0.22+idx*0.09).toFixed(2) + ")";
+      ctx.fillText(RAMP[idx], c*CW, r*CH);
+    }
+  })();
+}
+
+/* ================= TERMINAL.EXE ================= */
+(function () {
+  const out = document.getElementById("term-out");
+  const inp = document.getElementById("term-in");
+  if (!out || !inp) return;
+  document.getElementById("w-term").addEventListener("pointerup", () => inp.focus());
+  const FORTUNES = [
+    "오늘의 운세: 커밋하기 좋은 날입니다.",
+    "버그가 아니라 기능이다. — Hyunae Park (마감 3시간 전)",
+    "잠은 죽어서... 아니, 오늘은 자자.",
+    "뉴런 860억 개 중 지금 몇 개나 쓰고 계신가요?",
+    "가장 좋은 AI 교과서는 이미 머릿속에 있다.",
+    "배포 버튼은 금요일 오후에 누르는 게 아니다.",
+  ];
+  function print(html) { out.innerHTML += "\n" + html; out.scrollTop = out.scrollHeight; }
+  const APPS = { story: "w-story", works: "w-works", game: "w-game", times: "w-times",
+    brain: "w-brain", house: "w-blueprint", portfolio: "w-portfolio", mail: "w-mail", log: "w-log" };
+  inp.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    const raw = inp.value.trim(); inp.value = "";
+    if (!raw) return;
+    print("<span style='color:#7ee2a8'>C:\\HYUNAE&gt;</span> " + raw);
+    const [cmd, ...args] = raw.toLowerCase().split(/\s+/);
+    if (cmd === "help") print("명령어: <b>whoami</b> · <b>ls</b> · <b>open</b> [story|works|game|times|brain|house|portfolio] · <b>fortune</b> · <b>coffee</b> · <b>cherry</b> · <b>hack</b> · <b>secret</b> · <b>clear</b> · <b>exit</b>");
+    else if (cmd === "whoami") print("<b>Hyunae Park</b> — 뇌과학 × 컴퓨터과학 출신 AI 개발자.\nAI로 콘텐츠를 만들고, 에이전트를 개발하고, 서비스를 배포함.\n특기: 밤샘. 약점: 커피 없는 아침.");
+    else if (cmd === "ls") print("PORTFOLIO.ONE  STORY.EXE  WORKS/  SIGNAL_RUN.EXE\nTIMES.HTML  BRAIN.EXE  HOUSE.DWG  <b>secret/</b>  버린_아이디어들/");
+    else if (cmd === "open") {
+      const id = APPS[args[0]];
+      if (id) { openWin(id); print("<span class='ok'>" + args[0] + " 실행됨.</span>"); }
+      else print("open [story|works|game|times|brain|house|portfolio|mail|log]");
+    }
+    else if (cmd === "fortune") print("🥠 " + FORTUNES[(Math.random() * FORTUNES.length) | 0]);
+    else if (cmd === "sudo") print("권한이 없습니다. 여긴 <b>Hyunae Park</b>의 컴퓨터예요.");
+    else if (cmd === "coffee" || raw === "make coffee") print("☕ 추출 중......... <span class='ok'>완료.</span> (가상입니다. 실물은 커피챗으로: hyunaeee@gmail.com)");
+    else if (cmd === "cherry") { cherryRain(); print("🍒🍒🍒"); }
+    else if (cmd === "secret") print("힌트: 사람의 뇌에는 뉴런이 몇 <b>십억</b> 개?");
+    else if (cmd === "hack") {
+      let n = 0;
+      const iv = setInterval(() => {
+        print("<span style='color:#4a7a5a'>0x" + Math.random().toString(16).slice(2, 10) + "  ACCESS " + (Math.random() < 0.8 ? "GRANTED" : "DENIED") + "</span>");
+        if (++n > 9) { clearInterval(iv); print("<span class='ok'>...농담이고요, hacker-typer.vercel.app 에서 실컷 하세요.</span>"); }
+      }, 130);
+    }
+    else if (cmd === "clear") out.innerHTML = "HYUNAE SHELL v1.0";
+    else if (cmd === "exit") closeWin(document.getElementById("w-term"));
+    else print("'" + raw + "' 은(는) 없는 명령어예요. 'help' 참고.");
+  });
+})();
+
+/* ================= 휴지통 & SECRET ================= */
+document.querySelectorAll("#w-trash .restore").forEach(b =>
+  b.addEventListener("click", () => {
+    b.textContent = "거부됨";
+    setTimeout(() => b.textContent = "복구", 1500);
+    say("그건 <b>이유가 있어서</b> 버린 거예요... 🍒");
+    openWin("w-chat");
+  }));
+(function () {
+  const btn = document.getElementById("secret-btn");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const v = (document.getElementById("secret-in").value || "").replace(/[^0-9]/g, "");
+    if (v === "86" || v === "860" || v === "86000000000") {
+      document.getElementById("secret-body").innerHTML =
+        '<span class="ok" style="color:#7ee2a8">🎉 잠금 해제 — 제작 비하인드</span><br/><br/>' +
+        '· 이 사이트의 조상님들: <a href="classic.html" target="_blank">CLASSIC v1</a> · <a href="story.html" target="_blank">스토리 모드</a><br/>' +
+        '· 첫 버전은 <b>보라색 네온</b>이었어요 (휴지통 참고)<br/>' +
+        '· 안내 캐릭터는 원래 <b>동그란 안경</b>을 썼었다 (구버전 캐릭터)<br/>' +
+        '· SIGNAL_RUN 최고기록 1위는 아직 <b>Hyunae Park 본인</b><br/>' +
+        '· 이 OS는 뇌과학 전공자가 만든 <b>세 번째</b> 홈페이지입니다 🍒';
+      say("어떻게 알았어요?! ...아, 제가 온 컴퓨터에 적어놨죠 참 🔓");
+    } else {
+      document.getElementById("secret-msg").textContent = "땡! 다시 생각해보세요";
+      setTimeout(() => document.getElementById("secret-msg").textContent = "", 2000);
+    }
+  });
+})();
+
+/* ================= HOUSE.DWG — floor plan rooms ================= */
+document.querySelectorAll("#floorplan .fproom").forEach(room => {
+  room.addEventListener("click", () => {
+    const app = room.dataset.app;
+    if (app === "saver") startSaver();
+    else openWin(app);
+  });
+});
+/* ================= fullscreen apps ================= */
+function openFs(id) {
+  document.getElementById(id).classList.add("open");
+  if (id === "fs-dive") diveApp();
+  if (id === "fs-type") typeApp();
+  react(id);
+}
+document.querySelectorAll("[data-fsclose]").forEach(b =>
+  b.addEventListener("click", e => e.target.closest(".fsapp").classList.remove("open")));
+addEventListener("keydown", e => {
+  if (e.key === "Escape") document.querySelectorAll(".fsapp.open").forEach(f => f.classList.remove("open"));
+});
+
+/* DIVE.EXE */
+let diveInit = false;
+function diveApp() {
+  if (diveInit) return; diveInit = true;
+  const fs = document.getElementById("fs-dive");
+  const cv = document.getElementById("diveCv"), ctx = cv.getContext("2d");
+  let W, H;
+  function rs(){ W = cv.width = innerWidth; H = cv.height = innerHeight; }
+  addEventListener("resize", rs); rs();
+  function rnd(){ return Math.random()*2-1; }
+  function brainPts() {
+    const p = [];
+    for (let i = 0; i < 800; i++) {
+      const a = Math.random()*6.283, r = 0.72 + Math.random()*0.26;
+      let x = Math.cos(a)*r*1.18, y = Math.sin(a)*r*0.85;
+      const w = Math.sin(x*9 + y*7)*Math.sin(y*11);
+      if (Math.random() > 0.3 + 0.7*Math.abs(w)) continue;
+      if (y > 0.55) y = 0.55 + (y-0.55)*0.4;
+      p.push([x, y]);
+    }
+    return { pts: p, col: "214,220,232" };
+  }
+  function neuronPts() {
+    const p = [];
+    for (let b = 0; b < 9; b++) {
+      const a = (b/9)*6.283;
+      let x = 0, y = 0, dx = Math.cos(a), dy = Math.sin(a);
+      for (let s = 0; s < 55; s++) {
+        x += dx*0.018; y += dy*0.018;
+        dx += rnd()*.25; dy += rnd()*.25;
+        const l = Math.hypot(dx,dy); dx/=l; dy/=l;
+        p.push([x, y]);
+      }
+    }
+    return { pts: p, col: "180,225,245" };
+  }
+  function atomPts() {
+    const p = [];
+    for (let o = 0; o < 3; o++) {
+      const t2 = o*1.047;
+      for (let i = 0; i < 240; i++) {
+        const a = (i/240)*6.283;
+        const x0 = Math.cos(a)*0.95, y0 = Math.sin(a)*0.30;
+        p.push([x0*Math.cos(t2)-y0*Math.sin(t2), x0*Math.sin(t2)+y0*Math.cos(t2)]);
+      }
+    }
+    return { pts: p, col: "255,211,120" };
+  }
+  function galaxyPts() {
+    const p = [];
+    for (let b = 0; b < 4; b++) for (let i = 0; i < 360; i++) {
+      const t = Math.pow(Math.random(), 0.7), r = t*1.05;
+      const a = b*1.571 + r*3.4 + rnd()*.15;
+      p.push([Math.cos(a)*r, Math.sin(a)*r*0.62]);
+    }
+    return { pts: p, col: "255,195,122" };
+  }
+  const NAMES = ["THE BRAIN", "ONE NEURON", "AN ATOM", "A GALAXY"];
+  const DEPTHS = ["10^0 M", "10^-4 M", "10^-10 M", "10^21 M"];
+  const makers = [brainPts, neuronPts, atomPts, galaxyPts];
+  const LAYERS = [];
+  for (let i = 0; i < 12; i++) LAYERS.push({ ...makers[i%4](), idx: i });
+  let z = 0, zt = 0, shown = -1;
+  fs.addEventListener("wheel", e => { zt += e.deltaY*0.0012; }, { passive: true });
+  (function tick(t) {
+    requestAnimationFrame(tick);
+    if (!fs.classList.contains("open")) return;
+    zt += 0.0011; z += (zt - z)*0.06;
+    ctx.fillStyle = "#05050a"; ctx.fillRect(0, 0, W, H);
+    const base = Math.min(W, H)*0.36;
+    for (const L of LAYERS) {
+      let rel = L.idx - (z % 12);
+      if (rel < -2) rel += 12;
+      const s = Math.exp(-rel);
+      if (s < 0.02 || s > 30) continue;
+      const alpha = Math.max(0, Math.min(1, 1.2 - Math.abs(Math.log(s))*0.45));
+      if (alpha <= 0.01) continue;
+      const rot = t*0.00004*(L.idx%2 ? 1 : -1) + L.idx;
+      const cr = Math.cos(rot), sr = Math.sin(rot);
+      ctx.fillStyle = "rgba(" + L.col + "," + alpha.toFixed(2) + ")";
+      const sz = Math.max(0.7, Math.min(2.4, s));
+      for (const [px, py] of L.pts) {
+        const x = (px*cr - py*sr)*base*s + W/2, y = (px*sr + py*cr)*base*s + H/2;
+        if (x < -20 || x > W+20 || y < -20 || y > H+20) continue;
+        ctx.fillRect(x, y, sz, sz);
+      }
+    }
+    const cur = ((Math.round(z)%4)+4)%4;
+    if (cur !== shown) {
+      shown = cur;
+      document.getElementById("dive-label").textContent = NAMES[cur];
+      document.getElementById("dive-depth").textContent = DEPTHS[cur];
+    }
+  })(0);
+}
+
+/* TYPESTORM.EXE */
+let typeInit = false;
+function typeApp() {
+  if (typeInit) return; typeInit = true;
+  const fs = document.getElementById("fs-type");
+  const stage = document.getElementById("ts-stage");
+  const PHRASES = ["WHERE DOES A THOUGHT BEGIN", "NEUROSCIENCE × CODE", "Hyunae Park · Hyunae Park", "BUILT & SHIPPED 🍒", "PRESS START TO THINK"];
+  const letters = [], rows = [];
+  for (let r = 0; r < 5; r++) {
+    const row = document.createElement("div");
+    row.className = "ts-row" + (r === 2 ? " red" : r % 2 ? " ghost" : "");
+    for (const ch of (PHRASES[r] + "   ").repeat(3)) {
+      const s = document.createElement("span");
+      if (ch === " ") { s.className = "sp"; s.innerHTML = "&nbsp;"; }
+      else s.textContent = ch;
+      row.appendChild(s);
+      if (ch !== " ") letters.push({ el: s, x: 0, y: 0, vx: 0, vy: 0, hx: 0, hy: 0 });
+    }
+    stage.appendChild(row);
+    rows.push({ el: row, dir: r % 2 ? 1 : -1, off: 0 });
+  }
+  setTimeout(() => letters.forEach(L => {
+    const b = L.el.getBoundingClientRect();
+    L.hx = b.left + b.width/2; L.hy = b.top + b.height/2;
+  }), 500);
+  let mx = -9999, my = -9999;
+  fs.addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; });
+  fs.addEventListener("pointerdown", e => {
+    if (e.target.tagName === "BUTTON") return;
+    for (const L of letters) {
+      const dx = (L.hx + L.x) - e.clientX, dy = (L.hy + L.y) - e.clientY;
+      const d = Math.hypot(dx, dy) || 1;
+      const f = Math.min(60, 26000/(d*d))*3.2;
+      L.vx += (dx/d)*f; L.vy += (dy/d)*f;
+    }
+  });
+  (function loop() {
+    requestAnimationFrame(loop);
+    if (!fs.classList.contains("open")) return;
+    for (const R of rows) {
+      R.off += R.dir*0.35;
+      if (Math.abs(R.off) > 220) R.dir *= -1;
+      R.el.style.transform = "translateX(" + R.off.toFixed(1) + "px)";
+    }
+    for (const L of letters) {
+      const dx = (L.hx + L.x) - mx, dy = (L.hy + L.y) - my;
+      const d2 = dx*dx + dy*dy;
+      if (d2 < 32400) {
+        const d = Math.sqrt(d2) || 1, f = (1 - d/180)*4.4;
+        L.vx += (dx/d)*f; L.vy += (dy/d)*f;
+      }
+      L.vx += -L.x*0.045; L.vy += -L.y*0.045;
+      L.vx *= 0.86; L.vy *= 0.86;
+      L.x += L.vx; L.y += L.vy;
+      L.el.style.transform = "translate(" + L.x.toFixed(1) + "px," + L.y.toFixed(1) + "px) rotate(" + (L.vx*1.6).toFixed(1) + "deg)";
+    }
+  })();
+}
+
+/* ================= NOIR.SCR — screensaver ================= */
+let saverInit = false, idleT = 0;
+function startSaver() {
+  const fs = document.getElementById("saver");
+  fs.classList.add("open");
+  react("saver-x"); // no toast
+  if (!saverInit) {
+    saverInit = true;
+    const cv = document.getElementById("svCv"), ctx = cv.getContext("2d");
+    function paint() {
+      const W = cv.width = innerWidth, H = cv.height = innerHeight;
+      ctx.fillStyle = "#0a0a10"; ctx.fillRect(0, 0, W, H);
+      for (let i = 0; i < 800; i++) {
+        ctx.fillStyle = "rgba(226,230,240," + (0.15 + Math.random()*0.6).toFixed(2) + ")";
+        ctx.fillRect(Math.random()*W, Math.random()*H, 1.3, 1.3);
+      }
+      for (let b = 0; b < 4; b++) for (let i = 0; i < 600; i++) {
+        const t = i/600, r = t*Math.min(W,H)*0.4;
+        const a = b*1.571 + t*4.2 + Math.random()*0.3;
+        ctx.fillStyle = "rgba(255,195,122," + (0.5*(1-t)).toFixed(2) + ")";
+        ctx.fillRect(W/2 + Math.cos(a)*r*1.25, H/2 + Math.sin(a)*r*0.6, 1.4, 1.4);
+      }
+    }
+    addEventListener("resize", paint); paint();
+    const world = document.getElementById("sv-world");
+    let tx = innerWidth/2, ty = innerHeight/2, x = tx, y = ty;
+    fs.addEventListener("pointermove", e => { tx = e.clientX; ty = e.clientY; });
+    (function loop() {
+      requestAnimationFrame(loop);
+      if (!fs.classList.contains("open")) return;
+      x += (tx - x)*0.14; y += (ty - y)*0.14;
+      const m = "radial-gradient(circle 230px at " + (x|0) + "px " + (y|0) + "px, rgba(0,0,0,1) 0%, rgba(0,0,0,.9) 45%, rgba(0,0,0,.04) 100%)";
+      world.style.webkitMaskImage = m; world.style.maskImage = m;
+    })();
+    fs.addEventListener("pointerdown", () => fs.classList.remove("open"));
+  }
+}
+/* auto screensaver after 75s idle */
+["pointermove", "pointerdown", "keydown", "wheel"].forEach(ev =>
+  addEventListener(ev, () => idleT = 0, { passive: true }));
+setInterval(() => {
+  if (document.getElementById("saver").classList.contains("open")) return;
+  if (document.querySelector(".fsapp.open")) return;
+  idleT += 1;
+  if (idleT >= 75) { idleT = 0; startSaver(); }
+}, 1000);
+</script>
+</body>
+</html>

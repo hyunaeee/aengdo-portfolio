@@ -177,4 +177,4 @@ eval/
   the same clinical-RAG design on Google Cloud's AI stack.
 
 ---
-© 2026 [aengdo](https://hyunaeee.github.io/aengdo-portfolio/en.html) · hyunaeee@gmail.com
+© 2026 [Hyunae Park](https://hyunaeee.github.io/aengdo-portfolio/en.html) · hyunaeee@gmail.com

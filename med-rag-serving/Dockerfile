@@ -1,0 +1,7 @@
+ARG PYTHON_IMAGE
+FROM ${PYTHON_IMAGE}
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+COPY serving_lab /app/serving_lab
+USER 65532:65532
+CMD ["python", "-m", "serving_lab", "--help"]

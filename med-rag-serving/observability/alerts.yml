@@ -1,0 +1,21 @@
+groups:
+  - name: serving-lab
+    rules:
+      - alert: ServingLabEngineUnavailable
+        expr: up{job="vllm"} == 0
+        for: 20s
+        labels: {severity: warning}
+        annotations:
+          summary: Isolated lab engine scrape is unavailable
+      - alert: ServingLabRequestFailures
+        expr: rate(serving_lab_upstream_errors_total[1m]) > 0
+        for: 15s
+        labels: {severity: warning}
+        annotations:
+          summary: Isolated lab gateway reports upstream failures
+      - alert: ServingLabAdmissionRejected
+        expr: rate(serving_lab_rejected_total[1m]) > 0
+        for: 15s
+        labels: {severity: info}
+        annotations:
+          summary: Offered load exceeds the configured admission bound

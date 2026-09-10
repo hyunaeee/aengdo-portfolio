@@ -1,0 +1,4 @@
+*
+!serving_lab/
+!serving_lab/*.py
+!Dockerfile

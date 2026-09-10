@@ -1,0 +1,23 @@
+name: Portfolio content
+on:
+  push:
+    paths: ["assets/portfolio-*", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
+  pull_request:
+    paths: ["assets/portfolio-*", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  static-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate from shared bilingual content
+        run: node scripts/build-portfolio.cjs
+      - name: Check committed pages are current
+        run: git diff --exit-code -- '*.html' work sitemap.xml
+      - name: Validate links, fragments and translations
+        run: node scripts/check-portfolio.cjs
