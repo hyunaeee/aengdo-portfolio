@@ -776,7 +776,7 @@ footer { font-size: 11px; }
     </div>
   </section>
 
-  <!-- ===== CHAPTER V : THE WORKS (visual artworks + audio) ===== -->
+  <!-- ===== CHAPTER V : THE WORKS (visual artworks) ===== -->
   <section id="works" hidden>
     <div class="sec-inner">
       <div class="sec-meta" data-fade>
@@ -784,7 +784,7 @@ footer { font-size: 11px; }
       </div>
       <div class="split" style="align-items:start; margin-bottom:22px;">
         <h2 class="h-lg">
-          <span class="rv"><span class="ri"><span class="grad-txt">영상 · 이미지 · 음악</span></span></span>
+          <span class="rv"><span class="ri"><span class="grad-txt">영상 · 이미지</span></span></span>
         </h2>
         <div class="copy" data-fade>
           <p>
@@ -856,15 +856,7 @@ footer { font-size: 11px; }
           </div>
         </article>
       </div>
-      <div class="audio-row" data-fade>
-        <button class="au-btn" id="au-btn" aria-label="재생">&#9654;</button>
-        <div>
-          <div class="au-title">NOT MY FAULT — 내 잘못이 아니야</div>
-          <div class="au-sub">2025.12 · COMPOSED WITH SUNO AI</div>
-        </div>
-        <div class="au-eq"><i></i><i></i><i></i><i></i><i></i></div>
-        <audio id="au-audio" preload="none" src="assets/music01.mp3"></audio>
-      </div>
+
     </div>
   </section>
 
@@ -1264,30 +1256,6 @@ footer { font-size: 11px; }
       card.classList.add("playing");
     });
   });
-
-  // audio track player
-  var auBtn = document.getElementById("au-btn");
-  var auAudio = document.getElementById("au-audio");
-  if (auBtn && auAudio) {
-    var auRow = auBtn.closest(".audio-row");
-    auBtn.addEventListener("click", function () {
-      if (auAudio.paused) {
-        auAudio.play();
-        auBtn.innerHTML = "&#10073;&#10073;";
-        auRow.classList.add("playing");
-        say("이 노래, <b>SUNO</b>랑 같이 만들었어요 🎵");
-        setFace("joy", 2600, true);
-      } else {
-        auAudio.pause();
-        auBtn.innerHTML = "&#9654;";
-        auRow.classList.remove("playing");
-      }
-    });
-    auAudio.addEventListener("ended", function () {
-      auBtn.innerHTML = "&#9654;";
-      auRow.classList.remove("playing");
-    });
-  }
 
   // click-to-copy email
   var copyBtn = document.getElementById("copy-mail");

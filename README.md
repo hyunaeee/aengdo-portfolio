@@ -6,7 +6,7 @@ AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사�
 - 대표 사례: **MED-RAG → Terracotta → Meeting Assistant**
 - **Anatomy Atlas**: 실제 전체 구조 / 계통 분해 캡처 비교와 라이브 링크
 - **Archive**: 20개 프로젝트 검색·분야·라이브 필터
-- **Creative**: 영상·이미지·음악. 기존 레트로 OS는 **Playground**에서 실행
+- **Creative**: 영상·이미지. 기존 레트로 OS는 **Playground**에서 실행
 - **History**: 이전 포트폴리오의 2017–2026 경력·연구·학력·강의·활동 22개를 복원한 상세 이력. 홈과 메뉴, PDF에서 연결합니다.
 
 ## 편집과 실행
