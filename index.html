@@ -282,7 +282,7 @@
     · 아이콘 클릭 = 실행 / 창은 제목줄로 드래그<br/>
     · 이야기의 전문은 <b>STORY.EXE</b><br/>
     · 그 이야기가 남긴 결과물은 <b>WORKS</b> 폴더<br/>
-    · 바쁘시면 <b>⭐ PORTFOLIO</b> — 전부 한 장에 있어요
+    · <b>⭐ PORTFOLIO</b> — 3D 탐색 · 프로젝트 검색 · PDF 저장
   </div>
   <div class="storyline">— 앵두 <i>🍒</i>, 이 컴퓨터의 주인</div>
 </div>
@@ -742,6 +742,11 @@
 
   /* dual boot: explore the OS, or jump straight to the one-page portfolio */
   function showMenu() {
+    if (location.hash === '#os') {
+      el.style.transition = 'opacity .5s'; el.style.opacity = 0;
+      setTimeout(() => { el.remove(); openWin('w-readme'); openWin('w-chat'); }, 520);
+      return;
+    }
     // deep link: index.html#phone / #hb boots straight into an OS emulator
     if (location.hash === "#phone" || location.hash === "#hb") {
       const phoneWin = location.hash === "#hb" ? "w-phone2" : "w-phone";
@@ -752,7 +757,7 @@
     el.innerHTML += "\nSELECT BOOT MODE:\n\n";
     const menu = document.createElement("div");
     menu.innerHTML =
-      '<div class="bootopt sel" data-v="pf">1. PORTFOLIO.ONE — 한눈에 보기 (기본)</div>' +
+      '<div class="bootopt sel" data-v="pf">1. PORTFOLIO.STUDIO — 3D 탐색 · PDF 저장 (기본)</div>' +
       '<div class="bootopt" data-v="os">2. AENGDO_OS &nbsp;&nbsp;&nbsp;&nbsp;— 탐험하며 구경하기 🍒</div>' +
       '<div style="margin-top:16px;color:#6b7280;font-size:12px" id="bootcount"></div>';
     el.appendChild(menu);
@@ -1003,6 +1008,7 @@ function chatApp() {
 
 /* ================= WORKS explorer + viewer ================= */
 const FILES = [
+  { g:"🧬", n:"anatomy_sample.url", type:"link", href:"https://anatomy-sample.vercel.app/" },
   { g:"🏥", n:"anam_splash.mp4", type:"drive", id:"1gbLiowTyFQ6U6GwdoBja8qWKGgK_bbvH", t:"고려대 안암병원 앱 스플래시 (납품작 2026.07)" },
   { g:"🖼️", n:"now_art.png", type:"img", src:"assets/now-art.jpg", t:"N.O.W — 전시 컨셉 아트 (2025.12)" },
   { g:"⚛️", n:"khnp_ep01.mp4", type:"drive", id:"1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k", t:"KHNP 어린이 에너지 교육 EP.01 (납품작)" },

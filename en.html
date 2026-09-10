@@ -108,6 +108,7 @@
     letter-spacing: 2px; color: #fff; opacity: 0; transition: 0.2s;
   }
   .pj:hover .shot::after { opacity: 1; }
+  .pj.anatomy-live .shot::after { content: "Open live site ↗"; }
   .acts { display: flex; gap: 8px; margin-top: 12px; }
   .act { flex: 1; text-align: center; font-family: "JetBrains Mono", monospace;
     font-size: 10.5px; letter-spacing: 1.5px; padding: 8px 0;
@@ -343,6 +344,12 @@
   <p class="sub">Not every problem is an agent. These are products taken all the way to a public URL
     anyone can open right now.</p>
   <div class="grid">
+    <article class="pj anatomy-live">
+      <a class="shot" href="https://anatomy-sample.vercel.app/" target="_blank" rel="noopener"><img src="assets/anatomy.jpg" alt="Anatomy Atlas interactive 3D anatomy explorer" loading="lazy" /></a>
+      <div class="m"><b>Anatomy Atlas — Interactive 3D</b><em class="dt">NEW · LIVE · 2026.09</em><span>A Korean-language 3D anatomy explorer with male and female reference datasets, system separation, part search, opacity and isolation controls, and original-model ZIP exports. Female data is a reference organ set with incomplete full-body coverage.</span>
+      <div class="tags"><i class="tag hot">Three.js</i><i class="tag">React 19</i><i class="tag">TypeScript</i></div>
+      <div class="acts"><a class="act go" href="https://anatomy-sample.vercel.app/" target="_blank" rel="noopener">LIVE ↗</a></div></div>
+    </article>
     <div class="pj" data-p="ppt">
       <span class="shot"><img src="assets/ppt.jpg" alt="PPT Studio editor" loading="lazy" /></span>
       <div class="m"><b>PPT Studio — AI Deck Builder</b><em class="dt">2026.07</em>

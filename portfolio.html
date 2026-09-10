@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AENGDO — Portfolio at a Glance</title>
-<meta name="description" content="앵두 포트폴리오 한눈에 보기 — 영상·웹·AI 프로젝트·연혁" />
+<title>AENGDO — AI, Code & Creative Work</title>
+<meta name="description" content="앵두 — 뇌과학에서 시작해 AI 에이전트, 웹 서비스, 콘텐츠를 만듭니다. 인터랙티브 3D 포트폴리오와 PDF 내보내기." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍒</text></svg>" />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@300;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
@@ -229,20 +229,58 @@
     letter-spacing: 1.5px; color: var(--dim); }
   footer .soc:hover { color: var(--ink); }
 </style>
+<link rel="stylesheet" href="assets/portfolio-studio.css" />
+<link rel="stylesheet" href="assets/portfolio-print.css" />
+<link rel="canonical" href="https://hyunaeee.github.io/aengdo-portfolio/portfolio.html" />
+<meta property="og:title" content="AENGDO — Curiosity, in motion." />
+<meta property="og:description" content="AI 에이전트 · 라이브 서비스 · 생성형 콘텐츠. 앵두의 작업을 탐색하세요." />
+<meta property="og:image" content="https://hyunaeee.github.io/aengdo-portfolio/assets/og.jpg" />
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="name">AENGDO<i>.</i></div>
-    <div class="tagline"><b>AI Engineer &amp; Content Creator</b> — 뇌과학 × 컴퓨터과학 출신.
-      AI <b>에이전트</b>를 개발하고, <b>서비스</b>를 배포하고, <b>콘텐츠</b>를 만듭니다.</div>
-    <div class="actions">
-      <a class="btn hot" href="mailto:hyunaeee@gmail.com">✉ CONTACT</a>
-      <a class="btn" href="https://github.com/hyunaeee" target="_blank">GITHUB</a>
-      <a class="btn" href="en.html">ENGLISH</a>
-      <a class="btn" href="index.html">🍒 AENGDO OS로 부팅</a>
-      <a class="btn" href="story.html">스토리 모드</a>
+<a class="skip-link" href="#main-content">본문으로 바로가기</a>
+<nav class="studio-nav" aria-label="주요 메뉴"><div class="nav-inner">
+  <a class="wordmark" href="#about" aria-label="앵두 포트폴리오 처음으로">AENGDO<span>.</span></a>
+  <div class="nav-links"><a href="#projects">Projects</a><a href="#creative">Creative</a><a href="#contact">Contact</a><a href="index.html#os">OS ↗</a><a href="en.html" lang="en">EN</a></div>
+  <button class="export-btn" type="button" data-export-pdf aria-describedby="pdf-help">PDF 저장 <span aria-hidden="true">↓</span></button>
+</div></nav>
+<main class="wrap" id="main-content">
+  <header class="hero-header" id="about">
+    <div class="studio-hero">
+      <div class="hero-copy">
+        <div class="eyebrow">NEUROSCIENCE × CODE × CONTENT</div>
+        <h1>Curiosity,<br>in <em>motion.</em></h1>
+        <div class="name">AENGDO <span aria-hidden="true">/</span> AI Engineer &amp; Content Creator</div>
+        <p class="tagline">뇌가 생각을 만드는 방식에서 출발해,<br><b>AI가 사람에게 닿는 경험</b>을 만듭니다.<br>에이전트를 개발하고, 서비스를 배포하고,<br>이야기를 콘텐츠로 연결하는 앵두입니다.</p>
+        <div class="actions">
+          <a class="btn hot" href="#featured">대표 작업 보기 <span aria-hidden="true">↘</span></a>
+          <a class="btn" href="mailto:hyunaeee@gmail.com">함께 이야기하기 ↗</a>
+        </div>
+        <p class="hero-note">기획에서 구현, 그리고 실제로 쓰이는 순간까지.</p>
+      </div>
+      <div class="hero-scene">
+        <div class="scene-shell" aria-label="회전하며 둘러보는 앵두 3D 스튜디오">
+          <div class="scene-index">OBJECT 001 / CHERRY CONNECTIONS</div>
+          <img class="scene-fallback" src="assets/aengdo-studio-poster.png" alt="두 개의 붉은 앵두와 신경 연결을 닮은 궤도로 이루어진 3D 조각" fetchpriority="high" />
+          <model-viewer id="studio-model" class="scene-viewer" src="assets/aengdo-studio.glb"
+            alt="앵두 스튜디오 3D 조각. 드래그 또는 방향키로 회전하고 확대 버튼으로 가까이 볼 수 있습니다."
+            camera-controls touch-action="pan-y" disable-pan camera-orbit="30deg 75deg 105%"
+            min-camera-orbit="auto 25deg 60%" max-camera-orbit="auto 110deg 180%"
+            shadow-intensity="1" exposure="1" interaction-prompt="none" loading="eager">
+          </model-viewer>
+          <div class="scene-controls">
+            <span id="scene-status" role="status">앵두 스튜디오 · 정지 이미지</span>
+            <div class="scene-control-group">
+              <button type="button" data-scene-control="out" aria-label="3D 축소" disabled>−</button>
+              <button type="button" data-scene-control="in" aria-label="3D 확대" disabled>+</button>
+              <button type="button" data-scene-control="rotate" aria-label="자동 회전 시작" aria-pressed="false" disabled>▷</button>
+              <button type="button" data-scene-control="reset" aria-label="3D 시점 초기화" disabled>↺</button>
+            </div>
+          </div>
+        </div>
+        <div class="scene-caption"><span>MADE WITH HIGGSFIELD 3D JUTSU</span><span>DRAG TO EXPLORE ↗</span></div>
+      </div>
     </div>
+    <div class="hero-meta"><span><strong>AI ENGINEERING / CREATIVE TECHNOLOGY</strong></span><span>SEOUL, KR · <strong>PORTFOLIO 2026</strong></span><span>UPDATED 2026.09</span></div>
     <div class="roles">
       <div class="role"><div class="ic">01</div>
         <b>AI <i>에이전트</i> 개발</b>
@@ -257,56 +295,48 @@
         <b>강의 &amp; <i>전시</i></b>
         <span>학교·기관 대상 AI 콘텐츠 제작 강의, 초대 작가 전시, 유튜브 튜토리얼 채널 운영.</span></div>
     </div>
+
   </header>
 
-  <h2><i>01</i>SELECTED WORKS</h2>
-  <div class="sub">영상 · 이미지 — 클릭하면 원본으로 이동합니다</div>
-  <div class="works">
-    <a class="work" href="https://drive.google.com/file/d/1gbLiowTyFQ6U6GwdoBja8qWKGgK_bbvH/view" target="_blank">
-      <img src="assets/anam-splash.jpg" alt="고려대 안암병원 앱 스플래시" loading="lazy"/>
-      <div class="cap">안암병원 앱 스플래시<small>오프닝·로딩 디자인 · 납품작 2026.07</small></div>
-    </a>
-    <a class="work" href="assets/now-art.jpg" target="_blank">
-      <img src="assets/now-art.jpg" alt="N.O.W" loading="lazy"/>
-      <div class="cap">N.O.W<small>EXHIBITION ART · 2025.12 · 서울콘 DDP</small></div>
-    </a>
-    <a class="work" href="https://drive.google.com/file/d/1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k/view" target="_blank">
-      <img src="assets/khnp1.jpg" alt="KHNP EP.01" loading="lazy"/>
-      <div class="cap">KHNP EP.01<small>어린이 에너지 교육 · 납품작 2026.03</small></div>
-    </a>
-    <a class="work" href="https://drive.google.com/file/d/1oCVM7z9ByHbd61RsIWd_DtN5Ya-glV-X/view" target="_blank">
-      <img src="assets/khnp2.jpg" alt="KHNP EP.02" loading="lazy"/>
-      <div class="cap">KHNP EP.02<small>어린이 에너지 교육 시리즈</small></div>
-    </a>
-    <a class="work" href="https://drive.google.com/file/d/1OmeKei2SqGnEZbQDR4XhA7_KWz8U78xq/view" target="_blank">
-      <img src="assets/khnp3.jpg" alt="KHNP EP.03" loading="lazy"/>
-      <div class="cap">KHNP EP.03<small>어린이 에너지 교육 시리즈</small></div>
-    </a>
-    <a class="work" href="https://drive.google.com/file/d/1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB/view" target="_blank">
-      <img src="assets/khnp4.jpg" alt="KHNP EP.04" loading="lazy"/>
-      <div class="cap">KHNP EP.04<small>어린이 에너지 교육 시리즈</small></div>
-    </a>
-    <a class="work" href="https://drive.google.com/file/d/1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg/view" target="_blank">
-      <img src="assets/khnp5.jpg" alt="KHNP EP.05" loading="lazy"/>
-      <div class="cap">KHNP EP.05<small>어린이 에너지 교육 시리즈</small></div>
-    </a>
-  </div>
-  <div class="audio-line">
-    <div>🎵</div>
-    <div><div class="t">NOT MY FAULT — 내 잘못이 아니야</div><small>COMPOSED WITH SUNO · 2025.12</small></div>
-    <audio controls preload="none" src="assets/music01.mp3"></audio>
-  </div>
 
-  <h2><i>02</i>BUILT &amp; SHIPPED</h2>
-  <div class="sub">웹 및 모바일 서비스 개발·배포 — <span style="color:#16181d; font-weight:500;">카드를 누르면 프로젝트 상세</span>(기획 의도·설계·기술 스택·차별점·한계·로드맵)가 열리고, 버튼으로 <span style="color:#16181d; font-weight:500;">라이브 사이트</span>와 GitHub 코드로 바로 이동해요</div>
-  <div class="filters" id="pfilters">
-    <button class="filter on" data-f="all">전체</button>
+  <div class="section-head" id="featured"><h2><i>01 / SELECTED PROJECTS</i>생각이 현실이 된 작업.</h2><p class="sub">지금 둘러볼 수 있는 최신 작업과<br>현장에서 쓰이는 AI 프로젝트를 소개합니다.</p></div>
+  <div class="featured-grid">
+    <article class="featured-card">
+      <a href="https://anatomy-sample.vercel.app/" target="_blank" rel="noopener noreferrer"><img class="feature-image" src="assets/anatomy.jpg" alt="Anatomy Atlas의 실제 3D 인체 탐색 화면" loading="lazy" /></a>
+      <div class="featured-body"><div class="eyebrow">LATEST RELEASE / INTERACTIVE 3D / 2026.09</div><h3>Anatomy Atlas</h3>
+        <p>몸의 구조를, 직접 움직이며 이해하는 경험.<br>남녀 인체 데이터를 한국어로 탐색하고, 계통별로 분리하거나 필요한 구조만 자세히 살펴보는 3D 해부학 아틀라스.</p>
+        <div class="featured-links"><a href="https://anatomy-sample.vercel.app/" target="_blank" rel="noopener noreferrer">라이브 사이트 ↗</a><button type="button" data-open-project="anatomy">프로젝트 상세 +</button></div>
+      </div>
+    </article>
+    <article class="featured-card">
+      <a href="med-rag/" target="_blank" rel="noopener noreferrer"><img class="feature-image" src="assets/medrag.jpg" alt="MED-RAG 진료 보조 에이전트 화면" loading="lazy" /></a>
+      <div class="featured-body"><div class="eyebrow">DELIVERED / AI AGENT / 2025–2026</div><h3>MED-RAG</h3>
+        <p>근거를 찾고, 답변을 검증하는 AI.<br>고려대 안암병원에 납품한 온프렘 진료 보조 에이전트. 임상 검색부터 가드레일, 클라우드 포팅과 평가까지 연결했습니다.</p>
+        <div class="featured-links"><a href="med-rag/" target="_blank" rel="noopener noreferrer">인터랙티브 데모 ↗</a><button type="button" data-open-project="medrag">프로젝트 상세 +</button></div>
+      </div>
+    </article>
+  </div>
+  <div class="section-head" id="projects"><h2><i>02 / PROJECT ARCHIVE</i>Built. Shipped. Still curious.</h2><p class="sub">라이브 서비스부터 실험 중인 아이디어까지.<br>상세 화면에서 기획·설계·성과·한계를 확인할 수 있습니다.</p></div>
+  <div class="project-toolbar">
+  <div class="filters" id="pfilters" aria-label="프로젝트 분류">
+    <button class="filter on" data-f="all" aria-pressed="true">전체</button>
+    <button class="filter" data-f="live">라이브</button>
     <button class="filter" data-f="app">모바일 앱</button>
     <button class="filter" data-f="ai">AI 서비스</button>
     <button class="filter" data-f="web">웹 서비스</button>
-    <button class="filter" data-f="play">게임·토이</button>
+    <button class="filter" data-f="play">3D·인터랙티브</button>
   </div>
+  <label class="project-search"><span class="sr-only">프로젝트 검색</span><input id="project-search" type="search" placeholder="프로젝트 또는 기술 검색" /></label>
+  </div>
+  <p class="results-status" id="project-count" role="status" aria-live="polite"></p>
+  <p class="empty-state" id="project-empty" hidden>일치하는 프로젝트가 없습니다. 다른 검색어나 분류를 선택해 주세요.</p>
   <div class="webs">
+    <div class="web" data-cat="play" data-p="anatomy">
+      <span class="badge live">NEW · LIVE</span>
+      <a class="shot" href="https://anatomy-sample.vercel.app/" target="_blank"><img src="assets/anatomy.jpg" alt="Anatomy Atlas — 인터랙티브 3D 인체 탐색" loading="lazy" /></a>
+      <div class="m"><b>ANATOMY ATLAS</b><em class="dt">2026.09</em><span>anatomy-sample · 남녀 인체 데이터를 탐색하는 3D 해부학 아틀라스. 계통 분리·부품 검색·투명도 조절·원본 모델 내보내기.</span></div>
+      <div class="acts"><a class="act go" href="https://anatomy-sample.vercel.app/" target="_blank">LIVE ↗</a><span class="act off">코드 비공개</span></div>
+    </div>
     <div class="web" data-cat="ai" data-p="medrag">
       <span class="badge live">LIVE</span>
       <a class="shot" href="med-rag/" target="_blank"><img src="assets/medrag.jpg" alt="MED-RAG — Medical Diagnosis Helper" loading="lazy"/></a>
@@ -411,8 +441,44 @@
     </div>
   </div>
 
-  <h2><i>03</i>MORE ON GITHUB</h2>
-  <div class="sub">코드로 보는 프로젝트 — 확장 모듈·업데이트 예정·토이</div>
+<div class="section-head" id="creative"><h2><i>03 / CREATIVE WORK</i>다른 방식으로 전하는 이야기.</h2><p class="sub">영상 · 이미지 · 음악.<br>생성형 AI로 만들고, 사람에게 전한 콘텐츠.</p></div>
+  <div class="works">
+    <a class="work" href="https://drive.google.com/file/d/1gbLiowTyFQ6U6GwdoBja8qWKGgK_bbvH/view" target="_blank">
+      <img src="assets/anam-splash.jpg" alt="고려대 안암병원 앱 스플래시" loading="lazy"/>
+      <div class="cap">안암병원 앱 스플래시<small>오프닝·로딩 디자인 · 납품작 2026.07</small></div>
+    </a>
+    <a class="work" href="assets/now-art.jpg" target="_blank">
+      <img src="assets/now-art.jpg" alt="N.O.W" loading="lazy"/>
+      <div class="cap">N.O.W<small>EXHIBITION ART · 2025.12 · 서울콘 DDP</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1qXeo93qAtf5ZScoGAg2sr_XUSUJUUD4k/view" target="_blank">
+      <img src="assets/khnp1.jpg" alt="KHNP EP.01" loading="lazy"/>
+      <div class="cap">KHNP EP.01<small>어린이 에너지 교육 · 납품작 2026.03</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1oCVM7z9ByHbd61RsIWd_DtN5Ya-glV-X/view" target="_blank">
+      <img src="assets/khnp2.jpg" alt="KHNP EP.02" loading="lazy"/>
+      <div class="cap">KHNP EP.02<small>어린이 에너지 교육 시리즈</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1OmeKei2SqGnEZbQDR4XhA7_KWz8U78xq/view" target="_blank">
+      <img src="assets/khnp3.jpg" alt="KHNP EP.03" loading="lazy"/>
+      <div class="cap">KHNP EP.03<small>어린이 에너지 교육 시리즈</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1Y9VC2tBBBYpbxYZggKfIQfQwfGhqx7TB/view" target="_blank">
+      <img src="assets/khnp4.jpg" alt="KHNP EP.04" loading="lazy"/>
+      <div class="cap">KHNP EP.04<small>어린이 에너지 교육 시리즈</small></div>
+    </a>
+    <a class="work" href="https://drive.google.com/file/d/1FZ0CYLo6OuPIOsXauWf5Ls1_P6Nn6TWg/view" target="_blank">
+      <img src="assets/khnp5.jpg" alt="KHNP EP.05" loading="lazy"/>
+      <div class="cap">KHNP EP.05<small>어린이 에너지 교육 시리즈</small></div>
+    </a>
+  </div>
+  <div class="audio-line">
+    <div>🎵</div>
+    <div><div class="t">NOT MY FAULT — 내 잘못이 아니야</div><small>COMPOSED WITH SUNO · 2025.12</small></div>
+    <audio controls preload="none" src="assets/music01.mp3"></audio>
+  </div>
+
+<div class="section-head"><h2><i>04 / OPEN NOTEBOOK</i>코드로 이어지는 작업.</h2><p class="sub">확장 모듈과 작은 실험의 기록.</p></div>
   <div class="repos">
     <a class="repo" href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-vertex" target="_blank"><b>med-rag-vertex</b><span>Vertex AI + ADK 포팅 · LLM-judge 평가 파이프라인 · 2026.07</span><i>↗</i></a>
     <a class="repo" href="https://github.com/hyunaeee/legal-pdf-rag-chatbot" target="_blank"><b>legal-pdf-rag</b><span>법률 PDF RAG 챗봇 · 근거 인용·멀티턴 · Solar LLM · 2025.06 – 2026.07</span><i>↗</i></a>
@@ -423,8 +489,7 @@
     <a class="repo" href="https://github.com/hyunaeee/word-game" target="_blank"><b>word-game</b><span>단어 맞추기 웹 게임 · 레벨/대전 · 2026.03 – 2026.06</span><i>↗</i></a>
   </div>
 
-  <h2><i>04</i>TRACK RECORD</h2>
-  <div class="sub">학력과 경력 — 뇌에서 시작해 AI까지</div>
+<div class="section-head" id="experience"><h2><i>05 / THE JOURNEY</i>뇌에서 시작해, AI까지.</h2><p class="sub">학력 · 경력 · 강의 · 전시</p></div>
   <div class="trgrid">
     <div>
       <div class="trcat">EDUCATION</div>
@@ -459,8 +524,7 @@
     </div>
   </div>
 
-  <h2><i>05</i>STACK</h2>
-  <div class="sub">분야별로 정리한 기술 스택</div>
+<div class="section-head"><h2><i>06 / TOOLKIT</i>아이디어를 구현하는 도구.</h2><p class="sub">프로젝트에서 사용한 분야별 기술 스택.</p></div>
   <div class="stackgrid">
     <div class="stackcat">
       <div class="cat">AI AGENTS / LLM</div>
@@ -501,7 +565,13 @@
     </div>
   </div>
 
+  <section class="contact-section" id="contact"><div><h2>다음엔 무엇을 만들까요?</h2><p>AI, 서비스, 콘텐츠에 대한 이야기를 기다립니다.</p></div><a href="mailto:hyunaeee@gmail.com">hyunaeee@gmail.com ↗</a></section>
+  <p class="export-hint" id="pdf-help">PDF 저장 → 인쇄 창에서 ‘PDF로 저장’을 선택하세요. 전체 프로젝트와 링크가 함께 담깁니다.</p>
+  <p class="export-hint" data-export-status role="status" aria-live="polite"></p>
   <footer>
+    <a class="soc" href="en.html" lang="en">ENGLISH</a>
+    <a class="soc" href="index.html#os">AENGDO OS ↗</a>
+    <a class="soc" href="story.html">STORY ↗</a>
     <a class="mail" href="mailto:hyunaeee@gmail.com">hyunaeee@gmail.com</a>
     <a class="soc" href="https://github.com/hyunaeee" target="_blank">GITHUB</a>
     <a class="soc" href="https://velog.io/@hyunaeee/posts" target="_blank">VELOG</a>
@@ -509,9 +579,9 @@
     <a class="soc" href="https://www.youtube.com/@gaebal_daeraemz" target="_blank">YOUTUBE</a>
     <span class="soc" style="margin-left:auto;">© 2026 AENGDO 🍒</span>
   </footer>
-</div>
+</main>
 <div class="pm-ovl" id="pmovl">
-  <div class="pm" role="dialog" aria-modal="true">
+  <div class="pm" role="dialog" aria-modal="true" aria-labelledby="pmtitle" tabindex="-1">
     <div class="hd"><b id="pmtitle"></b><span class="pmbadge" id="pmbadge"></span>
       <span class="pmdate" id="pmdate"></span>
       <button class="x" id="pmclose" aria-label="닫기">×</button></div>
@@ -527,18 +597,51 @@
   const bar = document.getElementById("pfilters");
   if (!bar) return;
   const cards = [...document.querySelectorAll(".web")];
-  bar.querySelectorAll(".filter").forEach(btn => {
-    const f = btn.dataset.f;
-    const n = f === "all" ? cards.length : cards.filter(c => c.dataset.cat === f).length;
-    btn.innerHTML += " <i>" + n + "</i>";
-    btn.addEventListener("click", () => {
-      bar.querySelectorAll(".filter").forEach(b => b.classList.toggle("on", b === btn));
-      cards.forEach(c => c.classList.toggle("hide", f !== "all" && c.dataset.cat !== f));
+  let activeFilter = 'all';
+  const search = document.getElementById('project-search');
+  function matchesCategory(card, filter) {
+    return filter === 'all' || (filter === 'live' ? !!card.querySelector('.badge.live') : card.dataset.cat === filter);
+  }
+  function updateProjects() {
+    const query = search.value.trim().toLocaleLowerCase();
+    let count = 0;
+    cards.forEach(card => {
+      const detail = window.PORTFOLIO_PROJECTS?.[card.dataset.p];
+      const haystack = (card.textContent + ' ' + (detail?.stack || []).join(' ')).toLocaleLowerCase();
+      const visible = matchesCategory(card, activeFilter) && haystack.includes(query);
+      card.classList.toggle('hide', !visible);
+      if (visible) count++;
+    });
+    document.getElementById('project-count').textContent = count + '개 프로젝트 / 전체 ' + cards.length + '개';
+    document.getElementById('project-empty').hidden = count !== 0;
+  }
+  bar.querySelectorAll('.filter').forEach(btn => {
+    const count = cards.filter(card => matchesCategory(card, btn.dataset.f)).length;
+    const label = btn.textContent;
+    btn.innerHTML += ' <i>' + count + '</i>';
+    btn.setAttribute('aria-label', label + ' ' + count + '개');
+    btn.setAttribute('aria-pressed', String(btn.dataset.f === activeFilter));
+    btn.addEventListener('click', () => {
+      activeFilter = btn.dataset.f;
+      bar.querySelectorAll('.filter').forEach(item => {
+        item.classList.toggle('on', item === btn);
+        item.setAttribute('aria-pressed', String(item === btn));
+      });
+      updateProjects();
     });
   });
+  search.addEventListener('input', updateProjects);
+  updateProjects();
 
   /* ---------- project detail modal ---------- */
   const P = {
+    anatomy: {
+      results: ['<b>남성 2,234개 · 여성 964개</b> 인체 부품 탐색', '근육·장기·순환계·골격 <b>계통별 분리</b>', '<b>한·영 이름 병기</b>와 부품별 검색·단독 보기', 'GLB·OBJ·STL ZIP <b>원본 모델 내보내기</b>'],
+      why: '평면적인 해부학 자료에서 이해하기 어려운 구조의 위치와 관계를, 직접 회전하고 분리하며 탐색할 수 있는 한국어 3D 경험으로 만들었습니다.',
+      build: ['<b>3D 탐색</b> — BodyParts3D 남성 데이터와 HRA 여성 참조 데이터를 선택해 계통·구조별 탐색', '<b>직접 조작</b> — 부품 검색, 숨김·투명도·단독 보기, 수동 이동과 위치 초기화', '<b>표시 성능</b> — Worker에서 부품별 화면 상세도 계산, 원본 상세도 복원', '<b>내보내기</b> — 화면 표시 상세도와 분리해 GLB·OBJ·STL 원본 모델 ZIP 제공'],
+      stack: ['React 19', 'TypeScript', 'Three.js', 'Vite', 'meshoptimizer', 'Vercel'],
+      limits: '여성 데이터는 일부 전신 근육·골격이 없는 참조 장기 세트입니다. 성별 간 데이터 커버리지가 다르며, 교육·탐색용 시각화입니다.'
+    },
     medrag: {
       results: ["고려대 안암병원 <b>납품·운영 중</b> (2025.10)", "환자 데이터 외부 유출 0 — <b>100% 온프렘</b> 추론", "클라우드 포트 실측: <b>judge 8/8 통과</b> · 근거성 4.75/5 · $0.006/요청", "포폴에서 바로 체험하는 인터랙티브 데모"],
       why: "LLM 환각이 가장 위험한 곳이 의료 현장입니다. 실제 증례와 가이드라인에 근거해서만 답하고, 그 근거를 의사가 검증할 수 있는 진료 보조 에이전트가 필요했어요.",
@@ -768,10 +871,13 @@
 
 
   };
+  window.PORTFOLIO_PROJECTS = P;
   const ovl = document.getElementById("pmovl");
-  function openModal(card) {
+  let modalOpener = null;
+  function openModal(card, opener) {
     const d = P[card.dataset.p];
     if (!d) return;
+    modalOpener = opener || document.activeElement;
     document.getElementById("pmtitle").textContent = card.querySelector(".m b").textContent;
     const badge = card.querySelector(".badge");
     const pb = document.getElementById("pmbadge");
@@ -798,18 +904,38 @@
     ovl.classList.add("open");
     document.body.classList.add("pm-lock");
     ovl.scrollTop = 0;
+    document.getElementById("pmclose").focus();
   }
-  function closeModal() { ovl.classList.remove("open"); document.body.classList.remove("pm-lock"); }
+  window.openPortfolioProject = openModal;
+  function closeModal() {
+    ovl.classList.remove('open'); document.body.classList.remove('pm-lock');
+    if (modalOpener?.isConnected) modalOpener.focus();
+  }
   cards.forEach(card => {
     const shot = card.querySelector(".shot");
-    if (shot) shot.addEventListener("click", e => { e.preventDefault(); openModal(card); });
+    if (shot) {
+      shot.setAttribute('aria-label', card.querySelector('.m b').textContent + ' 프로젝트 상세');
+      shot.setAttribute('aria-haspopup', 'dialog');
+      shot.addEventListener('click', e => { e.preventDefault(); openModal(card, shot); });
+    }
     const m = card.querySelector(".m");
-    if (m) { m.style.cursor = "pointer"; m.addEventListener("click", () => openModal(card)); }
+    if (m) { m.style.cursor = "pointer"; m.addEventListener("click", () => openModal(card, shot)); }
   });
   document.getElementById("pmclose").addEventListener("click", closeModal);
   ovl.addEventListener("click", e => { if (e.target === ovl) closeModal(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+  document.addEventListener('keydown', e => {
+    if (!ovl.classList.contains('open')) return;
+    if (e.key === 'Escape') { closeModal(); return; }
+    if (e.key === 'Tab') {
+      const focusable = [...ovl.querySelectorAll('button,a[href]')];
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
 })();
 </script>
+<script src="assets/portfolio-studio.js" defer></script>
+<script src="assets/portfolio-export.js" defer></script>
 </body>
 </html>
