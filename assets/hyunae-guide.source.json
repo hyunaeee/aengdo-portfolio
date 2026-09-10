@@ -1,0 +1,33 @@
+{
+  "name": "Hyunae Guide",
+  "createdWith": "Higgsfield 3D Jutsu",
+  "projectId": "c6e6b80f-2b0c-40a9-949c-d13740d9e6ba",
+  "projectUrl": "https://higgsfield.ai/3d-jutsu/c6e6b80f-2b0c-40a9-949c-d13740d9e6ba",
+  "revision": 3,
+  "operationId": "hyunae-final-friendly-smile-20260910",
+  "model": "hyunae-guide.glb",
+  "poster": "hyunae-guide-poster.png",
+  "posterSize": [768, 768],
+  "posterHasAlpha": true,
+  "modelBytes": 716696,
+  "posterBytes": 400243,
+  "meshes": 25,
+  "materials": 8,
+  "skins": 1,
+  "animations": [
+    {
+      "name": "GreetingLoop",
+      "durationSeconds": 4,
+      "fps": 24,
+      "samples": 97,
+      "loopSeamVerified": true,
+      "description": "Raised right hand waves, body gently lifts and tilts, feet remain grounded."
+    }
+  ],
+  "verification": {
+    "renderedGreetingPoseInspected": true,
+    "glbAnimationAccessorsInspected": true,
+    "firstAndLastSamplesMatch": true,
+    "inspectedFrames": [1, 13, 25, 49, 97]
+  }
+}

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AENGDO — AI, Code & Creative Work</title>
-<meta name="description" content="앵두 — 뇌과학에서 시작해 AI 에이전트, 웹 서비스, 콘텐츠를 만듭니다. 인터랙티브 3D 포트폴리오와 PDF 내보내기." />
+<title>Hyunae Park — AI, Code & Creative Work</title>
+<meta name="description" content="Hyunae Park — 뇌과학에서 시작해 AI 에이전트, 웹 서비스, 콘텐츠를 만듭니다. 손을 흔드는 3D 캐릭터와 함께 둘러보는 포트폴리오." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍒</text></svg>" />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+KR:wght@300;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
@@ -229,18 +229,19 @@
     letter-spacing: 1.5px; color: var(--dim); }
   footer .soc:hover { color: var(--ink); }
 </style>
-<link rel="stylesheet" href="assets/portfolio-studio.css" />
-<link rel="stylesheet" href="assets/portfolio-print.css" />
+<link rel="stylesheet" href="assets/portfolio-studio.css?v=guide2" />
+<link rel="stylesheet" href="assets/portfolio-print.css?v=hyunae2" />
 <link rel="canonical" href="https://hyunaeee.github.io/aengdo-portfolio/portfolio.html" />
-<meta property="og:title" content="AENGDO — Curiosity, in motion." />
-<meta property="og:description" content="AI 에이전트 · 라이브 서비스 · 생성형 콘텐츠. 앵두의 작업을 탐색하세요." />
-<meta property="og:image" content="https://hyunaeee.github.io/aengdo-portfolio/assets/og.jpg" />
+<meta property="og:title" content="Hyunae Park — Curiosity, in motion." />
+<meta property="og:description" content="AI 에이전트 · 라이브 서비스 · 생성형 콘텐츠. Hyunae Park의 작업을 탐색하세요." />
+<meta property="og:image" content="https://hyunaeee.github.io/aengdo-portfolio/assets/hyunae-og.png" />
 </head>
 <body>
 <a class="skip-link" href="#main-content">본문으로 바로가기</a>
 <nav class="studio-nav" aria-label="주요 메뉴"><div class="nav-inner">
-  <a class="wordmark" href="#about" aria-label="앵두 포트폴리오 처음으로">AENGDO<span>.</span></a>
+  <a class="wordmark" href="#about" aria-label="Hyunae Park 포트폴리오 처음으로">Hyunae Park<span>.</span></a>
   <div class="nav-links"><a href="#projects">Projects</a><a href="#creative">Creative</a><a href="#contact">Contact</a><a href="index.html#os">OS ↗</a><a href="en.html" lang="en">EN</a></div>
+  <button class="nav-guide" type="button" data-guide-open>안내</button>
   <button class="export-btn" type="button" data-export-pdf aria-describedby="pdf-help">PDF 저장 <span aria-hidden="true">↓</span></button>
 </div></nav>
 <main class="wrap" id="main-content">
@@ -249,35 +250,32 @@
       <div class="hero-copy">
         <div class="eyebrow">NEUROSCIENCE × CODE × CONTENT</div>
         <h1>Curiosity,<br>in <em>motion.</em></h1>
-        <div class="name">AENGDO <span aria-hidden="true">/</span> AI Engineer &amp; Content Creator</div>
-        <p class="tagline">뇌가 생각을 만드는 방식에서 출발해,<br><b>AI가 사람에게 닿는 경험</b>을 만듭니다.<br>에이전트를 개발하고, 서비스를 배포하고,<br>이야기를 콘텐츠로 연결하는 앵두입니다.</p>
+        <div class="name">Hyunae Park <span aria-hidden="true">/</span> AI Engineer &amp; Content Creator</div>
+        <p class="tagline">뇌가 생각을 만드는 방식에서 출발해,<br><b>AI가 사람에게 닿는 경험</b>을 만듭니다.<br>에이전트를 개발하고, 서비스를 배포하고,<br>이야기를 콘텐츠로 연결하는 Hyunae Park입니다.</p>
         <div class="actions">
           <a class="btn hot" href="#featured">대표 작업 보기 <span aria-hidden="true">↘</span></a>
           <a class="btn" href="mailto:hyunaeee@gmail.com">함께 이야기하기 ↗</a>
         </div>
         <p class="hero-note">기획에서 구현, 그리고 실제로 쓰이는 순간까지.</p>
       </div>
-      <div class="hero-scene">
-        <div class="scene-shell" aria-label="회전하며 둘러보는 앵두 3D 스튜디오">
-          <div class="scene-index">OBJECT 001 / CHERRY CONNECTIONS</div>
-          <img class="scene-fallback" src="assets/aengdo-studio-poster.png" alt="두 개의 붉은 앵두와 신경 연결을 닮은 궤도로 이루어진 3D 조각" fetchpriority="high" />
-          <model-viewer id="studio-model" class="scene-viewer" src="assets/aengdo-studio.glb"
-            alt="앵두 스튜디오 3D 조각. 드래그 또는 방향키로 회전하고 확대 버튼으로 가까이 볼 수 있습니다."
-            camera-controls touch-action="pan-y" disable-pan camera-orbit="30deg 75deg 105%"
-            min-camera-orbit="auto 25deg 60%" max-camera-orbit="auto 110deg 180%"
-            shadow-intensity="1" exposure="1" interaction-prompt="none" loading="eager">
-          </model-viewer>
-          <div class="scene-controls">
-            <span id="scene-status" role="status">앵두 스튜디오 · 정지 이미지</span>
-            <div class="scene-control-group">
-              <button type="button" data-scene-control="out" aria-label="3D 축소" disabled>−</button>
-              <button type="button" data-scene-control="in" aria-label="3D 확대" disabled>+</button>
-              <button type="button" data-scene-control="rotate" aria-label="자동 회전 시작" aria-pressed="false" disabled>▷</button>
-              <button type="button" data-scene-control="reset" aria-label="3D 시점 초기화" disabled>↺</button>
-            </div>
+      <div class="guide-home" aria-label="체리가 안내하는 포트폴리오">
+        <div class="guide-home-label">A LITTLE HELLO, A CURIOUS JOURNEY.</div>
+        <aside class="guide-companion" id="portfolio-guide" aria-label="체리의 포트폴리오 안내">
+          <div class="guide-bubble" id="guide-bubble">
+            <div class="guide-bubble-top"><span>CHERRY / YOUR GUIDE</span><span id="guide-progress">01 / 06</span><button id="guide-close" type="button" aria-label="안내 말풍선 닫기">×</button></div>
+            <h2 id="guide-heading">반가워요!</h2>
+            <p id="guide-message" role="status" aria-live="polite">Hyunae Park의 작업실에 오신 걸 환영해요. 대표 작업부터 함께 볼까요?</p>
+            <div class="guide-actions"><button id="guide-next" type="button">같이 둘러보기 ↘</button><button type="button" data-export-pdf>PDF 저장 ↓</button></div>
           </div>
-        </div>
-        <div class="scene-caption"><span>MADE WITH HIGGSFIELD 3D JUTSU</span><span>DRAG TO EXPLORE ↗</span></div>
+          <div class="guide-character">
+            <img class="guide-poster" src="assets/hyunae-guide-poster.png" alt="웃으며 손을 흔드는 체리 안내 캐릭터" fetchpriority="high" />
+            <model-viewer id="guide-model" class="guide-model" src="assets/hyunae-guide.glb" alt="손을 흔들고 몸을 움직이며 인사하는 3D 체리 캐릭터" camera-orbit="0deg 80deg 105%" shadow-intensity="0.4" exposure="1" interaction-prompt="none" loading="eager"></model-viewer>
+            <button class="guide-greet" id="guide-greet" type="button" aria-label="체리에게 인사하기" title="눌러서 다시 인사하기"></button>
+          </div>
+          <div class="guide-controls"><button id="guide-toggle" type="button" aria-controls="guide-bubble" aria-expanded="true" aria-label="캐릭터 안내 접기">안내 접기</button><button id="guide-motion" type="button" aria-label="캐릭터 움직임 멈추기" aria-pressed="false" disabled>Ⅱ</button></div>
+          <span id="guide-render-status" class="sr-only">캐릭터를 불러오는 중</span>
+        </aside>
+        <div class="guide-credit">CHARACTER MADE WITH HIGGSFIELD 3D JUTSU</div>
       </div>
     </div>
     <div class="hero-meta"><span><strong>AI ENGINEERING / CREATIVE TECHNOLOGY</strong></span><span>SEOUL, KR · <strong>PORTFOLIO 2026</strong></span><span>UPDATED 2026.09</span></div>
@@ -302,7 +300,7 @@
   <div class="section-head" id="featured"><h2><i>01 / SELECTED PROJECTS</i>생각이 현실이 된 작업.</h2><p class="sub">지금 둘러볼 수 있는 최신 작업과<br>현장에서 쓰이는 AI 프로젝트를 소개합니다.</p></div>
   <div class="featured-grid">
     <article class="featured-card">
-      <a href="https://anatomy-sample.vercel.app/" target="_blank" rel="noopener noreferrer"><img class="feature-image" src="assets/anatomy.jpg" alt="Anatomy Atlas의 실제 3D 인체 탐색 화면" loading="lazy" /></a>
+      <a href="https://anatomy-sample.vercel.app/" target="_blank" rel="noopener noreferrer"><img class="feature-image" src="assets/anatomy-exploded.jpg" alt="Anatomy Atlas의 근육·장기·순환계·골격 분해도" loading="lazy" /></a>
       <div class="featured-body"><div class="eyebrow">LATEST RELEASE / INTERACTIVE 3D / 2026.09</div><h3>Anatomy Atlas</h3>
         <p>몸의 구조를, 직접 움직이며 이해하는 경험.<br>남녀 인체 데이터를 한국어로 탐색하고, 계통별로 분리하거나 필요한 구조만 자세히 살펴보는 3D 해부학 아틀라스.</p>
         <div class="featured-links"><a href="https://anatomy-sample.vercel.app/" target="_blank" rel="noopener noreferrer">라이브 사이트 ↗</a><button type="button" data-open-project="anatomy">프로젝트 상세 +</button></div>
@@ -333,7 +331,7 @@
   <div class="webs">
     <div class="web" data-cat="play" data-p="anatomy">
       <span class="badge live">NEW · LIVE</span>
-      <a class="shot" href="https://anatomy-sample.vercel.app/" target="_blank"><img src="assets/anatomy.jpg" alt="Anatomy Atlas — 인터랙티브 3D 인체 탐색" loading="lazy" /></a>
+      <a class="shot" href="https://anatomy-sample.vercel.app/" target="_blank"><img src="assets/anatomy-exploded.jpg" alt="Anatomy Atlas — 계통별로 분리된 3D 인체 분해도" loading="lazy" /></a>
       <div class="m"><b>ANATOMY ATLAS</b><em class="dt">2026.09</em><span>anatomy-sample · 남녀 인체 데이터를 탐색하는 3D 해부학 아틀라스. 계통 분리·부품 검색·투명도 조절·원본 모델 내보내기.</span></div>
       <div class="acts"><a class="act go" href="https://anatomy-sample.vercel.app/" target="_blank">LIVE ↗</a><span class="act off">코드 비공개</span></div>
     </div>
@@ -570,14 +568,14 @@
   <p class="export-hint" data-export-status role="status" aria-live="polite"></p>
   <footer>
     <a class="soc" href="en.html" lang="en">ENGLISH</a>
-    <a class="soc" href="index.html#os">AENGDO OS ↗</a>
+    <a class="soc" href="index.html#os">HYUNAE OS ↗</a>
     <a class="soc" href="story.html">STORY ↗</a>
     <a class="mail" href="mailto:hyunaeee@gmail.com">hyunaeee@gmail.com</a>
     <a class="soc" href="https://github.com/hyunaeee" target="_blank">GITHUB</a>
     <a class="soc" href="https://velog.io/@hyunaeee/posts" target="_blank">VELOG</a>
     <a class="soc" href="https://instagram.com/gaebal_daeraemz" target="_blank">INSTAGRAM</a>
     <a class="soc" href="https://www.youtube.com/@gaebal_daeraemz" target="_blank">YOUTUBE</a>
-    <span class="soc" style="margin-left:auto;">© 2026 AENGDO 🍒</span>
+    <span class="soc" style="margin-left:auto;">© 2026 Hyunae Park 🍒</span>
   </footer>
 </main>
 <div class="pm-ovl" id="pmovl">
@@ -935,7 +933,7 @@
   });
 })();
 </script>
-<script src="assets/portfolio-studio.js" defer></script>
-<script src="assets/portfolio-export.js" defer></script>
+<script src="assets/portfolio-guide.js?v=guide2" defer></script>
+<script src="assets/portfolio-export.js?v=hyunae2" defer></script>
 </body>
 </html>

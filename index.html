@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AENGDO OS — 앵두의 컴퓨터</title>
-<meta name="description" content="뇌과학 × 컴퓨터과학 → AI. 앵두의 레트로 OS 포트폴리오 — 창을 열고, 드래그하고, 게임하세요." />
+<title>HYUNAE OS — Hyunae Park의 컴퓨터</title>
+<meta name="description" content="뇌과학 × 컴퓨터과학 → AI. Hyunae Park의 레트로 OS 포트폴리오 — 창을 열고, 드래그하고, 게임하세요." />
 <meta name="theme-color" content="#14161f" />
-<meta property="og:title" content="AENGDO OS — 앵두의 컴퓨터" />
+<meta property="og:title" content="HYUNAE OS — Hyunae Park의 컴퓨터" />
 <meta property="og:description" content="바탕화면 아이콘을 더블클릭하세요. 뇌 뷰어, 신문, 게임, 그리고 원본 스토리까지 전부 들어있습니다 🍒" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://hyunaeee.github.io/aengdo-portfolio/" />
-<meta property="og:image" content="https://hyunaeee.github.io/aengdo-portfolio/assets/og.jpg" />
+<meta property="og:image" content="https://hyunaeee.github.io/aengdo-portfolio/assets/hyunae-og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="canonical" href="https://hyunaeee.github.io/aengdo-portfolio/" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍒</text></svg>" />
@@ -63,6 +63,7 @@
   }
   .win.focus .titlebar { background: linear-gradient(90deg, #ff4655, #7a1b26); color: #fff; }
   .titlebar:active { cursor: grabbing; }
+  .titlebar > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .titlebar .btns { display: flex; gap: 4px; flex: none; }
   .titlebar button {
     width: 21px; height: 19px; font-size: 11px; font-family: inherit; cursor: pointer;
@@ -204,7 +205,7 @@
   #startmenu .item:hover { background: #7a1b26; color: #fff; }
   #startmenu .sep { height: 1px; background: #4a4d5c; margin: 4px 0; }
 
-  /* toasts (앵두 반응) */
+  /* toasts (Hyunae Park 반응) */
   #toasts { position: fixed; right: 14px; bottom: 58px; z-index: 700; display: flex;
     flex-direction: column; gap: 8px; align-items: flex-end; pointer-events: none; }
   .toast {
@@ -254,7 +255,7 @@
 </head>
 <body>
 <canvas id="wallpaper"></canvas>
-<div class="watermark">AENGDO OS v5.0<br/>build 2026.07 · 🍒</div>
+<div class="watermark">HYUNAE OS v5.0<br/>build 2026.07 · 🍒</div>
 
 <div id="boot"></div>
 
@@ -264,7 +265,7 @@
   <div class="icon" data-app="w-story"><div class="glyph">📖</div><div class="name">STORY.EXE</div></div>
   <div class="icon" data-app="w-works"><div class="glyph">📁</div><div class="name">WORKS</div></div>
   <div class="icon" data-app="w-game"><div class="glyph">🎮</div><div class="name">SIGNAL_RUN.EXE</div></div>
-  <div class="icon" data-app="w-chat"><div class="glyph">🍒</div><div class="name">앵두 메신저</div></div>
+  <div class="icon" data-app="w-chat"><div class="glyph">🍒</div><div class="name">HYUNAE 메신저</div></div>
   <div class="icon" data-app="w-mail"><div class="glyph">✉️</div><div class="name">MAIL.EXE</div></div>
   <div class="icon" data-app="w-readme"><div class="glyph">📄</div><div class="name">README.TXT</div></div>
   <div class="icon" data-app="w-toybox"><div class="glyph">🧸</div><div class="name">TOYBOX</div></div>
@@ -284,11 +285,11 @@
     · 그 이야기가 남긴 결과물은 <b>WORKS</b> 폴더<br/>
     · <b>⭐ PORTFOLIO</b> — 3D 탐색 · 프로젝트 검색 · PDF 저장
   </div>
-  <div class="storyline">— 앵두 <i>🍒</i>, 이 컴퓨터의 주인</div>
+  <div class="storyline">— Hyunae Park <i>🍒</i>, 이 컴퓨터의 주인</div>
 </div>
 
-<div class="win" id="w-chat" style="left:24%; bottom:14%;" data-title="🍒 앵두 메신저">
-  <div class="titlebar"><span>🍒 앵두 메신저 — 온라인</span>
+<div class="win" id="w-chat" style="left:24%; bottom:14%;" data-title="🍒 HYUNAE 메신저">
+  <div class="titlebar"><span>🍒 HYUNAE 메신저 — 온라인</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
   <div class="wbody"><div class="chatlog" id="chatlog"></div></div>
 </div>
@@ -304,7 +305,7 @@
 </div>
 
 <div class="win" id="w-blueprint" style="left:18%; top:14%;" data-title="📐 HOUSE.DWG">
-  <div class="titlebar"><span>📐 HOUSE.DWG — 앵두 하우스 평면도</span>
+  <div class="titlebar"><span>📐 HOUSE.DWG — HYUNAE HOUSE 평면도</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
   <div class="wbody" style="padding:10px;">
     <svg id="floorplan" width="560" height="386" viewBox="0 0 560 386"
@@ -316,7 +317,7 @@
       </defs>
       <rect width="560" height="386" fill="url(#fpgrid)"/>
       <!-- title + compass -->
-      <text x="30" y="28" fill="#dfe9f5" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="700">AENGDO HOUSE — 이 컴퓨터의 평면도</text>
+      <text x="30" y="28" fill="#dfe9f5" font-family="'JetBrains Mono',monospace" font-size="14" font-weight="700">HYUNAE HOUSE — 이 컴퓨터의 평면도</text>
       <g transform="translate(524,24)" stroke="#ffd27a" fill="#ffd27a">
         <line x1="0" y1="10" x2="0" y2="-8" stroke-width="1.5"/><path d="M-4 -2 L0 -10 L4 -2 Z"/>
         <text x="-4" y="24" font-family="'JetBrains Mono',monospace" font-size="10" stroke="none">N</text>
@@ -367,7 +368,7 @@
       <g class="fproom" data-app="w-chat">
         <rect x="197" y="188" width="151" height="148"/>
         <text x="222" y="252" class="fpname">🍒 거실</text>
-        <text x="222" y="271" class="fpsub">앵두 메신저</text>
+        <text x="222" y="271" class="fpsub">HYUNAE 메신저</text>
       </g>
       <g class="fproom" data-app="w-log">
         <rect x="352" y="188" width="94" height="148"/>
@@ -387,7 +388,7 @@
         <text x="238" y="376" font-size="10" stroke="none">한 사람의 관심사 전부 (SCALE 1:마음)</text>
       </g>
     </svg>
-    <div style="margin-top:7px; font-size:11px; color:#9aa0b0;">AGD-2026-002 · 방을 클릭하면 그 방으로 이동합니다 · DRAWN BY AENGDO 🍒</div>
+    <div style="margin-top:7px; font-size:11px; color:#9aa0b0;">AGD-2026-002 · 방을 클릭하면 그 방으로 이동합니다 · DRAWN BY Hyunae Park 🍒</div>
   </div>
   <div class="storyline">이 컴퓨터를 <i>집</i>이라고 치면 이런 구조예요. 서재에서 시작해서, 현관에서 편지를 기다립니다.</div>
 </div>
@@ -412,13 +413,13 @@
   <div class="linkbar"><a href="story.html" target="_blank">전체화면으로 열기 ↗</a></div>
 </div>
 
-<div class="win" id="w-times" style="left:14%; top:9%;" data-title="🗞️ AENGDO TIMES">
-  <div class="titlebar"><span>🗞️ AENGDO TIMES — 창간호</span>
+<div class="win" id="w-times" style="left:14%; top:9%;" data-title="🗞️ HYUNAE TIMES">
+  <div class="titlebar"><span>🗞️ HYUNAE TIMES — 창간호</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
   <div class="wbody" style="padding-bottom:8px;">
     <iframe data-src="times.html" style="width:min(920px,86vw); height:min(600px,64vh); background:#efe9da;"></iframe>
   </div>
-  <div class="storyline">기자 앵두가 개발자 앵두를 <i>단독 취재</i>한 창간호입니다. 구독료는 무료예요.</div>
+  <div class="storyline">Hyunae Park의 <i>셀프 인터뷰</i>를 담은 창간호입니다. 구독료는 무료예요.</div>
   <div class="linkbar"><a href="times.html" target="_blank">전체화면으로 열기 ↗</a></div>
 </div>
 
@@ -433,7 +434,7 @@
 </div>
 
 <div class="win" id="w-works" style="right:8%; top:22%;" data-title="📁 WORKS">
-  <div class="titlebar"><span>📁 C:\AENGDO\WORKS</span>
+  <div class="titlebar"><span>📁 C:\HYUNAE\WORKS</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
   <div class="wbody"><div class="files" id="files"></div></div>
   <div class="storyline">뇌에서 배우고 코드로 지은 것들이, 결국 <i>이 폴더</i>가 됐습니다. 영상은 클릭하면 재생돼요.</div>
@@ -533,13 +534,13 @@
 </div>
 
 <div class="win" id="w-toybox" style="left:24%; top:16%;" data-title="🧸 TOYBOX">
-  <div class="titlebar"><span>🧸 C:\AENGDO\TOYBOX — 잡동사니</span>
+  <div class="titlebar"><span>🧸 C:\HYUNAE\TOYBOX — 잡동사니</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
   <div class="wbody">
     <div class="files" style="max-width:480px;">
       <div class="file" data-app="w-brain"><div class="glyph">🧠</div><div class="name">BRAIN.EXE</div></div>
       <div class="file" data-app="w-blueprint"><div class="glyph">📐</div><div class="name">HOUSE.DWG</div></div>
-      <div class="file" data-app="w-times"><div class="glyph">🗞️</div><div class="name">AENGDO<br/>TIMES</div></div>
+      <div class="file" data-app="w-times"><div class="glyph">🗞️</div><div class="name">HYUNAE<br/>TIMES</div></div>
       <div class="file" data-app="w-log"><div class="glyph">📋</div><div class="name">TRACK.LOG</div></div>
       <div class="file" data-app="w-term"><div class="glyph">💻</div><div class="name">TERMINAL<br/>.EXE</div></div>
       <div class="file" data-app="fs-dive"><div class="glyph">🌌</div><div class="name">DIVE.EXE</div></div>
@@ -554,11 +555,11 @@
 </div>
 
 <div class="win" id="w-term" style="left:22%; top:20%;" data-title="💻 TERMINAL">
-  <div class="titlebar"><span>💻 AENGDO SHELL — C:\AENGDO</span>
+  <div class="titlebar"><span>💻 HYUNAE SHELL — C:\HYUNAE</span>
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
   <div class="wbody">
-    <div id="term-out" class="termout">AENGDO SHELL v1.0 — 'help' 를 입력해보세요.</div>
-    <div class="termline">C:\AENGDO&gt;&nbsp;<input id="term-in" autocomplete="off" spellcheck="false" /></div>
+    <div id="term-out" class="termout">HYUNAE SHELL v1.0 — 'help' 를 입력해보세요.</div>
+    <div class="termline">C:\HYUNAE&gt;&nbsp;<input id="term-in" autocomplete="off" spellcheck="false" /></div>
   </div>
   <div class="storyline">개발자의 집엔 역시 터미널이 있어야죠. <i>fortune</i>을 쳐보세요.</div>
 </div>
@@ -568,7 +569,7 @@
     <span class="btns"><button data-min>_</button><button data-close>×</button></span></div>
   <div class="wbody" style="max-width:380px;">
     <div class="trashitem">🧠 뇌파로 조종하는 마우스 <span>— 하드웨어가 없음</span><button class="restore">복구</button></div>
-    <div class="trashitem">🪙 앵두코인 발행 <span>— 양심이 있음</span><button class="restore">복구</button></div>
+    <div class="trashitem">🪙 체리코인 발행 <span>— 양심이 있음</span><button class="restore">복구</button></div>
     <div class="trashitem">😴 잠 안 자기 챌린지 앱 <span>— 본인이 1등 할 예정이라 폐기</span><button class="restore">복구</button></div>
     <div class="trashitem">💜 보라색 네온 테마 v1 <span>— 이 사이트의 전신. 촌스러워서 버림</span><button class="restore">복구</button></div>
   </div>
@@ -607,7 +608,7 @@
   <div id="sv-world">
     <canvas id="svCv"></canvas>
     <div class="sv-line" style="top:16%; left:12%;">뉴런은 어둠 속에서도 <b>초당 수백 번</b> 발화한다</div>
-    <div class="sv-line" style="top:24%; right:10%;">🍒 앵두가 숨겨둔 문장</div>
+    <div class="sv-line" style="top:24%; right:10%;">🍒 Hyunae Park의 숨은 문장</div>
     <div class="sv-line" style="bottom:20%; left:16%;">뇌과학 × 컴퓨터과학 = <b>AI</b></div>
     <div class="sv-line" style="bottom:26%; right:12%;">화면보호기까지 보는 당신, <b>집요하다</b></div>
   </div>
@@ -621,13 +622,13 @@
   <span class="clock" id="clock">--:--</span>
 </div>
 <div id="startmenu">
-  <div class="head">AENGDO OS — 앵두의 컴퓨터</div>
+  <div class="head">HYUNAE OS — Hyunae Park의 컴퓨터</div>
   <div class="item" data-app="w-portfolio">⭐ PORTFOLIO — 한눈에 보기</div>
   <div class="item" data-app="w-story">📖 STORY.EXE <span style="margin-left:auto;color:#8a8fa0;font-size:10px">원본</span></div>
   <div class="item" data-app="w-works">📁 WORKS</div>
   <div class="item" data-app="w-game">🎮 SIGNAL_RUN.EXE</div>
-  <div class="item" data-app="w-times">🗞️ AENGDO TIMES</div>
-  <div class="item" data-app="w-chat">🍒 앵두 메신저</div>
+  <div class="item" data-app="w-times">🗞️ HYUNAE TIMES</div>
+  <div class="item" data-app="w-chat">🍒 HYUNAE 메신저</div>
   <div class="item" data-app="w-toybox">🧸 TOYBOX — 잡동사니</div>
   <div class="sep"></div>
   <a class="item" href="classic.html" target="_blank">🗂️ CLASSIC.HTML (구버전)</a>
@@ -715,7 +716,7 @@
     // tiny signature
     ctx.font = "11px Consolas, monospace";
     ctx.fillStyle = "rgba(96,102,122,.5)";
-    ctx.fillText("aengdo.exe 실행 중 🍒", x0 - cw, y0 + ART.length * chh + 14);
+    ctx.fillText("hyunae.exe 실행 중 🍒", x0 - cw, y0 + ART.length * chh + 14);
   }
   requestAnimationFrame(tick);
 })();
@@ -724,13 +725,13 @@
 (function () {
   const el = document.getElementById("boot");
   const LINES = [
-    'AENGDO BIOS v5.0 — CHERRY FIRMWARE',
+    'HYUNAE BIOS v5.0 — CHERRY FIRMWARE',
     'MEMORY TEST : 86,000,000,000 NEURONS ......... <span class="ok">OK</span>',
     'SYNAPSE BUS : 100T LINKS ..................... <span class="ok">OK</span>',
     'CREATIVITY DRIVER ............................ <span class="ok">OK</span>',
-    'MOUNTING <b>C:\\AENGDO</b> .......................... <span class="ok">OK</span>',
+    'MOUNTING <b>C:\\HYUNAE</b> .......................... <span class="ok">OK</span>',
     '',
-    'STARTING <b>AENGDO_OS</b> ...',
+    'STARTING <b>HYUNAE_OS</b> ...',
   ];
   let i = 0;
   (function next() {
@@ -758,7 +759,7 @@
     const menu = document.createElement("div");
     menu.innerHTML =
       '<div class="bootopt sel" data-v="pf">1. PORTFOLIO.STUDIO — 3D 탐색 · PDF 저장 (기본)</div>' +
-      '<div class="bootopt" data-v="os">2. AENGDO_OS &nbsp;&nbsp;&nbsp;&nbsp;— 탐험하며 구경하기 🍒</div>' +
+      '<div class="bootopt" data-v="os">2. HYUNAE_OS &nbsp;&nbsp;&nbsp;&nbsp;— 탐험하며 구경하기 🍒</div>' +
       '<div style="margin-top:16px;color:#6b7280;font-size:12px" id="bootcount"></div>';
     el.appendChild(menu);
     const opts = menu.querySelectorAll(".bootopt");
@@ -839,7 +840,7 @@ function cherryRain() {
     rainToasted = true;
     const t = document.createElement("div");
     t.className = "toast";
-    t.innerHTML = '<img src="assets/aengdu-joy.png" alt="앵두"/><span><b>앵두</b> — 누르지 말라니까요!! ...예쁘긴 하죠 🍒</span>';
+    t.innerHTML = '<img src="assets/aengdu-joy.png" alt="Hyunae Park"/><span><b>Hyunae Park</b> — 누르지 말라니까요!! ...예쁘긴 하죠 🍒</span>';
     document.getElementById("toasts").appendChild(t);
     setTimeout(() => { t.style.transition = "opacity .4s"; t.style.opacity = 0; setTimeout(() => t.remove(), 420); }, 4200);
   }
@@ -929,7 +930,7 @@ setInterval(() => {
     String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
 }, 1000);
 
-/* ================= 앵두 reactions ================= */
+/* ================= Hyunae Park reactions ================= */
 const REACT = {
   "w-portfolio": "바쁘신 분을 위한 한 장 요약이에요 ⭐ 천천히 볼 거면 다른 창들도!",
   "w-story": "그 스크롤 스토리, 원본 그대로예요. 추억이 아니라 현역 📖",
@@ -966,7 +967,7 @@ function react(id) {
   reacted.add(id);
   const t = document.createElement("div");
   t.className = "toast";
-  t.innerHTML = '<img src="assets/aengdu-hello.png" alt="앵두"/><span><b>앵두</b> — ' + REACT[id] + "</span>";
+  t.innerHTML = '<img src="assets/aengdu-hello.png" alt="Hyunae Park"/><span><b>Hyunae Park</b> — ' + REACT[id] + "</span>";
   document.getElementById("toasts").appendChild(t);
   setTimeout(() => { t.style.transition = "opacity .4s"; t.style.opacity = 0; setTimeout(() => t.remove(), 420); }, 4200);
 }
@@ -1150,7 +1151,7 @@ function brainApp() {
   document.getElementById("w-term").addEventListener("pointerup", () => inp.focus());
   const FORTUNES = [
     "오늘의 운세: 커밋하기 좋은 날입니다.",
-    "버그가 아니라 기능이다. — 앵두 (마감 3시간 전)",
+    "버그가 아니라 기능이다. — Hyunae Park (마감 3시간 전)",
     "잠은 죽어서... 아니, 오늘은 자자.",
     "뉴런 860억 개 중 지금 몇 개나 쓰고 계신가요?",
     "가장 좋은 AI 교과서는 이미 머릿속에 있다.",
@@ -1163,10 +1164,10 @@ function brainApp() {
     if (e.key !== "Enter") return;
     const raw = inp.value.trim(); inp.value = "";
     if (!raw) return;
-    print("<span style='color:#7ee2a8'>C:\\AENGDO&gt;</span> " + raw);
+    print("<span style='color:#7ee2a8'>C:\\HYUNAE&gt;</span> " + raw);
     const [cmd, ...args] = raw.toLowerCase().split(/\s+/);
     if (cmd === "help") print("명령어: <b>whoami</b> · <b>ls</b> · <b>open</b> [story|works|game|times|brain|house|portfolio] · <b>fortune</b> · <b>coffee</b> · <b>cherry</b> · <b>hack</b> · <b>secret</b> · <b>clear</b> · <b>exit</b>");
-    else if (cmd === "whoami") print("<b>앵두</b> — 뇌과학 × 컴퓨터과학 출신 AI 개발자.\nAI로 콘텐츠를 만들고, 에이전트를 개발하고, 서비스를 배포함.\n특기: 밤샘. 약점: 커피 없는 아침.");
+    else if (cmd === "whoami") print("<b>Hyunae Park</b> — 뇌과학 × 컴퓨터과학 출신 AI 개발자.\nAI로 콘텐츠를 만들고, 에이전트를 개발하고, 서비스를 배포함.\n특기: 밤샘. 약점: 커피 없는 아침.");
     else if (cmd === "ls") print("PORTFOLIO.ONE  STORY.EXE  WORKS/  SIGNAL_RUN.EXE\nTIMES.HTML  BRAIN.EXE  HOUSE.DWG  <b>secret/</b>  버린_아이디어들/");
     else if (cmd === "open") {
       const id = APPS[args[0]];
@@ -1174,7 +1175,7 @@ function brainApp() {
       else print("open [story|works|game|times|brain|house|portfolio|mail|log]");
     }
     else if (cmd === "fortune") print("🥠 " + FORTUNES[(Math.random() * FORTUNES.length) | 0]);
-    else if (cmd === "sudo") print("권한이 없습니다. 여긴 <b>앵두</b>의 컴퓨터예요.");
+    else if (cmd === "sudo") print("권한이 없습니다. 여긴 <b>Hyunae Park</b>의 컴퓨터예요.");
     else if (cmd === "coffee" || raw === "make coffee") print("☕ 추출 중......... <span class='ok'>완료.</span> (가상입니다. 실물은 커피챗으로: hyunaeee@gmail.com)");
     else if (cmd === "cherry") { cherryRain(); print("🍒🍒🍒"); }
     else if (cmd === "secret") print("힌트: 사람의 뇌에는 뉴런이 몇 <b>십억</b> 개?");
@@ -1185,7 +1186,7 @@ function brainApp() {
         if (++n > 9) { clearInterval(iv); print("<span class='ok'>...농담이고요, hacker-typer.vercel.app 에서 실컷 하세요.</span>"); }
       }, 130);
     }
-    else if (cmd === "clear") out.innerHTML = "AENGDO SHELL v1.0";
+    else if (cmd === "clear") out.innerHTML = "HYUNAE SHELL v1.0";
     else if (cmd === "exit") closeWin(document.getElementById("w-term"));
     else print("'" + raw + "' 은(는) 없는 명령어예요. 'help' 참고.");
   });
@@ -1209,8 +1210,8 @@ document.querySelectorAll("#w-trash .restore").forEach(b =>
         '<span class="ok" style="color:#7ee2a8">🎉 잠금 해제 — 제작 비하인드</span><br/><br/>' +
         '· 이 사이트의 조상님들: <a href="classic.html" target="_blank">CLASSIC v1</a> · <a href="story.html" target="_blank">스토리 모드</a><br/>' +
         '· 첫 버전은 <b>보라색 네온</b>이었어요 (휴지통 참고)<br/>' +
-        '· 앵두는 원래 <b>동그란 안경</b>을 썼었다 (구버전 캐릭터)<br/>' +
-        '· SIGNAL_RUN 최고기록 1위는 아직 <b>앵두 본인</b><br/>' +
+        '· 안내 캐릭터는 원래 <b>동그란 안경</b>을 썼었다 (구버전 캐릭터)<br/>' +
+        '· SIGNAL_RUN 최고기록 1위는 아직 <b>Hyunae Park 본인</b><br/>' +
         '· 이 OS는 뇌과학 전공자가 만든 <b>세 번째</b> 홈페이지입니다 🍒';
       say("어떻게 알았어요?! ...아, 제가 온 컴퓨터에 적어놨죠 참 🔓");
     } else {
@@ -1343,7 +1344,7 @@ function typeApp() {
   if (typeInit) return; typeInit = true;
   const fs = document.getElementById("fs-type");
   const stage = document.getElementById("ts-stage");
-  const PHRASES = ["WHERE DOES A THOUGHT BEGIN", "NEUROSCIENCE × CODE", "AENGDO AENGDO AENGDO", "BUILT & SHIPPED 🍒", "PRESS START TO THINK"];
+  const PHRASES = ["WHERE DOES A THOUGHT BEGIN", "NEUROSCIENCE × CODE", "Hyunae Park · Hyunae Park", "BUILT & SHIPPED 🍒", "PRESS START TO THINK"];
   const letters = [], rows = [];
   for (let r = 0; r < 5; r++) {
     const row = document.createElement("div");

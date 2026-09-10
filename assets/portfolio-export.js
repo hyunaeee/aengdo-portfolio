@@ -4,7 +4,7 @@
 
   const PUBLIC_ROOT = "https://hyunaeee.github.io/aengdo-portfolio/";
   const PUBLIC_PORTFOLIO = PUBLIC_ROOT + "portfolio.html";
-  const FILENAME = "AENGDO_Portfolio";
+  const FILENAME = "Hyunae_Park_Portfolio";
   const CATEGORY = { ai: "AI / AGENTS", app: "APP / MOBILE", web: "WEB / PRODUCT", play: "INTERACTIVE / 3D" };
   let busy = false;
   let printing = false;
@@ -19,7 +19,12 @@
     return node;
   }
 
-  function textOf(node) { return node ? node.textContent.replace(/\s+/g, " ").trim() : ""; }
+  function textOf(node) {
+    if (!node) return "";
+    const copy = node.cloneNode(true);
+    copy.querySelectorAll("br").forEach(br => br.replaceWith(document.createTextNode(" ")));
+    return copy.textContent.replace(/\s+/g, " ").trim();
+  }
 
   // Project data contains editorial <b> and <code> markup. Keep its text only.
   function plain(value) {
@@ -70,7 +75,7 @@
     heading.append(element("h2", "pf-page-title", title), element("span", "pf-eyebrow", eyebrow));
     const body = element("div", "pf-page-body");
     const footer = element("div", "pf-page-footer");
-    footer.append(link("AENGDO / PORTFOLIO", PUBLIC_PORTFOLIO), element("span", "pf-page-number"));
+    footer.append(link("Hyunae Park / PORTFOLIO", PUBLIC_PORTFOLIO), element("span", "pf-page-number"));
     sheet.append(heading, body, footer);
     return { sheet, body };
   }
@@ -88,13 +93,13 @@
 
   function createCover(projectCount) {
     const { sheet, body } = page("PORTFOLIO", "AI · PRODUCT · CONTENT", "pf-cover");
-    const name = element("h1", "pf-cover-name", "AENGDO");
+    const name = element("h1", "pf-cover-name", "Hyunae Park");
     name.append(element("span", "", "."));
     const intro = textOf(document.querySelector(".wrap > header .tagline")) ||
       "뇌과학 × 컴퓨터과학에서 출발해 AI 에이전트를 개발하고, 서비스를 배포하고, 콘텐츠를 만듭니다.";
     body.append(name, element("p", "pf-cover-role", "AI Engineer & Content Creator"), element("p", "pf-cover-intro", intro));
-    const poster = image("assets/aengdo-studio-poster.png", "AENGDO 인터랙티브 스튜디오 정지 이미지", "pf-poster");
-    body.append(poster, element("p", "pf-poster-caption", "인터랙티브 스튜디오 · 라이브 포트폴리오에서 3D 장면과 프로젝트를 둘러보세요."));
+    const poster = image("assets/hyunae-guide-poster.png", "Hyunae Park 포트폴리오 안내 캐릭터", "pf-poster");
+    body.append(poster, element("p", "pf-poster-caption", "라이브 포트폴리오에서는 인사하는 3D 안내 캐릭터의 말풍선을 따라 프로젝트를 둘러볼 수 있어요."));
     const roles = element("div", "pf-roles");
     document.querySelectorAll(".wrap > header .roles .role").forEach(source => {
       const item = element("section", "pf-role");
