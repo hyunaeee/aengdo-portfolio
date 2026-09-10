@@ -952,6 +952,7 @@
   {
     "id": "legal",
     "title": "Legal PDF RAG",
+    "period": "2025.06–2026.07",
     "summary": {
       "ko": "법률 PDF 검색과 근거 인용을 연결한 RAG 챗봇.",
       "en": "A legal PDF chatbot with document retrieval and evidence citations."
@@ -982,6 +983,7 @@
   {
     "id": "higgs",
     "title": "HiggsMCP",
+    "period": "2026.07",
     "summary": {
       "ko": "이미지·영상 생성과 게시 모듈을 연결하는 콘텐츠 자동화 실험.",
       "en": "A content automation experiment connecting generation and publishing modules."

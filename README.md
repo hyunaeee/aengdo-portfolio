@@ -7,6 +7,7 @@ AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사�
 - **Anatomy Atlas**: 실제 전체 구조 / 계통 분해 캡처 비교와 라이브 링크
 - **Archive**: 20개 프로젝트 검색·분야·라이브 필터
 - **Creative**: 영상·이미지·음악. 기존 레트로 OS는 **Playground**에서 실행
+- **History**: 이전 포트폴리오의 2017–2026 경력·연구·학력·강의·활동 22개를 복원한 상세 이력. 홈과 메뉴, PDF에서 연결합니다.
 
 ## 편집과 실행
 
@@ -24,6 +25,7 @@ python -m http.server 8765
 | `work/{med-rag,terracotta,meeting,anatomy}/` | 사례별 한국어 `index.html`, 영어 `en.html` |
 | `archive.html`, `archive-en.html` | 프로젝트 검색과 공개 범위 |
 | `creative.html`, `creative-en.html` | 창작 작업 |
+| `history.html`, `history-en.html` | 상세 커리어 히스토리 |
 | `playground.html` | 기존 HYUNAE OS와 앱 에뮬레이터 |
 | `assets/portfolio.css`, `assets/portfolio-app.js` | 반응형 레이아웃과 탐색·비교 기능 |
 | `assets/portfolio-export.js`, `assets/portfolio-print.css` | A4 인쇄·PDF 구성 |
@@ -41,7 +43,7 @@ PDF는 검색 가능한 텍스트, 원문 링크, 실제 캡처를 포함합니�
 
 [Higgsfield 3D Jutsu / Portfolio Guide](https://higgsfield.ai/3d-jutsu/c6e6b80f-2b0c-40a9-949c-d13740d9e6ba) revision 3에서 만든 캐릭터입니다. `hyunae-guide-v2.glb`는 원본 메시·재질·리그·4초 `GreetingLoop`를 보존하고 로컬에서 `Idle` 4.8초와 `Point` 2.8초 클립을 추가한 파생 파일입니다. 출처와 검증 기록은 `assets/hyunae-guide-v2.source.json`에 있습니다.
 
-처음 인사한 뒤 대기하고, 안내 버튼에 반응합니다. 모바일에서는 본문으로 이동하면 접히고 상단 체리 버튼으로 다시 엽니다. 일시정지, 동작 줄이기 설정, 정지 이미지 대체를 지원합니다. 모델 뷰어 4.1.0과 라이선스는 `assets/vendor/`에 있습니다. PDF에는 정지 이미지를 사용합니다.
+처음에는 말풍선 없이 손을 흔든 뒤 대기합니다. 안내 버튼을 눌렀을 때만 짧은 안내를 표시합니다. 모바일에서는 본문으로 이동하면 접히고 상단 체리 버튼으로 다시 엽니다. 일시정지, 동작 줄이기 설정, 정지 이미지 대체를 지원합니다. 모델 뷰어 4.1.0과 라이선스는 `assets/vendor/`에 있습니다. PDF에는 정지 이미지를 사용합니다.
 
 ## 근거와 MLOps 범위
 

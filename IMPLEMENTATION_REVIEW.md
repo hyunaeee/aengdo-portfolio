@@ -2,6 +2,10 @@
 
 Status: implemented and validated locally. Remote publication requires explicit confirmation after automatic approval review rejected a bundled push to other repositories. No retry or alternate publication route was used.
 
+Latest editorial revision: removed promotional headings and home project summaries in favor of names, project numbers and dates. Archive is now “다른 작업들” / “Other work.” The guide starts with its speech bubble closed, with no automatic re-opening. Restored 22 career, research, education, teaching and activity entries from the earlier timeline in bilingual History pages, linked from the home, navigation and PDF. Checked 14 page/viewport combinations and guide interactions; the shared build now produces 18 files and checks 17 HTML pages. These details supersede the earlier layout counts below.
+
+Revised PDFs: five variants regenerated, still seven pages each. All 35 pages rendered and inspected; 24 absolute link annotations per PDF, including the new History link. The cover now lists only identity, project names, numbers and periods. The earlier 23-link count below describes the previous export.
+
 ## Portfolio
 
 - Direct hiring-oriented home, four independent bilingual case studies, searchable 20-project archive, Creative, retained OS/emulator routes.

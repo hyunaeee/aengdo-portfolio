@@ -192,7 +192,7 @@
     const caseNumber = casePosition || project.number;
     text.append(node("p", "pf-eyebrow", caseNumber ? String(caseNumber).padStart(2, "0") + " / CASE STUDY" : "CASE STUDY"));
     text.append(node("h3", "pf-project-title", project.title));
-    if (project.subtitle) text.append(node("p", "pf-project-subtitle", localize(project.subtitle, context.lang)));
+    text.append(node("p", "pf-project-subtitle", project.period));
     top.append(text);
     if (!compact) append(top, image(project.image, context.lang, "pf-project-image"));
     result.append(top);
@@ -216,7 +216,7 @@
     const { sheet, body } = createPage(copy.portfolio, localize(FOCUS[context.focus].label, lang), context, "pf-cover");
     const identity = block("", context, "pf-identity");
     identity.append(node("p", "pf-eyebrow", localize(data.person.location, lang)), node("h1", "pf-name", data.person.name));
-    identity.append(node("p", "pf-position", localize(data.person.role, lang)), node("p", "pf-headline", localize(data.person.headline, lang)), node("p", "pf-intro", localize(data.person.intro, lang)));
+    identity.append(node("p", "pf-position", localize(data.person.role, lang)));
     const contacts = node("div", "pf-cover-contacts");
     append(contacts, anchor(data.person.email, "mailto:" + data.person.email));
     append(contacts, anchor("GITHUB / " + String(data.person.github || "").replace(/^https?:\/\//, ""), data.person.github));
@@ -225,12 +225,11 @@
     orderedProjects.forEach((project, index) => {
       const item = node("article", "pf-index-case"), details = node("div");
       item.append(node("span", "pf-index-number", String(index + 1).padStart(2, "0")));
-      details.append(node("h3", "", project.title), node("p", "", localize(project.summary, lang)), node("p", "pf-index-status", localize(project.status, lang)));
+      details.append(node("h3", "", project.title), node("p", "pf-index-status", project.period));
       item.append(details); cases.append(item);
     });
     body.append(cases);
     const note = block("", context, "pf-cover-note");
-    note.append(node("p", "pf-copy", copy.briefNote));
     if (data.updatedAt) note.append(node("p", "pf-small", copy.updated + " " + data.updatedAt));
     append(note, anchor(copy.more + " ↗", publicPage(lang, context.focus))); body.append(note);
     return sheet;
@@ -281,6 +280,7 @@
       if (item.description) description.append(node("p", "pf-copy", localize(item.description, lang)));
       row.append(description); experience.append(row);
     });
+    append(experience, anchor(lang === "ko" ? "전체 이력 · 2017–2026 ↗" : "Full history · 2017–2026 ↗", PUBLIC_ROOT + (lang === "ko" ? "history.html" : "history-en.html"), "pf-small"));
     body.append(experience);
     const anatomy = list(data.projects).find(project => project.id === "anatomy");
     if (anatomy) {
