@@ -1,4 +1,4 @@
-# Hyunae Park — AI Engineer
+# Hyunae Park — AI Builder
 
 AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사례의 문제, 본인 역할, 설계 선택, 평가 근거와 공개 범위를 연결합니다.
 
@@ -39,11 +39,15 @@ python -m http.server 8765
 
 PDF는 검색 가능한 텍스트, 원문 링크, 실제 캡처를 포함합니다. 브라우저 머리글·바닥글은 끄는 편이 좋습니다. Chromium에서 화면·중첩 사례 경로·인쇄를 확인했습니다. `output/`의 로컬 PDF와 `tmp/` 검수 캡처는 저장소에서 제외합니다.
 
-## 3D 안내 캐릭터
+## 3D Mac Studio와 안내
+
+첫 화면은 Mac Studio 본체, 모니터, 키보드와 마우스로 구성한 3D 장면입니다. 모니터 안에 **Hyunae Park / AI Builder**를 실제 메시로 넣었습니다. 드래그와 방향키로 회전하며, 처음 각도로 돌아가는 버튼이 있습니다. 자동 회전은 하지 않습니다. WebGL이나 JavaScript를 사용할 수 없을 때는 같은 장면의 정지 이미지를 표시합니다.
+
+[Higgsfield 3D Jutsu / Mac Studio](https://higgsfield.ai/3d-jutsu/778e498b-7d74-4c2b-8fd2-2d1350f752ca)에서 제작했습니다. 모델과 이미지는 로컬 `assets/hyunae-mac-studio.glb`, `assets/hyunae-mac-studio.png`로 제공하며, Blender 생성 코드는 `scripts/build-studio-scene.py`, 출처와 리비전은 `assets/hyunae-mac-studio.source.json`에 기록했습니다.
 
 [Higgsfield 3D Jutsu / Portfolio Guide](https://higgsfield.ai/3d-jutsu/c6e6b80f-2b0c-40a9-949c-d13740d9e6ba) revision 3에서 만든 캐릭터입니다. `hyunae-guide-v2.glb`는 원본 메시·재질·리그·4초 `GreetingLoop`를 보존하고 로컬에서 `Idle` 4.8초와 `Point` 2.8초 클립을 추가한 파생 파일입니다. 출처와 검증 기록은 `assets/hyunae-guide-v2.source.json`에 있습니다.
 
-처음에는 말풍선 없이 손을 흔든 뒤 대기합니다. 안내 버튼을 눌렀을 때만 짧은 안내를 표시합니다. 모바일에서는 본문으로 이동하면 접히고 상단 체리 버튼으로 다시 엽니다. 일시정지, 동작 줄이기 설정, 정지 이미지 대체를 지원합니다. 모델 뷰어 4.1.0과 라이선스는 `assets/vendor/`에 있습니다. PDF에는 정지 이미지를 사용합니다.
+체리는 상단의 작은 버튼으로만 엽니다. 첫 방문에는 캐릭터 패널을 표시하거나 캐릭터 GLB를 내려받지 않습니다. 펼친 패널 안의 캐릭터는 96px이며, 안내 닫기·Escape·바깥 영역 클릭으로 접힙니다. 패널을 닫거나 탭을 벗어나면 동작을 멈춥니다. 일시정지, 동작 줄이기 설정, 정지 이미지 대체를 지원합니다. 모델 뷰어 4.1.0과 라이선스는 `assets/vendor/`에 있습니다. PDF의 포지션도 AI Builder이며, 인쇄는 별도의 텍스트·프로젝트 레이아웃을 사용합니다.
 
 ## 근거와 MLOps 범위
 

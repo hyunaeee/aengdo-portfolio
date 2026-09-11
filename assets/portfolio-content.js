@@ -10,12 +10,12 @@
   const origin = 'https://hyunaeee.github.io/aengdo-portfolio/';
   const link = (ko, en, url, kind = 'source') => ({ label: L(ko, en), url, kind });
   const data = {
-    updatedAt: '2026-09-10',
+    updatedAt: '2026-09-11',
     history: typeof module === 'object' && module.exports ? require('./portfolio-history.js') : globalThis.HYUNAE_HISTORY || [],
     person: {
       name: 'Hyunae Park', email: 'hyunaeee@gmail.com', github: 'https://github.com/hyunaeee',
-      role: L('AI Engineer', 'AI Engineer'),
-      headline: L('Hyunae Park · AI Engineer', 'Hyunae Park · AI Engineer'),
+      role: L('AI Builder', 'AI Builder'),
+      headline: L('Hyunae Park · AI Builder', 'Hyunae Park · AI Builder'),
       intro: L('RAG · AI 에이전트 · MLOps', 'RAG · AI agents · MLOps'),
       location: L('대한민국 · 한국어 / 영어', 'South Korea · Korean / English')
     },

@@ -1,0 +1,49 @@
+/* Mac Studio landing scene and the compact, opt-in Cherry guide. */
+.studio-hero{padding:30px 0 20px}
+.studio-topline,.studio-bottomline{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.studio-topline{font-size:10px;letter-spacing:1.5px;color:var(--muted)}
+.studio-stage{position:relative;width:100%;height:clamp(410px,43vw,585px);margin:6px auto 0}
+.studio-poster,#studio-model{position:absolute;inset:0;width:100%;height:100%;background:transparent;--poster-color:transparent}
+.studio-poster{object-fit:contain}
+#studio-model{opacity:0;touch-action:pan-y;cursor:grab}
+#studio-model:active{cursor:grabbing}
+#studio-model::part(default-progress-bar){display:none}
+.studio-stage.is-ready #studio-model{opacity:1}
+.studio-stage.is-ready .studio-poster{visibility:hidden}
+.studio-bottomline{padding:8px 0 18px;border-bottom:1px solid var(--line)}
+.studio-links{display:flex;align-items:center;gap:28px;font-size:13px}
+.studio-links button{padding:0;background:none;font-size:13px}
+.studio-links button:hover{color:var(--red)}
+.studio-controls{display:flex;align-items:center;gap:15px;font-size:10px;color:var(--muted)}
+.studio-controls button{width:34px;height:34px;background:transparent;border:1px solid var(--line);border-radius:50%;font-size:19px;line-height:1}
+.studio-controls button:hover{border-color:var(--ink);color:var(--ink)}
+.cherry-launcher{display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:50%;width:34px;height:34px;padding:1px;flex-shrink:0}
+.cherry-launcher img{width:30px;height:30px;object-fit:contain}
+.cherry-launcher:hover,.cherry-launcher[aria-expanded=true]{border-color:var(--red)}
+.cherry-panel{position:fixed;right:max(22px,calc((100vw - 1240px)/2));top:92px;z-index:45;width:276px;max-width:calc(100vw - 36px);max-height:calc(100dvh - 112px);overflow:auto;background:#fffefa;border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:0 10px 45px #203a2c18}
+.cherry-close{position:absolute;right:8px;top:6px;width:32px;height:32px;font-size:23px;color:var(--muted);background:transparent;z-index:2}
+.cherry-avatar{position:relative;width:96px;height:96px;margin:0 auto 2px}
+.cherry-poster,.cherry-avatar #guide-model{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:transparent;--poster-color:transparent}
+.cherry-panel.is-ready #guide-model{opacity:1}
+.cherry-panel.is-ready .cherry-poster{visibility:hidden}
+.cherry-panel>.eyebrow{font-size:8px;color:var(--red);letter-spacing:1px}
+.cherry-panel h2{font-size:19px;font-weight:500;margin:7px 0 10px}
+.cherry-panel p{font-size:12px;color:var(--muted);line-height:1.8}
+.cherry-panel>a{display:inline-block;font-size:12px;margin-top:14px;border-bottom:1px solid var(--line)}
+.cherry-actions{display:flex;gap:16px;border-top:1px solid var(--line);margin-top:18px;padding-top:10px}
+.cherry-actions button{font-size:10px;background:none;padding:5px 0}
+.cherry-actions button:disabled{opacity:.4;cursor:default}
+@media(max-width:760px){
+ .studio-hero{padding:24px 0 10px}
+ .studio-stage{height:clamp(270px,73vw,440px);margin-top:8px}
+ .studio-topline{font-size:9px}
+ .studio-bottomline{gap:10px;padding-bottom:14px}
+ .studio-links{gap:20px;font-size:12px}
+ .studio-links button{font-size:12px}
+ .studio-controls{font-size:9px;gap:9px}
+ .studio-controls button{width:30px;height:30px}
+ .cherry-panel{top:79px;right:18px;max-height:calc(100dvh - 99px)}
+ .cherry-launcher{width:30px;height:30px}
+ .cherry-launcher img{width:27px;height:27px}
+}
+@media(max-width:360px){.nav-actions{gap:9px}.wordmark{font-size:17px}.studio-controls>span{display:none}}

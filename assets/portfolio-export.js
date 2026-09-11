@@ -7,7 +7,7 @@
     : new URL(document.body.dataset.siteRoot || "./", document.baseURI).href;
   const BUTTONS = "[data-print-portfolio], [data-export-pdf]";
   const FOCUS = {
-    general: { order: ["med-rag", "terracotta", "meeting"], label: { ko: "AI 엔지니어 포트폴리오", en: "AI engineering portfolio" } },
+    general: { order: ["med-rag", "terracotta", "meeting"], label: { ko: "AI Builder 포트폴리오", en: "AI Builder portfolio" } },
     toss: { order: ["med-rag", "terracotta", "meeting"], label: { ko: "서빙 · 성능 · 운영", en: "Serving · Performance · Operations" } },
     motif: { order: ["terracotta", "med-rag", "meeting"], label: { ko: "제품 구현 · 배포", en: "Product Engineering · Delivery" } },
     cohere: { order: ["med-rag", "meeting", "terracotta"], label: { ko: "엔터프라이즈 AI · RAG · 워크플로", en: "Enterprise AI · RAG · Workflows" } }

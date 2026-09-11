@@ -1,5 +1,15 @@
 # Implementation review — 2026-09-10
 
+## Mac Studio landing update — 2026-09-11
+
+The home identity is now **Hyunae Park / AI Builder**, rendered inside the screen of an original, portable Mac Studio workstation scene authored in Higgsfield 3D Jutsu. The desk, display, computer, keyboard and mouse are meshes, with local GLB and PNG delivery. The initial view supports drag/keyboard orbit and reset, with no automatic rotation. Semantic HTML and a rendered poster preserve identity when JavaScript or WebGL is unavailable. Source, reference and committed revision are recorded in `assets/hyunae-mac-studio.source.json`.
+
+Removed the large Cherry hero. A 30–34px header button opens a compact panel with a 96px character. The character GLB is not requested before opening the guide. Closing the panel or hiding the tab pauses its animation; Escape restores focus to the launcher. Reduced motion and still-image fallback remain supported.
+
+Validated the loaded GLB in Chromium using software WebGL, desktop and 320/390/768px widths, Korean/English identity, drag/reset, lazy Cherry, close/Escape, reduced motion, failed-model and disabled-JavaScript fallback. Static checks cover 17 pages and 554 local references. Five PDF variants were regenerated and all 35 pages rendered and inspected: seven A4 pages and 24 absolute links per variant, with the AI Builder position on the cover. Career history and historical job titles are preserved. The active RTX 4090 meeting service was not changed.
+
+The earlier guide and role descriptions below document previous revisions; this section supersedes them.
+
 Status: implemented and validated locally. Remote publication requires explicit confirmation after automatic approval review rejected a bundled push to other repositories. No retry or alternate publication route was used.
 
 Latest editorial revision: removed promotional headings and home project summaries in favor of names, project numbers and dates. Archive is now “다른 작업들” / “Other work.” The guide starts with its speech bubble closed, with no automatic re-opening. Restored 22 career, research, education, teaching and activity entries from the earlier timeline in bilingual History pages, linked from the home, navigation and PDF. Checked 14 page/viewport combinations and guide interactions; the shared build now produces 18 files and checks 17 HTML pages. These details supersede the earlier layout counts below.

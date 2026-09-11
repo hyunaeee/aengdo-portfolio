@@ -1,0 +1,19 @@
+{
+  "name": "Hyunae Park — Mac Studio / AI Builder",
+  "projectId": "778e498b-7d74-4c2b-8fd2-2d1350f752ca",
+  "projectUrl": "https://higgsfield.ai/3d-jutsu/778e498b-7d74-4c2b-8fd2-2d1350f752ca",
+  "revision": 3,
+  "operationId": "studio-identity-spacing-20260911",
+  "createdAt": "2026-09-11",
+  "source": "scripts/build-studio-scene.py",
+  "geometry": "Procedural, original meshes authored for this portfolio. No downloaded product model or textures.",
+  "reference": "https://www.apple.com/mac-studio/",
+  "parts": ["Mac Studio", "display", "keyboard", "mouse", "desk"],
+  "screenText": ["Hyunae Park", "AI Builder"],
+  "glb": "assets/hyunae-mac-studio.glb",
+  "poster": "assets/hyunae-mac-studio.png",
+  "glbBytes": 1793080,
+  "posterSize": [1400, 900],
+  "meshCount": 55,
+  "animation": "Manual browser orbit controls; no automatic rotation."
+}

@@ -1,3 +1,4 @@
+@import url('./portfolio-mac-studio.css');
 :root{--paper:#f7f7f0;--ink:#203a2c;--muted:#617064;--line:#d9ded3;--red:#af3e43;--green:#e8eddf;--white:#fff;--font:'DM Sans','Noto Sans KR',sans-serif;--radius:8px}
 #guide-model::part(default-progress-bar){display:none}
 .archive-period{display:block;font-size:10px;color:var(--muted);margin:0 0 10px;font-variant-numeric:tabular-nums}
