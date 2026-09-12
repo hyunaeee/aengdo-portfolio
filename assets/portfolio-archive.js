@@ -1,6 +1,77 @@
 /* Preserved project archive; shared by web and PDF. */
 (function(root,data){if(typeof module==='object'&&module.exports)module.exports=data;else root.HYUNAE_ARCHIVE=data;})(typeof globalThis!=='undefined'?globalThis:this, [
   {
+    "id": "venue-atlas",
+    "title": "Venue Atlas",
+    "summary": {
+      "ko": "시드니 오페라하우스·예술의전당·국립국악원의 외부와 내부를 둘러보는 3D 투어. 문을 열고 연결 공간을 걸으며, 시점·조명과 관객 애니메이션을 조작합니다.",
+      "en": "A 3D tour of Sydney Opera House, Seoul Arts Center and the National Gugak Center. Explore exteriors and interiors, open doors, walk through connected spaces, and control viewpoints, lighting and audience animation."
+    },
+    "category": "play",
+    "status": {
+      "ko": "LIVE / 인터랙티브 3D",
+      "en": "LIVE / INTERACTIVE 3D"
+    },
+    "period": "2026.09",
+    "image": "assets/venue-atlas.png",
+    "imageAlt": {
+      "ko": "제공하는 Blender 모델로 렌더링한 시드니 오페라하우스의 지붕 셸·외벽·광장 디테일",
+      "en": "Sydney Opera House roof shells, facade and plaza details rendered from the delivered Blender model"
+    },
+    "links": [
+      {
+        "label": {
+          "ko": "공연장 둘러보기 ↗",
+          "en": "EXPLORE THE VENUES ↗"
+        },
+        "url": "https://venue-atlas.vercel.app"
+      },
+      {
+        "label": {
+          "ko": "국악원 실내 보기 ↗",
+          "en": "EXPLORE GUGAK INTERIORS ↗"
+        },
+        "url": "https://venue-atlas.vercel.app/#ngc/ngc-yeak"
+      }
+    ],
+    "stack": [
+      "Three.js",
+      "Blender",
+      "Python",
+      "WebGL",
+      "glTF / GLB",
+      "PBR",
+      "Vercel"
+    ],
+    "live": true,
+    "problem": {
+      "ko": "사진과 공개 자료로 재구성한 공연장을 반복해서 탐색하고 연출할 수 있는 웹 경험으로 연결했습니다. 좌석·소품·문은 Blender 원본에서 개별 편집하고, 웹에서는 정적 메시를 병합·인스턴싱해 표시합니다.",
+      "en": "Photo-informed venue reconstructions become repeatable spaces for exploration and staging. Seats, props and doors remain individually editable in Blender; the web viewer merges and instances static geometry for display."
+    },
+    "build": [
+      {
+        "ko": "세 시설의 31개 공간을 마우스 회전·이동·확대/축소와 보행 모드로 탐색합니다. 공간 단독 보기, 저장된 시점과 조명 조절을 제공합니다.",
+        "en": "Explore 31 spaces across three venues with orbit, pan, zoom and walking modes, plus space isolation, saved viewpoints and lighting controls."
+      },
+      {
+        "ko": "문짝 56개에 회전·슬라이딩 개폐를 연결하고, 좌석 지지면과 문을 통과하는 동선을 점검했습니다. 목재·석재·패브릭 재질과 문틀·손잡이·좌석 디테일을 보강했습니다.",
+        "en": "Connected 56 door leaves to hinged or sliding controls and checked seating support and door passages. Refined wood, stone and fabric materials alongside frames, handles and seat details."
+      },
+      {
+        "ko": "관객 표시를 켜고 끄며 박수·환호·걷기 동작을 재생합니다. 기존 인물 리그의 애니메이션과 추가 GLB 가져오기를 지원합니다.",
+        "en": "Toggle audience visibility and play applause, cheering and walking animations. Supports existing character rigs and additional GLB imports."
+      },
+      {
+        "ko": "Blender 원본, 애니메이션 인물과 오프라인 웹 뷰어를 ZIP으로 제공합니다. CC0 재질과 MIT 인물 자산의 출처·라이선스를 함께 보존했습니다.",
+        "en": "Download native Blender scenes, animated characters and an offline web viewer as ZIP archives, with sources and licenses for CC0 materials and MIT character assets."
+      }
+    ],
+    "limitations": {
+      "ko": "사진과 공개 자료를 참고한 시각적 재구성입니다. 실측 도면으로 확인하지 못한 일부 치수와 연결 통로는 추정이며, 시설 전체를 정확히 복제한 디지털 트윈은 아닙니다.",
+      "en": "A visual reconstruction based on photographs and public references. Some dimensions and connections are inferred without surveyed drawings; it is not an exact digital twin of every facility."
+    }
+  },
+  {
     "id": "golden-drive",
     "title": "Golden Drive",
     "summary": {
@@ -150,7 +221,10 @@
       "en": "An AI tuning workspace built around machine dials and reusable recipes. Compare input/output examples, adjust rules, tone and length, and save your settings."
     },
     "category": "ai",
-    "status": { "ko": "LIVE / 제품 UX 데모", "en": "LIVE / PRODUCT UX DEMO" },
+    "status": {
+      "ko": "LIVE / 제품 UX 데모",
+      "en": "LIVE / PRODUCT UX DEMO"
+    },
     "period": "2026.08 – 진행 중",
     "image": "assets/modely-console.png",
     "imageAlt": {
@@ -158,10 +232,29 @@
       "en": "Live Modely demo showing four behavior dials, a profile display and recipe saving"
     },
     "links": [
-      { "label": { "ko": "직접 조작하기 ↗", "en": "TRY THE DEMO ↗" }, "url": "https://fine-tuning-visualization.vercel.app/" },
-      { "label": { "ko": "공개 코드 ↗", "en": "SOURCE CODE ↗" }, "url": "https://github.com/hyunaeee/fine-tuning-visualization" }
+      {
+        "label": {
+          "ko": "직접 조작하기 ↗",
+          "en": "TRY THE DEMO ↗"
+        },
+        "url": "https://fine-tuning-visualization.vercel.app/"
+      },
+      {
+        "label": {
+          "ko": "공개 코드 ↗",
+          "en": "SOURCE CODE ↗"
+        },
+        "url": "https://github.com/hyunaeee/fine-tuning-visualization"
+      }
     ],
-    "stack": ["Next.js", "React", "TypeScript", "Vercel", "localStorage", "Fine-tuning UX"],
+    "stack": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Vercel",
+      "localStorage",
+      "Fine-tuning UX"
+    ],
     "live": true,
     "problem": {
       "ko": "파인튜닝을 처음 접하는 사람에게 필요한 재료, 조정의 의미, 최종 결과물과 활용처가 명확하지 않다는 문제에서 시작했습니다.",
@@ -588,7 +681,10 @@
     "image": "assets/sadout.jpg",
     "links": [
       {
-        "label": { "ko": "에뮬레이터 ▶", "en": "Emulator ▶" },
+        "label": {
+          "ko": "에뮬레이터 ▶",
+          "en": "Emulator ▶"
+        },
         "url": "playground.html#phone"
       }
     ],
@@ -638,7 +734,10 @@
     "image": "assets/hubangwi.jpg",
     "links": [
       {
-        "label": { "ko": "에뮬레이터 ▶", "en": "Emulator ▶" },
+        "label": {
+          "ko": "에뮬레이터 ▶",
+          "en": "Emulator ▶"
+        },
         "url": "playground.html#hb"
       }
     ],
