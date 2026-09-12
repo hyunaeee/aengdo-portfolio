@@ -1,6 +1,73 @@
 /* Preserved project archive; shared by web and PDF. */
 (function(root,data){if(typeof module==='object'&&module.exports)module.exports=data;else root.HYUNAE_ARCHIVE=data;})(typeof globalThis!=='undefined'?globalThis:this, [
   {
+    "id": "golden-drive",
+    "title": "Golden Drive",
+    "summary": {
+      "ko": "노을 지는 뉴욕과 서울 광화문을 달리는 3D 브라우저 레이싱 게임. 슈퍼카를 포함한 15개 차량 설정, 6개 코스에서 AI 차량 4대와 경주하거나 자유롭게 드라이브합니다.",
+      "en": "A 3D browser racing game set in Manhattan- and Gwanghwamun-inspired cities at sunset. Choose from 15 vehicle configurations and six courses to race four AI rivals or enjoy free driving."
+    },
+    "category": "play",
+    "status": {
+      "ko": "브라우저 게임 / 로컬 데모",
+      "en": "BROWSER GAME / LOCAL DEMO"
+    },
+    "period": "2026.09",
+    "image": "assets/golden-drive.jpg",
+    "imageAlt": {
+      "ko": "Golden Drive 실제 게임 화면: 노을 지는 도심과 차량 선택",
+      "en": "Golden Drive gameplay screen showing the city at sunset and vehicle selection"
+    },
+    "links": [
+      {
+        "label": {
+          "ko": "화면 이미지 출처 ↗",
+          "en": "IMAGE CREDITS ↗"
+        },
+        "url": "https://github.com/hyunaeee/aengdo-portfolio#golden-drive"
+      }
+    ],
+    "stack": [
+      "Three.js",
+      "cannon-es",
+      "JavaScript",
+      "WebGL",
+      "glTF / GLB",
+      "GitHub Pages"
+    ],
+    "live": false,
+    "problem": {
+      "ko": "설치 없이 도시의 노을을 즐기며 달릴 수 있는 게임을 만들었습니다. 차량과 거리의 상세도를 높이면서 생긴 렌더링 부하를 줄이고, 조작감과 경주 판정도 함께 개선했습니다.",
+      "en": "I wanted a game people could open in a browser and immediately enjoy driving through a city at sunset. As vehicle and street detail increased, I refined the rendering workload, handling, and race adjudication together."
+    },
+    "build": [
+      {
+        "ko": "게임 구성 — 뉴욕·서울 2개 도시, 6개 코스, 15개 차량 설정과 자유 주행. 도시·차량 선택부터 카메라·HUD·최고 기록까지 연결하고 키보드·터치·게임패드를 지원합니다.",
+        "en": "Game structure — two cities, six courses, 15 vehicle configurations, and free driving. City and vehicle selection connect to cameras, HUD, and personal records, with keyboard, touch, and gamepad controls."
+      },
+      {
+        "ko": "주행 물리 — cannon-es의 120Hz 고정 간격 계산에 가속·제동·코너링이 공유하는 접지력 한도와 속도별 조향을 적용했습니다. 차종별 무게·출력·접지 설정으로 조작감을 구분합니다.",
+        "en": "Vehicle physics — cannon-es runs at a fixed 120Hz with a shared grip budget for acceleration, braking, and cornering, plus speed-sensitive steering. Vehicle-specific mass, power, and grip settings produce different handling."
+      },
+      {
+        "ko": "AI와 경주 규칙 — 경쟁 차량 4대가 같은 물리 공간에서 주행합니다. 연속 이동 기반 체크포인트 판정, 결승 시점 보간, 복귀 +5초와 페널티 반영 순위를 구현하고 자율주행·복귀 기록은 최고 기록에서 제외합니다.",
+        "en": "AI and race rules — four rivals drive in the same physical world. Continuous-motion checkpoints, interpolated finish times, and a five-second recovery penalty determine results. Assisted or recovered runs do not set personal records."
+      },
+      {
+        "ko": "도시와 성능 — 강변·광화문 거리와 보행자·강아지 산책을 구성했습니다. 차량 모델 경량화, 인스턴싱, 거리별 상세 표시, 움직임 보간과 자동 그래픽 조절로 렌더링 부하를 관리합니다.",
+        "en": "Cities and rendering — waterfront and Gwanghwamun street scenes include pedestrians and dog walkers. Lighter vehicle models, instancing, distance-based detail, motion interpolation, and adaptive graphics manage rendering work."
+      },
+      {
+        "ko": "검증 — 1.4 업데이트에서 차량 역학·경주 판정·AI 완주·렌더링 예산 등을 다룬 자동 테스트 65개를 통과했습니다. 브라우저에서 뉴욕·서울 완주와 모바일 터치 가속·제동·일시정지를 확인했습니다.",
+        "en": "Verification — version 1.4 passed 65 automated tests covering vehicle dynamics, race adjudication, AI completion, and rendering budgets. Browser checks covered race completion in both cities and mobile touch acceleration, braking, and pause."
+      }
+    ],
+    "limitations": {
+      "ko": "현재 이 페이지에는 프로젝트 소개와 실제 화면을 공개하며, 플레이 데모는 아직 공개하지 않았습니다. 도시는 실측·스캔 복원이 아닌 게임용 재해석입니다. 물리는 브라우저 조작감을 위한 아케이드 근사이며 제조사의 실제 성능을 재현하지 않습니다. 성능은 기기·브라우저에 따라 달라지고 간헐적인 프레임 지연이 남아 있습니다. 차량에는 외부 3D 모델을 활용했습니다. 대표 이미지의 Tesla Model 3는 aarajesh의 CC BY 4.0 모델이며 게임용 배치·재질을 적용했습니다.",
+      "en": "This page publishes the project overview and actual screenshots; the playable demo is not public yet. The cities are game interpretations rather than surveyed or scanned reconstructions. Physics uses an arcade approximation and does not reproduce manufacturer performance. Frame rate varies by device and browser, with occasional delays remaining. Vehicles include third-party 3D models. The cover screenshot uses aarajesh’s Tesla Model 3 under CC BY 4.0, adapted with game placement and materials."
+    }
+  },
+  {
     "id": "b737-explorer",
     "title": "B737-8 3D Explorer",
     "summary": {

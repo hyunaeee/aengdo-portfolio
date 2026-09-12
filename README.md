@@ -59,3 +59,11 @@ PDF는 검색 가능한 텍스트, 원문 링크, 실제 캡처를 포함합니�
 설계안: [포트폴리오 개편안](PORTFOLIO_REDESIGN_PLAN.md), [MLOps 실행 계획](MLOPS_TARGET_ROADMAP.md). 실제 검증 범위는 [Serving Lab 상태](med-rag-serving/reports/STATUS.md)를 참조합니다.
 
 Hyunae Park · hyunaeee@gmail.com
+
+## Golden Drive
+
+[다른 작업들 · Golden Drive](https://hyunaeee.github.io/aengdo-portfolio/archive.html#golden-drive)의 Play 분류에 실제 게임 캡처와 한국어·영어 소개를 게시했습니다. 15개 차량 설정, 뉴욕·서울 2개 도시, 6개 코스와 AI 경쟁 차량 4대, 120Hz 물리·경주 규칙·최적화·65개 테스트의 구현 범위를 정리합니다.
+
+현재 공개 범위는 프로젝트 소개와 화면 이미지입니다. 게임 소스와 3D 에셋, 플레이 데모는 이 저장소에 포함하지 않습니다. 대표 이미지의 Tesla Model 3 모델은 aarajesh의 CC BY 4.0 에셋입니다.
+
+화면 이미지 차량 출처: [Tesla White car. — aarajesh](https://sketchfab.com/3d-models/tesla-white-car-2a4ee44439dc4b1b98f452a9ff427116), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 게임용 크기·배치·재질을 적용한 차량의 실제 렌더링 화면이며, 이미지의 도시·UI와 장면 구성은 Golden Drive 작업입니다.
