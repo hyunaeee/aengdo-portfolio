@@ -1,6 +1,49 @@
 /* Preserved project archive; shared by web and PDF. */
 (function(root,data){if(typeof module==='object'&&module.exports)module.exports=data;else root.HYUNAE_ARCHIVE=data;})(typeof globalThis!=='undefined'?globalThis:this, [
   {
+    "id": "modely",
+    "title": "Modely · 모델리",
+    "summary": {
+      "ko": "AI 조정을 기계의 다이얼과 요리 레시피로 풀어낸 튜닝 워크스페이스. 입력·출력 예시를 비교하고, 규칙·말투·길이를 조절해 내 레시피로 저장합니다.",
+      "en": "An AI tuning workspace built around machine dials and reusable recipes. Compare input/output examples, adjust rules, tone and length, and save your settings."
+    },
+    "category": "ai",
+    "status": { "ko": "LIVE / 제품 UX 데모", "en": "LIVE / PRODUCT UX DEMO" },
+    "period": "2026.08 – 진행 중",
+    "image": "assets/modely-console.png",
+    "imageAlt": {
+      "ko": "모델리 실제 데모 화면: 네 가지 행동 다이얼, 성향 표시와 레시피 저장",
+      "en": "Live Modely demo showing four behavior dials, a profile display and recipe saving"
+    },
+    "links": [
+      { "label": { "ko": "직접 조작하기 ↗", "en": "TRY THE DEMO ↗" }, "url": "https://fine-tuning-visualization.vercel.app/" }
+    ],
+    "stack": ["Next.js", "React", "TypeScript", "Vercel", "localStorage", "Fine-tuning UX"],
+    "live": true,
+    "problem": {
+      "ko": "파인튜닝을 처음 접하는 사람에게 필요한 재료, 조정의 의미, 최종 결과물과 활용처가 명확하지 않다는 문제에서 시작했습니다.",
+      "en": "For people new to fine-tuning, the required inputs, the meaning of each control and the final deliverable are often unclear."
+    },
+    "build": [
+      {
+        "ko": "입력 → 출력: 교환·환불 정책과 상담 예시 → 고객 응대 초안, 브랜드 가이드와 기존 카피 → 문구 초안, 회의록과 항목 정의 → 담당자·기한·할 일. 세 가지 사용 흐름의 전후 예시를 제공합니다.",
+        "en": "Input → output examples cover three workflows: policies and support examples → reply drafts; brand guides and past copy → copy drafts; meeting notes and field definitions → owners, deadlines and tasks."
+      },
+      {
+        "ko": "규칙 준수·친절함·간결함·표현 다양성 다이얼을 조작하면 예시 답변과 성향 표시가 바로 바뀝니다. 목적별 모델 목록과 검증 화면을 하나의 흐름으로 연결했습니다.",
+        "en": "Dials for rule adherence, warmth, concision and variety immediately update example responses and the profile display. A purpose-based model catalog connects to the test interface."
+      },
+      {
+        "ko": "선택한 모델·목적·다이얼 조합을 브라우저에 저장하고 다시 불러옵니다. 운영자·웹사이트·개발자·대행사별 전달 방식과 입력·출력 명세도 미리 볼 수 있습니다.",
+        "en": "Save and reload the model, goal and dial settings in the browser. Preview handoff formats for operators, websites, developers and agencies, including input/output specifications."
+      }
+    ],
+    "limitations": {
+      "ko": "현재 공개판은 프런트엔드 제품 데모입니다. 답변과 점수는 예시·규칙 기반 시뮬레이션이며, 실제 모델 API 호출·파일 내용 처리·파인튜닝 학습·고객별 서비스 배포는 연결하지 않았습니다. 표시된 전후 수치는 실측 성과가 아닙니다.",
+      "en": "The public build is a frontend product demo. Responses and scores use examples and rule-based simulation. Model API calls, file-content processing, fine-tuning jobs and per-customer deployment are not connected; before/after figures are not measured outcomes."
+    }
+  },
+  {
     "id": "anatomy",
     "title": "Anatomy Atlas",
     "summary": {
