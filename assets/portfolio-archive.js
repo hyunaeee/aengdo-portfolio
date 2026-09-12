@@ -16,7 +16,8 @@
       "en": "Live Modely demo showing four behavior dials, a profile display and recipe saving"
     },
     "links": [
-      { "label": { "ko": "직접 조작하기 ↗", "en": "TRY THE DEMO ↗" }, "url": "https://fine-tuning-visualization.vercel.app/" }
+      { "label": { "ko": "직접 조작하기 ↗", "en": "TRY THE DEMO ↗" }, "url": "https://fine-tuning-visualization.vercel.app/" },
+      { "label": { "ko": "공개 코드 ↗", "en": "SOURCE CODE ↗" }, "url": "https://github.com/hyunaeee/fine-tuning-visualization" }
     ],
     "stack": ["Next.js", "React", "TypeScript", "Vercel", "localStorage", "Fine-tuning UX"],
     "live": true,
