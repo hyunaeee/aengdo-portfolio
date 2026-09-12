@@ -1,6 +1,81 @@
 /* Preserved project archive; shared by web and PDF. */
 (function(root,data){if(typeof module==='object'&&module.exports)module.exports=data;else root.HYUNAE_ARCHIVE=data;})(typeof globalThis!=='undefined'?globalThis:this, [
   {
+    "id": "b737-explorer",
+    "title": "B737-8 3D Explorer",
+    "summary": {
+      "ko": "기체 외피부터 조종석·객실·LEAP-1B 엔진까지 탐색하는 3D 항공기 뷰어. 부품을 선택·분해하고, 창문 덮개·테이블·날개의 동작과 조명을 직접 조작합니다.",
+      "en": "An interactive aircraft explorer spanning the airframe, cockpit, cabin and LEAP-1B engines. Select and separate parts, operate window shades, tray tables and wing controls, and adjust the lighting."
+    },
+    "category": "play",
+    "status": {
+      "ko": "LIVE / 인터랙티브 3D",
+      "en": "LIVE / INTERACTIVE 3D"
+    },
+    "period": "2026.09",
+    "image": "assets/b737-explorer.png",
+    "imageAlt": {
+      "ko": "B737-8 Explorer의 실제 배포 모델을 Blender에서 렌더링한 기체 전체 사선 모습",
+      "en": "Three-quarter exterior view rendered in Blender from the actual B737-8 Explorer release model"
+    },
+    "links": [
+      {
+        "label": {
+          "ko": "기체 둘러보기 ↗",
+          "en": "EXPLORE THE AIRCRAFT ↗"
+        },
+        "url": "https://airplane-sample.vercel.app/?view=all&v=6202961"
+      },
+      {
+        "label": {
+          "ko": "부품 움직여 보기 ↗",
+          "en": "TRY THE MECHANISMS ↗"
+        },
+        "url": "https://airplane-sample.vercel.app/?view=details&v=6202961"
+      }
+    ],
+    "stack": [
+      "Three.js",
+      "Blender",
+      "Python",
+      "WebGL",
+      "glTF / GLB",
+      "PBR",
+      "Vercel"
+    ],
+    "live": true,
+    "problem": {
+      "ko": "제공받은 항공기 모델의 창문·외피 정합과 문·선반 리깅을 수정하고, 정적인 형상을 내부 구조와 작동 원리까지 살펴볼 수 있는 웹 경험으로 확장했습니다.",
+      "en": "Starting from a supplied aircraft model, I corrected window-to-skin alignment and door/bin rigging, then extended the static geometry into a web experience for exploring internal structures and mechanisms."
+    },
+    "build": [
+      {
+        "ko": "31,665개 부품을 이름으로 검색·선택·단독 표시하고 분해합니다. 선택 부품의 재질과 관련 애니메이션을 GLB로 내보내며, 전체 GLB·Blender 파일도 제공합니다.",
+        "en": "Search, select, isolate and separate 31,665 parts. Export a selected part with its materials and relevant animation as GLB, or download the complete GLB and Blender files."
+      },
+      {
+        "ko": "Singapore Airlines의 737-8 운항 사례를 참고한 비즈니스 10석·이코노미 144석, 조종석과 LEAP-1B 엔진을 구성했습니다. 일등석은 별도 디자인 콘셉트로 구분합니다.",
+        "en": "The cabin references Singapore Airlines' 737-8 layout of 10 business and 144 economy seats, alongside cockpit and LEAP-1B engine views. First class is presented as a separate design concept."
+      },
+      {
+        "ko": "88개 창문 덮개의 곡면 슬라이딩과 좌석별 잠금 해제·테이블 펼침을 구현했습니다. 위치별 또는 연동 조작을 지원하며, 날개는 플랩·앞전 장치, 스포일러, 보조익으로 나누어 제어합니다.",
+        "en": "Implemented 88 curved sliding shades and seat-specific latch and tray sequences. Controls can target one window, seat or wing, or link matching assemblies; wing controls separately drive flaps with their leading-edge devices, spoilers and ailerons."
+      },
+      {
+        "ko": "FlightGear 공개 메시와 CC0 재질을 수정·활용하고, PBR·HDR 환경광과 네 가지 라이팅 프리셋을 연결했습니다. 출처·라이선스·재생성 소스는 뷰어에서 제공합니다.",
+        "en": "Adapted FlightGear meshes and CC0 materials feed a PBR renderer with HDR environment lighting and four lighting presets. Sources, licenses and reproducible build archives are available in the viewer."
+      },
+      {
+        "ko": "웹·GLB·Blender의 부품 위치, 재질과 애니메이션을 교차 검증하고, 실제 브라우저 조작과 Blender 렌더로 확인했습니다. 배포 자산과 다운로드 파일도 로컬 최종본과 대조했습니다.",
+        "en": "Cross-checked part positions, materials and animation across the web viewer, GLB and Blender, then inspected browser interactions and native renders. Published assets and downloads were compared with the verified local release."
+      }
+    ],
+    "limitations": {
+      "ko": "공개 사양과 제공 모델에 맞춘 시각적 재현입니다. 제조사 CAD를 확보하지 않은 내부 단면·링크 치수·작동 경로는 추정이며, 애니메이션 시간은 검사 시연용입니다. 실제 기체의 모든 부품이나 비행 절차를 완전히 재현한 시뮬레이터는 아닙니다.",
+      "en": "This is a visual reconstruction fitted to public specifications and the supplied model. Internal sections, linkage dimensions and motion paths without manufacturer CAD are illustrative; animation timing serves inspection. It is not a complete aircraft-parts or flight-procedure simulator."
+    }
+  },
+  {
     "id": "modely",
     "title": "Modely · 모델리",
     "summary": {

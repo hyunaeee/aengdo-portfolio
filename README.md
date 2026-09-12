@@ -5,7 +5,7 @@ AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사�
 - [포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/portfolio.html) · [English](https://hyunaeee.github.io/aengdo-portfolio/en.html)
 - 대표 사례: **MED-RAG → Terracotta → Meeting Assistant**
 - **Anatomy Atlas**: 실제 전체 구조 / 계통 분해 캡처 비교와 라이브 링크
-- **Archive**: 21개 프로젝트 검색·분야·라이브 필터. 최상단 **Modely · 모델리**는 비전문가를 위한 AI 튜닝 UX 데모입니다. 실제 콘솔 캡처, 입력·출력 예시, 레시피 저장과 구현 범위를 한·영으로 소개합니다.
+- **Archive**: 22개 프로젝트 검색·분야·라이브 필터. 최상단 **B737-8 3D Explorer**는 실제 모델 렌더, 기체·동작 체험 링크, 한·영 기능 소개와 구현 범위를 제공합니다. **Modely · 모델리**의 AI 튜닝 UX 데모와 기존 작업도 함께 탐색합니다.
 - **Creative**: 영상·이미지. 기존 레트로 OS는 **Playground**에서 실행
 - **History**: 이전 포트폴리오의 2017–2026 경력·연구·학력·강의·활동 22개를 복원한 상세 이력. 홈과 메뉴, PDF에서 연결합니다.
 

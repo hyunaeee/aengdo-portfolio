@@ -1,0 +1,21 @@
+{
+  "asset": "b737-explorer.png",
+  "description": "Actual B737-8 Explorer release model rendered in Blender for the portfolio archive; no generated substitute aircraft or retouched geometry.",
+  "createdAt": "2026-09-13",
+  "project": "https://airplane-sample.vercel.app/",
+  "projectRevision": "62029612bab9b5e676ffa80abae9023147c7126e",
+  "sourceModel": "https://airplane-sample.vercel.app/downloads/B7378_Complete_Detailed.blend?v=45760629bbdd62cf",
+  "sourceModelSha256": "27d52625909bf6fdec9988fba2d29cfbde5f69370cc9fa71a5099bc5f1b4b0cf",
+  "renderer": "Blender 5.2 / Cycles",
+  "resolution": [1600, 1000],
+  "scene": "B737-8 — Research Cabin 10J + 144Y",
+  "frame": 0,
+  "aircraftMeshCount": 31415,
+  "renderChanges": "Temporary three-quarter camera, pale neutral studio ground and broad area lights. Aircraft geometry and the source Blender file were unchanged.",
+  "provenance": "The project combines a user-supplied aircraft, adapted FlightGear meshes, authored geometry and CC0 materials. Component rights and source credits remain separate; this is an independent visualization, not an airline or manufacturer commission.",
+  "sourceAndLicenseArchives": [
+    "https://airplane-sample.vercel.app/downloads/Interior_Open_Source.zip?v=45760629bbdd62cf",
+    "https://airplane-sample.vercel.app/downloads/Engine_Open_Source.zip?v=45760629bbdd62cf",
+    "https://airplane-sample.vercel.app/downloads/Motion_Detail_Source.zip?v=45760629bbdd62cf"
+  ]
+}

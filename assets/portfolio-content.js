@@ -10,7 +10,7 @@
   const origin = 'https://hyunaeee.github.io/aengdo-portfolio/';
   const link = (ko, en, url, kind = 'source') => ({ label: L(ko, en), url, kind });
   const data = {
-    updatedAt: '2026-09-12',
+    updatedAt: '2026-09-13',
     history: typeof module === 'object' && module.exports ? require('./portfolio-history.js') : globalThis.HYUNAE_HISTORY || [],
     person: {
       name: 'Hyunae Park', email: 'hyunaeee@gmail.com', github: 'https://github.com/hyunaeee',
