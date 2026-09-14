@@ -26,9 +26,13 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Deliberate good and bad candidate controls (no network or GPU)
         run: python -m serving_lab cpu-demo --out artifacts/ci-simulated
+      - name: Real loopback gateway rehearsal (scripted CPU upstream)
+        run: python -m serving_lab rehearsal --out artifacts/ci-rehearsal
       - name: Persist explicitly simulated controls
         uses: actions/upload-artifact@v4
         with:
           name: simulated-cpu-controls-python-${{ matrix.python }}
-          path: med-rag-serving/artifacts/ci-simulated
+          path: |
+            med-rag-serving/artifacts/ci-simulated
+            med-rag-serving/artifacts/ci-rehearsal
           retention-days: 7

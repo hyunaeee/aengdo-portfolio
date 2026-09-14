@@ -21,3 +21,5 @@ jobs:
         run: git diff --exit-code -- '*.html' work sitemap.xml
       - name: Validate links, fragments and translations
         run: node scripts/check-portfolio.cjs
+      - name: Verify published Serving Lab evidence against source
+        run: node scripts/check-serving-evidence.cjs

@@ -7,10 +7,10 @@
     : new URL(document.body.dataset.siteRoot || "./", document.baseURI).href;
   const BUTTONS = "[data-print-portfolio], [data-export-pdf]";
   const FOCUS = {
-    general: { order: ["med-rag", "terracotta", "meeting"], label: { ko: "AI Builder 포트폴리오", en: "AI Builder portfolio" } },
-    toss: { order: ["med-rag", "terracotta", "meeting"], label: { ko: "서빙 · 성능 · 운영", en: "Serving · Performance · Operations" } },
-    motif: { order: ["terracotta", "med-rag", "meeting"], label: { ko: "제품 구현 · 배포", en: "Product Engineering · Delivery" } },
-    cohere: { order: ["med-rag", "meeting", "terracotta"], label: { ko: "엔터프라이즈 AI · RAG · 워크플로", en: "Enterprise AI · RAG · Workflows" } }
+    general: { order: ["med-rag", "terracotta", "meeting", "serving-lab"], label: { ko: "AI Builder 포트폴리오", en: "AI Builder portfolio" } },
+    toss: { order: ["serving-lab", "med-rag", "terracotta", "meeting"], label: { ko: "서빙 · 성능 · 운영", en: "Serving · Performance · Operations" } },
+    motif: { order: ["terracotta", "med-rag", "meeting", "serving-lab"], label: { ko: "제품 구현 · 배포", en: "Product Engineering · Delivery" } },
+    cohere: { order: ["med-rag", "meeting", "terracotta", "serving-lab"], label: { ko: "엔터프라이즈 AI · RAG · 워크플로", en: "Enterprise AI · RAG · Workflows" } }
   };
   const COPY = {
     ko: {
@@ -125,13 +125,15 @@
     items.forEach(value => ul.append(node("li", "", value)));
     parent.append(ul);
   }
-  function sourceBlock(links, context, heading) {
+  function sourceBlock(links, context, heading, compact = false) {
     const sources = list(links).filter(item => url(item.url));
     if (!sources.length) return null;
     const result = block(heading === false ? "" : context.copy.sources, context, "pf-sources");
+    if (compact) result.classList.add("pf-sources-compact");
     sources.forEach(item => {
       const link = anchor("", item.url, "pf-source-link");
-      link.append(node("strong", "", localize(item.label, context.lang) || context.copy.link), node("span", "", url(item.url)));
+      link.append(node("strong", "", localize(item.label, context.lang) || context.copy.link));
+      if (!compact) link.append(node("span", "", url(item.url)));
       result.append(link);
     });
     return result;
@@ -197,7 +199,7 @@
     if (!compact) append(top, image(project.image, context.lang, "pf-project-image"));
     result.append(top);
     // MED-RAG's context paragraphs immediately follow; its overview is already on the cover.
-    if (!compact && project.summary && project.id !== "med-rag") result.append(node("p", "pf-summary", localize(project.summary, context.lang)));
+    if (!compact && project.summary && !["med-rag", "serving-lab"].includes(project.id)) result.append(node("p", "pf-summary", localize(project.summary, context.lang)));
     if (!compact) {
       const facts = node("dl", "pf-facts");
       [[context.copy.role, project.role], [context.copy.status, project.status], [context.copy.period, project.period]].forEach(([label, value]) => {
@@ -241,8 +243,8 @@
       const isMeeting = project.id === "meeting";
       if (!isMeeting) append(body, metricBlock(project, context));
       list(project.sections).filter(section => !isMeeting || !["context", "access"].includes(section.id)).forEach(section => body.append(sectionBlock(section, context)));
-      decisionBlocks(project, context).filter((_, index) => !isMeeting || index === 1).forEach(item => body.append(item));
-      append(body, limitBlock(project, context)); append(body, sourceBlock(project.links, context));
+      decisionBlocks(project, context).filter((_, index) => project.id !== "serving-lab" && (!isMeeting || index === 1)).forEach(item => body.append(item));
+      append(body, limitBlock(project, context)); append(body, sourceBlock(project.links, context, true, project.id === "serving-lab"));
       return [sheet];
     }
     const design = createPage(project.title, context.copy.implementation, context, "pf-case-page");

@@ -10,7 +10,7 @@
   const origin = 'https://hyunaeee.github.io/aengdo-portfolio/';
   const link = (ko, en, url, kind = 'source') => ({ label: L(ko, en), url, kind });
   const data = {
-    updatedAt: '2026-09-13',
+    updatedAt: '2026-09-14',
     history: typeof module === 'object' && module.exports ? require('./portfolio-history.js') : globalThis.HYUNAE_HISTORY || [],
     person: {
       name: 'Hyunae Park', email: 'hyunaeee@gmail.com', github: 'https://github.com/hyunaeee',
@@ -39,7 +39,7 @@
           link('공개 코드', 'Public code', repo + '/tree/main/med-rag-vertex', 'code'),
           link('UI 데모', 'UI demo', origin + 'med-rag/', 'demo'),
           link('QLoRA 실험', 'QLoRA experiment', repo + '/tree/main/med-rag-tune'),
-          link('Serving Lab', 'Serving Lab', repo + '/tree/main/med-rag-serving', 'code')
+          link('Serving Lab 실행 기록', 'Serving Lab evidence', origin + 'work/serving-lab/', 'demo')
         ],
         decisions: [
           { title: L('데이터가 있는 곳에서 추론하기', 'Inference stays with the data'), body: L('외부 전송 제약에 맞춰 Gemma 3 27B와 Ollama 기반 로컬 추론을 구성했습니다. 초기 로컬 실행에는 RTX 5090을 사용했습니다.', 'The delivery used local Gemma 3 27B inference through Ollama to respect network constraints. The initial local run used an RTX 5090.') },
@@ -62,7 +62,7 @@
             [L('요청당 비용', 'Cost per request'), '$0.006542', L('생성 + 임베딩 추정 · judge 제외', 'Generation + estimated embedding · excludes judge')]
           ] } },
           { id: 'iteration', eyebrow: L('04 / ITERATION', '04 / ITERATION'), title: L('QLoRA 실험', 'QLoRA experiments'), body: [L('Qwen2.5-7B를 154개 예제로 QLoRA 학습했습니다. 위조 인용은 2건에서 0건으로 줄었지만, 답할 수 있는 질문까지 거부하는 문제가 생겼습니다.', 'QLoRA training on 154 examples reduced fabricated quotes from two to zero, but the Qwen2.5-7B model began refusing answerable questions.'), L('거부 예제 37개 중 8개(약 22%)에 잘못된 라벨이 있었습니다. 이를 수정한 v2에서 근거성과 유용성이 회복됐지만 기본 모델은 넘지 못했습니다. 22%의 분모는 전체 학습셋이 아닌 거부 예제입니다.', 'Eight of 37 abstention examples (about 22%) were mislabeled. Repairing them improved v2, but it still trailed the base model. The 22% denominator is the abstention subset, not the full training set.')], table: { headers: [L('모델', 'Model'), L('위조 인용', 'Fabricated quotes'), L('근거성 / 유용성', 'Grounding / helpfulness')], rows: [['Base', '2', '4.80 / 4.63'], ['QLoRA v1', '0', '4.40 / 4.13'], ['QLoRA v2', '0', '4.63 / 4.30']] }, bullets: [L('검증셋 30개. 작은 표본의 judge 점수와 개별 실패를 함께 해석했습니다.', 'Held-out n=30. Small-sample judge scores are interpreted alongside individual failures.'), L('초기 RTX 5090 로컬 실행과 QLoRA 기록의 RTX 4090 학습은 서로 다른 실험입니다.', 'Initial local inference on RTX 5090 and recorded QLoRA training on RTX 4090 are separate experiments.')] },
-          { id: 'operations', eyebrow: L('05 / SERVING LAB', '05 / SERVING LAB'), title: L('MED-RAG Serving Lab', 'MED-RAG Serving Lab'), body: [L('품질 gate, 모델·데이터 버전 고정, 스트리밍 지연 측정과 수동 롤백 절차를 공개 코드로 구현했습니다. CPU 테스트 25개를 통과했고, 정상 fixture 통과와 결함 후보의 release 차단을 확인했습니다.', 'Public code implements quality gates, pinned model and data versions, streaming latency measurement, and manual rollback procedures. Twenty-five CPU tests pass, including a passing fixture and a deliberately defective release candidate blocked by the gate.'), L('GPU 성능과 복구 시간은 아직 측정하지 않았습니다. 현재 운영 중인 RTX 4090 회의 서비스와 분리된 환경에서 측정한 뒤 결과를 추가합니다.', 'GPU performance and recovery time have not yet been measured. Results will be added after testing in an environment separated from the active RTX 4090 meeting service.')], diagram: [
+          { id: 'operations', eyebrow: L('05 / SERVING LAB', '05 / SERVING LAB'), title: L('MED-RAG Serving Lab', 'MED-RAG Serving Lab'), body: [L('품질 gate, 모델·데이터 버전 고정, 스트리밍 지연 측정과 수동 롤백 절차를 공개 코드로 구현했습니다. CPU 테스트 31개와 실제 로컬 HTTP 시나리오 계약 14개를 확인했습니다. 정상 fixture 통과, 결함 후보 및 변조된 요약의 release 차단을 실행 기록 탐색 페이지에서 확인할 수 있습니다.', 'Public code implements quality gates, pinned model and data versions, streaming latency measurement, and manual rollback procedures. Thirty-one CPU tests and 14 real-loopback rehearsal contracts pass. The evidence explorer shows a good fixture passing and defective candidates and edited summaries blocked before release preparation.'), L('GPU 성능과 복구 시간은 아직 측정하지 않았습니다. 현재 운영 중인 RTX 4090 회의 서비스와 분리된 환경에서 측정한 뒤 결과를 추가합니다.', 'GPU performance and recovery time have not yet been measured. Results will be added after testing in an environment separated from the active RTX 4090 meeting service.')], diagram: [
             { label: L('버전 기록', 'Version'), detail: L('코드 · 모델 · 데이터', 'Code · model · data') },
             { label: L('품질 확인', 'Evaluate'), detail: L('인용 오류 · 과잉 거부', 'Citation errors · over-refusal') },
             { label: L('서빙', 'Serve'), detail: L('지연 · 큐 · GPU', 'Latency · queues · GPU') },
@@ -162,5 +162,7 @@
     ],
     archive
   };
+  const serving = typeof module === 'object' && module.exports ? require('./portfolio-serving.js') : globalThis.HYUNAE_SERVING;
+  data.projects.push(serving.project);
   return data;
 });

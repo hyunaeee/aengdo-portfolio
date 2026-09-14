@@ -1,5 +1,72 @@
 /* Preserved project archive; shared by web and PDF. */
 (function(root,data){if(typeof module==='object'&&module.exports)module.exports=data;else root.HYUNAE_ARCHIVE=data;})(typeof globalThis!=='undefined'?globalThis:this, [
+{
+  "id": "serving-lab",
+  "title": "MED-RAG Serving Lab",
+  "summary": {
+    "ko": "LLM 변경을 검사하고 배포 후보를 준비하는 MLOps 실험. 실제 HTTP 게이트웨이에 장애를 주입하고, 품질 회귀와 artifact 변조를 배포 준비 단계에서 차단했습니다.",
+    "en": "An MLOps lab for validating LLM changes and preparing release candidates. It exercises the real HTTP gateway under injected faults and blocks quality regressions and artifact tampering before packaging."
+  },
+  "category": "ai",
+  "status": {
+    "ko": "LIVE / 실행 기록 탐색 · CPU 검증",
+    "en": "LIVE / EVIDENCE EXPLORER · CPU VERIFIED"
+  },
+  "period": "2026.09",
+  "image": "assets/serving-lab.png",
+  "imageAlt": {
+    "ko": "MED-RAG Serving Lab의 실제 화면: 구현 모듈과 품질 gate, 요청 기록",
+    "en": "Actual MED-RAG Serving Lab interface: implemented modules, quality gates and request evidence"
+  },
+  "live": true,
+  "caseId": "serving-lab",
+  "stack": [
+    "MLOps",
+    "Python",
+    "HTTP / SSE",
+    "Docker Compose",
+    "Prometheus",
+    "GitHub Actions"
+  ],
+  "links": [
+    {
+      "label": {
+        "ko": "실행 기록 탐색",
+        "en": "Explore recorded evidence"
+      },
+      "url": "https://hyunaeee.github.io/aengdo-portfolio/work/serving-lab/",
+      "kind": "demo"
+    },
+    {
+      "label": {
+        "ko": "구현 코드",
+        "en": "Source code"
+      },
+      "url": "https://github.com/hyunaeee/aengdo-portfolio/tree/main/med-rag-serving",
+      "kind": "code"
+    },
+    {
+      "label": {
+        "ko": "원본 실행 기록",
+        "en": "Raw run evidence"
+      },
+      "url": "https://hyunaeee.github.io/aengdo-portfolio/med-rag-serving/reports/rehearsal/evidence.json",
+      "kind": "source"
+    },
+    {
+      "label": {
+        "ko": "자동 검사",
+        "en": "CI runs"
+      },
+      "url": "https://github.com/hyunaeee/aengdo-portfolio/actions/workflows/serving-lab.yml",
+      "kind": "source"
+    }
+  ],
+  "limitations": {
+    "ko": "GPU inference·모델 지연·처리량·독립 품질 평가·실제 배포 교체 및 롤백은 미측정입니다. 현재 사이트는 저장된 실행 기록을 탐색하며 inference 서버를 호출하지 않습니다.",
+    "en": "GPU inference, model latency/throughput, independent quality and live rollout/rollback remain unmeasured. This site explores recorded evidence and does not call an inference service."
+  }
+},
   {
     "id": "venue-atlas",
     "title": "Venue Atlas",

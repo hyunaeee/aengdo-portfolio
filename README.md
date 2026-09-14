@@ -3,11 +3,15 @@
 AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사례의 문제, 본인 역할, 설계 선택, 평가 근거와 공개 범위를 연결합니다.
 
 - [포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/portfolio.html) · [English](https://hyunaeee.github.io/aengdo-portfolio/en.html)
-- 대표 사례: **MED-RAG → Terracotta → Meeting Assistant**
+- 대표 사례: **MED-RAG → Terracotta → Meeting Assistant → MED-RAG Serving Lab**
 - **Anatomy Atlas**: 실제 전체 구조 / 계통 분해 캡처 비교와 라이브 링크
-- **Archive**: 24개 프로젝트 검색·분야·라이브 필터. 최상단 **Venue Atlas**는 세 공연장의 3D 투어, 문·조명·관객 조작과 ZIP 다운로드를 소개합니다. 실제 Blender 렌더와 한·영 기능·재구성 범위를 함께 제공합니다. **Golden Drive**, **B737-8 3D Explorer**, **Modely · 모델리**와 기존 작업도 유지합니다.
+- **Archive**: 25개 프로젝트 검색·분야·라이브 필터. **Venue Atlas**는 세 공연장의 3D 투어, 문·조명·관객 조작과 ZIP 다운로드를 소개합니다. 실제 Blender 렌더와 한·영 기능·재구성 범위를 함께 제공합니다. **Golden Drive**, **B737-8 3D Explorer**, **Modely · 모델리**와 기존 작업도 유지합니다.
 - **Creative**: 영상·이미지. 기존 레트로 OS는 **Playground**에서 실행
 - **History**: 이전 포트폴리오의 2017–2026 경력·연구·학력·강의·활동 22개를 복원한 상세 이력. 홈과 메뉴, PDF에서 연결합니다.
+
+## MED-RAG Serving Lab
+
+[실행 기록 탐색](https://hyunaeee.github.io/aengdo-portfolio/work/serving-lab/)에서 구현한 5개 모듈, 12개 합성 품질 사례, 실제 HTTP 정상·과부하·장애·복구 기록을 확인할 수 있습니다. 31개 Python 테스트와 14개 rehearsal 계약을 확인했습니다. 모델 inference·GPU 성능과 실제 배포 롤백은 미측정이며, 웹은 저장된 검증 결과를 탐색합니다.
 
 ## 편집과 실행
 
@@ -17,12 +21,12 @@ python -m http.server 8765
 # http://localhost:8765/
 ```
 
-`assets/portfolio-content.js`의 한·영 데이터를 수정한 뒤 빌드합니다. 전체 아카이브 데이터는 `assets/portfolio-archive.js`입니다. 빌드는 홈, 아카이브, Creative, 4개 사례의 한·영 정적 HTML과 sitemap을 생성합니다. 생성된 HTML도 커밋하므로 GitHub Pages에서 별도 빌드 서버 없이 제공합니다. 웹과 PDF가 같은 콘텐츠를 사용합니다.
+`assets/portfolio-content.js`의 한·영 데이터를 수정한 뒤 빌드합니다. 전체 아카이브 데이터는 `assets/portfolio-archive.js`입니다. 빌드는 홈, 아카이브, Creative, 5개 사례의 한·영 정적 HTML과 sitemap을 생성합니다. 생성된 HTML도 커밋하므로 GitHub Pages에서 별도 빌드 서버 없이 제공합니다. 웹과 PDF가 같은 콘텐츠를 사용합니다.
 
 | 경로 | 역할 |
 |---|---|
 | `index.html`, `portfolio.html`, `en.html` | 채용용 홈. 진입 시 부팅 대기 없음 |
-| `work/{med-rag,terracotta,meeting,anatomy}/` | 사례별 한국어 `index.html`, 영어 `en.html` |
+| `work/{med-rag,terracotta,meeting,anatomy,serving-lab}/` | 사례별 한국어 `index.html`, 영어 `en.html` |
 | `archive.html`, `archive-en.html` | 프로젝트 검색과 공개 범위 |
 | `creative.html`, `creative-en.html` | 창작 작업 |
 | `history.html`, `history-en.html` | 상세 커리어 히스토리 |
@@ -35,7 +39,7 @@ python -m http.server 8765
 
 ## PDF
 
-상단 **PDF** 버튼에서 언어와 강조 역량을 선택하고 브라우저 인쇄 창의 **PDF로 저장**을 사용합니다. 기본판은 대표 사례 중심의 A4 7쪽이며 전체 아카이브는 별도 선택입니다. 일반판, 서빙·운영 중심(Toss), 제품 구현 중심(Motif), 고객 문제·평가 중심(Cohere)의 순서와 소개가 달라집니다. 회사별 경력이나 실측 성과를 새로 만들어 넣지 않습니다.
+상단 **PDF** 버튼에서 언어와 강조 역량을 선택하고 브라우저 인쇄 창의 **PDF로 저장**을 사용합니다. 기본판은 대표 사례 중심의 A4 8쪽이며 전체 아카이브는 별도 선택입니다. 일반판, 서빙·운영 중심(Toss), 제품 구현 중심(Motif), 고객 문제·평가 중심(Cohere)의 순서와 소개가 달라집니다. 회사별 경력이나 실측 성과를 새로 만들어 넣지 않습니다.
 
 PDF는 검색 가능한 텍스트, 원문 링크, 실제 캡처를 포함합니다. 브라우저 머리글·바닥글은 끄는 편이 좋습니다. Chromium에서 화면·중첩 사례 경로·인쇄를 확인했습니다. `output/`의 로컬 PDF와 `tmp/` 검수 캡처는 저장소에서 제외합니다.
 

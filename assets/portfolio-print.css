@@ -69,6 +69,7 @@
 #portfolio-print .pf-limitations .pf-section-title { font-size: 9pt; }
 #portfolio-print .pf-limitations .pf-bullets { font-size: 7.7pt; }
 #portfolio-print .pf-sources .pf-section-title { font-size: 8pt; }
+#portfolio-print .pf-sources-compact .pf-source-link { display: inline-flex; margin-right: 5mm; }
 #portfolio-print .pf-source-link { display: grid; grid-template-columns: minmax(22mm, auto) 1fr; gap: 4mm; font: 6.6pt/1.6 "JetBrains Mono", "Noto Sans KR", monospace; padding: .8mm 0; }
 #portfolio-print .pf-source-link strong { color: #234e36; font-size: 7pt; }
 #portfolio-print .pf-source-link span { min-width: 0; }

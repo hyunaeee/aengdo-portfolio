@@ -1,0 +1,12 @@
+# TYPE serving_lab_requests_total counter
+serving_lab_requests_total 10
+# TYPE serving_lab_rejected_total counter
+serving_lab_rejected_total 1
+# TYPE serving_lab_completed_total counter
+serving_lab_completed_total 6
+# TYPE serving_lab_upstream_errors_total counter
+serving_lab_upstream_errors_total 3
+# TYPE serving_lab_disconnects_total counter
+serving_lab_disconnects_total 0
+# TYPE serving_lab_inflight gauge
+serving_lab_inflight 0

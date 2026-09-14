@@ -4,6 +4,19 @@
 
 현재 RTX4090 회의 어시스턴트 운영과 MED-RAG 초기 RTX5090 로컬 실행은 사용자에게 확인된 별도 이력입니다. 이 디렉터리의 코드는 그 서버를 조회·수정하거나 GPU를 사용하지 않았습니다. 아래 GPU 단계는 사용 가능한 장치를 확인한 뒤 별도로 실행합니다.
 
+## 실행 기록을 시각적으로 확인하기
+
+[한국어 프로젝트 페이지](https://hyunaeee.github.io/aengdo-portfolio/work/serving-lab/) · [English](https://hyunaeee.github.io/aengdo-portfolio/work/serving-lab/en.html)
+
+구현 모듈과 코드, 정상/결함 후보의 12개 품질 사례, 실제 HTTP 장애 기록을 클릭해서 탐색합니다. 페이지는 저장된 기록을 보여 주며 inference를 호출하지 않습니다. [원본 실행 기록](reports/rehearsal/README.md)에 14개 계약 확인과 재현 명령을 공개했습니다.
+
+```sh
+cd med-rag-serving
+python -m serving_lab rehearsal --out artifacts/my-run
+```
+
+이 명령은 loopback 포트의 실제 gateway와 합성 upstream을 연결하고 종료합니다. 10개 HTTP 요청에서 완료 6건, 용량 초과 1건, 주입한 오류 3건을 확인했습니다. 장애 해제 후 정상 응답과 inflight 0을 검증했습니다. GPU 성능이나 실제 배포 롤백의 측정 결과는 아닙니다.
+
 ## 바로 확인하기 — CPU만 사용
 
 Python 3.11 이상, 외부 Python 패키지 불필요:
@@ -16,7 +29,7 @@ python -m serving_lab cpu-demo --out artifacts/local-simulated
 
 `cpu-demo`는 네트워크 없이 12개 공개 합성 사례에 준비된 답을 넣습니다. 정상 fixture는 통과하고, 존재하지 않는 인용과 답할 수 있는 질문의 거부를 넣은 candidate는 release 디렉터리가 생성되기 전에 차단됩니다. 실행 결과는 `demo-result.json`, `good.gate.json`, `bad.gate.json`에서 볼 수 있습니다. 출력 경로는 새 디렉터리여야 합니다.
 
-demo의 숫자는 **측정값이 아닌 코드 검사용 값**이며 모든 파일에 `simulated-cpu`가 붙습니다. fixture manifest는 live inference 설정 내보내기와 실제 배포 기록에 사용할 수 없습니다. CI도 CPU unit test와 이 demo만 수행하며 Docker, 모델 다운로드, API inference는 수행하지 않습니다.
+demo의 숫자는 **측정값이 아닌 코드 검사용 값**이며 모든 파일에 `simulated-cpu`가 붙습니다. fixture manifest는 live inference 설정 내보내기와 실제 배포 기록에 사용할 수 없습니다. CI는 CPU unit test, 이 demo와 실제 loopback HTTP rehearsal을 수행합니다. 모델 다운로드·GPU inference·컨테이너 실행은 포함하지 않습니다.
 
 ## 구현된 경계
 
@@ -25,12 +38,12 @@ demo의 숫자는 **측정값이 아닌 코드 검사용 값**이며 모든 파�
 | Manifest lock | 모델·tokenizer commit, 이미지 digest, prompt·dataset·Python/Compose runtime hash 고정 | CPU에서 hash/변조 검사 |
 | Quality gate | 인용 존재, 인용 없는 사실 답변, 조작된 직접 인용, 기대 사실 누락, 과잉 거부·무근거 응답 검사 | 공개 합성 12건과 good/bad fixture |
 | Streaming client | 실제 SSE 도착 시각, TTFT/TPOT/e2e, usage token 수, 오류, request별 raw JSONL | localhost 가짜 HTTP 서버 protocol 시험 |
-| Gateway | readiness 및 manifest 식별, 최대 동시 요청, 429, deadline, stream 취소 연결 정리 | 구현 완료, GPU backend 통합 미실행 |
+| Gateway | readiness 및 manifest 식별, 최대 동시 요청, 429, deadline, stream 취소 연결 정리 | 로컬 HTTP에서 admission·readiness·deadline·stream 중단·복구 확인; GPU backend 미실행 |
 | Release | 응답과 raw benchmark를 재계산해서 gate 통과한 artifact만 불변 경로에 준비 | CPU에서 bad candidate·변조·중복 생성 차단 |
 | Rollback | 검증된 previous artifact 확인, 수동 교체 절차, readiness 후 배포 상태 기록 | 구현 완료, 실제 중단시간 미측정 |
-| 관측 | vLLM/gateway Prometheus scrape와 경보 규칙 | 설정 준비, 실제 scrape·경보 미실행 |
+| 관측 | vLLM/gateway Prometheus scrape와 경보 규칙 | 실제 gateway /metrics 응답 캡처; Prometheus scrape·경보 미실행 |
 
-로컬 검증은 Python 3.12.14에서 25개 시험이 통과했습니다. Docker CLI가 있으면 unit test가 `docker compose config`로 localhost 포트·GPU UUID·image digest 설정도 파싱합니다. 이미지 pull이나 컨테이너 실행을 하지 않습니다. Docker CLI가 없으면 이 설정 시험만 skip합니다.
+로컬 검증은 Python 3.12.14에서 31개 시험이 통과했습니다. Docker CLI가 있으면 unit test가 `docker compose config`로 localhost 포트·GPU UUID·image digest 설정도 파싱합니다. 이미지 pull이나 컨테이너 실행을 하지 않습니다. Docker CLI가 없으면 이 설정 시험만 skip합니다.
 
 상세 순서와 중단 조건은 [RUNBOOK.md](RUNBOOK.md), 현재 공개 가능한 주장 범위는 [reports/STATUS.md](reports/STATUS.md), 측정 양식은 [reports/EXPERIMENT_TEMPLATE.md](reports/EXPERIMENT_TEMPLATE.md)에 있습니다.
 

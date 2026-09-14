@@ -19,6 +19,8 @@ def parser():
     subs = cli.add_subparsers(dest="command", required=True)
     demo = subs.add_parser("cpu-demo", help="Generate clearly simulated controls; no network or GPU")
     demo.add_argument("--out", required=True)
+    rehearsal = subs.add_parser("rehearsal", help="Record real loopback HTTP contracts with a scripted CPU upstream")
+    rehearsal.add_argument("--out", required=True)
     lock = subs.add_parser("lock", help="Copy a template and local corpus; lock operator-verified immutable pins offline")
     lock.add_argument("--template", default="manifest.template.json")
     lock.add_argument("--out", required=True, help="New experiment directory")
@@ -79,6 +81,10 @@ def main(argv=None):
     token = os.environ.get(args.token_env) if hasattr(args, "token_env") else None
     if command == "cpu-demo":
         result = cpu_demo(args.out)
+    elif command == "rehearsal":
+        from .rehearsal import rehearsal
+        report = rehearsal(args.out)
+        result = {"run_id": report["run_id"], "contracts_passed": report["contracts_passed"], "scope": report["scope"], "evidence": str(Path(args.out) / "evidence.json")}
     elif command == "lock":
         source = Path(args.template).resolve()
         target = Path(args.out).resolve()

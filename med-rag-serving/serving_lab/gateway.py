@@ -48,8 +48,13 @@ def ready(upstream, model, fingerprint, token=None):
     return {"status": "ready", "model": model, "manifest_sha256": fingerprint, "scope": "Gateway manifest identity plus upstream health/model check; not weight attestation or a generation warmup."}
 
 
-def serve(manifest_path, upstream="http://engine:8000", host="127.0.0.1", port=8080, max_inflight=4, deadline_s=120):
-    manifest, root, fingerprint = load_manifest(manifest_path)
+def create_server(manifest_path, upstream="http://engine:8000", host="127.0.0.1", port=8080, max_inflight=4, deadline_s=120, *, allow_simulated=False):
+    """Construct a stoppable gateway; fixture mode is restricted to loopback on both sides."""
+    if allow_simulated:
+        if host != "127.0.0.1":
+            raise ValueError("Fixture gateway must bind to 127.0.0.1")
+        endpoint(upstream)  # Reject non-loopback origins before opening a socket.
+    manifest, root, fingerprint = load_manifest(manifest_path, allow_simulated)
     validate_runtime_environment(manifest, root, os.environ, max_inflight)
     if not 1 <= max_inflight <= 64 or not 0 < deadline_s <= 600:
         raise ValueError("Invalid gateway bounds")
@@ -187,6 +192,11 @@ def serve(manifest_path, upstream="http://engine:8000", host="127.0.0.1", port=8
 
     server = ThreadingHTTPServer((host, port), Handler)
     server.daemon_threads = True
+    return server
+
+
+def serve(manifest_path, upstream="http://engine:8000", host="127.0.0.1", port=8080, max_inflight=4, deadline_s=120):
+    server = create_server(manifest_path, upstream, host, port, max_inflight, deadline_s)
     try:
         server.serve_forever()
     finally:
