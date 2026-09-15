@@ -22,17 +22,17 @@
     projects: [
       {
         id: 'med-rag', number: '01', title: 'MED-RAG', nextCase: 'meeting',
-        summary: L('병원망 안에서 동작하는 진료 보조 RAG. 공개 실험에서는 평가자에게 검색 근거를 보여주자, 이전에 통과했던 답변의 실패가 드러났습니다.', 'An on-prem clinical RAG assistant. In a separate public experiment, giving the evaluator the retrieved evidence exposed failures that a plausibility check had missed.'),
-        status: L('납품 경험 · 공개 합성 데이터 실험', 'Client delivery · public synthetic-data experiments'),
-        role: L('RAG 파이프라인 구현 · 공개 평가 및 튜닝 실험', 'RAG implementation · public evaluation and fine-tuning experiments'),
-        period: '2025.10 / 2026.07–09',
+        summary: L('고려대학교 안암병원 유방암 진료 교수의 개인 PC에서 사용하는 진료 보조 RAG. 2025년 10월 설치 이후 진료·필요 시 사용되며 원격 업데이트를 이어가고 있습니다.', 'A local RAG assistant used on the personal computer of a professor treating breast cancer at Korea University Anam Hospital. Installed in October 2025, it is used during clinical work and as needed, with ongoing remote updates.'),
+        status: L('개인 PC에서 사용 중 · 원격 유지보수', 'In use on a personal PC · remote maintenance'),
+        role: L('RAG 구현 · 설치·원격 유지보수 · 공개 평가·튜닝', 'RAG implementation · installation and remote maintenance · public evaluation and tuning'),
+        period: '2025.10–',
         stack: ['Python', 'Ollama', 'Chroma', 'Vertex AI / ADK', 'QLoRA'],
         image: { src: 'assets/medrag.jpg', alt: L('합성 예시로 재현한 MED-RAG 화면: 답변 옆에서 검색 근거를 확인', 'MED-RAG UI demo with synthetic examples and visible retrieved evidence') },
         imageCaption: L('공개 UI 데모 · 예시 답변은 사전 구성된 합성 데이터입니다.', 'Public UI demo · responses are preconfigured synthetic examples.'),
         metrics: [
           { value: '23 / 24', label: L('정답 문서 검색', 'Gold-source retrieval'), note: L('39개 합성 문서 · 184개 청크', '39 synthetic documents · 184 chunks') },
           { value: '20 / 24', label: L('근거를 확인한 답변 평가 통과', 'Evidence-aware answer evaluation'), note: L('Gemini 2.5 Pro judge · 2026.07.29', 'Gemini 2.5 Pro judge · Jul 29, 2026') },
-          { value: 'RTX 5090', label: L('초기 로컬 실행 환경', 'Initial local deployment'), note: L('Vertex 평가와 별도 환경', 'Separate from the Vertex evaluation') }
+          { value: 'RTX 5090', label: L('초기 로컬 실행 환경', 'Initial local run'), note: L('초기 실행 기록 · 교수 개인 PC 사양과 구분', 'Initial run record · distinct from the professor’s PC specifications') }
         ],
         links: [
           link('평가 보고서', 'Evaluation report', repo + '/blob/main/med-rag-vertex/eval/report.md'),
@@ -42,14 +42,14 @@
           link('Serving Lab 실행 기록', 'Serving Lab evidence', origin + 'work/serving-lab/', 'demo')
         ],
         decisions: [
-          { title: L('데이터가 있는 곳에서 추론하기', 'Inference stays with the data'), body: L('외부 전송 제약에 맞춰 Gemma 3 27B와 Ollama 기반 로컬 추론을 구성했습니다. 초기 로컬 실행에는 RTX 5090을 사용했습니다.', 'The delivery used local Gemma 3 27B inference through Ollama to respect network constraints. The initial local run used an RTX 5090.') },
+          { title: L('개인 PC에서 실행하고 원격으로 유지보수', 'Local execution with remote maintenance'), body: L('Gemma 3 27B와 Ollama 기반 로컬 추론을 구성해 교수 개인 PC에 설치했습니다. 설치 이후에도 원격 업데이트를 담당하고 있습니다. 초기 RTX 5090 실행 기록은 교수 PC의 하드웨어 사양과 구분합니다.', 'The local Gemma 3 27B and Ollama system was installed on the professor’s personal PC, with remote updates after installation. The initial RTX 5090 run is separate from the hardware specification of that PC.') },
           { title: L('평가자에게 근거를 함께 전달하기', 'Give the judge the evidence'), body: L('질문과 답변만 평가하면 그럴듯한 설명이 높은 점수를 받았습니다. 검색된 문서를 함께 전달해 실제 근거성을 검사했습니다.', 'A judge that only sees a question and answer can reward plausibility. Passing the retrieved documents made grounding testable.') },
           { title: L('튜닝보다 나은 선택을 인정하기', 'Choose the stronger baseline'), body: L('QLoRA는 위조 인용을 줄였지만 과잉 거부를 늘렸습니다. 라벨을 고쳐도 기본 모델이 전반적인 judge 점수에서 앞서, 기본 모델과 엄격한 프롬프트를 권장했습니다.', 'QLoRA reduced fabricated quotes but increased over-refusal. Even after label repair, the base model led on overall judge scores, supporting a base-model-and-strict-prompt recommendation.') }
         ],
         sections: [
-          { id: 'context', eyebrow: L('01 / CONTEXT', '01 / CONTEXT'), title: L('프로젝트 개요', 'Overview'), body: [L('고려대 안암병원 진료 보조 에이전트 납품 경험에서 출발했습니다. 증례와 가이드라인을 검색하고, 모델이 어떤 문서를 바탕으로 답하는지 사용자가 확인할 수 있도록 구성했습니다.', 'This work began with a clinical-assistant delivery for Korea University Anam Hospital. The system retrieves cases and guidelines and exposes the sources behind an answer.'), L('납품판 코드와 자료는 비공개입니다. 여기에서 공개하는 수치는 이후 별도로 만든 Vertex 포트와 합성 데이터 실험의 결과입니다. 실제 환자에 대한 임상 성과를 의미하지 않습니다.', 'The delivered code and material remain private. Published metrics come from a later Vertex port using synthetic data, and do not measure clinical outcomes.')] },
-          { id: 'delivery-scope', eyebrow: '02 / DELIVERY & EXPERIMENTS', title: L('납품판과 공개 실험', 'Delivery and public experiments'), body: [L('납품 경험을 설명하는 자료와 이후 재현 가능한 실험을 구분했습니다. 납품판의 사용량이나 도입 효과를 공개 합성 데이터의 평가 점수로 대신하지 않습니다.', 'The client delivery and later reproducible experiments answer different questions. Synthetic evaluation scores do not substitute for adoption or impact measurements from the delivered system.')], table: { headers: [L('단계', 'Stage'), L('환경', 'Environment'), L('여기서 보여주는 근거', 'Evidence in this case')], rows: [
-            [L('초기 납품', 'Initial delivery'), 'Gemma 3 27B · Ollama · RTX 5090', L('병원망 내 로컬 추론과 검색 근거 확인 구조', 'Local inference within the hospital network and visible retrieval sources')],
+          { id: 'context', eyebrow: '01 / INSTALLATION & USE', title: L('설치와 현재 사용', 'Installation and current use'), body: [L('2025년 10월, 고려대학교 안암병원에서 유방암 진료를 담당하는 교수의 개인 PC에 설치했습니다. 교수는 진료 중이나 필요할 때 사용하고 있으며, 설치 이후에도 제가 원격으로 중간중간 업데이트하고 있습니다.', 'In October 2025, I installed the system on the personal computer of a professor treating breast cancer at Korea University Anam Hospital. The professor uses it during clinical work and as needed, and I continue to provide remote updates.'), L('증례와 가이드라인을 검색하고 답변의 근거 문서를 확인하는 구조입니다. 납품판 코드와 자료는 비공개이며, 공개한 성능 수치는 별도로 만든 Vertex 포트와 합성 데이터 실험의 결과입니다.', 'The system retrieves cases and guidelines and exposes the sources behind answers. The delivered code and material remain private; published performance metrics come from a separate Vertex port and synthetic-data experiments.')] },
+          { id: 'delivery-scope', eyebrow: '02 / USE & EXPERIMENTS', title: L('개인 PC 운영과 공개 실험', 'Personal-PC use and public experiments'), body: [L('현재 사용·지원 현황은 2026.09.15 프로젝트 담당자가 제공한 내용입니다. 설치 범위는 교수 개인 PC이며, 원격 업데이트로 사용을 지원합니다. 공개 실험에서는 검색·답변 품질과 튜닝 선택을 별도로 검증했습니다.', 'Current use and support are reported by the project owner as of Sep 15, 2026. The installation is scoped to the professor’s personal PC, supported through remote updates. Separate public experiments evaluate retrieval, answer quality, and tuning choices.')], table: { headers: [L('단계', 'Stage'), L('환경', 'Environment'), L('사용·지원 또는 검증 범위', 'Use, support, or evaluation scope')], rows: [
+            [L('설치 · 2025.10', 'Installed · Oct 2025'), L('교수 개인 PC · 로컬 추론', 'Professor’s personal PC · local inference'), L('진료 중·필요 시 사용 · 이후 원격 업데이트', 'Used during clinical work and as needed · remote updates since installation')],
             [L('공개 RAG 평가', 'Public RAG evaluation'), 'Vertex AI / ADK · Gemini 2.5 Flash', L('합성 문서 39개 · 질문 24개 · 코드와 평가 보고서', '39 synthetic documents · 24 questions · code and evaluation report')],
             [L('튜닝 비교', 'Fine-tuning comparison'), 'Qwen2.5-7B · QLoRA · RTX 4090', L('학습 154개 · 검증 30개 · Base / v1 / v2 비교', '154 training examples · 30 validation cases · Base / v1 / v2 comparison')]
           ] } },
@@ -80,7 +80,7 @@
             { label: L('복구', 'Recover'), detail: L('이전 artifact', 'Previous artifact') }
           ] }
         ],
-        limitations: [L('공개 평가는 합성 데이터의 작은 표본입니다. 납품 이후 사용 빈도, 의료진 피드백, 임상 성과를 측정한 자료가 아닙니다.', 'Public evaluations use small synthetic datasets; they do not measure post-delivery usage, clinician feedback, or clinical outcomes.'), L('평가자에게 전달하는 문서는 파일별 앞 2,200자로 제한됩니다. LLM judge 점수는 전문가 검토와 독립적인 최종 테스트를 대신하지 않습니다.', 'Evidence sent to the judge is limited to the first 2,200 characters per document. LLM-judge scores do not replace expert review or an independent final test.'), L('MED-RAG 모델 서빙의 처리량·장애 복구 실측은 별도 실험 과제로 남아 있습니다.', 'MED-RAG model-serving throughput and incident recovery remain separate measurement tasks.')]
+        limitations: [L('실제 사용 범위는 교수 개인 PC입니다. 사용 횟수·시간 절감·임상 효과의 수치는 제시하지 않으며, 공개 합성 실험 점수는 이 운영 성과를 나타내지 않습니다.', 'Actual use is scoped to the professor’s personal PC. Usage counts, time savings, and clinical outcomes are not reported; public synthetic scores do not represent those operating outcomes.'), L('평가자에게 전달하는 문서는 파일별 앞 2,200자로 제한됩니다. LLM judge 점수는 전문가 검토와 독립적인 최종 테스트를 대신하지 않습니다.', 'Evidence sent to the judge is limited to the first 2,200 characters per document. LLM-judge scores do not replace expert review or an independent final test.'), L('MED-RAG 모델 서빙의 처리량·장애 복구 실측은 별도 실험 과제로 남아 있습니다.', 'MED-RAG model-serving throughput and incident recovery remain separate measurement tasks.')]
       },
       {
         id: 'terracotta', number: '02', title: 'Terracotta',

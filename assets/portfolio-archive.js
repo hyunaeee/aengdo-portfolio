@@ -390,15 +390,15 @@
     "id": "medrag",
     "title": "MED-RAG",
     "summary": {
-      "ko": "온프렘 진료 보조 RAG와 별도 합성 데이터 평가·튜닝 실험.",
-      "en": "On-prem clinical RAG with separate synthetic-data evaluation and tuning experiments."
+      "ko": "안암병원 유방암 진료 교수의 개인 PC에서 사용하는 RAG. 2025년 10월 설치 이후 원격 업데이트를 지원하며, 공개 평가·튜닝은 별도 합성 데이터 실험입니다.",
+      "en": "RAG used on the personal PC of a professor treating breast cancer at Anam Hospital. Installed in October 2025 with ongoing remote updates; public evaluation and tuning use separate synthetic data."
     },
     "category": "ai",
     "status": {
-      "ko": "CLIENT DELIVERY / EXPERIMENT",
-      "en": "CLIENT DELIVERY / EXPERIMENT"
+      "ko": "사용 중 / 원격 유지보수",
+      "en": "IN USE / REMOTE MAINTENANCE"
     },
-    "period": "2025.10 – 2026.01",
+    "period": "2025.10 –",
     "image": "assets/medrag.jpg",
     "links": [
       {
@@ -421,8 +421,8 @@
     ],
     "live": false,
     "problem": {
-      "ko": "온프렘 진료 보조 RAG와 별도 합성 데이터 평가·튜닝 실험.",
-      "en": "On-prem clinical RAG with separate synthetic-data evaluation and tuning experiments."
+      "ko": "교수 개인 PC에서 증례·가이드라인을 검색하고 답변의 근거를 확인하는 로컬 RAG. 설치 이후 원격 업데이트를 이어갑니다.",
+      "en": "Local RAG on a professor’s personal PC for retrieving cases and guidelines and inspecting answer sources, with remote updates after installation."
     },
     "build": [],
     "limitations": {
