@@ -284,8 +284,8 @@
     "id": "modely",
     "title": "Modely · 모델리",
     "summary": {
-      "ko": "AI 조정을 기계의 다이얼과 요리 레시피로 풀어낸 튜닝 워크스페이스. 입력·출력 예시를 비교하고, 규칙·말투·길이를 조절해 내 레시피로 저장합니다.",
-      "en": "An AI tuning workspace built around machine dials and reusable recipes. Compare input/output examples, adjust rules, tone and length, and save your settings."
+      "ko": "정책 위반 응대, 티켓 오분류, 문서 필드 누락, 콘텐츠 검수 실패를 줄이기 위한 AI 튜닝 설계 도구. 업무별 데이터·목표 출력·평가 기준을 연결하고 레시피와 검증 계획을 공유합니다.",
+      "en": "A task-specific AI tuning design tool for policy-adherence failures, ticket misrouting, missing document fields and content-review errors. Connect data, target outputs and evaluation criteria, then share recipes and test plans."
     },
     "category": "ai",
     "status": {
@@ -324,26 +324,26 @@
     ],
     "live": true,
     "problem": {
-      "ko": "파인튜닝을 처음 접하는 사람에게 필요한 재료, 조정의 의미, 최종 결과물과 활용처가 명확하지 않다는 문제에서 시작했습니다.",
-      "en": "For people new to fine-tuning, the required inputs, the meaning of each control and the final deliverable are often unclear."
+      "ko": "말투를 바꾸는 것만으로는 파인튜닝의 필요성을 설명하기 어렵습니다. 반복되는 업무 오류를 정의하고, 프롬프트·검색·구조화 출력으로 해결할 수 있는 문제와 학습을 검토할 문제를 구분하도록 설계했습니다.",
+      "en": "Changing tone alone is not a strong reason to fine-tune. The product starts with recurring business errors and distinguishes problems to address with prompting, retrieval or structured outputs from those worth evaluating with training."
     },
     "build": [
       {
-        "ko": "입력 → 출력: 교환·환불 정책과 상담 예시 → 고객 응대 초안, 브랜드 가이드와 기존 카피 → 문구 초안, 회의록과 항목 정의 → 담당자·기한·할 일. 세 가지 사용 흐름의 전후 예시를 제공합니다.",
-        "en": "Input → output examples cover three workflows: policies and support examples → reply drafts; brand guides and past copy → copy drafts; meeting notes and field definitions → owners, deadlines and tasks."
+        "ko": "네 가지 업무 시나리오: 정책·승인 사례 → 조건 확인과 예외 이관, 전문가 라벨 티켓 → 유형·우선순위·담당 팀, 원문·필드 정의 → JSON과 미확인 값 null, 승인 상품 사실 → 검수 문구와 수정 사유. 실패 유형과 목표 출력 예시를 비교합니다.",
+        "en": "Four workflows: policies and reviewed cases → condition checks and escalation; expert-labeled tickets → category, priority and team; source text and field definitions → JSON with null for unknowns; approved product facts → reviewed copy and revision reasons. Compare failure patterns with target-output examples."
       },
       {
-        "ko": "규칙 준수·친절함·간결함·표현 다양성 다이얼을 조작하면 예시 답변과 성향 표시가 바로 바뀝니다. 목적별 모델 목록과 검증 화면을 하나의 흐름으로 연결했습니다.",
-        "en": "Dials for rule adherence, warmth, concision and variety immediately update example responses and the profile display. A purpose-based model catalog connects to the test interface."
+        "ko": "파란색 입체 UI와 업무 기준 다이얼로 출력 동작을 쉽게 체험합니다. 목적별로 해결할 오류, 학습 대상 동작, 먼저 비교할 방법을 표시하고 Macro-F1·필드 정확 일치·예외 이관 등 검증 항목을 연결했습니다. 실제 측정과 설정 시뮬레이션은 구분합니다.",
+        "en": "A blue tactile UI and a task-rule dial make output behavior approachable. Each purpose connects the error, training target and baseline alternatives to checks such as Macro-F1, field exact match and exception escalation. Actual evaluation is distinct from configuration simulation."
       },
       {
-        "ko": "선택한 모델·목적·다이얼 조합을 브라우저에 저장하고 다시 불러옵니다. 운영자·웹사이트·개발자·대행사별 전달 방식과 입력·출력 명세도 미리 볼 수 있습니다.",
-        "en": "Save and reload the model, goal and dial settings in the browser. Preview handoff formats for operators, websites, developers and agencies, including input/output specifications."
+        "ko": "모델·목적·질문·다이얼을 레시피로 저장하고 공유 링크로 복원합니다. 고객 인계 JSON에는 입력·출력 예시와 업무 목적, 학습과 분리한 평가셋 비교 계획 및 미실행 상태를 담습니다. 기존 레시피 호환성도 유지했습니다.",
+        "en": "Save the model, goal, questions and dial settings as recipes and restore them through share links. Handoff JSON includes input/output examples, business rationale and a held-out comparison plan explicitly marked not run. Existing recipes remain compatible."
       }
     ],
     "limitations": {
-      "ko": "현재 공개판은 프런트엔드 제품 데모입니다. 답변과 점수는 예시·규칙 기반 시뮬레이션이며, 실제 모델 API 호출·파일 내용 처리·파인튜닝 학습·고객별 서비스 배포는 연결하지 않았습니다. 표시된 전후 수치는 실측 성과가 아닙니다.",
-      "en": "The public build is a frontend product demo. Responses and scores use examples and rule-based simulation. Model API calls, file-content processing, fine-tuning jobs and per-customer deployment are not connected; before/after figures are not measured outcomes."
+      "ko": "현재 공개판은 프런트엔드 제품 데모입니다. 답변·다이얼 지표는 규칙 기반 예시이며, 실제 API 호출·파일 분석·학습·고객별 배포는 연결되지 않았습니다. 가상의 성능 향상 수치는 제거했습니다. 평가 항목은 미실행 계획이며 모델 제공사의 학습 지원과 계정 접근 조건은 별도 확인이 필요합니다.",
+      "en": "The public build is a frontend product demo. Responses and dial indicators are rule-based examples; APIs, file analysis, training and customer deployment are not connected. Invented improvement figures were removed. Evaluation criteria are unexecuted plans, and provider training support and account access require separate verification."
     }
   },
   {
