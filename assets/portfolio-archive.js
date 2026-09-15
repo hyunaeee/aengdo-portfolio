@@ -1,6 +1,76 @@
 /* Preserved project archive; shared by web and PDF. */
 (function(root,data){if(typeof module==='object'&&module.exports)module.exports=data;else root.HYUNAE_ARCHIVE=data;})(typeof globalThis!=='undefined'?globalThis:this, [
 {
+  "id": "signal-lab",
+  "title": "Signal Lab · CTR / CVR",
+  "summary": {
+    "ko": "클릭률·전환율·참여·재구매 예측 비교. 실제 공개 데이터 10종 · 예측 과제 12개 · 비교 방법 4종. 실험 과정·예상과 결과·점수 해설의 한·영 탐색.",
+    "en": "Compare predictions of clicks, conversions, engagement and repeat purchases across 10 real public datasets, 12 tasks and 4 methods, with bilingual explanations of the process, expectations, results and scores."
+  },
+  "category": "ai",
+  "live": true,
+  "status": {
+    "ko": "LIVE / 실제 데이터 · 오프라인 검증",
+    "en": "LIVE / REAL DATA · OFFLINE EVALUATION"
+  },
+  "period": "2026.09",
+  "image": "assets/signal-lab.jpg",
+  "imageWidth": 600,
+  "imageHeight": 732,
+  "imageAlt": {
+    "ko": "Signal Lab 실제 화면: 데이터 10종·예측 과제 12개·비교 방법 4종",
+    "en": "Actual Signal Lab interface showing 10 datasets, 12 prediction tasks and 4 comparison methods"
+  },
+  "stack": [
+    "Python",
+    "scikit-learn",
+    "JavaScript",
+    "CTR / CVR",
+    "Calibration",
+    "Vercel"
+  ],
+  "links": [
+    {
+      "label": {
+        "ko": "실험 결과 보기 ↗",
+        "en": "EXPLORE RESULTS ↗"
+      },
+      "url": "https://cvr-ctr.vercel.app/#real",
+      "kind": "demo"
+    },
+    {
+      "label": {
+        "ko": "공개 코드 ↗",
+        "en": "SOURCE CODE ↗"
+      },
+      "url": "https://github.com/hyunaeee/CVR-CTR",
+      "kind": "code"
+    }
+  ],
+  "problem": {
+    "ko": "모델 점수 변화와 실제 서비스 개선의 구분. 동일 시험 기록에서 방법별 예측 품질 비교.",
+    "en": "Distinguish changes in model scores from live service improvements by comparing prediction methods on the same test records."
+  },
+  "build": [
+    {
+      "ko": "학습·방법 선택·최종 시험 자료 분리. 평균 확률·기본 예측·조건 조합·확률 조정 비교.",
+      "en": "Separate training, method selection and final evaluation; compare a constant prior, logistic regression, boosted trees and probability calibration."
+    },
+    {
+      "ko": "예측 점수·확률 일치도·반복 추출 구간 비교. 개선·악화·추가 확인 필요 구분.",
+      "en": "Compare predictive metrics, calibration and resampling intervals, distinguishing improvements, regressions and uncertain results."
+    },
+    {
+      "ko": "데이터 출처·평가 결과·허용된 샘플 예시·재현 코드 공개. 합성 시뮬레이션 별도 표시.",
+      "en": "Publish data sources, evaluation outputs, permitted sample predictions and reproduction code; label the synthetic sandbox separately."
+    }
+  ],
+  "limitations": {
+    "ko": "공개 데이터의 오프라인 예측 평가. 실제 클릭·구매·매출 증가 및 인과 효과 미검증. 실제 매출·광고비를 연결한 ROAS 측정 없음.",
+    "en": "Offline predictive evaluation on public data. Live click, purchase and revenue gains, and causal effects, remain untested. No real ROAS measurement with linked revenue and ad spend."
+  }
+},
+{
   "id": "serving-lab",
   "title": "MED-RAG Serving Lab",
   "summary": {
