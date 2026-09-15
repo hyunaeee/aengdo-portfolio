@@ -7,6 +7,7 @@
     : new URL(document.body.dataset.siteRoot || "./", document.baseURI).href;
   const BUTTONS = "[data-print-portfolio], [data-export-pdf]";
   const FOCUS = {
+    openai: { order: ["meeting", "med-rag"], label: { ko: "Applied AI · 회의 어시스턴트 / MED-RAG", en: "Applied AI · Meeting Assistant / MED-RAG" } },
     general: { order: ["med-rag", "terracotta", "meeting", "serving-lab"], label: { ko: "AI Builder 포트폴리오", en: "AI Builder portfolio" } },
     toss: { order: ["serving-lab", "med-rag", "terracotta", "meeting"], label: { ko: "서빙 · 성능 · 운영", en: "Serving · Performance · Operations" } },
     motif: { order: ["terracotta", "med-rag", "meeting", "serving-lab"], label: { ko: "제품 구현 · 배포", en: "Product Engineering · Delivery" } },
@@ -131,9 +132,10 @@
     const result = block(heading === false ? "" : context.copy.sources, context, "pf-sources");
     if (compact) result.classList.add("pf-sources-compact");
     sources.forEach(item => {
-      const link = anchor("", item.url, "pf-source-link");
+      const target = context.lang === "en" && item.urlEn ? item.urlEn : item.url;
+      const link = anchor("", target, "pf-source-link");
       link.append(node("strong", "", localize(item.label, context.lang) || context.copy.link));
-      if (!compact) link.append(node("span", "", url(item.url)));
+      if (!compact) link.append(node("span", "", url(target)));
       result.append(link);
     });
     return result;
@@ -155,6 +157,7 @@
       result.append(diagram);
     }
     if (section.table) result.append(table(section.table.headers, section.table.rows, context));
+    append(result, sourceBlock(section.links, context, false, true));
     result.dataset.section = section.id || "";
     return result;
   }
@@ -237,6 +240,15 @@
     return sheet;
   }
   function projectPages(project, context) {
+    if (context.focus === "openai") {
+      const { sheet, body } = createPage(project.title, context.copy.implementation, context, "pf-case-page");
+      body.append(projectIntro(project, context, false));
+      // The two deep cases carry decisions inline; the standalone lab stays a source link.
+      list(project.sections).filter(section => section.id !== "operations").forEach(section => body.append(sectionBlock(section, context)));
+      append(body, limitBlock(project, context));
+      append(body, sourceBlock(project.links, context, true, true));
+      return [sheet];
+    }
     if (project.id !== "med-rag") {
       const { sheet, body } = createPage(project.title, context.copy.implementation, context, "pf-case-page");
       body.append(projectIntro(project, context, false));
@@ -285,7 +297,7 @@
     append(experience, anchor(lang === "ko" ? "전체 이력 · 2017–2026 ↗" : "Full history · 2017–2026 ↗", PUBLIC_ROOT + (lang === "ko" ? "history.html" : "history-en.html"), "pf-small"));
     body.append(experience);
     const anatomy = list(data.projects).find(project => project.id === "anatomy");
-    if (anatomy) {
+    if (anatomy && context.focus !== "openai") {
       const item = block(copy.technicalProduct + " / " + anatomy.title, context, "pf-anatomy"), layout = node("div", "pf-anatomy-layout"), description = node("div");
       append(layout, image(anatomy.image, lang, "pf-anatomy-image"));
       description.append(node("p", "pf-copy", localize(anatomy.summary, lang)), node("p", "pf-small", localize(anatomy.status, lang)));

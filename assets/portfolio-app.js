@@ -9,7 +9,7 @@
  dialog?.addEventListener('close',()=>opener?.focus({preventScroll:true}));
  const focus=document.querySelector('#pdf-focus');
  const query=new URLSearchParams(location.search);
- if(focus){if(['general','toss','motif','cohere'].includes(query.get('focus')))focus.value=query.get('focus');const sync=()=>document.querySelectorAll('[data-print-portfolio]').forEach(b=>b.dataset.focus=focus.value);focus.addEventListener('change',sync);sync();}
+ if(focus){if(['general','openai','toss','motif','cohere'].includes(query.get('focus')))focus.value=query.get('focus');const sync=()=>document.querySelectorAll('[data-print-portfolio]').forEach(b=>b.dataset.focus=focus.value);focus.addEventListener('change',sync);sync();}
  document.querySelectorAll('[data-language-switch]').forEach(a=>{const u=new URL(a.href);for(const key of ['focus','q','type'])if(query.has(key))u.searchParams.set(key,query.get(key));u.hash=location.hash;a.href=u.href;});
  const legacy={featured:'work',projects:'work',experience:'about'};
  const old=location.hash.slice(1);if(legacy[old]){history.replaceState(null,'','#'+legacy[old]);document.getElementById(legacy[old])?.scrollIntoView({behavior:'instant'});}
