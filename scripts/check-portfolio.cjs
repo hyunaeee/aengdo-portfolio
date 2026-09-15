@@ -4,7 +4,7 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const data = require('../assets/portfolio-content.js');
-const files = ['history.html','history-en.html','index.html','portfolio.html','en.html','archive.html','archive-en.html','creative.html','creative-en.html', ...data.projects.flatMap(p => [`work/${p.id}/index.html`,`work/${p.id}/en.html`])];
+const files = ['work/visioneye/operations.html','work/visioneye/operations-en.html','history.html','history-en.html','index.html','portfolio.html','en.html','archive.html','archive-en.html','creative.html','creative-en.html', ...data.projects.flatMap(p => [`work/${p.id}/index.html`,`work/${p.id}/en.html`])];
 const origin = 'https://hyunaeee.github.io/aengdo-portfolio/';
 const errors = [];
 function localized(value, where) {

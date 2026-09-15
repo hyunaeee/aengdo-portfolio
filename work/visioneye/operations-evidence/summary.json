@@ -1,0 +1,565 @@
+{
+  "schema_version": 1,
+  "mode": "actual_model_cpu_loopback",
+  "status": "passed",
+  "recorded_at_utc": "2026-09-15T01:05:02Z",
+  "model": {
+    "name": "YOLO26n",
+    "sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef",
+    "device": "cpu",
+    "imgsz": 640,
+    "rect": false,
+    "precision": "FP32",
+    "confidence": 0.1,
+    "classes": [
+      0
+    ]
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "os": "Windows",
+    "machine": "AMD64",
+    "type": "ready",
+    "model_sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef",
+    "device": "cpu",
+    "torch": "2.11.0+cu128",
+    "ultralytics": "8.4.150",
+    "opencv": "4.14.0",
+    "threads": 2
+  },
+  "fixtures": [
+    {
+      "file": "crowd-048.jpg",
+      "sha256": "e22ecbd82c9ac69d8f82a9819fe0ca256409160bca0237df6659204284c30ad1"
+    },
+    {
+      "file": "crowd-144.jpg",
+      "sha256": "dd62abdd6a658fd5789f89c498a881531b8868dc3242ac5ba2001f5817b5a469"
+    },
+    {
+      "file": "crowd-240.jpg",
+      "sha256": "fccc91ea75ef653273bf6ca55b570bf9af81c37b8d176c0bbdcda7e5cd877806"
+    }
+  ],
+  "baseline": {
+    "requests": 20,
+    "successes": 20,
+    "concurrency": 1,
+    "p50_ms": 93.595,
+    "p95_ms": 116.43,
+    "min_ms": 57.476,
+    "max_ms": 117.982
+  },
+  "phases": [
+    {
+      "name": "startup",
+      "wait_ms": 5256.163,
+      "samples": [
+        {
+          "at_ms": 1.91,
+          "state": "starting",
+          "status": 503
+        },
+        {
+          "at_ms": 5256.161,
+          "state": "ready",
+          "status": 200
+        }
+      ],
+      "generation": 1,
+      "runtime": {
+        "type": "ready",
+        "model_sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef",
+        "device": "cpu",
+        "torch": "2.11.0+cu128",
+        "ultralytics": "8.4.150",
+        "opencv": "4.14.0",
+        "threads": 2
+      }
+    },
+    {
+      "name": "after_deadline",
+      "wait_ms": 2855.016,
+      "samples": [
+        {
+          "at_ms": 1.869,
+          "state": "starting",
+          "status": 503
+        },
+        {
+          "at_ms": 2855.013,
+          "state": "ready",
+          "status": 200
+        }
+      ],
+      "generation": 2,
+      "runtime": {
+        "type": "ready",
+        "model_sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef",
+        "device": "cpu",
+        "torch": "2.11.0+cu128",
+        "ultralytics": "8.4.150",
+        "opencv": "4.14.0",
+        "threads": 2
+      }
+    },
+    {
+      "name": "after_crash",
+      "wait_ms": 3004.505,
+      "samples": [
+        {
+          "at_ms": 1.14,
+          "state": "starting",
+          "status": 503
+        },
+        {
+          "at_ms": 3004.504,
+          "state": "ready",
+          "status": 200
+        }
+      ],
+      "generation": 3,
+      "runtime": {
+        "type": "ready",
+        "model_sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef",
+        "device": "cpu",
+        "torch": "2.11.0+cu128",
+        "ultralytics": "8.4.150",
+        "opencv": "4.14.0",
+        "threads": 2
+      },
+      "fault_request_to_success_ms": 3286.846
+    }
+  ],
+  "checks": [
+    {
+      "name": "cpu_device",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cpu_thread_limit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "model_pin",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "liveness",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "authentication",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "malformed_json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "invalid_image",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "request_size_bound",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_01",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_01",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_01",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_02",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_02",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_02",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_03",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_03",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_03",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_04",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_04",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_04",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_05",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_05",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_05",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_06",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_06",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_06",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_07",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_07",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_07",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_08",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_08",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_08",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_09",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_09",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_09",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_11",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_11",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_11",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_12",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_12",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_12",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_13",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_13",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_13",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_14",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_14",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_14",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_15",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_16",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_16",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_16",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_17",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_17",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_17",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_18",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_19",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "input_hash_20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threads_20",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "bounded_admission",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "deadline_504",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "not_ready_during_reload",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reject_during_reload",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "new_worker_after_deadline",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_after_deadline",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_stale_response",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "crash_503",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "crash_liveness",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "new_worker_after_crash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inference_after_crash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inflight_cleared",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "restart_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "metrics_expose_failures",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "owned_worker_stopped",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "worker_restarts": 2,
+  "scope": [
+    "Local CPU model-server rehearsal, not deployed production traffic.",
+    "20 sequential requests over 3 AI-generated video frames; no accuracy benchmark.",
+    "Startup includes model load and warmup; baseline HTTP latency excludes startup.",
+    "429 verified during injected worker stall; not a capacity or throughput benchmark.",
+    "Actual child-process exit and deadline termination; same pinned model reloaded.",
+    "No GPU, CCTV, tracking-session service, LLM serving, long soak, autoscaling, or model-version rollback test.",
+    "Public website displays recorded evidence and does not accept inference requests."
+  ],
+  "source_hashes": {
+    "server.py": "321b1bce2903292211aa301923c00aa8c67f673d44140df75647a38865ad737a",
+    "rehearsal.py": "d84d87236546e40e0ac3aebbed8a33b41f9312f95746af65a2b26f07d4356e63"
+  }
+}

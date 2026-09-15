@@ -1,0 +1,9 @@
+# Install in a dedicated environment. The recorded Windows runtime used CUDA
+# wheels already installed by VisionEye; inference is explicitly CPU-only.
+# No install or change was made to that environment by this experiment.
+torch==2.11.0
+torchvision==0.26.0
+ultralytics==8.4.150
+opencv-python==4.14.0.94
+numpy==2.5.2
+pillow==12.3.0

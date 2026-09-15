@@ -1,0 +1,31 @@
+name: VisionEye model server
+on:
+  push:
+    paths: ['visioneye-serving/**', 'assets/portfolio-visioneye-ops*', 'scripts/build-visioneye-operations.cjs', '.github/workflows/visioneye-serving.yml']
+  pull_request:
+    paths: ['visioneye-serving/**', 'assets/portfolio-visioneye-ops*', 'scripts/build-visioneye-operations.cjs', '.github/workflows/visioneye-serving.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lifecycle-and-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test lifecycle with scripted worker (no model inference in CI)
+        working-directory: visioneye-serving
+        run: python -m unittest discover -s tests -v
+      - name: Recompute recorded actual-model evidence and verify source hashes
+        run: python visioneye-serving/check_evidence.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Rebuild evidence pages
+        run: node scripts/build-visioneye-operations.cjs
+      - name: Validate evidence viewer script
+        run: node --check assets/portfolio-visioneye-ops.js
+      - name: Verify generated files are current
+        run: git diff --exit-code -- work/visioneye

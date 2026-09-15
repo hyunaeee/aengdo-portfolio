@@ -1,0 +1,6 @@
+.runtime/
+.venv/
+models/
+__pycache__/
+tests/__pycache__/
+artifacts/

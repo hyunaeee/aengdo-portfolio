@@ -15,7 +15,7 @@ const a = (url, label, cls = '', extra = '') => `<a href="${esc(url)}"${cls ? ` 
 const caseBack = (p, lang) => p.featured === false ? a(local(lang === 'en' ? 'archive-en.html' : 'archive.html', 2) + '#' + p.id, tr(lang, '← 목록', '← Archive')) : a(local(home(lang), 2) + '#work', tr(lang, '← 대표 작업', '← Selected work'));
 const caseLabel = (p, key, lang, ko, en) => t(p.labels?.[key], lang) || tr(lang, ko, en);
 const eyebrow = s => `<p class="eyebrow">${esc(s)}</p>`;
-const projectLinks = (p, lang, depth) => (p.links || []).map(l => a(l.url.startsWith(origin) ? local(l.url.slice(origin.length),depth) : l.url,t(l.label,lang)+' ↗','text-link')).join('');
+const projectLinks = (p, lang, depth) => (p.links || []).map(l => { const url = lang === 'en' && l.urlEn ? l.urlEn : l.url; return a(url.startsWith(origin) ? local(url.slice(origin.length),depth) : url,t(l.label,lang)+' ↗','text-link'); }).join('');
 
 function nav(lang, depth, alternate) {
  const root = f => local(f,depth);
@@ -69,6 +69,7 @@ for(const lang of ['ko','en']){
  write(lang==='ko'?'history.html':'history-en.html',shell({lang,title:'History — Hyunae Park',description:tr(lang,'2017–2026 경력, 연구, 학력, 강의와 활동 이력.','Employment, research, education, teaching and activities, 2017–2026.'),content:historypage(lang),canonical:lang==='ko'?'history.html':'history-en.html',alternate:lang==='ko'?'history-en.html':'history.html',pageType:'history'}));
  for(const p of data.projects)write(casePath(p.id,lang),shell({lang,depth:2,title:p.title+' — Hyunae Park',description:t(p.summary,lang),content:casepage(p,lang),canonical:casePath(p.id,lang),alternate:lang==='ko'?'en.html':'index.html',pageType:'case'}));
 }
-const urls=['portfolio.html','en.html','history.html','history-en.html','archive.html','archive-en.html','creative.html','creative-en.html',...data.projects.flatMap(p=>[casePath(p.id,'ko'),casePath(p.id,'en')])];
+require('./build-visioneye-operations.cjs')();
+const urls=['work/visioneye/operations.html','work/visioneye/operations-en.html','portfolio.html','en.html','history.html','history-en.html','archive.html','archive-en.html','creative.html','creative-en.html',...data.projects.flatMap(p=>[casePath(p.id,'ko'),casePath(p.id,'en')])];
 write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls.map(u=>`<url><loc>${origin+u}</loc><lastmod>${data.updatedAt}</lastmod></url>`).join('')+'</urlset>\n');
 console.log(`Built ${count} static portfolio files from shared content.`);

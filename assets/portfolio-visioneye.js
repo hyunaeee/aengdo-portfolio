@@ -11,6 +11,7 @@
   const source = file => REPO_URL + '/blob/main/' + file;
   const links = [
     { label: L('비교', 'Compare'), url: LIVE_URL, kind: 'demo' },
+    { label: L('서버 검증', 'Model server'), url: 'https://hyunaeee.github.io/aengdo-portfolio/work/visioneye/operations.html', urlEn: 'https://hyunaeee.github.io/aengdo-portfolio/work/visioneye/operations-en.html', kind: 'source' },
     { label: L('코드', 'Code'), url: REPO_URL, kind: 'code' },
     { label: L('기록', 'Evidence'), url: source('web/assets/crowd-summary.json'), kind: 'source' },
     { label: L('검수', 'Review'), url: source('web/assets/crowd-review-comparison.json'), kind: 'source' },
@@ -69,7 +70,18 @@
           L('가장자리 검출 누락과 ID 16→35 중복·분절을 확인했습니다. 22개 추적 ID를 22명으로 해석하지 않습니다.', 'Observed edge misses and duplicate/fragmented IDs 16→35. Twenty-two track IDs do not mean 22 people.')]
       },
       {
-        id: 'next', eyebrow: L('04 / 다음', '04 / Next'), title: L('다음', 'Next'),
+        id: 'model-server', eyebrow: L('04 / 서버', '04 / Server'), title: L('모델 서버', 'Model server'),
+        body: [L('별도의 로컬 HTTP 서버에서 YOLO26n 실제 가중치를 CPU로 실행했습니다. 정상 추론 20건과 시간 초과·추론 프로세스 종료 후의 자동 재시작을 확인하고, 실제 검출 좌표·응답 시간·오류 기록을 공개했습니다.', 'A separate local HTTP server runs the actual YOLO26n weights on CPU. Recorded evidence covers 20 normal inferences, deadline handling and automatic recovery after inference-worker termination, with actual boxes, HTTP timings and error logs.'),
+          L('CPU FP32·2개 스레드·동시 추론 1개로 고정했습니다. 웹은 기록 뷰어이며 검증 서버는 종료했습니다. GPU 서빙, 장시간 운용, HTTP 서버·호스트 복구 또는 다른 모델 버전으로의 롤백을 검증한 것은 아닙니다.', 'The run fixes CPU FP32, two threads and one inference slot. The website is an evidence viewer and the rehearsal server was stopped. GPU serving, long-running operation, HTTP-server/host recovery and model-version rollback were not tested.')],
+        table: { headers: [L('항목', 'Check'), L('관측', 'Observed')], rows: [
+          [L('실제 모델 추론', 'Actual model inference'), '20 / 20'],
+          [L('동시 요청 제한 / 시간 초과', 'Admission limit / deadline'), '429 / 504'],
+          [L('worker 종료 후 재시작', 'Restart after worker exit'), '503 → 200'],
+          [L('복구 후 처리 중 요청', 'Inflight after recovery'), '0']
+        ]}
+      },
+      {
+        id: 'next', eyebrow: L('05 / 다음', '05 / Next'), title: L('다음', 'Next'),
         body: [L('아래 후보는 모두 미실행입니다. 추적기부터 비교하고, 검출기와 마스크 시스템을 나누어 같은 입력·집계 규칙으로 검증할 계획입니다. 개선 효과·속도·메모리 사용량은 아직 측정하지 않았습니다.', 'All candidates below are untested. Planned comparisons start with the tracker, then separate detector and mask-system changes while holding inputs and counting rules fixed. Improvements, speed and memory use have not been measured.')],
         table: {
           headers: [L('후보', 'Candidate'), L('확인할 점', 'Question'), L('상태', 'Status')],

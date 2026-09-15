@@ -1,0 +1,10 @@
+visioneye_requests_total{status="200"} 22
+visioneye_requests_total{status="400"} 2
+visioneye_requests_total{status="413"} 1
+visioneye_requests_total{status="429"} 1
+visioneye_requests_total{status="503"} 2
+visioneye_requests_total{status="504"} 1
+visioneye_inflight 0
+visioneye_worker_restarts_total 2
+visioneye_request_duration_seconds_sum 4.160135799669661
+visioneye_request_duration_seconds_count 29

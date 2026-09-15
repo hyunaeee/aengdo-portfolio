@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>VisionEye · Model Server — Hyunae Park</title><meta name="description" content="YOLO26n 모델 서버의 CPU 실측, 요청 오류와 자동 복구 기록."><link rel="icon" href="../../assets/favicon.svg"><link rel="alternate" hreflang="en" href="operations-en.html"><link rel="stylesheet" href="../../assets/portfolio.css"><link rel="stylesheet" href="../../assets/portfolio-visioneye-ops.css"></head>
+<body><script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"VisionEye Model Server","author":{"@type":"Person","name":"Hyunae Park"}}</script><main class="ops-page" id="main"><nav class="ops-nav" aria-label="주 메뉴"><a href="index.html">← VisionEye</a><div class="ops-links"><a href="../../portfolio.html">Hyunae Park</a><a href="operations-en.html" lang="en">EN</a><button data-print>PDF 저장</button></div></nav>
+<header class="ops-head"><span class="ops-kicker">2026.09.15 / MODEL SERVER</span><h1>VisionEye · Model Server</h1><p>YOLO26n을 메모리에 올린 로컬 서버에 이미지를 전송했습니다. 실제 검출 응답을 확인하고, 추론 프로세스를 멈추거나 종료해 자동 복구를 검사했습니다.</p><div class="ops-links"><a href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/visioneye-serving">서버 코드 ↗</a><a href="operations-evidence/summary.json">실행 요약 ↗</a><a href="operations-evidence/requests.jsonl">원본 응답 ↗</a><a href="operations-evidence/events.jsonl">이벤트 기록 ↗</a></div></header>
+<dl class="ops-stats"><div><dt>정상 추론 요청</dt><dd>20 / 20</dd><p>생성 영상 3개 프레임 · 순차 요청</p></div><div><dt>HTTP 응답 p95</dt><dd>116.4 <small>ms</small></dd><p>초기화 제외 · n=20</p></div><div><dt>종료 후 응답 복구</dt><dd>3.29 <small>s</small></dd><p>종료 요청부터 다음 추론 성공까지</p></div><div><dt>실제 추론 장치</dt><dd>CPU</dd><p>FP32 · 2 threads · batch 1</p></div></dl>
+<section class="ops-section"><span class="ops-kicker">01 / SYSTEM</span><h2>서버 구조</h2><ol class="ops-flow"><li><span>01</span>HTTP · Bearer token</li><li><span>02</span>동시 추론 1개 · 대기열 0</li><li><span>03</span>YOLO26n · CPU worker</li><li><span>04</span>검출 좌표 · 응답 기록</li></ol><p>HTTP 서버와 모델 프로세스를 분리했습니다. 모델 로드와 워밍업을 마친 뒤 준비 상태가 되고, 실패하면 기존 프로세스와 연결을 정리한 후 새 세대로 교체합니다.</p></section>
+<section class="ops-section"><span class="ops-kicker">02 / INFERENCE</span><h2>실제 응답</h2><div class="ops-grid"><div class="ops-card"><div class="ops-options" id="frame-options"><button data-frame="0" aria-pressed="true">프레임 1</button><button data-frame="1" aria-pressed="false">프레임 2</button><button data-frame="2" aria-pressed="false">프레임 3</button></div><svg class="ops-scene" id="detection-scene" viewBox="0 0 1280 720" role="img" aria-label="생성 영상 프레임과 실제 서버가 반환한 사람 검출 좌표"><image href="operations-evidence/crowd-048.jpg" width="1280" height="720"/><rect x="220.27630615234375" y="391.68316650390625" width="104.9473876953125" height="211.28369140625" fill="#41d6a0" fill-opacity=".12" stroke="#1beeaa" stroke-width="3"/><rect x="869.9039916992188" y="361.748779296875" width="92.2415771484375" height="219.0032958984375" fill="#41d6a0" fill-opacity=".12" stroke="#1beeaa" stroke-width="3"/><rect x="468.11492919921875" y="232.8916015625" width="67.53521728515625" height="177.6279296875" fill="#41d6a0" fill-opacity=".12" stroke="#1beeaa" stroke-width="3"/><rect x="555.414794921875" y="208.18496704101562" width="75.3809814453125" height="185.39987182617188" fill="#41d6a0" fill-opacity=".12" stroke="#1beeaa" stroke-width="3"/><rect x="656.106201171875" y="273.41302490234375" width="65.8917236328125" height="185.1160888671875" fill="#41d6a0" fill-opacity=".12" stroke="#1beeaa" stroke-width="3"/><rect x="777.20263671875" y="370.71307373046875" width="94.296630859375" height="229.846923828125" fill="#41d6a0" fill-opacity=".12" stroke="#1beeaa" stroke-width="3"/><rect x="114.68441772460938" y="374.2510986328125" width="106.02178955078125" height="212.058349609375" fill="#41d6a0" fill-opacity=".12" stroke="#1beeaa" stroke-width="3"/><rect x="744.9744262695312" y="0" width="29.9814453125" height="55.1549072265625" fill="#41d6a0" fill-opacity=".12" stroke="#1beeaa" stroke-width="3"/></svg><p class="ops-caption" id="detection-caption">생성 영상 · 실제 응답 좌표 · 개인정보 가림 아님</p></div><div class="ops-card"><h3>선택한 요청</h3><p id="request-meta" aria-live="polite"></p><pre class="ops-json" id="request-json">{
+  &quot;type&quot;: &quot;result&quot;,
+  &quot;request_id&quot;: 2,
+  &quot;detections&quot;: [
+    {
+      &quot;xyxy&quot;: [
+        220.27630615234375,
+        391.68316650390625,
+        325.22369384765625,
+        602.9668579101562
+      ],
+      &quot;confidence&quot;: 0.8701023459434509,
+      &quot;class_id&quot;: 0
+    },
+    {
+      &quot;xyxy&quot;: [
+        869.9039916992188,
+        361.748779296875,
+        962.1455688476562,
+        580.7520751953125
+      ],
+      &quot;confidence&quot;: 0.8581218719482422,
+      &quot;class_id&quot;: 0
+    },
+    {
+      &quot;xyxy&quot;: [
+        468.11492919921875,
+        232.8916015625,
+        535.650146484375,
+        410.51953125
+      ],
+      &quot;confidence&quot;: 0.8497844338417053,
+      &quot;class_id&quot;: 0
+    },
+    {
+      &quot;xyxy&quot;: [
+        555.414794921875,
+        208.18496704101562,
+        630.7957763671875,
+        393.5848388671875
+      ],
+      &quot;confidence&quot;: 0.8456692099571228,
+      &quot;class_id&quot;: 0
+    },
+    {
+      &quot;xyxy&quot;: [
+        656.106201171875,
+        273.41302490234375,
+        721.9979248046875,
+        458.52911376953125
+      ],
+      &quot;confidence&quot;: 0.8320407867431641,
+      &quot;class_id&quot;: 0
+    },
+    {
+      &quot;xyxy&quot;: [
+        777.20263671875,
+        370.71307373046875,
+        871.499267578125,
+        600.5599975585938
+      ],
+      &quot;confidence&quot;: 0.8298223614692688,
+      &quot;class_id&quot;: 0
+    },
+    {
+      &quot;xyxy&quot;: [
+        114.68441772460938,
+        374.2510986328125,
+        220.70620727539062,
+        586.3094482421875
+      ],
+      &quot;confidence&quot;: 0.7722750306129456,
+      &quot;class_id&quot;: 0
+    },
+    {
+      &quot;xyxy&quot;: [
+        744.9744262695312,
+        0,
+        774.9558715820312,
+        55.1549072265625
+      ],
+      &quot;confidence&quot;: 0.575564444065094,
+      &quot;class_id&quot;: 0
+    }
+  ],
+  &quot;width&quot;: 1280,
+  &quot;height&quot;: 720,
+  &quot;inference_ms&quot;: 89.661,
+  &quot;torch_threads&quot;: 2,
+  &quot;image_sha256&quot;: &quot;e22ecbd82c9ac69d8f82a9819fe0ca256409160bca0237df6659204284c30ad1&quot;,
+  &quot;generation&quot;: 1,
+  &quot;model_sha256&quot;: &quot;9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef&quot;,
+  &quot;device&quot;: &quot;cpu&quot;
+}</pre></div></div><div class="ops-card" style="margin-top:20px"><h3>20개 순차 요청의 HTTP 응답 시간</h3><div class="ops-chart" id="latency-chart" aria-label="각 막대를 선택하면 해당 응답을 확인합니다"></div><div class="ops-chart-meta"><span>01 → 20</span><span>p50 93.6 ms / p95 116.4 ms</span></div><p class="ops-caption">작은 기능 검증 표본입니다. 운영 처리량이나 정확도 수치로 해석하지 않습니다.</p></div></section>
+<section class="ops-section"><span class="ops-kicker">03 / RECOVERY</span><h2>오류와 복구</h2><div class="ops-options"><button data-scenario="deadline" aria-pressed="true">시간 초과</button><button data-scenario="crash" aria-pressed="false">프로세스 종료</button></div><div class="ops-grid"><div class="ops-card" id="recovery-events"></div><div class="ops-card"><h3>복구 후 실제 응답</h3><pre class="ops-json" id="recovery-json"></pre></div></div><table class="ops-table"><thead><tr><th>검증</th><th>HTTP</th><th>동작</th></tr></thead><tbody><tr><td>인증 누락</td><td>401</td><td>추론 전에 거부</td></tr><tr><td>잘못된 이미지 / 요청 크기 초과</td><td>400 / 413</td><td>입력 검증</td></tr><tr><td>동시 요청 제한</td><td>429</td><td>의도적으로 멈춘 worker에 추가 요청</td></tr><tr><td>시간 초과</td><td>504</td><td>기존 worker 종료 → 새 연결·모델 로드</td></tr><tr><td>프로세스 종료</td><td>503 → 200</td><td>자동 재시작 후 실제 추론 성공</td></tr></tbody></table></section>
+<section class="ops-section"><span class="ops-kicker">04 / EVIDENCE</span><h2>실행 환경과 범위</h2><div class="ops-grid"><div class="ops-card"><h3>고정한 설정</h3><p class="ops-code">Python 3.12.14<br>PyTorch 2.11.0+cu128<br>Ultralytics 8.4.150<br>CPU · imgsz 640 · rect false · conf 0.1<br>Model SHA256<br>9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef</p><div class="ops-links"><a href="operations-evidence/metrics.prom">Metrics ↗</a><a href="operations-evidence/source.json">입력 출처 ↗</a><a href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/visioneye-serving/README.md">재현 방법 ↗</a></div></div><div class="ops-footnote">AI 생성 영상에서 추출한 3개 프레임으로 검증했습니다. 실제 CCTV, 추적 세션 API, GPU·LLM 서빙, 장시간 운용, HTTP 서버·호스트 장애 복구와 모델 버전 롤백은 포함하지 않습니다. PyTorch는 기존 CUDA 빌드이지만 실제 모델 장치와 실행 스레드는 CPU / 2개로 확인했습니다.<br><br>서버 검증은 완료 후 종료했습니다. 이 웹페이지는 저장된 실행 기록을 보여주며 모델을 실행하지 않습니다.</div></div></section><footer class="ops-footer">Hyunae Park · AI Builder / 개인 모델 서버 검증</footer></main><script src="../../assets/portfolio-visioneye-ops.js" defer></script></body></html>

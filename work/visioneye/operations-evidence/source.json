@@ -1,0 +1,30 @@
+{
+  "source_url": "https://github.com/hyunaeee/visioneye-lab/raw/refs/heads/main/web/assets/crowd-source.mp4",
+  "source_sha256": "9f79a902723ac40ae1e74db9a649a04e33651c5599b5f04c32dc5f7d3441afc5",
+  "source_kind": "Higgsfield AI-generated video",
+  "opencv": "4.14.0",
+  "jpeg_quality": 90,
+  "frames": [
+    {
+      "file": "crowd-048.jpg",
+      "frame_index": 48,
+      "sha256": "e22ecbd82c9ac69d8f82a9819fe0ca256409160bca0237df6659204284c30ad1",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "crowd-144.jpg",
+      "frame_index": 144,
+      "sha256": "dd62abdd6a658fd5789f89c498a881531b8868dc3242ac5ba2001f5817b5a469",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "file": "crowd-240.jpg",
+      "frame_index": 240,
+      "sha256": "fccc91ea75ef653273bf6ca55b570bf9af81c37b8d176c0bbdcda7e5cd877806",
+      "width": 1280,
+      "height": 720
+    }
+  ]
+}
