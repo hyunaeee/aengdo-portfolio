@@ -1,9 +1,9 @@
 name: Portfolio content
 on:
   push:
-    paths: ["assets/portfolio-*", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
+    paths: ["assets/portfolio-*", "assets/visioneye.*", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
   pull_request:
-    paths: ["assets/portfolio-*", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
+    paths: ["assets/portfolio-*", "assets/visioneye.*", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
   workflow_dispatch:
 permissions:
   contents: read

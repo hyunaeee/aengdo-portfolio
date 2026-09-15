@@ -17,6 +17,15 @@ function localized(value, where) {
 }
 localized(data,'content');
 assert.equal(new Set(data.projects.map(p=>p.id)).size,data.projects.length);
+assert.equal(new Set(data.archive.map(p=>p.id)).size,data.archive.length);
+for (const entry of data.archive) if (entry.caseId) assert(data.projects.some(p=>p.id===entry.caseId),`Archive case: ${entry.id}`);
+const featured = data.projects.filter(p=>p.id!=='anatomy' && p.featured!==false).map(p=>p.id);
+for (const file of ['index.html','portfolio.html','en.html']) {
+  const html = fs.readFileSync(path.join(root,file),'utf8');
+  const visible = [...html.matchAll(/class="project-feature project-([^"]+)"/g)].map(match=>match[1]);
+  assert.deepEqual(visible,featured,`Featured projects: ${file}`);
+  assert(html.includes(`${String(featured.length).padStart(2,'0')} PROJECTS`),`Featured count: ${file}`);
+}
 let checked=0;
 for (const file of files) {
   const html = fs.readFileSync(path.join(root,file),'utf8');

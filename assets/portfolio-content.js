@@ -10,7 +10,7 @@
   const origin = 'https://hyunaeee.github.io/aengdo-portfolio/';
   const link = (ko, en, url, kind = 'source') => ({ label: L(ko, en), url, kind });
   const data = {
-    updatedAt: '2026-09-14',
+    updatedAt: '2026-09-15',
     history: typeof module === 'object' && module.exports ? require('./portfolio-history.js') : globalThis.HYUNAE_HISTORY || [],
     person: {
       name: 'Hyunae Park', email: 'hyunaeee@gmail.com', github: 'https://github.com/hyunaeee',
@@ -164,5 +164,9 @@
   };
   const serving = typeof module === 'object' && module.exports ? require('./portfolio-serving.js') : globalThis.HYUNAE_SERVING;
   data.projects.push(serving.project);
+  const visioneye = typeof module === 'object' && module.exports ? require('./portfolio-visioneye.js') : globalThis.HYUNAE_VISIONEYE;
+  data.projects.push(visioneye.project);
+  const visioneyePosition = Math.max(0, archive.findIndex(item => item.id === 'serving-lab') + 1);
+  data.archive = [...archive.slice(0, visioneyePosition), visioneye.archive, ...archive.slice(visioneyePosition)];
   return data;
 });

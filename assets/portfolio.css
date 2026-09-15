@@ -15,3 +15,9 @@
 @media(max-width:760px){.hero{min-height:0;padding:32px 0 25px}.guide-home{height:215px;margin-top:12px}.guide-character{width:205px;height:195px;right:20px;bottom:16px}.guide-controls{right:55px}.guide-footnote{right:31px;bottom:0;left:auto}.project-feature{padding:28px 0}.project-story h3{font-size:29px;margin:10px 0 18px}.project-story .project-meta{font-size:10px;gap:22px}.project-visual{padding-bottom:15px}.section-heading{padding-top:35px}.history-timeline>li{display:block;padding:24px 0}.history-timeline time{display:block;font-size:11px;margin-bottom:13px}.history-timeline h2{font-size:20px}.history-timeline p{font-size:13px}.history-entry{font-size:12px;margin-top:17px}}
 
 .history-intro h1,[data-page="archive"] .page-intro h1{font-size:clamp(26px,2.3vw,32px);letter-spacing:-.8px;margin:14px 0}
+
+/* Preserve the source/result screenshot and foot positions at every viewport. */
+.case-cover.visioneye{height:auto;padding:0;background:#eef1ef}
+.case-cover.visioneye img{display:block;width:100%;height:auto;box-shadow:none;border-radius:0}
+.case-cover.visioneye figcaption{position:static;background:#eef1ef;line-height:1.6}
+.archive-card#visioneye>img{aspect-ratio:16/9;object-fit:contain;background:#eef1ef}
