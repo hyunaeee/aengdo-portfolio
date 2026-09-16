@@ -1,0 +1,533 @@
+/* Fall in Korea — the painted travel world and its floating game controls. */
+.game-top {
+  z-index: 12;
+  top: 14px;
+  left: 14px;
+  right: 12px;
+  height: 37px;
+}
+
+.travel-wordmark {
+  padding: 0;
+  text-align: left;
+  color: #fff8d7;
+  transform: rotate(-2deg);
+  filter: drop-shadow(0 3px 1px #326a6380);
+}
+.travel-wordmark > span {
+  display: block;
+  font-family: 'Jua', sans-serif;
+  font-size: 23px;
+  line-height: 1;
+  letter-spacing: -.5px;
+  -webkit-text-stroke: 2.5px #426c5e;
+  paint-order: stroke fill;
+  text-shadow: 0 2px 0 #426752, 0 -1px 0 #fffef0;
+  white-space: nowrap;
+}
+.travel-wordmark b {
+  color: #ffe483;
+  font-weight: 400;
+}
+.travel-wordmark small {
+  display: block;
+  margin-top: 4px;
+  padding-left: 3px;
+  color: #fff9df;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 6px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 2.25px;
+  text-shadow: 0 1px 2px #32614c;
+}
+.top-actions { align-items: center; gap: 8px; }
+.language-button {
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 47px;
+  height: 29px;
+  padding: 0 4px;
+  border: 2px solid #fff4c9;
+  border-radius: 11px;
+  background: linear-gradient(#a9e2d0, #63af98 48%, #398970);
+  box-shadow: 0 2px 0 #386b53, inset 0 2px 0 #e3ffdc;
+  color: #fffcea;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  text-shadow: 0 1px 0 #397361;
+}
+.shop-orb {
+  width: 40px;
+  height: 40px;
+  margin-top: -1px;
+  padding: 1px;
+  border-color: #fff2b9;
+  background: radial-gradient(ellipse at 35% 20%, #fff0a0, #e1a24b 58%, #b87733);
+  box-shadow: 0 2px 0 #846239, 0 0 0 1px #b58647, inset 0 2px 2px #fff8d0;
+}
+.shop-orb > .event-sprite { transform: scale(1.18); }
+.game-hud { z-index: 11; top: 64px; }
+
+.home-screen { background: #a9d8df; }
+.home-screen::before {
+  content: '';
+  position: absolute;
+  z-index: 6;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 190px;
+  background: linear-gradient(#618f8978, #a8dbd060 46%, #e7f3db18 84%, transparent);
+  pointer-events: none;
+}
+.home-screen::after {
+  content: '';
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 134px;
+  background: linear-gradient(transparent, #fff9d948 37%, #d5eec3c7 85%, #a0cda9ed);
+  pointer-events: none;
+}
+.map-viewport {
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-padding-top: 205px;
+  scroll-padding-bottom: 140px;
+}
+.map-viewport::-webkit-scrollbar { display: none; }
+.map-viewport.is-panning,
+.map-viewport.is-panning * { cursor: grabbing !important; }
+.map-viewport:focus-visible { outline-offset: -4px; }
+.travel-world {
+  position: relative;
+  width: 720px;
+  height: 1950px;
+  min-height: 1950px;
+  isolation: isolate;
+  background-color: #a7d7e2;
+  background-image: url('../assets/korea-travel-map-wide.png');
+  background-repeat: no-repeat;
+  background-size: 720px 1800px;
+  background-position: 0 150px;
+}
+.travel-world::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 166px;
+  background: radial-gradient(ellipse at 21% 55%, #ffffffb3 0 10%, transparent 30%),
+    radial-gradient(ellipse at 76% 66%, #fffff0b3 0 9%, transparent 26%),
+    linear-gradient(#8fcce1, #d8edf0 75%, #b3d4dc);
+  pointer-events: none;
+}
+.map-node {
+  position: absolute;
+  z-index: 2;
+  width: 155px;
+  height: 165px;
+  padding: 0;
+  transform: translate(-50%, -90%);
+  transform-origin: 50% 90%;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: pan-x pan-y;
+  background: none;
+}
+.map-node > .building-sprite {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 155px;
+  height: 148px;
+  filter: drop-shadow(0 4px 2px #3e573a42);
+  transform-origin: 50% 90%;
+  transition: transform .18s ease, filter .18s ease;
+}
+.map-node.built { z-index: 3; }
+.map-node.built:active > .building-sprite { transform: translateY(2px) scale(.96); }
+.node-label {
+  position: absolute;
+  z-index: 4;
+  bottom: 5px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 39px;
+  height: 25px;
+  padding: 1px 8px;
+  transform: translateX(-50%);
+  border: 2px solid #fffbd9;
+  border-radius: 15px;
+  background: linear-gradient(#e8f2ca, #adcf93);
+  box-shadow: 0 2px 0 #668258, 0 3px 7px #335c3d25;
+  color: #56714b;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+.node-label > .icon { width: 13px; height: 13px; }
+.node-label > .ui-sprite { width: 21px; height: 24px; margin-left: -5px; }
+.built .node-label {
+  min-width: 26px;
+  width: 26px;
+  height: 25px;
+  padding: 3px;
+  background: linear-gradient(#bde874, #77b744);
+  color: white;
+  border-color: #fff8bc;
+  box-shadow: 0 2px 0 #5a8a3c, 0 2px 5px #47623b40;
+}
+.built .node-label > .icon { width: 15px; height: 15px; stroke-width: 3.5; }
+.map-friend {
+  position: absolute;
+  z-index: 5;
+  bottom: 18px;
+  right: 2px;
+  width: 42px;
+  height: 47px;
+  filter: drop-shadow(0 3px 1px #42633d45);
+  transform: rotate(5deg);
+}
+.building-foundation {
+  position: absolute;
+  left: 27px;
+  bottom: 25px;
+  width: 102px;
+  height: 61px;
+  border: 3px dashed #f4d177;
+  border-radius: 48%;
+  background: repeating-linear-gradient(135deg, #e4c18c 0 15px, #d5ae761f 15px 17px),
+    linear-gradient(#e7d09b, #cda468);
+  box-shadow: 0 5px 0 #a98454, 0 7px 8px #64724748, inset 0 2px 0 #fff1bc;
+}
+.building-foundation > .icon {
+  position: absolute;
+  top: -34px;
+  left: 26px;
+  width: 48px;
+  height: 48px;
+  padding: 8px;
+  border: 3px solid #ffefb4;
+  border-radius: 15px;
+  background: linear-gradient(#ffd777, #eba846);
+  color: #fffcef;
+  box-shadow: 0 3px 0 #b87532, inset 0 2px 0 #fff3bd;
+  filter: drop-shadow(0 3px 3px #73663735);
+  transform: rotate(-12deg);
+}
+.available .node-label {
+  background: linear-gradient(#c1ed82, #8fc551);
+  color: #fffde3;
+  border-color: #fff8c7;
+  text-shadow: 0 1px 0 #658e39;
+}
+.map-mist {
+  position: absolute;
+  pointer-events: none;
+  left: -85px;
+  bottom: -20px;
+  width: 325px;
+  height: 210px;
+  background: url('../assets/korea-map-mist.png') center / 100% 100% no-repeat;
+  opacity: .91;
+  transform-origin: center;
+  animation: travel-mist-drift 16s ease-in-out infinite alternate;
+}
+.map-mist::after {
+  content: '';
+  position: absolute;
+  inset: 14px -28px -12px 25px;
+  background: inherit;
+  opacity: .3;
+  transform: scaleX(-1) rotate(-8deg);
+}
+.map-node:nth-child(even) .map-mist { animation-delay: -8s; }
+.map-node:nth-child(3n) .map-mist { animation-delay: -4s; opacity: .82; }
+@keyframes travel-mist-drift {
+  from { transform: translate(-7px, 2px) scale(.97); }
+  to { transform: translate(7px, -4px) scale(1.04); }
+}
+.locked .node-label {
+  bottom: 14px;
+  height: 23px;
+  min-width: 41px;
+  padding: 0 7px;
+  border-color: #ffffffd9;
+  background: linear-gradient(#dcebefeb, #bbd4ddeb);
+  box-shadow: 0 2px 0 #92afbb8c;
+  color: #76919c;
+  font-size: 11px;
+}
+.locked .node-label > .icon { width: 11px; height: 11px; }
+.map-sea-glint {
+  position: absolute;
+  top: 305px;
+  left: 25px;
+  width: 82px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fffef9b3;
+  box-shadow: 15px 9px 0 #fffef960, 42px 16px 0 -1px #fffef9b3, -12px 22px 0 #fffef955;
+  pointer-events: none;
+  animation: travel-water-sparkle 5s ease-in-out infinite;
+}
+
+.era-ribbon {
+  position: absolute;
+  z-index: 9;
+  top: 130px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 230px;
+  height: 38px;
+  padding: 3px 10px;
+  transform: translateX(-50%);
+  border: 2px solid #ffedb9;
+  border-radius: 13px 13px 17px 17px;
+  background: linear-gradient(#739d78, #4c805f 56%, #366e50);
+  box-shadow: 0 3px 0 #365f43, 0 5px 10px #527f5340, inset 0 2px 0 #adcca2;
+  color: #fff9db;
+  text-shadow: 0 1px 0 #315c44;
+}
+.era-ribbon > span { display: flex; color: #ffe2a0; }
+.era-ribbon > span > .icon { width: 20px; height: 20px; }
+.era-ribbon strong { font-size: 16px; font-weight: 400; white-space: nowrap; }
+.era-ribbon b {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-left: 2px;
+  color: #f4e5ad;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.era-ribbon b > .icon { width: 13px; height: 13px; }
+.event-rail {
+  position: absolute;
+  z-index: 10;
+  top: 205px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 68px;
+  pointer-events: none;
+}
+.left-rail { left: 8px; }
+.right-rail { right: 8px; }
+.travel-event {
+  --event-light: #ffe6ac;
+  --event-main: #e6a646;
+  --event-dark: #a66a37;
+  position: relative;
+  width: 68px;
+  height: 82px;
+  padding: 0;
+  background: none;
+  pointer-events: auto;
+  filter: drop-shadow(0 3px 2px #2d634c50);
+}
+.travel-event.mint { --event-light: #d4facb; --event-main: #78c79e; --event-dark: #388267; background: none; }
+.travel-event.purple { --event-light: #f1d8ff; --event-main: #be8bdf; --event-dark: #7951a7; background: none; }
+.travel-event.pink { --event-light: #ffe0e4; --event-main: #f1a1bc; --event-dark: #bf648d; background: none; }
+.travel-event.gold { --event-light: #fff6b9; --event-main: #efc255; --event-dark: #b8893f; background: none; }
+.travel-event-art {
+  position: absolute;
+  left: 2px;
+  top: 0;
+  display: block;
+  width: 64px;
+  height: 65px;
+  padding: 1px;
+  border: 2px solid #fff3d0;
+  border-radius: 21px;
+  background: radial-gradient(ellipse at 32% 22%, var(--event-light), var(--event-main) 57%, var(--event-dark));
+  box-shadow: 0 0 0 1px var(--event-dark), 0 3px 0 var(--event-dark), inset 0 2px 2px #ffffffad;
+}
+.travel-event-art > .event-sprite { transform: scale(1.12); filter: drop-shadow(0 2px 1px #4a514b45); }
+.travel-event-ribbon {
+  position: absolute;
+  z-index: 2;
+  left: -1px;
+  right: -1px;
+  top: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 23px;
+  padding: 1px 3px;
+  border: 2px solid #fff2d1;
+  border-radius: 7px;
+  background: linear-gradient(var(--event-main), var(--event-dark));
+  box-shadow: 0 2px 0 var(--event-dark), inset 0 1px 0 #ffffff75;
+  color: #fffcea;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: 0 1px 0 var(--event-dark);
+  white-space: nowrap;
+}
+.travel-event-ribbon .ui-sprite { width: 18px; height: 19px; }
+.event-dot {
+  position: absolute;
+  z-index: 3;
+  top: -5px;
+  right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #fff5c7;
+  border-radius: 50%;
+  background: linear-gradient(#ff9671, #ed593d);
+  box-shadow: 0 2px 0 #ae4935;
+  color: #fffcea;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  text-shadow: 0 1px 0 #b44d36;
+}
+
+.home-nav {
+  position: absolute;
+  z-index: 12;
+  left: 22px;
+  right: 18px;
+  bottom: 30px;
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  height: 85px;
+}
+.home-nav > .nav-orb {
+  width: 60px;
+  height: 61px;
+  margin-bottom: 7px;
+  border: 3px solid #fff7d6;
+  background: radial-gradient(ellipse at 30% 18%, #f0ffe4, #9bd4b0 48%, #559977 83%);
+  box-shadow: 0 0 0 1px #749b76, 0 4px 0 #4b795a, 0 7px 9px #45755450, inset 0 2px 2px #ffffffd4;
+}
+.home-nav > .nav-orb > .event-sprite,
+.home-nav > .nav-orb > .ui-sprite {
+  position: absolute;
+  left: 0;
+  top: -4px;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.07);
+  filter: drop-shadow(0 2px 1px #3f644442);
+}
+.home-nav > .nav-orb:nth-child(2) { background: radial-gradient(ellipse at 30% 18%, #fff3c9, #edc781 50%, #c58c53 84%); }
+.home-nav > .nav-orb:nth-child(3) { background: radial-gradient(ellipse at 30% 18%, #ffe6fa, #d6a7d5 50%, #9a72ad 84%); }
+.play-travel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 102px;
+  height: 85px;
+  margin-left: auto;
+  padding: 0 0 4px 4px;
+  border: 4px solid #fff3ac;
+  border-radius: 31px;
+  background: radial-gradient(ellipse at 35% 12%, #d5fda4, #94d842 42%, #61b623 80%);
+  box-shadow: 0 0 0 2px #70a339, 0 6px 0 1px #438a24, 0 9px 12px #41733b60, inset 0 3px 1px #efffbd, inset 0 -3px 0 #79ba27;
+  color: #fff9d0;
+}
+.play-travel::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 11px;
+  right: 11px;
+  height: 27px;
+  border-radius: 50%;
+  background: linear-gradient(#ffffef91, #ffffff00);
+  pointer-events: none;
+}
+.play-travel > .icon {
+  width: 44px;
+  height: 44px;
+  fill: #fff5c6;
+  stroke: #fff7d9;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 3px 0 #4e9126);
+}
+.play-travel > .ui-sprite {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  width: 33px;
+  height: 38px;
+  transform: rotate(9deg);
+  filter: drop-shadow(0 2px 1px #35723280);
+}
+.play-travel:active { transform: translateY(3px); }
+.home-xp {
+  position: absolute;
+  z-index: 12;
+  left: 20%;
+  bottom: 7px;
+  width: 60%;
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid #fff5ce;
+  border-radius: 9px;
+  background: #739b79c9;
+  box-shadow: inset 0 1px 2px #335d414a, 0 1px 0 #497751;
+}
+.home-xp > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(#fff19b, #edbe56);
+  box-shadow: inset 0 1px 0 #fffad0;
+  transition: width .3s ease;
+}
+.home-xp > b {
+  position: absolute;
+  inset: 0;
+  color: #fff9dd;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 7px;
+  font-weight: 900;
+  line-height: 10px;
+  text-align: center;
+  text-shadow: 0 1px 0 #64723d;
+}
+@keyframes travel-water-sparkle {
+  0%, 100% { opacity: .3; transform: scaleX(.82); }
+  50% { opacity: .8; transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-sea-glint, .map-mist { animation: none; }
+  .map-node > .building-sprite, .home-xp > span { transition: none; }
+}

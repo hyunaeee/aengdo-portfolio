@@ -23,3 +23,7 @@ jobs:
         run: node scripts/check-portfolio.cjs
       - name: Verify published Serving Lab evidence against source
         run: node scripts/check-serving-evidence.cjs
+      - name: Validate the playable Fall in Korea portfolio demo
+        run: node scripts/check-fall-in-korea.cjs
+      - name: Run the published merge-game regression tests
+        run: node --test work/fall-in-korea/source/tests/*.test.js

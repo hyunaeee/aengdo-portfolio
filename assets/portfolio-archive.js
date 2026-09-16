@@ -1,6 +1,77 @@
 /* Preserved project archive; shared by web and PDF. */
 (function(root,data){if(typeof module==='object'&&module.exports)module.exports=data;else root.HYUNAE_ARCHIVE=data;})(typeof globalThis!=='undefined'?globalThis:this, [
 {
+  "id": "fall-in-korea",
+  "title": "Fall in Korea · 폴 인 코리아",
+  "summary": {
+    "ko": "AI와 함께 기획·코드·이미지 제작·반복 테스트를 진행한 한국 여행 머지 게임. 휴대폰 체험 화면에서 아이템을 합성하고 주문을 완성하며 마을을 둘러봅니다.",
+    "en": "A Korean travel merge game developed with AI-assisted code, image generation and iterative testing. Merge items, fulfill orders and explore a growing village in a playable phone frame."
+  },
+  "category": "play",
+  "live": true,
+  "status": {
+    "ko": "LIVE / AI 제작·테스트 실험",
+    "en": "LIVE / AI-ASSISTED GAME EXPERIMENT"
+  },
+  "period": "2026.09",
+  "image": "assets/fall-in-korea.svg",
+  "imageWidth": 900,
+  "imageHeight": 560,
+  "imageAlt": {
+    "ko": "실제 합성 보드를 휴대폰 프레임에 담은 Fall in Korea 브라우저 게임",
+    "en": "The actual Fall in Korea merge board presented in a phone frame"
+  },
+  "stack": [
+    "Codex",
+    "AI image generation",
+    "JavaScript",
+    "Node.js tests",
+    "Capacitor",
+    "PWA"
+  ],
+  "links": [
+    {
+      "label": {
+        "ko": "휴대폰으로 체험하기 ↗",
+        "en": "PLAY THE PHONE DEMO ↗"
+      },
+      "url": "work/fall-in-korea/index.html",
+      "urlEn": "work/fall-in-korea/en.html",
+      "kind": "demo"
+    },
+    {
+      "label": {
+        "ko": "테스트 실행 기록 ↗",
+        "en": "TEST RUN EVIDENCE ↗"
+      },
+      "url": "work/fall-in-korea/evidence.json",
+      "kind": "source"
+    }
+  ],
+  "problem": {
+    "ko": "한국 전통 공예와 여행을 합성 게임으로 풀어내고, AI가 작성한 구현을 실제 플레이와 자동 검사로 반복 수정했습니다.",
+    "en": "Turn Korean craft and travel into a merge game, then iterate on AI-assisted implementation through real browser interactions and automated checks."
+  },
+  "build": [
+    {
+      "ko": "전통 매듭→노리개 등 14계열·84아이템, 15캐릭터, 4시대·12건물과 한·영 전환.",
+      "en": "14 merge chains and 84 items, 15 characters, four eras, 12 buildings and Korean/English controls."
+    },
+    {
+      "ko": "이미지 모델로 에셋 생성 후 스프라이트 경계를 맞추고, 생성함·합성 안내·양축 드래그 맵을 피드백에 따라 수정.",
+      "en": "Generate art with an image model, map sprite bounds, and refine crates, merge guides and two-axis map dragging from feedback."
+    },
+    {
+      "ko": "실제 자동 테스트 56/56 통과. 합성·주문·보상·저장 이관·오프라인 캐시·네이티브 저장 순서를 검증하고 원본 기록과 재현 소스를 공개.",
+      "en": "56/56 automated tests passed for merging, orders, rewards, save migration, offline caching and native write ordering, with raw results and reproducible test sources."
+    }
+  ],
+  "limitations": {
+    "ko": "휴대폰 프레임의 웹 프로토타입이며 실행 중 AI 모델을 호출하지 않습니다. iOS 프로젝트는 준비했지만 실기기·Xcode 컴파일·앱스토어 출시 검증은 완료하지 않았습니다.",
+    "en": "A web prototype in a phone frame; gameplay does not call a live AI model. The iOS project is prepared, but real-device testing, Xcode compilation and App Store release are not complete."
+  }
+},
+{
   "id": "signal-lab",
   "title": "Signal Lab · CTR / CVR",
   "summary": {

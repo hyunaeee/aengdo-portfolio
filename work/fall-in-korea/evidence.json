@@ -1,0 +1,502 @@
+{
+  "schemaVersion": 1,
+  "executedAt": "2026-09-16T14:46:28.001Z",
+  "completedAt": "2026-09-16T14:46:28.220Z",
+  "sourceCommit": "d7136410ccb88d5b7be131f92997336f673dbdc4",
+  "sourceCommitRaw": "d7136410ccb88d5b7be131f92997336f673dbdc4\n",
+  "sourceCommitCommand": "git rev-parse HEAD",
+  "sourceWorkingTreeChanges": "",
+  "command": "node --test --test-reporter=tap",
+  "nodeVersion": "v24.18.0",
+  "exitCode": 0,
+  "total": 56,
+  "passed": 56,
+  "failed": 0,
+  "skipped": 0,
+  "groups": [
+    {
+      "id": "game",
+      "file": "tests/game.test.js",
+      "total": 28,
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "id": "progress-store",
+      "file": "tests/progress-store.test.js",
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "id": "sw",
+      "file": "tests/sw.test.js",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "id": "travel",
+      "file": "tests/travel.test.js",
+      "total": 18,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "tests": [
+    {
+      "number": 1,
+      "title": "initial state offers merge pairs and an immediately fulfillable first order",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 2,
+      "title": "merges matching items exactly once, records discoveries and leaves original state untouched",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 3,
+      "title": "different chains and different levels swap without merging",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 4,
+      "title": "moving to an empty cell preserves item count; identical max-level items stay intact",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 5,
+      "title": "fulfillment consumes exact items, awards rewards and replaces one order",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 6,
+      "title": "duplicate requirements cannot reuse items; fulfillment preserves surplus and unrelated items",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 7,
+      "title": "invalid actions fail safely without changing game resources",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 8,
+      "title": "generation requires both energy and a free cell and spends exactly one energy",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 9,
+      "title": "energy regenerates per elapsed minute and preserves fractional progress",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 10,
+      "title": "full energy discards idle-time credits and spending starts a fresh countdown",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 11,
+      "title": "offline regeneration is applied before actions and energy remains capped",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 12,
+      "title": "a backwards clock grants no energy and never makes the state timestamp invalid",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 13,
+      "title": "refill and selling charge or award only for valid actions",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 14,
+      "title": "hydration clones valid saves, removes unknown fields and restores offline energy",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 15,
+      "title": "malformed and corrupted saves fall back to a valid fresh state",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 16,
+      "title": "bounded counters never overflow and saved states remain hydratable after rewards",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 17,
+      "title": "reset returns fresh independent state and all chain definitions have six levels",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 18,
+      "title": "on-board generators spend one energy, stay intact and can move or swap without merging",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 19,
+      "title": "order progress and fulfillment never count or consume generators or stored items",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 20,
+      "title": "inventory stores and retrieves exact items without charging resources and enforces capacity",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 21,
+      "title": "gem energy refills cost exactly five gems, cap energy and reject unavailable purchases",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 22,
+      "title": "each quest is claimable only after its target and its reward cannot be collected twice",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 23,
+      "title": "real v1 cafe saves migrate every item by row and preserve resources, order rewards and discoveries",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 24,
+      "title": "migration accepts a completely full legacy board without losing items",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 25,
+      "title": "v2 cafe migration preserves item indices, generator flags, inventory, quantities, rewards and claimed quests",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 26,
+      "title": "a full v2 board never loses an item for a new generator and workshop-menu generation stays available",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 27,
+      "title": "every traditional workshop generates its own materials with exactly one energy",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 28,
+      "title": "replacement orders cycle through all 15 characters and all 10 craft chains",
+      "group": "game",
+      "file": "tests/game.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 29,
+      "title": "native progress takes priority over stale web storage",
+      "group": "progress-store",
+      "file": "tests/progress-store.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 30,
+      "title": "first native launch migrates old progress without deleting it",
+      "group": "progress-store",
+      "file": "tests/progress-store.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 31,
+      "title": "native read failure stops startup instead of replacing the save",
+      "group": "progress-store",
+      "file": "tests/progress-store.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 32,
+      "title": "rapid actions are written in order and flush awaits the latest action",
+      "group": "progress-store",
+      "file": "tests/progress-store.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 33,
+      "title": "a failed native write is reported and later saves still work",
+      "group": "progress-store",
+      "file": "tests/progress-store.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 34,
+      "title": "native saves work when browser storage is blocked",
+      "group": "progress-store",
+      "file": "tests/progress-store.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 35,
+      "title": "cached sprites respond immediately while a pending network request refreshes in the background",
+      "group": "sw",
+      "file": "tests/sw.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 36,
+      "title": "an image cache miss returns the network response and saves it for subsequent loads",
+      "group": "sw",
+      "file": "tests/sw.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 37,
+      "title": "unavailable cache storage does not prevent an image from loading over the network",
+      "group": "sw",
+      "file": "tests/sw.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 38,
+      "title": "a failed image refresh keeps the cached sprite available while offline",
+      "group": "sw",
+      "file": "tests/sw.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 39,
+      "title": "v4 exposes 84 items and unlocks eras and modern workshops at exact level thresholds",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 40,
+      "title": "modern generators and exact-item purchases reject locked chains without spending resources",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 41,
+      "title": "replacement orders use only available eras and reach all 14 chains at level ten",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 42,
+      "title": "v3 saves keep all existing progress while travel and the current weekly pass start fresh",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 43,
+      "title": "building construction respects levels and coins, charges once and awards its one-time reward",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 44,
+      "title": "daily rewards persist through reload, use UTC midnight and do not reset on clock rollback",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 45,
+      "title": "memory cards persist while a mismatch blocks more flips until the pair is hidden",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 46,
+      "title": "completing memory pays only once per UTC day even after replay and reload",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 47,
+      "title": "yut rolls keep position through reload, cap the finish at 12 and award once daily",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 48,
+      "title": "album completion requires all six discoveries and rewards each chain only once",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 49,
+      "title": "pass order count changes on fulfillment only and resets at Monday UTC",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 50,
+      "title": "free and premium pass tracks enforce targets, spend 20 gems and award separate claims once",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 51,
+      "title": "offers reject energy overflow before charging and enforce once-only or UTC daily limits",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 52,
+      "title": "item purchases give one exact unlocked item, charge its level price and record discovery",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 53,
+      "title": "invalid purchase quantities, tiers, levels, empty wallets and full boards never charge",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 54,
+      "title": "invalid persisted travel state cannot inject duplicate claims, invalid decks or forged schemas",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 55,
+      "title": "travel hydration clones nested arrays and strips fields outside the persisted schema",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    },
+    {
+      "number": 56,
+      "title": "crossing an era boundary with an order reward unlocks the next era immediately",
+      "group": "travel",
+      "file": "tests/travel.test.js",
+      "passed": true,
+      "skipped": false
+    }
+  ],
+  "rawTapFile": "tests.tap",
+  "stderr": ""
+}

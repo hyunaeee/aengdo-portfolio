@@ -1,0 +1,346 @@
+TAP version 13
+# Subtest: initial state offers merge pairs and an immediately fulfillable first order
+ok 1 - initial state offers merge pairs and an immediately fulfillable first order
+  ---
+  duration_ms: 2.6115
+  type: 'test'
+  ...
+# Subtest: merges matching items exactly once, records discoveries and leaves original state untouched
+ok 2 - merges matching items exactly once, records discoveries and leaves original state untouched
+  ---
+  duration_ms: 1.3954
+  type: 'test'
+  ...
+# Subtest: different chains and different levels swap without merging
+ok 3 - different chains and different levels swap without merging
+  ---
+  duration_ms: 0.3326
+  type: 'test'
+  ...
+# Subtest: moving to an empty cell preserves item count; identical max-level items stay intact
+ok 4 - moving to an empty cell preserves item count; identical max-level items stay intact
+  ---
+  duration_ms: 0.2173
+  type: 'test'
+  ...
+# Subtest: fulfillment consumes exact items, awards rewards and replaces one order
+ok 5 - fulfillment consumes exact items, awards rewards and replaces one order
+  ---
+  duration_ms: 0.3346
+  type: 'test'
+  ...
+# Subtest: duplicate requirements cannot reuse items; fulfillment preserves surplus and unrelated items
+ok 6 - duplicate requirements cannot reuse items; fulfillment preserves surplus and unrelated items
+  ---
+  duration_ms: 0.3259
+  type: 'test'
+  ...
+# Subtest: invalid actions fail safely without changing game resources
+ok 7 - invalid actions fail safely without changing game resources
+  ---
+  duration_ms: 0.6929
+  type: 'test'
+  ...
+# Subtest: generation requires both energy and a free cell and spends exactly one energy
+ok 8 - generation requires both energy and a free cell and spends exactly one energy
+  ---
+  duration_ms: 0.3314
+  type: 'test'
+  ...
+# Subtest: energy regenerates per elapsed minute and preserves fractional progress
+ok 9 - energy regenerates per elapsed minute and preserves fractional progress
+  ---
+  duration_ms: 0.1436
+  type: 'test'
+  ...
+# Subtest: full energy discards idle-time credits and spending starts a fresh countdown
+ok 10 - full energy discards idle-time credits and spending starts a fresh countdown
+  ---
+  duration_ms: 0.1916
+  type: 'test'
+  ...
+# Subtest: offline regeneration is applied before actions and energy remains capped
+ok 11 - offline regeneration is applied before actions and energy remains capped
+  ---
+  duration_ms: 0.1645
+  type: 'test'
+  ...
+# Subtest: a backwards clock grants no energy and never makes the state timestamp invalid
+ok 12 - a backwards clock grants no energy and never makes the state timestamp invalid
+  ---
+  duration_ms: 0.1286
+  type: 'test'
+  ...
+# Subtest: refill and selling charge or award only for valid actions
+ok 13 - refill and selling charge or award only for valid actions
+  ---
+  duration_ms: 0.3053
+  type: 'test'
+  ...
+# Subtest: hydration clones valid saves, removes unknown fields and restores offline energy
+ok 14 - hydration clones valid saves, removes unknown fields and restores offline energy
+  ---
+  duration_ms: 0.6252
+  type: 'test'
+  ...
+# Subtest: malformed and corrupted saves fall back to a valid fresh state
+ok 15 - malformed and corrupted saves fall back to a valid fresh state
+  ---
+  duration_ms: 3.7193
+  type: 'test'
+  ...
+# Subtest: bounded counters never overflow and saved states remain hydratable after rewards
+ok 16 - bounded counters never overflow and saved states remain hydratable after rewards
+  ---
+  duration_ms: 0.2791
+  type: 'test'
+  ...
+# Subtest: reset returns fresh independent state and all chain definitions have six levels
+ok 17 - reset returns fresh independent state and all chain definitions have six levels
+  ---
+  duration_ms: 0.1727
+  type: 'test'
+  ...
+# Subtest: on-board generators spend one energy, stay intact and can move or swap without merging
+ok 18 - on-board generators spend one energy, stay intact and can move or swap without merging
+  ---
+  duration_ms: 0.8098
+  type: 'test'
+  ...
+# Subtest: order progress and fulfillment never count or consume generators or stored items
+ok 19 - order progress and fulfillment never count or consume generators or stored items
+  ---
+  duration_ms: 0.1519
+  type: 'test'
+  ...
+# Subtest: inventory stores and retrieves exact items without charging resources and enforces capacity
+ok 20 - inventory stores and retrieves exact items without charging resources and enforces capacity
+  ---
+  duration_ms: 0.3491
+  type: 'test'
+  ...
+# Subtest: gem energy refills cost exactly five gems, cap energy and reject unavailable purchases
+ok 21 - gem energy refills cost exactly five gems, cap energy and reject unavailable purchases
+  ---
+  duration_ms: 0.1426
+  type: 'test'
+  ...
+# Subtest: each quest is claimable only after its target and its reward cannot be collected twice
+ok 22 - each quest is claimable only after its target and its reward cannot be collected twice
+  ---
+  duration_ms: 0.5934
+  type: 'test'
+  ...
+# Subtest: real v1 cafe saves migrate every item by row and preserve resources, order rewards and discoveries
+ok 23 - real v1 cafe saves migrate every item by row and preserve resources, order rewards and discoveries
+  ---
+  duration_ms: 0.6675
+  type: 'test'
+  ...
+# Subtest: migration accepts a completely full legacy board without losing items
+ok 24 - migration accepts a completely full legacy board without losing items
+  ---
+  duration_ms: 0.2609
+  type: 'test'
+  ...
+# Subtest: v2 cafe migration preserves item indices, generator flags, inventory, quantities, rewards and claimed quests
+ok 25 - v2 cafe migration preserves item indices, generator flags, inventory, quantities, rewards and claimed quests
+  ---
+  duration_ms: 0.4722
+  type: 'test'
+  ...
+# Subtest: a full v2 board never loses an item for a new generator and workshop-menu generation stays available
+ok 26 - a full v2 board never loses an item for a new generator and workshop-menu generation stays available
+  ---
+  duration_ms: 0.3444
+  type: 'test'
+  ...
+# Subtest: every traditional workshop generates its own materials with exactly one energy
+ok 27 - every traditional workshop generates its own materials with exactly one energy
+  ---
+  duration_ms: 0.9656
+  type: 'test'
+  ...
+# Subtest: replacement orders cycle through all 15 characters and all 10 craft chains
+ok 28 - replacement orders cycle through all 15 characters and all 10 craft chains
+  ---
+  duration_ms: 1.5854
+  type: 'test'
+  ...
+# Subtest: native progress takes priority over stale web storage
+ok 29 - native progress takes priority over stale web storage
+  ---
+  duration_ms: 0.5013
+  type: 'test'
+  ...
+# Subtest: first native launch migrates old progress without deleting it
+ok 30 - first native launch migrates old progress without deleting it
+  ---
+  duration_ms: 0.5439
+  type: 'test'
+  ...
+# Subtest: native read failure stops startup instead of replacing the save
+ok 31 - native read failure stops startup instead of replacing the save
+  ---
+  duration_ms: 0.6513
+  type: 'test'
+  ...
+# Subtest: rapid actions are written in order and flush awaits the latest action
+ok 32 - rapid actions are written in order and flush awaits the latest action
+  ---
+  duration_ms: 0.1679
+  type: 'test'
+  ...
+# Subtest: a failed native write is reported and later saves still work
+ok 33 - a failed native write is reported and later saves still work
+  ---
+  duration_ms: 0.1728
+  type: 'test'
+  ...
+# Subtest: native saves work when browser storage is blocked
+ok 34 - native saves work when browser storage is blocked
+  ---
+  duration_ms: 0.143
+  type: 'test'
+  ...
+# Subtest: cached sprites respond immediately while a pending network request refreshes in the background
+ok 35 - cached sprites respond immediately while a pending network request refreshes in the background
+  ---
+  duration_ms: 15.5573
+  type: 'test'
+  ...
+# Subtest: an image cache miss returns the network response and saves it for subsequent loads
+ok 36 - an image cache miss returns the network response and saves it for subsequent loads
+  ---
+  duration_ms: 0.8073
+  type: 'test'
+  ...
+# Subtest: unavailable cache storage does not prevent an image from loading over the network
+ok 37 - unavailable cache storage does not prevent an image from loading over the network
+  ---
+  duration_ms: 0.6075
+  type: 'test'
+  ...
+# Subtest: a failed image refresh keeps the cached sprite available while offline
+ok 38 - a failed image refresh keeps the cached sprite available while offline
+  ---
+  duration_ms: 0.6922
+  type: 'test'
+  ...
+# Subtest: v4 exposes 84 items and unlocks eras and modern workshops at exact level thresholds
+ok 39 - v4 exposes 84 items and unlocks eras and modern workshops at exact level thresholds
+  ---
+  duration_ms: 2.5281
+  type: 'test'
+  ...
+# Subtest: modern generators and exact-item purchases reject locked chains without spending resources
+ok 40 - modern generators and exact-item purchases reject locked chains without spending resources
+  ---
+  duration_ms: 2.2085
+  type: 'test'
+  ...
+# Subtest: replacement orders use only available eras and reach all 14 chains at level ten
+ok 41 - replacement orders use only available eras and reach all 14 chains at level ten
+  ---
+  duration_ms: 3.3692
+  type: 'test'
+  ...
+# Subtest: v3 saves keep all existing progress while travel and the current weekly pass start fresh
+ok 42 - v3 saves keep all existing progress while travel and the current weekly pass start fresh
+  ---
+  duration_ms: 0.5843
+  type: 'test'
+  ...
+# Subtest: building construction respects levels and coins, charges once and awards its one-time reward
+ok 43 - building construction respects levels and coins, charges once and awards its one-time reward
+  ---
+  duration_ms: 0.7882
+  type: 'test'
+  ...
+# Subtest: daily rewards persist through reload, use UTC midnight and do not reset on clock rollback
+ok 44 - daily rewards persist through reload, use UTC midnight and do not reset on clock rollback
+  ---
+  duration_ms: 0.3371
+  type: 'test'
+  ...
+# Subtest: memory cards persist while a mismatch blocks more flips until the pair is hidden
+ok 45 - memory cards persist while a mismatch blocks more flips until the pair is hidden
+  ---
+  duration_ms: 1.7993
+  type: 'test'
+  ...
+# Subtest: completing memory pays only once per UTC day even after replay and reload
+ok 46 - completing memory pays only once per UTC day even after replay and reload
+  ---
+  duration_ms: 2.7469
+  type: 'test'
+  ...
+# Subtest: yut rolls keep position through reload, cap the finish at 12 and award once daily
+ok 47 - yut rolls keep position through reload, cap the finish at 12 and award once daily
+  ---
+  duration_ms: 1.0454
+  type: 'test'
+  ...
+# Subtest: album completion requires all six discoveries and rewards each chain only once
+ok 48 - album completion requires all six discoveries and rewards each chain only once
+  ---
+  duration_ms: 0.452
+  type: 'test'
+  ...
+# Subtest: pass order count changes on fulfillment only and resets at Monday UTC
+ok 49 - pass order count changes on fulfillment only and resets at Monday UTC
+  ---
+  duration_ms: 0.2949
+  type: 'test'
+  ...
+# Subtest: free and premium pass tracks enforce targets, spend 20 gems and award separate claims once
+ok 50 - free and premium pass tracks enforce targets, spend 20 gems and award separate claims once
+  ---
+  duration_ms: 0.9614
+  type: 'test'
+  ...
+# Subtest: offers reject energy overflow before charging and enforce once-only or UTC daily limits
+ok 51 - offers reject energy overflow before charging and enforce once-only or UTC daily limits
+  ---
+  duration_ms: 0.6774
+  type: 'test'
+  ...
+# Subtest: item purchases give one exact unlocked item, charge its level price and record discovery
+ok 52 - item purchases give one exact unlocked item, charge its level price and record discovery
+  ---
+  duration_ms: 0.6761
+  type: 'test'
+  ...
+# Subtest: invalid purchase quantities, tiers, levels, empty wallets and full boards never charge
+ok 53 - invalid purchase quantities, tiers, levels, empty wallets and full boards never charge
+  ---
+  duration_ms: 0.4676
+  type: 'test'
+  ...
+# Subtest: invalid persisted travel state cannot inject duplicate claims, invalid decks or forged schemas
+ok 54 - invalid persisted travel state cannot inject duplicate claims, invalid decks or forged schemas
+  ---
+  duration_ms: 2.2243
+  type: 'test'
+  ...
+# Subtest: travel hydration clones nested arrays and strips fields outside the persisted schema
+ok 55 - travel hydration clones nested arrays and strips fields outside the persisted schema
+  ---
+  duration_ms: 0.2
+  type: 'test'
+  ...
+# Subtest: crossing an era boundary with an order reward unlocks the next era immediately
+ok 56 - crossing an era boundary with an order reward unlocks the next era immediately
+  ---
+  duration_ms: 0.1527
+  type: 'test'
+  ...
+1..56
+# tests 56
+# suites 0
+# pass 56
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 180.1672
