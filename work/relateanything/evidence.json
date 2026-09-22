@@ -1,0 +1,258 @@
+{
+  "title": "RelateAnything Lab: one synthetic development clip",
+  "source": {
+    "frames": 481,
+    "fps": 24.0,
+    "sha256": "87b56831bdb4c57488d7bcb05e6493f65ba589c991e49a2ced61e73955a00603",
+    "synthetic": true
+  },
+  "scope": "Same-clip development comparison; assistant-reviewed draft labels; no held-out generalization claim; no model retraining.",
+  "device": "NVIDIA GeForce RTX 4090",
+  "precision": "float32",
+  "vocabulary": [
+    "holding",
+    "on",
+    "touching",
+    "above",
+    "next to",
+    "behind"
+  ],
+  "upstream": {
+    "repo": "https://github.com/Maelic/RelateAnything",
+    "commit": "6b9c07c12ff47d4be17fa558b183023dcf829e61",
+    "method": "GitHub source archive"
+  },
+  "calibration": {
+    "calib_a": 0.5651,
+    "calib_b": -1.9623,
+    "pair_weight": 1.0
+  },
+  "tracking": {
+    "initial_class": "bottle",
+    "initialization_confidence": 0.5,
+    "minimum_association_iou": 0.25,
+    "area_ratio_bounds": [
+      0.4,
+      2.5
+    ],
+    "max_unobserved_seconds": 0.5,
+    "velocity_ema_alpha": 0.5,
+    "association_score": "IoU(predicted box, observation) + 0.1 * detection confidence",
+    "current_box_required": true,
+    "class_agnostic_after_initialization": true,
+    "color_features": false,
+    "manual_regions": false,
+    "scope": "One target instance per class; no global multi-object assignment."
+  },
+  "temporal": {
+    "method": "time_ema_hysteresis",
+    "tau_seconds": 0.2,
+    "enter_threshold": 0.55,
+    "exit_threshold": 0.45,
+    "gap_reset_seconds": 0.5,
+    "score_semantics": "Temporal engineering aggregate; not a probability or raw model score.",
+    "threshold_policy": "Fixed demonstration defaults, not optimized against this clip."
+  },
+  "variants": {
+    "baseline": {
+      "name": "baseline",
+      "frames": 481,
+      "decision_policy": "raw calibrated score >=0.5",
+      "relations": {
+        "holding": {
+          "tp": 3,
+          "fp": 14,
+          "tn": 27,
+          "fn": 30,
+          "precision": 0.17647058823529413,
+          "recall": 0.09090909090909091,
+          "f1": 0.12,
+          "coverage": 0.5945945945945946,
+          "eligible_annotations": 74,
+          "uncertain_excluded": 7,
+          "abstain_positive": 30,
+          "abstain_negative": 0,
+          "conditional": {
+            "tp": 3,
+            "fp": 14,
+            "tn": 27,
+            "fn": 0,
+            "precision": 0.17647058823529413,
+            "recall": 1.0,
+            "f1": 0.3
+          }
+        },
+        "on": {
+          "tp": 0,
+          "fp": 0,
+          "tn": 0,
+          "fn": 56,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "coverage": 0.6233766233766234,
+          "eligible_annotations": 77,
+          "uncertain_excluded": 4,
+          "abstain_positive": 8,
+          "abstain_negative": 21,
+          "conditional": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 0,
+            "fn": 48,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "decision_switches": {
+        "holding": 4,
+        "on": 0
+      },
+      "bottle_frames_present": 287,
+      "bottle_box_coverage": 0.5966735966735967,
+      "timing": {
+        "count": 481,
+        "mean_ms": 38.73296528016343,
+        "median_ms": 37.62100002495572,
+        "p95_ms": 45.40120001183823,
+        "inverse_mean_fps": 25.817801264808836
+      }
+    },
+    "tracked_raw": {
+      "name": "tracked_raw",
+      "frames": 481,
+      "decision_policy": "raw calibrated score >=0.5",
+      "relations": {
+        "holding": {
+          "tp": 33,
+          "fp": 14,
+          "tn": 27,
+          "fn": 0,
+          "precision": 0.7021276595744681,
+          "recall": 1.0,
+          "f1": 0.825,
+          "coverage": 1.0,
+          "eligible_annotations": 74,
+          "uncertain_excluded": 7,
+          "abstain_positive": 0,
+          "abstain_negative": 0,
+          "conditional": {
+            "tp": 33,
+            "fp": 14,
+            "tn": 27,
+            "fn": 0,
+            "precision": 0.7021276595744681,
+            "recall": 1.0,
+            "f1": 0.825
+          }
+        },
+        "on": {
+          "tp": 0,
+          "fp": 0,
+          "tn": 21,
+          "fn": 56,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "coverage": 1.0,
+          "eligible_annotations": 77,
+          "uncertain_excluded": 4,
+          "abstain_positive": 0,
+          "abstain_negative": 0,
+          "conditional": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 21,
+            "fn": 56,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "decision_switches": {
+        "holding": 4,
+        "on": 0
+      },
+      "bottle_frames_present": 481,
+      "bottle_box_coverage": 1.0,
+      "timing": {
+        "count": 481,
+        "mean_ms": 38.67923243192998,
+        "median_ms": 37.36279997974634,
+        "p95_ms": 46.143700019456446,
+        "inverse_mean_fps": 25.85366712640587
+      }
+    },
+    "tracked_temporal": {
+      "name": "tracked_temporal",
+      "frames": 481,
+      "decision_policy": "EMA 0.20 s; enter >=0.55, exit <0.45",
+      "relations": {
+        "holding": {
+          "tp": 33,
+          "fp": 13,
+          "tn": 28,
+          "fn": 0,
+          "precision": 0.717391304347826,
+          "recall": 1.0,
+          "f1": 0.8354430379746836,
+          "coverage": 1.0,
+          "eligible_annotations": 74,
+          "uncertain_excluded": 7,
+          "abstain_positive": 0,
+          "abstain_negative": 0,
+          "conditional": {
+            "tp": 33,
+            "fp": 13,
+            "tn": 28,
+            "fn": 0,
+            "precision": 0.717391304347826,
+            "recall": 1.0,
+            "f1": 0.8354430379746836
+          }
+        },
+        "on": {
+          "tp": 0,
+          "fp": 0,
+          "tn": 21,
+          "fn": 56,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "coverage": 1.0,
+          "eligible_annotations": 77,
+          "uncertain_excluded": 4,
+          "abstain_positive": 0,
+          "abstain_negative": 0,
+          "conditional": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 21,
+            "fn": 56,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      },
+      "decision_switches": {
+        "holding": 2,
+        "on": 0
+      },
+      "bottle_frames_present": 481,
+      "bottle_box_coverage": 1.0,
+      "timing": {
+        "count": 481,
+        "mean_ms": 38.67923243192998,
+        "median_ms": 37.36279997974634,
+        "p95_ms": 46.143700019456446,
+        "inverse_mean_fps": 25.85366712640587
+      }
+    }
+  },
+  "timing_policy": "CUDA-synchronized wall time after 3 warmups; decode, detector/association, relation computation and temporal postprocess included. JSON writes/encoding excluded.",
+  "web_runtime": "Recorded inference viewer; no GPU inference is performed by the public website."
+}
