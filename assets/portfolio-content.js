@@ -204,5 +204,8 @@
   data.projects.push(relateanything.project);
   const relateanythingPosition = data.archive.findIndex(item => item.id === 'visioneye') + 1;
   data.archive.splice(relateanythingPosition, 0, relateanything.archive);
+  const roboskill = typeof module === 'object' && module.exports ? require('./portfolio-roboskill.js') : globalThis.HYUNAE_ROBOSKILL;
+  data.projects.push(roboskill.project);
+  data.archive.unshift(roboskill.archive);
   return data;
 });

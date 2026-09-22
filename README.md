@@ -71,3 +71,9 @@ Hyunae Park · hyunaeee@gmail.com
 현재 공개 범위는 프로젝트 소개와 화면 이미지입니다. 게임 소스와 3D 에셋, 플레이 데모는 이 저장소에 포함하지 않습니다. 대표 이미지의 Tesla Model 3 모델은 aarajesh의 CC BY 4.0 에셋입니다.
 
 화면 이미지 차량 출처: [Tesla White car. — aarajesh](https://sketchfab.com/3d-models/tesla-white-car-2a4ee44439dc4b1b98f452a9ff427116), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 게임용 크기·배치·재질을 적용한 차량의 실제 렌더링 화면이며, 이미지의 도시·UI와 장면 구성은 Golden Drive 작업입니다.
+
+## RoboSkill Lab
+
+[한국어 사례](https://hyunaeee.github.io/aengdo-portfolio/work/robo-skill/) · [English case](https://hyunaeee.github.io/aengdo-portfolio/work/robo-skill/en.html) · [실험 재생](https://hyunaeee.github.io/aengdo-portfolio/robo-skill-lab/viewer/)
+
+제작 이유, 작업 실패 문제, MuJoCo 제어 전략 비교, 24회 개발 실험의 성공률·시간, 관측된 실패와 검증 과정의 수정, 다음 개선 실험을 정리했습니다. 실제 실행 GIF와 원본 JSON을 공개합니다. 기본 버전은 규칙 제어와 시뮬레이터 좌표를 사용하며 카메라 인식·LLM 추론·학습 정책은 미실행입니다. 콘텐츠는 `assets/portfolio-roboskill.js`, 사례 생성기는 `scripts/build-roboskill-page.cjs`에서 관리합니다.

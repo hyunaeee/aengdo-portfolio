@@ -3,3 +3,4 @@ visioneye-serving/** text eol=lf
 visioneye-serving/fixtures/*.jpg binary
 work/visioneye/operations-evidence/* text eol=lf
 work/visioneye/operations-evidence/*.jpg binary
+robo-skill-lab/roboskill/* text eol=lf

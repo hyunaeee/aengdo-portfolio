@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="RoboSkill Lab — MuJoCo 개발 실험 24회의 성공률·실행 시간·실패 복구 궤적을 비교하는 기록 재생 대시보드">
+  <title>RoboSkill Lab — 실험 리플레이</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="rail" aria-label="프로젝트 정보">
+      <a class="brand" href="./" aria-label="RoboSkill Lab 홈"><span class="brand-mark" aria-hidden="true">R<span>·</span></span><span>ROBOSKILL<br><b>LAB</b></span></a>
+      <div class="rail-section">WORKSPACE / 01</div>
+      <a class="rail-link active" href="#experiment"><span aria-hidden="true">◈</span> 실험 리플레이</a>
+      <a class="rail-link" href="https://hyunaeee.github.io/aengdo-portfolio/work/robo-skill/"><span aria-hidden="true">↗</span> 제작 이유와 개선 이야기</a>
+      <a class="rail-link" href="https://github.com/hyunaeee/aengdo-portfolio/tree/main/robo-skill-lab"><span aria-hidden="true">↗</span> 코드와 실행 방법</a>
+      <div class="rail-note"><span class="tiny-label">FROM INTENT TO ACTION</span><p>언어로 계획하고,<br>물리로 검증하다.</p><div class="rail-rule"></div><span>Simulation → Observation<br>→ Replanning</span></div>
+      <div class="rail-footer">RECORDED EXPERIMENTS<span>저장된 기록을 브라우저에서 재생</span></div>
+    </aside>
+
+    <main id="experiment">
+      <header class="topbar"><div class="breadcrumb">RoboSkill Lab <span>/</span> Experiments</div><div class="offline-badge"><span aria-hidden="true"></span> 기록 재생</div></header>
+      <section class="page-heading" aria-labelledby="page-title">
+        <div><div class="eyebrow">EMBODIED AI · CONTROL · EVALUATION</div><h1 id="page-title">계획이 현실을 만나는 곳<span>.</span></h1><p>Open-loop와 Closed-loop의 실행 결과를 같은 물리 환경에서 비교합니다.</p></div>
+        <div class="heading-actions"><button id="reload-report" class="button button-light" type="button" title="artifacts/latest/report.json 다시 불러오기">↻ 최신 기록</button><label class="button button-dark" for="report-file">JSON 불러오기 <span aria-hidden="true">↗</span></label><input id="report-file" class="file-input" type="file" accept=".json,application/json"></div>
+      </section>
+
+      <div id="load-status" class="load-status" role="status" aria-live="polite">실험 기록을 불러오는 중입니다…</div>
+      <section id="empty-state" class="empty-state" hidden aria-labelledby="empty-title">
+        <div class="empty-symbol" aria-hidden="true">⌁</div><div class="eyebrow">READY FOR YOUR FIRST RUN</div><h2 id="empty-title">첫 번째 실험을 기다리고 있어요.</h2><p>프로젝트 폴더에서 벤치마크를 실행한 뒤 최신 기록을 불러오세요.<br>직접 저장한 report.json 파일도 열 수 있습니다.</p><code>python -m roboskill benchmark --out artifacts/latest</code><p class="empty-help">자동 로딩은 HTTP로 연 뷰어에서 사용할 수 있습니다. 파일을 직접 연 경우에는 ‘JSON 불러오기’를 사용하세요.</p>
+      </section>
+
+      <div id="report-content" hidden>
+        <section class="overview" aria-label="전체 실험 요약">
+          <article class="metric-card"><div class="metric-label">TOTAL EPISODES <span>전체 실행</span></div><div id="total-episodes" class="metric-value">—</div><div id="run-description" class="metric-foot">—</div></article>
+          <article class="metric-card"><div class="metric-label">OPEN-LOOP <span>성공률</span></div><div id="open-success" class="metric-value">—</div><div id="open-description" class="metric-foot">—</div><div id="open-timing" class="metric-foot">—</div></article>
+          <article class="metric-card accent-card"><div class="metric-label">CLOSED-LOOP <span>성공률</span></div><div id="closed-success" class="metric-value">—</div><div id="closed-description" class="metric-foot">—</div><div id="closed-timing" class="metric-foot">—</div></article>
+          <article class="metric-card"><div class="metric-label">ENVIRONMENT <span>실행 엔진</span></div><div id="engine-name" class="metric-value engine-value">—</div><div id="engine-version" class="metric-foot">—</div></article>
+        </section>
+
+        <section class="experiment-section" aria-labelledby="replay-title">
+          <div class="section-heading"><div><span class="section-index">01 /</span><h2 id="replay-title">실행 기록 살펴보기</h2></div><div id="report-date" class="report-date"></div></div>
+          <div class="filters">
+            <fieldset class="policy-picker"><legend class="sr-only">제어 정책</legend><label><input type="radio" name="policy" value="closed_loop" checked><span>Closed-loop</span></label><label><input type="radio" name="policy" value="open_loop"><span>Open-loop</span></label></fieldset>
+            <div class="select-field"><label for="scenario-select">시나리오</label><select id="scenario-select"></select></div>
+            <div class="select-field episode-field"><label for="episode-select">에피소드</label><select id="episode-select"></select></div>
+          </div>
+
+          <div class="replay-grid">
+            <article class="stage-card" aria-label="MuJoCo 기록의 2D 재생">
+              <div class="stage-header"><div><span class="status-dot" aria-hidden="true"></span><strong>MuJoCo 기록 · 2D 재생</strong></div><span class="view-label">TOP VIEW / XY</span></div>
+              <div class="canvas-wrap"><canvas id="replay-canvas" aria-label="저장된 궤적을 위에서 본 2D 도식. 목표 영역, 블록, 푸셔 위치를 표시합니다." role="img"></canvas><div id="frame-phase" class="frame-phase">—</div><div class="canvas-note">단순화한 갠트리 · 실제 시뮬레이터 상태 좌표</div></div>
+              <div class="stage-legend"><span><i class="legend-block red"></i> Red block</span><span><i class="legend-block blue"></i> Blue block</span><span><i class="legend-tool"></i> Pusher</span><span><i class="legend-goal"></i> Goal</span></div>
+              <div class="player"><button id="play-button" class="play-button" type="button" aria-label="기록 재생">▶</button><label class="sr-only" for="timeline">재생 위치</label><input id="timeline" type="range" min="0" max="0" value="0" step="1" aria-valuetext="0초"><span id="play-time" class="play-time">0.00 / 0.00 s</span><label class="sr-only" for="play-speed">재생 속도</label><select id="play-speed" aria-label="재생 속도"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></div>
+              <div class="replay-disclaimer">저장된 좌표를 재생합니다. 브라우저에서 물리를 다시 계산하지 않습니다.</div>
+            </article>
+
+            <aside class="episode-panel" aria-labelledby="episode-title">
+              <div class="panel-heading"><h3 id="episode-title">에피소드 상세</h3><span id="episode-result" class="result-badge">—</span></div>
+              <div class="task-block"><div class="tiny-label">TASK INSTRUCTION</div><p id="task-instruction">—</p><div id="task-target" class="task-target">—</div></div>
+              <dl class="episode-metrics"><div><dt>최종 목표 거리</dt><dd id="final-distance">—</dd></div><div><dt>접촉 스텝 수</dt><dd id="contact-steps">—</dd></div><div><dt>재계획 횟수</dt><dd id="replans">—</dd></div><div><dt>시뮬레이션 시간</dt><dd id="sim-time">—</dd></div><div><dt>실행 소요 시간</dt><dd id="wall-time">—</dd></div></dl>
+              <div class="parameter-block"><div class="tiny-label">ENVIRONMENT PARAMETERS</div><div id="parameters" class="parameter-tags"></div></div>
+              <div class="event-block"><div class="event-heading"><h4>이벤트 로그</h4><span id="event-count">0</span></div><ol id="event-list" class="event-list"></ol><p id="no-events" class="muted small">현재 재생 시점까지 기록된 이벤트가 없습니다.</p></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="method-section" aria-labelledby="method-title"><div><span class="section-index">02 /</span><h2 id="method-title">결과를 읽는 방법</h2><p>표시된 값은 불러온 보고서의 측정 결과입니다.<br>실험의 범위와 가정을 함께 확인하세요.</p></div><div class="method-content"><div class="method-tags"><span id="planner-label">—</span><span id="observation-label">—</span></div><ul id="limitations"></ul></div></section>
+      </div>
+      <footer class="page-footer"><span>RoboSkill Lab <b>작은 실험, 검증 가능한 결과.</b></span><span>SIMULATION IS THE STARTING POINT.</span></footer>
+    </main>
+  </div>
+  <script src="app.js" defer></script>
+</body>
+</html>

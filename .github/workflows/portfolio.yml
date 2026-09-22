@@ -1,9 +1,9 @@
 name: Portfolio content
 on:
   push:
-    paths: ["assets/portfolio-*", "assets/visioneye.*", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
+    paths: ["assets/portfolio-*", "assets/visioneye.*", "robo-skill-lab/**", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
   pull_request:
-    paths: ["assets/portfolio-*", "assets/visioneye.*", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
+    paths: ["assets/portfolio-*", "assets/visioneye.*", "robo-skill-lab/**", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -27,3 +27,6 @@ jobs:
         run: node scripts/check-fall-in-korea.cjs
       - name: Run the published merge-game regression tests
         run: node --test work/fall-in-korea/source/tests/*.test.js
+
+      - name: Verify RoboSkill simulation evidence
+        run: node scripts/check-roboskill-evidence.cjs

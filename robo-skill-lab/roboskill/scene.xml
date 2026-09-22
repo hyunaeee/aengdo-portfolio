@@ -1,0 +1,43 @@
+<mujoco model="RoboSkill Cartesian pusher">
+  <compiler angle="radian"/>
+  <option timestep="0.002" integrator="implicitfast" gravity="0 0 -9.81"/>
+  <visual><global offwidth="960" offheight="720"/><headlight ambient="0.4 0.4 0.4"/></visual>
+  <default>
+    <geom friction="0.5 0.005 0.0001" condim="4" solref="0.008 1"/>
+    <joint damping="2"/>
+  </default>
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" rgb1="0.85 0.87 0.86" rgb2="0.92 0.93 0.91" width="256" height="256"/>
+    <material name="table" texture="grid" texrepeat="8 8" reflectance="0.05"/>
+  </asset>
+  <worldbody>
+    <light pos="0 -0.5 1.5" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+    <camera name="overview" pos="0.85 -1.1 1.2" xyaxes="0.79 0.61 0 -0.39 0.50 0.77"/>
+    <camera name="top" pos="0 0 1.35" xyaxes="1 0 0 0 1 0"/>
+    <geom name="floor" type="plane" size="0.5 0.5 0.03" material="table"/>
+    <geom name="rail_left" type="box" pos="-0.44 0 0.2" size="0.012 0.44 0.012" rgba="0.13 0.18 0.24 1" contype="0" conaffinity="0"/>
+    <geom name="rail_right" type="box" pos="0.44 0 0.2" size="0.012 0.44 0.012" rgba="0.13 0.18 0.24 1" contype="0" conaffinity="0"/>
+    <site name="goal" pos="0.22 0.18 0.002" type="cylinder" size="0.045 0.001" rgba="0.18 0.66 0.46 0.45"/>
+    <body name="carriage" pos="0 0 0" gravcomp="1">
+      <joint name="x" type="slide" axis="1 0 0" range="-0.42 0.42"/>
+      <joint name="y" type="slide" axis="0 1 0" range="-0.42 0.42"/>
+      <joint name="z" type="slide" axis="0 0 1" range="0.032 0.22"/>
+      <geom name="tool" type="cylinder" size="0.018 0.025" mass="0.4" rgba="0.16 0.23 0.31 1"/>
+      <geom name="stem" type="cylinder" pos="0 0 0.07" size="0.007 0.05" mass="0.05" rgba="0.48 0.55 0.62 1" contype="0" conaffinity="0"/>
+      <site name="tip" size="0.005" rgba="1 0.65 0.25 1"/>
+    </body>
+    <body name="red_block" pos="-0.15 -0.15 0.026">
+      <freejoint name="red_joint"/>
+      <geom name="red_geom" type="box" size="0.025 0.025 0.025" mass="0.08" rgba="0.91 0.25 0.19 1"/>
+    </body>
+    <body name="blue_block" pos="0.15 -0.15 0.026">
+      <freejoint name="blue_joint"/>
+      <geom name="blue_geom" type="box" size="0.025 0.025 0.025" mass="0.08" rgba="0.20 0.41 0.85 1"/>
+    </body>
+  </worldbody>
+  <actuator>
+    <position joint="x" kp="1500" kv="65" ctrlrange="-0.42 0.42" forcerange="-70 70"/>
+    <position joint="y" kp="1500" kv="65" ctrlrange="-0.42 0.42" forcerange="-70 70"/>
+    <position joint="z" kp="1500" kv="65" ctrlrange="0.032 0.22" forcerange="-70 70"/>
+  </actuator>
+</mujoco>
