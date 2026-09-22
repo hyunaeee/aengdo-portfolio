@@ -207,5 +207,9 @@
   const roboskill = typeof module === 'object' && module.exports ? require('./portfolio-roboskill.js') : globalThis.HYUNAE_ROBOSKILL;
   data.projects.push(roboskill.project);
   data.archive.unshift(roboskill.archive);
+  const motionCheck = typeof module === 'object' && module.exports ? require('./portfolio-motion-check.js') : globalThis.HYUNAE_MOTION_CHECK;
+  data.projects.push(motionCheck.project);
+  const motionCheckPosition = data.archive.findIndex(item => item.id === 'relateanything') + 1;
+  data.archive.splice(motionCheckPosition, 0, motionCheck.archive);
   return data;
 });

@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-09-22",
+  "language": "ko",
+  "scope": "Reference dance / continuous movement imitation with pose-based temporal alignment and localized errors",
+  "verification_note": "Primary sources only. Availability was checked at paper/repository/documentation level; models and code were not executed by this literature review. No paper reproduction or reported benchmark result is claimed.",
+  "core_paper_count": 10,
+  "related_paper_count": 6,
+  "papers": [
+    {
+      "id": "soft_dtw_2017",
+      "tier": "core",
+      "title": "Soft-DTW: a Differentiable Loss Function for Time-Series",
+      "authors": [
+        "Marco Cuturi",
+        "Mathieu Blondel"
+      ],
+      "year": 2017,
+      "venue": "ICML",
+      "paper_url": "https://proceedings.mlr.press/v70/cuturi17a.html",
+      "code_url": "https://github.com/mblondel/soft-dtw",
+      "task": "Differentiable temporal alignment between time series",
+      "release_status": "Author paper links official implementation; no pretrained weights needed for the alignment algorithm.",
+      "relevance": "Motivates tempo-tolerant alignment. Our planned hard-DTW baseline is not a reproduction of soft-DTW training.",
+      "limitations": "Alignment cost alone does not establish correct choreography or preserve required hold durations."
+    },
+    {
+      "id": "tcc_2019",
+      "tier": "core",
+      "title": "Temporal Cycle-Consistency Learning",
+      "authors": [
+        "Debidatta Dwibedi",
+        "Yusuf Aytar",
+        "Jonathan Tompson",
+        "Pierre Sermanet",
+        "Andrew Zisserman"
+      ],
+      "year": 2019,
+      "venue": "CVPR",
+      "paper_url": "https://openaccess.thecvf.com/content_CVPR_2019/html/Dwibedi_Temporal_Cycle-Consistency_Learning_CVPR_2019_paper.html",
+      "code_url": "https://github.com/google-research/google-research/tree/master/tcc",
+      "task": "Self-supervised per-frame representation learning and video alignment",
+      "release_status": "Official TensorFlow training, embedding extraction, evaluation and alignment visualization code available; README gives ImageNet backbone initialization, not a verified ready-to-use dance compliance checkpoint.",
+      "relevance": "Frame correspondences and action phase evaluation; supports showing aligned evidence.",
+      "limitations": "Learned alignment is not an instruction-compliance classifier; target-domain validation is needed."
+    },
+    {
+      "id": "lav_2021",
+      "tier": "core",
+      "title": "Learning by Aligning Videos in Time",
+      "authors": [
+        "Sanjay Haresh",
+        "Sateesh Kumar",
+        "Huseyin Coskun",
+        "Shahram N. Syed",
+        "Andrey Konin",
+        "Zeeshan Zia",
+        "Quoc-Huy Tran"
+      ],
+      "year": 2021,
+      "venue": "CVPR",
+      "paper_url": "https://arxiv.org/abs/2103.17260",
+      "code_url": "https://github.com/trquhuytin/LAV-CVPR21",
+      "project_url": "https://retrocausal.ai/learning-by-aligning-videos-in-time/",
+      "task": "Self-supervised video representation learning using soft-DTW and temporal regularization",
+      "release_status": "Official PyTorch code, environment, train/evaluate commands available; no trained dance checkpoint identified in the checked README.",
+      "relevance": "Explains why temporal alignment and temporal discrimination must be considered together.",
+      "limitations": "Paper is CVPR 2021, not 2022. Evaluates Pouring, Penn Action, IKEA ASM; does not directly certify dance imitation correctness."
+    },
+    {
+      "id": "pr_vipe_2020",
+      "tier": "core",
+      "title": "View-Invariant Probabilistic Embedding for Human Pose",
+      "authors": [
+        "Jennifer J. Sun",
+        "Jiaping Zhao",
+        "Liang-Chieh Chen",
+        "Florian Schroff",
+        "Hartwig Adam",
+        "Ting Liu"
+      ],
+      "year": 2020,
+      "venue": "ECCV",
+      "paper_url": "https://arxiv.org/abs/1912.01001",
+      "code_url": "https://github.com/google-research/google-research/tree/master/poem/pr_vipe",
+      "project_url": "https://sites.google.com/view/pr-vipe/home",
+      "task": "View-invariant probabilistic embeddings from 2D joint keypoints",
+      "release_status": "Official TensorFlow training and infer.py available. Author discussion confirms an original pretrained checkpoint existed; checkpoint download was not tested in this review.",
+      "release_evidence_url": "https://github.com/google-research/google-research/issues/457",
+      "relevance": "Alternative representation when camera viewpoint varies.",
+      "limitations": "Author notes checkpoint sensitivity to keypoint-detector domain and original checkpoint missing-keypoint limitations. Embedding similarity does not localize anatomical errors by itself."
+    },
+    {
+      "id": "blazepose_2020",
+      "tier": "core",
+      "title": "BlazePose: On-device Real-time Body Pose tracking",
+      "authors": [
+        "Valentin Bazarevsky",
+        "Ivan Grishchenko",
+        "Karthik Raveendran",
+        "Tyler Zhu",
+        "Fan Zhang",
+        "Matthias Grundmann"
+      ],
+      "year": 2020,
+      "venue": "arXiv; CVPR CV4ARVR workshop presentation",
+      "paper_url": "https://arxiv.org/abs/2006.10204",
+      "documentation_url": "https://developers.google.com/edge/mediapipe/solutions/vision/pose_landmarker",
+      "task": "Body pose detection and tracking",
+      "release_status": "Current official MediaPipe Tasks docs provide Python/Web guides and downloadable Lite/Full/Heavy pose-landmarker bundles.",
+      "relevance": "Practical single-person RGB pose frontend; confidence-gated normalized keypoints are inspectable.",
+      "limitations": "Current MediaPipe bundle is a BlazePose/GHUM variant, not an exact reproduction of the 2020 architecture. Monocular inferred world coordinates are not motion-capture ground truth."
+    },
+    {
+      "id": "rtmpose_2023",
+      "tier": "core",
+      "title": "RTMPose: Real-Time Multi-Person Pose Estimation based on MMPose",
+      "authors": [
+        "Tao Jiang",
+        "Peng Lu",
+        "Li Zhang",
+        "Ningsheng Ma",
+        "Rui Han",
+        "Chengqi Lyu",
+        "Yining Li",
+        "Kai Chen"
+      ],
+      "year": 2023,
+      "venue": "arXiv",
+      "paper_url": "https://arxiv.org/abs/2303.07399",
+      "code_url": "https://github.com/open-mmlab/mmpose/tree/main/projects/rtmpose",
+      "task": "Real-time 2D pose estimation",
+      "release_status": "Official model zoo links PTH/ONNX weights and inference examples. Official README also recommends rtmlib for ONNXRuntime/OpenCV/OpenVINO without PyTorch/MMCV.",
+      "relevance": "Alternative pose frontend, including whole-body variants and explicit deployment choices.",
+      "limitations": "Top-down pipeline needs person localization; pose confidence/AP is not action-compliance accuracy. Author FPS cannot be substituted for our full-pipeline timing."
+    },
+    {
+      "id": "aistpp_2021",
+      "tier": "core",
+      "title": "AI Choreographer: Music Conditioned 3D Dance Generation with AIST++",
+      "authors": [
+        "Ruilong Li",
+        "Shan Yang",
+        "David A. Ross",
+        "Angjoo Kanazawa"
+      ],
+      "year": 2021,
+      "venue": "ICCV",
+      "paper_url": "https://arxiv.org/abs/2101.08779",
+      "code_url": "https://github.com/google/aistplusplus_api",
+      "project_url": "https://google.github.io/aistplusplus_dataset/",
+      "download_url": "https://google.github.io/aistplusplus_dataset/download.html",
+      "task": "Dance dataset and music-conditioned 3D dance generation",
+      "release_status": "Official annotation downloads and API available; video downloader points to original AIST videos and their terms. SMPL-related assets have separate requirements.",
+      "relevance": "Real dance motion/camera data and cross-view tests; reference and candidate selection can be made explicit.",
+      "limitations": "1,408 sequences and 10 genres describe dataset scope, not imitation-correctness labels. Official docs require exact 60-FPS frame extraction and recommend an ignore list for poor reconstructions."
+    },
+    {
+      "id": "finedance_2023",
+      "tier": "core",
+      "title": "FineDance: A Fine-grained Choreography Dataset for 3D Full Body Dance Generation",
+      "authors": [
+        "Ronghui Li",
+        "Junfan Zhao",
+        "Yachao Zhang",
+        "Mingyang Su",
+        "Zeping Ren",
+        "Han Zhang",
+        "Yansong Tang",
+        "Xiu Li"
+      ],
+      "year": 2023,
+      "venue": "ICCV",
+      "paper_url": "https://arxiv.org/abs/2212.03741",
+      "code_url": "https://github.com/li-ronghui/FineDance",
+      "task": "Full-body dance generation and music-motion data",
+      "release_status": "Official repo links a 7.7-hour public subset, pretrained generation checkpoints/assets and inference scripts.",
+      "relevance": "Dance-specific motions and dancer-disjoint evaluation design; useful future benchmark source.",
+      "limitations": "Paper describes 14.6 hours, while checked release states a 7.7-hour subset. Generation checkpoint is not a reference-imitation assessor; SMPLH data and assets need their own setup."
+    },
+    {
+      "id": "llamo_2025",
+      "tier": "core",
+      "title": "Human Motion Instruction Tuning",
+      "authors": [
+        "Lei Li",
+        "Sen Jia",
+        "Jianhao Wang",
+        "Zhongyu Jiang",
+        "Feng Zhou",
+        "Ju Dai",
+        "Tianfang Zhang",
+        "Zongkai Wu",
+        "Jenq-Neng Hwang"
+      ],
+      "year": 2025,
+      "venue": "CVPR",
+      "paper_url": "https://openaccess.thecvf.com/content/CVPR2025/html/Li_Human_Motion_Instruction_Tuning_CVPR_2025_paper.html",
+      "code_url": "https://github.com/ILGLJ/LLaMo",
+      "task": "Video, native motion and text conditioned human-motion understanding",
+      "release_status": "Paper says code/models available, but checked official repository contained only README.md and no runnable implementation or checkpoint link.",
+      "relevance": "Relevant direction for natural-language motion questions and descriptions.",
+      "limitations": "Instruction tuning is not evidence of calibrated arbitrary instruction-compliance decisions; not selected for the runnable baseline."
+    },
+    {
+      "id": "dancematch_2026",
+      "tier": "core",
+      "title": "Learning Quantised Structure-Preserving Motion Representations for Dance Fingerprinting",
+      "authors": [
+        "Arina Kharlamova",
+        "Bowei He",
+        "Chen Ma",
+        "Xue Liu"
+      ],
+      "year": 2026,
+      "venue": "arXiv preprint, submitted 2026-04-01",
+      "paper_url": "https://arxiv.org/abs/2604.00927",
+      "full_text_url": "https://arxiv.org/html/2604.00927v1",
+      "task": "Motion-based dance retrieval",
+      "release_status": "Paper claims a dataset release; no author code, dataset download or pretrained checkpoint URL was identified in the checked abstract/full text/search.",
+      "relevance": "Recent example distinguishing global dance retrieval from local correctness and temporal order.",
+      "limitations": "Retrieval accuracy is not imitation-quality accuracy. The paper explicitly lists loss of temporal ordering among limitations; no reproduction claimed."
+    },
+    {
+      "id": "fine_diving_2022",
+      "tier": "related_quality",
+      "title": "FineDiving: A Fine-grained Dataset for Procedure-aware Action Quality Assessment",
+      "authors": [
+        "Jinglin Xu",
+        "Yongming Rao",
+        "Xumin Yu",
+        "Guangyi Chen",
+        "Jie Zhou",
+        "Jiwen Lu"
+      ],
+      "year": 2022,
+      "venue": "CVPR",
+      "paper_url": "https://openaccess.thecvf.com/content/CVPR2022/papers/Xu_FineDiving_A_Fine-Grained_Dataset_for_Procedure-Aware_Action_Quality_Assessment_CVPR_2022_paper.pdf",
+      "code_url": "https://github.com/xujinglin/FineDiving",
+      "task": "Procedure-aware diving quality assessment",
+      "release_status": "Official TSA training/evaluation code available; dataset requires a signed agreement and email request. README test checkpoint is produced by training.",
+      "relevance": "Supports explicit sub-action phases and reference/query comparisons.",
+      "limitations": "Diving scoring and known step-transition count assumptions do not transfer directly to open dance imitation."
+    },
+    {
+      "id": "fineparser_2024",
+      "tier": "related_quality",
+      "title": "FineParser: A Fine-grained Spatio-temporal Action Parser for Human-centric Action Quality Assessment",
+      "authors": [
+        "Jinglin Xu",
+        "Sibo Yin",
+        "Guohao Zhao",
+        "Zishuo Wang",
+        "Yuxin Peng"
+      ],
+      "year": 2024,
+      "venue": "CVPR",
+      "paper_url": "https://arxiv.org/abs/2405.06887",
+      "code_url": "https://github.com/PKU-ICST-MIPL/FineParser_CVPR2024",
+      "task": "Human-centric spatiotemporal parsing for diving quality assessment",
+      "release_status": "Official PyTorch code and train/test configuration available. FineDiving-HM requires release agreement/email; README links I3D backbone weights, not a verified final fine-tuned FineParser checkpoint.",
+      "relevance": "Fine-grained spatial and temporal evidence is more useful than one opaque scalar.",
+      "limitations": "Diving-domain supervision and masks are required; no arbitrary choreography pass/fail transfer established."
+    },
+    {
+      "id": "nsaqa_2024",
+      "tier": "related_quality",
+      "title": "Hierarchical NeuroSymbolic Approach for Comprehensive and Explainable Action Quality Assessment",
+      "authors": [
+        "Lauren Okamoto",
+        "Paritosh Parmar"
+      ],
+      "year": 2024,
+      "venue": "CVPR Workshops, CVsports",
+      "paper_url": "https://arxiv.org/abs/2403.13798",
+      "code_url": "https://github.com/laurenok24/NSAQA",
+      "task": "Neural symbols plus rules for explainable platform-diving assessment",
+      "release_status": "Official Python single-video entrypoint and HTML report code, plus hosted demo link. Dependency/weight completeness not executed or verified; repo restricts materials to non-commercial use.",
+      "relevance": "Conceptual support for explainable evidence plus an explicit decision specification.",
+      "limitations": "The rules are sport-specific. This experiment borrows the separation-of-evidence-and-rules idea, not its code or trained pipeline."
+    },
+    {
+      "id": "fitness_aqa_2022",
+      "tier": "related_quality",
+      "title": "Domain Knowledge-Informed Self-Supervised Representations for Workout Form Assessment",
+      "authors": [
+        "Paritosh Parmar",
+        "Amol Gharat",
+        "Helge Rhodin"
+      ],
+      "year": 2022,
+      "venue": "ECCV",
+      "paper_url": "https://arxiv.org/abs/2202.14019",
+      "code_url": "https://github.com/ParitoshParmar/Fitness-AQA",
+      "task": "Workout form assessment for back squat, overhead press and barbell row",
+      "release_status": "Code_Release directory available; dataset is request-based and non-commercial. Turnkey pretrained inference not verified.",
+      "relevance": "Demonstrates that recognizing an exercise and detecting execution errors are separate objectives.",
+      "limitations": "Exercise-specific expert error labels do not provide dance-sequence correctness labels."
+    },
+    {
+      "id": "flex_2025",
+      "tier": "related_quality",
+      "title": "FLEX: A Large-Scale Multi-Modal Multi-Action Dataset for Fitness Action Quality Assessment",
+      "authors": [
+        "Hao Yin",
+        "Lijun Gu",
+        "Paritosh Parmar",
+        "Lin Xu",
+        "Tianxiao Guo",
+        "Weiwei Fu",
+        "Yang Zhang",
+        "Tianyou Zheng"
+      ],
+      "year": 2025,
+      "venue": "arXiv preprint",
+      "paper_url": "https://arxiv.org/abs/2506.03198",
+      "project_url": "https://haoyin116.github.io/FLEX_Dataset",
+      "task": "Multimodal fitness action quality dataset with structured error feedback",
+      "release_status": "Paper advertises code/data; linked project returned HTTP 404 during this review, so immediate download/weights could not be verified.",
+      "relevance": "Structured errors and feedback offer a better target than a generic action label.",
+      "limitations": "Weight-loaded fitness, 3D pose and sEMG setting differs from monocular dance imitation. An ICLR 2026 submission PDF was seen, but acceptance was not verified."
+    },
+    {
+      "id": "posec3d_2022",
+      "tier": "related_recognition",
+      "title": "Revisiting Skeleton-Based Action Recognition",
+      "authors": [
+        "Haodong Duan",
+        "Yue Zhao",
+        "Kai Chen",
+        "Dahua Lin",
+        "Bo Dai"
+      ],
+      "year": 2022,
+      "venue": "CVPR",
+      "paper_url": "https://openaccess.thecvf.com/content/CVPR2022/html/Duan_Revisiting_Skeleton-Based_Action_Recognition_CVPR_2022_paper.html",
+      "code_url": "https://github.com/kennymckormick/pyskl",
+      "task": "Action recognition from spatiotemporal pose heatmaps",
+      "release_status": "Official repository and PoseC3D configs/training/testing instructions available; not installed in this review.",
+      "relevance": "Useful recognition baseline and pose representation alternative.",
+      "limitations": "Correct action class does not establish correct side, amplitude, phrase order or completion."
+    }
+  ]
+}

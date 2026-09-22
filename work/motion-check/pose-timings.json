@@ -1,0 +1,75 @@
+{
+  "source": "Recorded extract_pose.py outputs",
+  "notes": "Pose extraction only. Offline alignment and visualization excluded; not online comparator throughput.",
+  "runs": [
+    {
+      "clip": "real_floss",
+      "frame_count": 31,
+      "metadata": {
+        "created_at": "2026-09-22T07:47:46.570982+00:00",
+        "model": "yolo11s-pose.pt",
+        "model_sha256": "1060bda4a27012060eca246f9b2adeea22eabb045a1e58f8d229be29b7ebc2ba",
+        "video_sha256": "fd42cf357eb6e311b1ae3f17241852c429f9e845856410ecfe22ef6e7a4b2619",
+        "device": "NVIDIA GeForce RTX 4090",
+        "precision": "float32",
+        "input_size": 960,
+        "torch": "2.13.0+cu130",
+        "ultralytics": "8.4.158",
+        "selection_policy": "Exactly one detected person. Zero or multiple people => unknown; no inferred keypoints filled.",
+        "timing_policy": "3 warmups, CUDA-synchronized wall time; decode, pose, postprocess included. JSON writes and visualization excluded.",
+        "mean_ms": 10.191958070912909,
+        "p95_ms": 14.24259998020716,
+        "inverse_mean_fps": 98.11657318861286,
+        "run_wall_s": 0.3477472999948077,
+        "valid_person_frames": 30,
+        "labels_used": false
+      }
+    },
+    {
+      "clip": "generated_reference",
+      "frame_count": 289,
+      "metadata": {
+        "created_at": "2026-09-22T07:53:49.606231+00:00",
+        "model": "yolo11s-pose.pt",
+        "model_sha256": "1060bda4a27012060eca246f9b2adeea22eabb045a1e58f8d229be29b7ebc2ba",
+        "video_sha256": "b2683b717df3ca0685de11c707f1ea80ce1a5b099c51892b86da631733546201",
+        "device": "NVIDIA GeForce RTX 4090",
+        "precision": "float32",
+        "input_size": 960,
+        "torch": "2.13.0+cu130",
+        "ultralytics": "8.4.158",
+        "selection_policy": "Exactly one detected person. Zero or multiple people => unknown; no inferred keypoints filled.",
+        "timing_policy": "3 warmups, CUDA-synchronized wall time; decode, pose, postprocess included. JSON writes and visualization excluded.",
+        "mean_ms": 12.122748443207488,
+        "p95_ms": 17.822539980988946,
+        "inverse_mean_fps": 82.48954473358813,
+        "run_wall_s": 3.535778300021775,
+        "valid_person_frames": 289,
+        "labels_used": false
+      }
+    },
+    {
+      "clip": "generated_candidate",
+      "frame_count": 289,
+      "metadata": {
+        "created_at": "2026-09-22T07:53:56.771167+00:00",
+        "model": "yolo11s-pose.pt",
+        "model_sha256": "1060bda4a27012060eca246f9b2adeea22eabb045a1e58f8d229be29b7ebc2ba",
+        "video_sha256": "b05ec4c5dc4359b7ac62d7341f654aad9e1c7323684a69be95b698a66f2b5109",
+        "device": "NVIDIA GeForce RTX 4090",
+        "precision": "float32",
+        "input_size": 960,
+        "torch": "2.13.0+cu130",
+        "ultralytics": "8.4.158",
+        "selection_policy": "Exactly one detected person. Zero or multiple people => unknown; no inferred keypoints filled.",
+        "timing_policy": "3 warmups, CUDA-synchronized wall time; decode, pose, postprocess included. JSON writes and visualization excluded.",
+        "mean_ms": 11.652821449765929,
+        "p95_ms": 15.864160005003205,
+        "inverse_mean_fps": 85.81612653303695,
+        "run_wall_s": 3.399271400005091,
+        "valid_person_frames": 289,
+        "labels_used": false
+      }
+    }
+  ]
+}
