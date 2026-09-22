@@ -175,8 +175,8 @@
         },
         "body": [
           {
-            "ko": "공개 YOLO11s Pose로 관절과 신뢰도를 추출합니다. 몸통 크기와 중심을 기준으로 좌표를 정규화하고, 기준에 정의한 필수 단계마다 유효한 관측과 유지 시간을 요구합니다. 한 프레임으로 여러 단계를 동시에 완료시키거나, 가려진 구간을 올바른 자세의 증거로 사용하지 않습니다.",
-            "en": "An upstream YOLO11s Pose model extracts joints and confidence. Coordinates are normalized by torso scale and body center, and each required reference stage needs valid observations and dwell. A frame cannot complete several stages at once, and occluded intervals do not supply positive evidence."
+            "ko": "공개 YOLO11s Pose로 관절과 신뢰도를 추출합니다. 몸통 크기와 중심을 기준으로 좌표를 정규화하고, 기준에 정의한 필수 단계마다 유효한 관측과 유지 시간을 요구합니다. 선택된 표본을 여러 단계에 재사용하지 않으며 관측 불가 표본은 유지 시간을 끊습니다. 다만 원래 구현은 샘플링 사이의 짧은 가림, 동일한 기하 자세를 가진 다른 단계 이름, 누락된 시각과 중복 ID를 완전히 처리하지 못합니다. 이 반례는 V2 보고서의 구현 감사에 공개했습니다.",
+            "en": "An upstream YOLO11s Pose model extracts joints and confidence. Coordinates are normalized by torso scale and body center, and each required reference stage needs valid observations and dwell. Selected samples cannot be reused across stages, and unknown samples break dwell. The original implementation still has gaps for occlusion between samples, differently named stages with identical geometry, missing timestamps, and duplicate IDs. Counterexamples are documented in the V2 implementation audit."
           },
           {
             "ko": "기존 V1의 21개 비교는 모두 본 개발 자료로 명시했습니다. 규칙과 임계값을 고정한 뒤, 새 실제 영상의 원본·구간·AI 보조 시각 라벨을 별도로 고정하고 추론했습니다. unknown을 실패나 성공으로 바꾸어 집계하지 않습니다.",
