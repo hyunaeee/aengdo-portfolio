@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-22T09:22:41.426113+00:00",
+  "scope": "Post-evaluation independent implementation diagnostic, not heldout evidence or retuning",
+  "mujoco_version": "3.13.0",
+  "script_sha256": "9aa113873a57fb533277cdccb8abd5bbddccd37d27216199a10d98af13c17211",
+  "frozen_configuration_sha256": "a5c1323c02bc27c5fa54b08375658def70712d88825db5e8b8c896f8ca9571b3",
+  "immutable_artifact_hashes": {
+    "benchmark.py": "47a5812a4a0ab775fd7a24c93d0cb056e39d403f09bc531ce2535bacdd71189a",
+    "scene.xml": "8674a9a2d1f58690f9f8423bbc01645bdceee39057b874affe35a4a2fce68bf6",
+    "reference.npz": "a933b236405f5d1c89cda6ca21dd3a7896f75d6ac5d6a8c23156c15cf2b03e86",
+    "feedforward.npz": "362fa3c3020ebae7c4e8483c3f647f29fe15f7ad016f4874b585764dd70d7094"
+  },
+  "frozen_artifacts_unchanged": true,
+  "inverse_forward_consistency": {
+    "sample_stride": 10,
+    "samples": 701,
+    "control_clamping": false,
+    "maximum_qacc_absolute_residual_rad_s2": 2.842170943040401e-14
+  },
+  "diagnostics": [
+    {
+      "name": "original_budget",
+      "initial_position_jitter_deg": 0.0,
+      "initial_velocity": "exact desired initial velocity",
+      "torque_limits_nm": [
+        12.0,
+        5.0,
+        12.0,
+        5.0
+      ],
+      "perturbation": "none",
+      "rmse_deg": 32.185876551584876,
+      "peak_error_deg": 164.40635672569826,
+      "first_error_over_1deg_s": 6.384,
+      "first_error_over_12deg_s": 6.894
+    },
+    {
+      "name": "ample_budget_30nm",
+      "initial_position_jitter_deg": 0.0,
+      "initial_velocity": "exact desired initial velocity",
+      "torque_limits_nm": [
+        30.0,
+        30.0,
+        30.0,
+        30.0
+      ],
+      "perturbation": "none",
+      "rmse_deg": 32.09839240179094,
+      "peak_error_deg": 163.48746173121967,
+      "first_error_over_1deg_s": 6.384,
+      "first_error_over_12deg_s": 6.894
+    }
+  ],
+  "original_feedforward_budget": {
+    "peak_abs_torque_nm": [
+      14.902486861867294,
+      2.7960551514377734,
+      19.2883927594122,
+      3.050074084728096
+    ],
+    "any_joint_saturated_sample_count": 100,
+    "first_saturated_time_s": 7.25,
+    "last_saturated_time_s": 9.64
+  },
+  "interpretation": [
+    "Inverse and forward dynamics agree at desired states to floating-point precision.",
+    "Exact initialization and ample torque do not yield stable open-loop tracking over the full trajectory.",
+    "Divergence precedes the first original-budget clipping event; clipping alone cannot explain it.",
+    "Open-loop sensitivity and integration/replay approximation are plausible contributors, not independently isolated causal effects.",
+    "The original nominal gap must not be attributed only to 0.25-degree initial jitter.",
+    "No controller gain, main trial, heldout seed, or frozen artifact was changed."
+  ]
+}

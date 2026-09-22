@@ -1,0 +1,295 @@
+{
+  "created_at_utc": "2026-09-22T09:21:53.597950+00:00",
+  "counts": {
+    "comparisons": 8,
+    "positive": 3,
+    "negative": 5,
+    "real_contiguous_comparisons": 4,
+    "edited_controls": 4,
+    "cross_performance_positive": 2,
+    "same_performance_additional_segment_positive": 1
+  },
+  "independence": {
+    "actual_distinct_visible_performances": 3,
+    "capture_sources": 2,
+    "new_human_subject_identity_inference": false,
+    "note": "Two spatially distinct people in one DVIDS group recording plus one separately filmed Commons performance. Shared DVIDS camera, instruction and session; later Commons segment is the same performance. Eight cases are not eight independent people or trials."
+  },
+  "confusion": {
+    "true_positive": 0,
+    "false_negative": 0,
+    "true_negative": 0,
+    "false_positive": 0,
+    "unknown_positive": 3,
+    "unknown_negative": 5
+  },
+  "metrics": {
+    "decided": 0,
+    "total": 8,
+    "decision_coverage": 0.0,
+    "negative_detection_count": 0,
+    "negative_total": 5
+  },
+  "scope": "Frozen arms-only repeated-posture contract; labels were assistant visual drafts before pose inference. No test-label tuning.",
+  "freeze_sha256": "efc191be3cad61cda754ef9be28bce2b73c848c22259158af541d7d9bf95b2ec",
+  "matcher_sha256": "7b168ca963abd419feeee6c69918217c408c8cd098f2d46a4e9a2bba0fb9b1e7",
+  "extractor_sha256": "a203bb3e42325d0922504cac734f0372a54ec48f87662b6bbdea097a8f86aadc",
+  "cases": [
+    {
+      "id": "right_two_cycles",
+      "reference_id": "reference_center",
+      "candidate_id": "right_two_cycles",
+      "expected": "positive",
+      "required_sequence": [
+        "arms_low",
+        "arms_high",
+        "arms_low",
+        "arms_high",
+        "arms_low"
+      ],
+      "group": "real_contiguous_segment",
+      "label_basis": "visible ordered two-cycle arm sequence; no requirement of identical joint angles, landing mechanics, or exercise quality",
+      "title": "DVIDS 우측 인물: 두 번의 팔 올리기",
+      "status": "unknown",
+      "reason": "reference_contract_not_observable",
+      "outcome": "unknown_positive",
+      "completed_stages": 4,
+      "required_stages": 5,
+      "coverage": 0.9393939393939394,
+      "reference_issues": [
+        "insufficient_reference_visibility:0",
+        "insufficient_reference_dwell:1",
+        "insufficient_reference_visibility:1",
+        "insufficient_reference_dwell:3",
+        "insufficient_reference_visibility:3",
+        "insufficient_reference_dwell:4",
+        "insufficient_reference_visibility:4"
+      ]
+    },
+    {
+      "id": "commons_two_cycles",
+      "reference_id": "reference_center",
+      "candidate_id": "commons_two_cycles",
+      "expected": "positive",
+      "required_sequence": [
+        "arms_low",
+        "arms_high",
+        "arms_low",
+        "arms_high",
+        "arms_low"
+      ],
+      "group": "real_contiguous_segment",
+      "label_basis": "visible ordered two-cycle arm sequence; no requirement of identical joint angles, landing mechanics, or exercise quality",
+      "title": "별도 촬영: 두 번의 팔 올리기",
+      "status": "unknown",
+      "reason": "reference_contract_not_observable",
+      "outcome": "unknown_positive",
+      "completed_stages": 3,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "reference_issues": [
+        "insufficient_reference_visibility:0",
+        "insufficient_reference_dwell:1",
+        "insufficient_reference_visibility:1",
+        "insufficient_reference_dwell:3",
+        "insufficient_reference_visibility:3",
+        "insufficient_reference_dwell:4",
+        "insufficient_reference_visibility:4"
+      ]
+    },
+    {
+      "id": "commons_later_two_cycles",
+      "reference_id": "reference_center",
+      "candidate_id": "commons_later_two_cycles",
+      "expected": "positive",
+      "required_sequence": [
+        "arms_low",
+        "arms_high",
+        "arms_low",
+        "arms_high",
+        "arms_low"
+      ],
+      "group": "real_contiguous_segment",
+      "label_basis": "visible ordered two-cycle arm sequence; no requirement of identical joint angles, landing mechanics, or exercise quality",
+      "title": "같은 Commons 수행의 뒤쪽 두 반복",
+      "status": "unknown",
+      "reason": "reference_contract_not_observable",
+      "outcome": "unknown_positive",
+      "completed_stages": 3,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "reference_issues": [
+        "insufficient_reference_visibility:0",
+        "insufficient_reference_dwell:1",
+        "insufficient_reference_visibility:1",
+        "insufficient_reference_dwell:3",
+        "insufficient_reference_visibility:3",
+        "insufficient_reference_dwell:4",
+        "insufficient_reference_visibility:4"
+      ]
+    },
+    {
+      "id": "right_standing",
+      "reference_id": "reference_center",
+      "candidate_id": "right_standing",
+      "expected": "negative",
+      "required_sequence": [
+        "arms_low",
+        "arms_high",
+        "arms_low",
+        "arms_high",
+        "arms_low"
+      ],
+      "group": "real_contiguous_segment",
+      "label_basis": "visible ordered two-cycle arm sequence; no requirement of identical joint angles, landing mechanics, or exercise quality",
+      "title": "실제 비수행 구간: 손을 허리에 두고 서 있기",
+      "status": "unknown",
+      "reason": "reference_contract_not_observable",
+      "outcome": "unknown_negative",
+      "completed_stages": 1,
+      "required_stages": 5,
+      "coverage": 0.2727272727272727,
+      "reference_issues": [
+        "insufficient_reference_visibility:0",
+        "insufficient_reference_dwell:1",
+        "insufficient_reference_visibility:1",
+        "insufficient_reference_dwell:3",
+        "insufficient_reference_visibility:3",
+        "insufficient_reference_dwell:4",
+        "insufficient_reference_visibility:4"
+      ]
+    },
+    {
+      "id": "right_one_cycle",
+      "reference_id": "reference_center",
+      "candidate_id": "right_one_cycle",
+      "expected": "negative",
+      "required_sequence": [
+        "arms_low",
+        "arms_high",
+        "arms_low",
+        "arms_high",
+        "arms_low"
+      ],
+      "group": "deterministic_control",
+      "label_basis": "visible ordered two-cycle arm sequence; no requirement of identical joint angles, landing mechanics, or exercise quality",
+      "title": "한 번만 수행: 후반 반복을 잘라낸 대조군",
+      "status": "unknown",
+      "reason": "reference_contract_not_observable",
+      "outcome": "unknown_negative",
+      "completed_stages": 3,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "reference_issues": [
+        "insufficient_reference_visibility:0",
+        "insufficient_reference_dwell:1",
+        "insufficient_reference_visibility:1",
+        "insufficient_reference_dwell:3",
+        "insufficient_reference_visibility:3",
+        "insufficient_reference_dwell:4",
+        "insufficient_reference_visibility:4"
+      ]
+    },
+    {
+      "id": "commons_one_cycle",
+      "reference_id": "reference_center",
+      "candidate_id": "commons_one_cycle",
+      "expected": "negative",
+      "required_sequence": [
+        "arms_low",
+        "arms_high",
+        "arms_low",
+        "arms_high",
+        "arms_low"
+      ],
+      "group": "deterministic_control",
+      "label_basis": "visible ordered two-cycle arm sequence; no requirement of identical joint angles, landing mechanics, or exercise quality",
+      "title": "한 번만 수행: 별도 촬영의 후반 반복 잘라내기",
+      "status": "unknown",
+      "reason": "reference_contract_not_observable",
+      "outcome": "unknown_negative",
+      "completed_stages": 2,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "reference_issues": [
+        "insufficient_reference_visibility:0",
+        "insufficient_reference_dwell:1",
+        "insufficient_reference_visibility:1",
+        "insufficient_reference_dwell:3",
+        "insufficient_reference_visibility:3",
+        "insufficient_reference_dwell:4",
+        "insufficient_reference_visibility:4"
+      ]
+    },
+    {
+      "id": "right_missing_middle",
+      "reference_id": "reference_center",
+      "candidate_id": "right_missing_middle",
+      "expected": "negative",
+      "required_sequence": [
+        "arms_low",
+        "arms_high",
+        "arms_low",
+        "arms_high",
+        "arms_low"
+      ],
+      "group": "deterministic_control",
+      "label_basis": "visible ordered two-cycle arm sequence; no requirement of identical joint angles, landing mechanics, or exercise quality",
+      "title": "중간 내려오기 삭제: 편집 대조군",
+      "status": "unknown",
+      "reason": "reference_contract_not_observable",
+      "outcome": "unknown_negative",
+      "completed_stages": 3,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "reference_issues": [
+        "insufficient_reference_visibility:0",
+        "insufficient_reference_dwell:1",
+        "insufficient_reference_visibility:1",
+        "insufficient_reference_dwell:3",
+        "insufficient_reference_visibility:3",
+        "insufficient_reference_dwell:4",
+        "insufficient_reference_visibility:4"
+      ]
+    },
+    {
+      "id": "right_frozen_low",
+      "reference_id": "reference_center",
+      "candidate_id": "right_frozen_low",
+      "expected": "negative",
+      "required_sequence": [
+        "arms_low",
+        "arms_high",
+        "arms_low",
+        "arms_high",
+        "arms_low"
+      ],
+      "group": "deterministic_control",
+      "label_basis": "visible ordered two-cycle arm sequence; no requirement of identical joint angles, landing mechanics, or exercise quality",
+      "title": "내린 팔 정지: 반복 프레임 대조군",
+      "status": "unknown",
+      "reason": "reference_contract_not_observable",
+      "outcome": "unknown_negative",
+      "completed_stages": 3,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "reference_issues": [
+        "insufficient_reference_visibility:0",
+        "insufficient_reference_dwell:1",
+        "insufficient_reference_visibility:1",
+        "insufficient_reference_dwell:3",
+        "insufficient_reference_visibility:3",
+        "insufficient_reference_dwell:4",
+        "insufficient_reference_visibility:4"
+      ]
+    }
+  ],
+  "limitations": [
+    "Small purposively selected case study; no statistical generalization or clinical exercise assessment.",
+    "Reference has a smaller background person; dominant foreground performer is the intended target.",
+    "DVIDS is only 15 fps and the candidate has a small body in a wide shot; confidence failure is an honest UNKNOWN.",
+    "Different arm bend and camera geometry are real nuisance factors; semantic positives do not imply small normalized joint distance.",
+    "Candidate visible-core durations vary with speed. Their labels are semantic drafts, not evidence that a particular model or dwell threshold will accept them.",
+    "No v2 pose predictions or outcomes were consulted to choose these clips or labels."
+  ]
+}

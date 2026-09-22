@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-22T09:28:16.765763+00:00",
+  "scope": "posthoc_same_data_not_heldout",
+  "configuration_sha256": "60089d7bb6568fe2f696d605b9867603c805e51bb8662b28dd9fac79dc73db7b",
+  "config": {
+    "confidence": 0.3,
+    "minimum_coverage": 0.8,
+    "up_above_nose_torso": 0.1,
+    "up_above_shoulder_torso": 0.5,
+    "low_hip_allowance_torso": 0.15,
+    "minimum_dwell_s": 0.12,
+    "minimum_unique_frames": 2
+  },
+  "required_sequence": [
+    "arms_low",
+    "arms_high",
+    "arms_low",
+    "arms_high",
+    "arms_low"
+  ],
+  "original_frozen_result": "8/8unknown preserved unchanged; this repair does not replace independent frozen evaluation.",
+  "counts": {
+    "comparisons": 8,
+    "positive": 3,
+    "negative": 5,
+    "real_contiguous_comparisons": 4,
+    "edited_controls": 4,
+    "cross_performance_positive": 2,
+    "same_performance_additional_segment_positive": 1
+  },
+  "independence": {
+    "actual_distinct_visible_performances": 3,
+    "capture_sources": 2,
+    "new_human_subject_identity_inference": false,
+    "note": "Two spatially distinct people in one DVIDS group recording plus one separately filmed Commons performance. Shared DVIDS camera, instruction and session; later Commons segment is the same performance. Eight cases are not eight independent people or trials."
+  },
+  "confusion": {
+    "true_positive": 0,
+    "false_negative": 3,
+    "true_negative": 4,
+    "false_positive": 0,
+    "unknown_positive": 0,
+    "unknown_negative": 1
+  },
+  "metrics": {
+    "total": 8,
+    "decided": 7,
+    "decision_coverage": 0.875,
+    "negative_detection_count": 4,
+    "negative_total": 5
+  },
+  "cases": [
+    {
+      "id": "right_two_cycles",
+      "title": "DVIDS 우측 인물: 두 번의 팔 올리기",
+      "expected": "positive",
+      "original_status": "unknown",
+      "status": "incorrect",
+      "reason": "literal_two_cycle_contract_not_observed",
+      "outcome": "false_negative",
+      "completed_stages": 1,
+      "required_stages": 5,
+      "coverage": 0.9393939393939394,
+      "nose_visible_fraction": 0.9393939393939394,
+      "result": "results/semantic_repair/right_two_cycles.json"
+    },
+    {
+      "id": "commons_two_cycles",
+      "title": "별도 촬영: 두 번의 팔 올리기",
+      "expected": "positive",
+      "original_status": "unknown",
+      "status": "incorrect",
+      "reason": "literal_two_cycle_contract_not_observed",
+      "outcome": "false_negative",
+      "completed_stages": 3,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "nose_visible_fraction": 1.0,
+      "result": "results/semantic_repair/commons_two_cycles.json"
+    },
+    {
+      "id": "commons_later_two_cycles",
+      "title": "같은 Commons 수행의 뒤쪽 두 반복",
+      "expected": "positive",
+      "original_status": "unknown",
+      "status": "incorrect",
+      "reason": "literal_two_cycle_contract_not_observed",
+      "outcome": "false_negative",
+      "completed_stages": 0,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "nose_visible_fraction": 1.0,
+      "result": "results/semantic_repair/commons_later_two_cycles.json"
+    },
+    {
+      "id": "right_standing",
+      "title": "실제 비수행 구간: 손을 허리에 두고 서 있기",
+      "expected": "negative",
+      "original_status": "unknown",
+      "status": "unknown",
+      "reason": "candidate_observation_insufficient",
+      "outcome": "unknown_negative",
+      "completed_stages": 1,
+      "required_stages": 5,
+      "coverage": 0.2727272727272727,
+      "nose_visible_fraction": 0.15151515151515152,
+      "result": "results/semantic_repair/right_standing.json"
+    },
+    {
+      "id": "right_one_cycle",
+      "title": "한 번만 수행: 후반 반복을 잘라낸 대조군",
+      "expected": "negative",
+      "original_status": "unknown",
+      "status": "incorrect",
+      "reason": "literal_two_cycle_contract_not_observed",
+      "outcome": "true_negative",
+      "completed_stages": 3,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "nose_visible_fraction": 0.9444444444444444,
+      "result": "results/semantic_repair/right_one_cycle.json"
+    },
+    {
+      "id": "commons_one_cycle",
+      "title": "한 번만 수행: 별도 촬영의 후반 반복 잘라내기",
+      "expected": "negative",
+      "original_status": "unknown",
+      "status": "incorrect",
+      "reason": "literal_two_cycle_contract_not_observed",
+      "outcome": "true_negative",
+      "completed_stages": 2,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "nose_visible_fraction": 1.0,
+      "result": "results/semantic_repair/commons_one_cycle.json"
+    },
+    {
+      "id": "right_missing_middle",
+      "title": "중간 내려오기 삭제: 편집 대조군",
+      "expected": "negative",
+      "original_status": "unknown",
+      "status": "incorrect",
+      "reason": "literal_two_cycle_contract_not_observed",
+      "outcome": "true_negative",
+      "completed_stages": 1,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "nose_visible_fraction": 1.0,
+      "result": "results/semantic_repair/right_missing_middle.json"
+    },
+    {
+      "id": "right_frozen_low",
+      "title": "내린 팔 정지: 반복 프레임 대조군",
+      "expected": "negative",
+      "original_status": "unknown",
+      "status": "incorrect",
+      "reason": "literal_two_cycle_contract_not_observed",
+      "outcome": "true_negative",
+      "completed_stages": 1,
+      "required_stages": 5,
+      "coverage": 1.0,
+      "nose_visible_fraction": 1.0,
+      "result": "results/semantic_repair/right_frozen_low.json"
+    }
+  ],
+  "limitations": [
+    "All eight examples had been inspected/evaluated before this repair was designed. Development result only.",
+    "Three visible performances from two capture sources; eight cases are not independent people.",
+    "Assistant visual draft labels, no expert quality grading.",
+    "Literal both-hand height sequence; ignores elbow straightness, legs, landing, balance and full-body form.",
+    "Upright camera and nose-height proxy for head boundary.",
+    "Pose confidences are detector estimates, not calibrated correctness probabilities."
+  ]
+}

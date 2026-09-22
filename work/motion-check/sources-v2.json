@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-09-22",
+  "scope": "MotionCheck v2 protocol: temporal alignment, procedure compliance, simulated motion tracking",
+  "status": "Literature and design review; no reported reproduction or benchmark result",
+  "primary_source_count": 7,
+  "sources": [
+    {
+      "id": "tcc_2019",
+      "title": "Temporal Cycle-Consistency Learning",
+      "authors": "Debidatta Dwibedi, Yusuf Aytar, Jonathan Tompson, Pierre Sermanet, Andrew Zisserman",
+      "year": 2019,
+      "venue": "CVPR",
+      "paper_url": "https://openaccess.thecvf.com/content_CVPR_2019/html/Dwibedi_Temporal_Cycle-Consistency_Learning_CVPR_2019_paper.html",
+      "code_url": "https://github.com/google-research/google-research/tree/master/tcc",
+      "verified_claim": "Learns frame embeddings through temporal cycle consistency for correspondence and action-phase tasks.",
+      "design_use": "Alignment is a useful observable, not proof that every required step occurred.",
+      "release_note": "Official code identified in the v1 review; this review did not install or execute its learned model.",
+      "implementation_relation": "Conceptual background; not reproduced."
+    },
+    {
+      "id": "lav_2021",
+      "title": "Learning by Aligning Videos in Time",
+      "authors": "Sanjay Haresh, Sateesh Kumar, Huseyin Coskun, Shahram N. Syed, Andrey Konin, M. Zeeshan Zia, Quoc-Huy Tran",
+      "year": 2021,
+      "venue": "CVPR",
+      "paper_url": "https://openaccess.thecvf.com/content/CVPR2021/papers/Haresh_Learning_by_Aligning_Videos_in_Time_CVPR_2021_paper.pdf",
+      "project_url": "https://retrocausal.ai/learning-by-aligning-videos-in-time/",
+      "code_url": "https://github.com/trquhuytin/LAV-CVPR21",
+      "verified_claim": "Combines Soft-DTW alignment with temporal regularization for self-supervised representation learning.",
+      "design_use": "Keep temporal discrimination and coverage visible alongside alignment cost.",
+      "release_note": "Official code identified; no trained dance-compliance model executed. Publication year is 2021.",
+      "implementation_relation": "Motivation only; a hand-built ordered matcher is not LAV reproduction."
+    },
+    {
+      "id": "finediving_2022",
+      "title": "FineDiving: A Fine-Grained Dataset for Procedure-Aware Action Quality Assessment",
+      "authors": "Jinglin Xu, Yongming Rao, Xumin Yu, Guangyi Chen, Jie Zhou, Jiwen Lu",
+      "year": 2022,
+      "venue": "CVPR",
+      "paper_url": "https://openaccess.thecvf.com/content/CVPR2022/html/Xu_FineDiving_A_Fine-Grained_Dataset_for_Procedure-Aware_Action_Quality_Assessment_CVPR_2022_paper.html",
+      "code_url": "https://github.com/xujinglin/FineDiving",
+      "verified_claim": "Uses fine-grained diving procedures and query/exemplar step correspondence for action quality assessment.",
+      "design_use": "Report local stage evidence rather than only a whole-clip scalar.",
+      "release_note": "Official PyTorch TSA code; dataset access requests a release agreement. README evaluates checkpoints produced by training. Not run here.",
+      "limitation": "Sport-specific scoring and annotations do not establish general dance instruction compliance."
+    },
+    {
+      "id": "captaincook4d_2024",
+      "title": "CaptainCook4D: A Dataset for Understanding Errors in Procedural Activities",
+      "authors": "Rohith Peddi et al.",
+      "year": 2024,
+      "venue": "NeurIPS Datasets and Benchmarks",
+      "paper_url": "https://arxiv.org/abs/2312.14556",
+      "project_url": "https://captaincook4d.github.io/captain-cook/",
+      "code_url": "https://github.com/CaptainCook4D/",
+      "verified_claim": "Provides real procedural recordings with normal/error steps and evaluates error recognition and multistep localization.",
+      "design_use": "Freeze independent step/error annotations, including order and outcome, before predictions.",
+      "release_note": "Official project links code, data downloader, task graphs and annotations; not downloaded or evaluated here.",
+      "limitation": "Cooking is a different domain; object-state errors are not observable from skeletons alone."
+    },
+    {
+      "id": "deepmimic_2018",
+      "title": "DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills",
+      "authors": "Xue Bin Peng, Pieter Abbeel, Sergey Levine, Michiel van de Panne",
+      "year": 2018,
+      "venue": "ACM TOG / SIGGRAPH",
+      "doi": "10.1145/3197517.3201311",
+      "project_url": "https://xbpeng.github.io/projects/DeepMimic/",
+      "paper_url": "https://xbpeng.github.io/projects/DeepMimic/DeepMimic_2018.pdf",
+      "code_url": "https://github.com/xbpeng/DeepMimic",
+      "current_author_code_url": "https://github.com/xbpeng/MimicKit",
+      "verified_claim": "Learns physics-based control policies with reference imitation and task objectives.",
+      "design_use": "Evaluate actual state tracking and perturbation recovery, separately from visual similarity.",
+      "release_note": "Legacy repository is marked deprecated. Author-linked MimicKit provides implementation and pretrained-model testing instructions; not run here.",
+      "limitation": "Four-hinge fixed-base feedforward/PD tracking is not DeepMimic, RL training, or humanoid balance."
+    },
+    {
+      "id": "amp_2021",
+      "title": "AMP: Adversarial Motion Priors for Stylized Physics-Based Character Control",
+      "authors": "Xue Bin Peng, Ze Ma, Pieter Abbeel, Sergey Levine, Angjoo Kanazawa",
+      "year": 2021,
+      "venue": "ACM TOG / SIGGRAPH",
+      "doi": "10.1145/3450626.3459670",
+      "project_url": "https://xbpeng.github.io/projects/AMP/",
+      "code_url": "https://github.com/xbpeng/MimicKit",
+      "verified_claim": "Learns an adversarial motion prior from unstructured motion clips to provide style rewards for physical control.",
+      "design_use": "Motion naturalness and compliance with a specific ordered reference are distinct objectives.",
+      "release_note": "Author project links legacy implementation and MimicKit; no AMP model trained or evaluated here.",
+      "limitation": "An explicit PD controller has no learned adversarial prior."
+    },
+    {
+      "id": "mujoco_actuation_docs",
+      "title": "MuJoCo Documentation: actuation model and MJCF actuators",
+      "authors": "MuJoCo maintainers / Google DeepMind",
+      "year": null,
+      "type": "Official versioned software documentation",
+      "docs_url": "https://mujoco.readthedocs.io/en/stable/XMLreference.html#actuator-motor",
+      "related_urls": [
+        "https://mujoco.readthedocs.io/en/stable/XMLreference.html#actuator-position",
+        "https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model"
+      ],
+      "verified_claim": "Motor, position-servo, control-limit and force-limit semantics differ; simulation must report actual actuator and state quantities.",
+      "design_use": "Use matched torque motors and caps for feedforward versus encoder-PD ablation, with no state teleportation.",
+      "release_note": "Stable documentation is mutable; record installed MuJoCo version and model XML/hash in the run manifest.",
+      "limitation": "Successful simulator control is not evidence of hardware execution or sim-to-real transfer."
+    }
+  ]
+}

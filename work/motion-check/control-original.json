@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-22T09:06:07.605168+00:00",
+  "experiment": "Video-derived planar upper-body imitation with physical torque dynamics",
+  "mujoco": "3.13.0",
+  "python": "3.12.14",
+  "configuration_sha256": "a5c1323c02bc27c5fa54b08375658def70712d88825db5e8b8c896f8ca9571b3",
+  "reference": {
+    "created_at_utc": "2026-09-22T09:05:06.102386+00:00",
+    "source": "motion_compliance/results/generated_reference/poses.json",
+    "source_sha256": "9d0fbf5edc9a3d24d65655c580dcf5626febb69b51e0a3a4d29c0c854daa1b5d",
+    "source_video_sha256": "b2683b717df3ca0685de11c707f1ea80ce1a5b099c51892b86da631733546201",
+    "source_fps": 24.0,
+    "joint_names": [
+      "left_shoulder",
+      "left_elbow",
+      "right_shoulder",
+      "right_elbow"
+    ],
+    "confidence_threshold": 0.3,
+    "valid_fraction": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "raw_clipping_fraction_per_joint": [
+      0.0,
+      0.0034602076124567475,
+      0.0,
+      0.006920415224913495
+    ],
+    "smoothed_clipping_fraction_per_joint": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "clipping_fraction": 0.0,
+    "raw_angle_range_degrees": [
+      [
+        -153.70940560291962,
+        -127.31297181668297,
+        6.514774810916963,
+        -157.7378902370239
+      ],
+      [
+        7.602186001198997,
+        164.35232049187513,
+        164.25334291846232,
+        156.12288025351592
+      ]
+    ],
+    "joint_limits_degrees": [
+      175.0,
+      150.0,
+      175.0,
+      150.0
+    ],
+    "retargeting": "Frontal image-plane arm directions relative to image torso; elbow is signed projected forearm-minus-upper-arm angle. Image screen-right maps to world +x. No 3D lifting.",
+    "filter": "Gaussian sigma0.12s at source rate, clip to hinge limits, linear interpolation, integration-grid Gaussian sigma0.016s.",
+    "timing": "Video starts at simulation1s; 1s pre-roll and ~1s end hold.14s total.",
+    "limitations": [
+      "2D projection cannot recover depth or axial rotation.",
+      "Fixed torso and planar arms omit legs, balance, locomotion, hands and physical contacts.",
+      "Synthetic reference is not human motion-capture ground truth."
+    ]
+  },
+  "episodes": 160,
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119
+  ],
+  "conditions": [
+    {
+      "condition": "nominal",
+      "policies": {
+        "open_loop": {
+          "episodes": 20,
+          "rmse_deg_mean": 69.5515420558541,
+          "rmse_deg_sd": 14.892578246069366,
+          "completion_count": 0,
+          "completion_fraction": 0.0,
+          "stage_completion_fraction": 0.2700000000000001,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "recovery_denominator_note": "Mean among recovered episodes only; see recovered_count. Nominal/gain conditions have no impulse.",
+          "peak_error_deg_max": 241.47203776639753,
+          "peak_joint_limit_violation_deg_max": 4.489075421650467,
+          "mean_saturation_fraction": 0.003570918440222825,
+          "mean_absolute_mechanical_work_j": 92.24309521357654
+        },
+        "feedback": {
+          "episodes": 20,
+          "rmse_deg_mean": 0.6598702757873849,
+          "rmse_deg_sd": 4.538295581703221e-11,
+          "completion_count": 20,
+          "completion_fraction": 1.0,
+          "stage_completion_fraction": 1.0,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "recovery_denominator_note": "Mean among recovered episodes only; see recovered_count. Nominal/gain conditions have no impulse.",
+          "peak_error_deg_max": 12.100295138166034,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.006034852163976575,
+          "mean_absolute_mechanical_work_j": 69.79401696020162
+        }
+      },
+      "paired_rmse_improvement_deg": {
+        "mean": 68.89167178006672,
+        "ci95_percentile": [
+          62.783718252023725,
+          74.96215205177549
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "paired_completion_difference": {
+        "mean": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      }
+    },
+    {
+      "condition": "impulse",
+      "policies": {
+        "open_loop": {
+          "episodes": 20,
+          "rmse_deg_mean": 60.42948782656515,
+          "rmse_deg_sd": 12.097385243907356,
+          "completion_count": 0,
+          "completion_fraction": 0.0,
+          "stage_completion_fraction": 0.22000000000000003,
+          "recovered_count": 20,
+          "recovery_time_mean_s": 6.75576089201049,
+          "recovery_denominator_note": "Mean among recovered episodes only; see recovered_count. Nominal/gain conditions have no impulse.",
+          "peak_error_deg_max": 241.47203775164266,
+          "peak_joint_limit_violation_deg_max": 5.197703639657925,
+          "mean_saturation_fraction": 0.003570918440222825,
+          "mean_absolute_mechanical_work_j": 97.66017395584416
+        },
+        "feedback": {
+          "episodes": 20,
+          "rmse_deg_mean": 0.7456408006193711,
+          "rmse_deg_sd": 0.02354420181322272,
+          "completion_count": 20,
+          "completion_fraction": 1.0,
+          "stage_completion_fraction": 1.0,
+          "recovered_count": 20,
+          "recovery_time_mean_s": 0.0008608920104877793,
+          "recovery_denominator_note": "Mean among recovered episodes only; see recovered_count. Nominal/gain conditions have no impulse.",
+          "peak_error_deg_max": 12.100295138168825,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.006034852163976575,
+          "mean_absolute_mechanical_work_j": 70.29649713989751
+        }
+      },
+      "paired_rmse_improvement_deg": {
+        "mean": 59.683847025945795,
+        "ci95_percentile": [
+          54.971025584793914,
+          65.20959905616701
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "paired_completion_difference": {
+        "mean": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      }
+    },
+    {
+      "condition": "actuator_gain",
+      "policies": {
+        "open_loop": {
+          "episodes": 20,
+          "rmse_deg_mean": 56.26614499398926,
+          "rmse_deg_sd": 0.6352554313676448,
+          "completion_count": 0,
+          "completion_fraction": 0.0,
+          "stage_completion_fraction": 0.20000000000000004,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "recovery_denominator_note": "Mean among recovered episodes only; see recovered_count. Nominal/gain conditions have no impulse.",
+          "peak_error_deg_max": 183.3423028343885,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.003570918440222825,
+          "mean_absolute_mechanical_work_j": 68.23199685512607
+        },
+        "feedback": {
+          "episodes": 20,
+          "rmse_deg_mean": 2.310474212149712,
+          "rmse_deg_sd": 0.5356722816768001,
+          "completion_count": 20,
+          "completion_fraction": 1.0,
+          "stage_completion_fraction": 1.0,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "recovery_denominator_note": "Mean among recovered episodes only; see recovered_count. Nominal/gain conditions have no impulse.",
+          "peak_error_deg_max": 39.75603337723305,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.013908727324667903,
+          "mean_absolute_mechanical_work_j": 73.05707328175838
+        }
+      },
+      "paired_rmse_improvement_deg": {
+        "mean": 53.95567078183956,
+        "ci95_percentile": [
+          53.69633433370512,
+          54.233933763393
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "paired_completion_difference": {
+        "mean": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      }
+    },
+    {
+      "condition": "combined",
+      "policies": {
+        "open_loop": {
+          "episodes": 20,
+          "rmse_deg_mean": 60.632580152317004,
+          "rmse_deg_sd": 1.0785370452273892,
+          "completion_count": 0,
+          "completion_fraction": 0.0,
+          "stage_completion_fraction": 0.06,
+          "recovered_count": 18,
+          "recovery_time_mean_s": 6.730572342903342,
+          "recovery_denominator_note": "Mean among recovered episodes only; see recovered_count. Nominal/gain conditions have no impulse.",
+          "peak_error_deg_max": 218.1546914267986,
+          "peak_joint_limit_violation_deg_max": 0.636028820767305,
+          "mean_saturation_fraction": 0.003570918440222825,
+          "mean_absolute_mechanical_work_j": 68.30837033073719
+        },
+        "feedback": {
+          "episodes": 20,
+          "rmse_deg_mean": 13.93393307394616,
+          "rmse_deg_sd": 8.008443122102713,
+          "completion_count": 8,
+          "completion_fraction": 0.4,
+          "stage_completion_fraction": 0.8099999999999999,
+          "recovered_count": 20,
+          "recovery_time_mean_s": 1.080960892010488,
+          "recovery_denominator_note": "Mean among recovered episodes only; see recovered_count. Nominal/gain conditions have no impulse.",
+          "peak_error_deg_max": 126.86648226633237,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.08204006570489929,
+          "mean_absolute_mechanical_work_j": 102.26172945496481
+        }
+      },
+      "paired_rmse_improvement_deg": {
+        "mean": 46.69864707837084,
+        "ci95_percentile": [
+          43.43848856451716,
+          49.84525541978681
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "paired_completion_difference": {
+        "mean": 0.4,
+        "ci95_percentile": [
+          0.2,
+          0.6
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      }
+    }
+  ],
+  "evaluation_wall_s": 18.59943880001083,
+  "artifacts": {
+    "frozen": "frozen_config.json",
+    "episodes": "results/episodes.json",
+    "trajectory_folder": "results/trajectories",
+    "baseline_video": "results/open_loop.mp4",
+    "feedback_video": "results/feedback.mp4",
+    "comparison_video": "results/comparison.mp4"
+  },
+  "scope": [
+    "Physical simulation, not a real robot trial.",
+    "Four planar arm DOF; fixed torso and disabled collision contacts.",
+    "Online correction uses ideal joint encoders, not camera feedback.",
+    "Only reference motion originates from video perception; no learned control policy.",
+    "Development and evaluation seeds separate stochastic simulator trials, not humans or unseen reference motions.",
+    "Whole reference is available offline; successful control does not establish full choreography correctness."
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-22T09:16:40.648130+00:00",
+  "configuration_sha256": "c3ef9d5fbce230d4b87a109e53ccffade53f6dc01f4008f5a213c7c11364c0e5",
+  "experiment": "Separately frozen same-gain PD-only versus FF+PD ablation after initial benchmark",
+  "episodes": 240,
+  "seeds": [
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209,
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    219
+  ],
+  "conditions": [
+    {
+      "condition": "nominal",
+      "policies": {
+        "ff_only": {
+          "episodes": 20,
+          "rmse_deg_mean": 69.60432037251967,
+          "rmse_deg_sd": 15.1493520229937,
+          "completion_count": 0,
+          "completion_fraction": 0.0,
+          "stage_completion_fraction": 0.2800000000000001,
+          "peak_error_deg_max": 241.47203776100332,
+          "peak_joint_limit_violation_deg_max": 4.489075421650467,
+          "mean_saturation_fraction": 0.003570918440222825,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "mean_absolute_mechanical_work_j": 92.17355472755797
+        },
+        "pd_only": {
+          "episodes": 20,
+          "rmse_deg_mean": 3.1099252128328914,
+          "rmse_deg_sd": 2.3010411745503546e-08,
+          "completion_count": 20,
+          "completion_fraction": 1.0,
+          "stage_completion_fraction": 1.0,
+          "peak_error_deg_max": 23.631739367563313,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.006677617483216683,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "mean_absolute_mechanical_work_j": 75.77502539672025
+        },
+        "ff_pd": {
+          "episodes": 20,
+          "rmse_deg_mean": 0.6598702757614209,
+          "rmse_deg_sd": 2.4006559010903236e-11,
+          "completion_count": 20,
+          "completion_fraction": 1.0,
+          "stage_completion_fraction": 1.0,
+          "peak_error_deg_max": 12.100295138166034,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.006034852163976575,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "mean_absolute_mechanical_work_j": 69.79537629767638
+        }
+      },
+      "feedforward_rmse_improvement_deg": {
+        "mean": 2.45005493707147,
+        "ci95_percentile": [
+          2.4500549270978547,
+          2.4500549465263712
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "feedforward_completion_difference": {
+        "mean": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "feedforward_rmse_better_seed_count": 20
+    },
+    {
+      "condition": "impulse",
+      "policies": {
+        "ff_only": {
+          "episodes": 20,
+          "rmse_deg_mean": 65.7574246503428,
+          "rmse_deg_sd": 14.475472330691655,
+          "completion_count": 0,
+          "completion_fraction": 0.0,
+          "stage_completion_fraction": 0.21000000000000005,
+          "peak_error_deg_max": 241.47203775135085,
+          "peak_joint_limit_violation_deg_max": 6.5052329473887225,
+          "mean_saturation_fraction": 0.003570918440222825,
+          "recovered_count": 20,
+          "recovery_time_mean_s": 6.85248361017648,
+          "mean_absolute_mechanical_work_j": 97.66167411297454
+        },
+        "pd_only": {
+          "episodes": 20,
+          "rmse_deg_mean": 3.1308670034426545,
+          "rmse_deg_sd": 0.020901549953098727,
+          "completion_count": 20,
+          "completion_fraction": 1.0,
+          "stage_completion_fraction": 1.0,
+          "peak_error_deg_max": 23.631739367577012,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.006677617483216683,
+          "recovered_count": 20,
+          "recovery_time_mean_s": 0.0008836101764794879,
+          "mean_absolute_mechanical_work_j": 76.27555703543351
+        },
+        "ff_pd": {
+          "episodes": 20,
+          "rmse_deg_mean": 0.7623685821885438,
+          "rmse_deg_sd": 0.01769818308828679,
+          "completion_count": 20,
+          "completion_fraction": 1.0,
+          "stage_completion_fraction": 1.0,
+          "peak_error_deg_max": 12.100295138172994,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.006034852163976575,
+          "recovered_count": 20,
+          "recovery_time_mean_s": 0.0008836101764794879,
+          "mean_absolute_mechanical_work_j": 70.29277396510174
+        }
+      },
+      "feedforward_rmse_improvement_deg": {
+        "mean": 2.368498421254111,
+        "ci95_percentile": [
+          2.356476135053861,
+          2.3800028968812126
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "feedforward_completion_difference": {
+        "mean": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "feedforward_rmse_better_seed_count": 20
+    },
+    {
+      "condition": "actuator_gain",
+      "policies": {
+        "ff_only": {
+          "episodes": 20,
+          "rmse_deg_mean": 56.25450459046465,
+          "rmse_deg_sd": 0.6801647787886537,
+          "completion_count": 0,
+          "completion_fraction": 0.0,
+          "stage_completion_fraction": 0.20000000000000004,
+          "peak_error_deg_max": 182.24963181896973,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.003570918440222825,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "mean_absolute_mechanical_work_j": 69.17097943529384
+        },
+        "pd_only": {
+          "episodes": 20,
+          "rmse_deg_mean": 4.7485747761171755,
+          "rmse_deg_sd": 0.526685240151829,
+          "completion_count": 20,
+          "completion_fraction": 1.0,
+          "stage_completion_fraction": 1.0,
+          "peak_error_deg_max": 50.5534081501461,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.014978217397514638,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "mean_absolute_mechanical_work_j": 79.62417736901489
+        },
+        "ff_pd": {
+          "episodes": 20,
+          "rmse_deg_mean": 2.3061715184689597,
+          "rmse_deg_sd": 0.5754022925867488,
+          "completion_count": 20,
+          "completion_fraction": 1.0,
+          "stage_completion_fraction": 1.0,
+          "peak_error_deg_max": 40.42528231309074,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.014287244679331526,
+          "recovered_count": null,
+          "recovery_time_mean_s": null,
+          "mean_absolute_mechanical_work_j": 73.04423465839892
+        }
+      },
+      "feedforward_rmse_improvement_deg": {
+        "mean": 2.442403257648216,
+        "ci95_percentile": [
+          2.40507124649886,
+          2.476979818933939
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "feedforward_completion_difference": {
+        "mean": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "feedforward_rmse_better_seed_count": 20
+    },
+    {
+      "condition": "combined",
+      "policies": {
+        "ff_only": {
+          "episodes": 20,
+          "rmse_deg_mean": 60.50264124532157,
+          "rmse_deg_sd": 0.8601566553431147,
+          "completion_count": 0,
+          "completion_fraction": 0.0,
+          "stage_completion_fraction": 0.04,
+          "peak_error_deg_max": 227.64246000837167,
+          "peak_joint_limit_violation_deg_max": 2.20198097720803,
+          "mean_saturation_fraction": 0.003570918440222825,
+          "recovered_count": 16,
+          "recovery_time_mean_s": 6.589925727949327,
+          "mean_absolute_mechanical_work_j": 67.53212537580605
+        },
+        "pd_only": {
+          "episodes": 20,
+          "rmse_deg_mean": 11.65608975338323,
+          "rmse_deg_sd": 5.7814858028810665,
+          "completion_count": 13,
+          "completion_fraction": 0.65,
+          "stage_completion_fraction": 0.8899999999999999,
+          "peak_error_deg_max": 123.53159221447237,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.05988430224253679,
+          "recovered_count": 20,
+          "recovery_time_mean_s": 0.5684836101764795,
+          "mean_absolute_mechanical_work_j": 106.80367361170777
+        },
+        "ff_pd": {
+          "episodes": 20,
+          "rmse_deg_mean": 10.02366790720219,
+          "rmse_deg_sd": 6.498091646053419,
+          "completion_count": 14,
+          "completion_fraction": 0.7,
+          "stage_completion_fraction": 0.9,
+          "peak_error_deg_max": 126.37324194799434,
+          "peak_joint_limit_violation_deg_max": 0.0,
+          "mean_saturation_fraction": 0.06200364233680903,
+          "recovered_count": 20,
+          "recovery_time_mean_s": 0.5234836101764795,
+          "mean_absolute_mechanical_work_j": 100.46933250227487
+        }
+      },
+      "feedforward_rmse_improvement_deg": {
+        "mean": 1.6324218461810382,
+        "ci95_percentile": [
+          1.2990074013186705,
+          1.9637206713671016
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "feedforward_completion_difference": {
+        "mean": 0.05,
+        "ci95_percentile": [
+          0.0,
+          0.15
+        ],
+        "method": "Paired-seed nonparametric bootstrap,10000 resamples; internal simulator replicates, not real-world confidence."
+      },
+      "feedforward_rmse_better_seed_count": 20
+    }
+  ],
+  "compute_wall_s": 27.799148299964145,
+  "limitations": [
+    "Designed after original evaluation; fresh internal simulator seeds, not external validation.",
+    "Same gains across PD-only and FF+PD, not separately optimized policies.",
+    "One synthetic video-derived reference and four planar arm DOF only.",
+    "No change to main benchmark controller gains, torque limits, metrics or stage windows."
+  ]
+}
