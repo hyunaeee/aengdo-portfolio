@@ -77,3 +77,9 @@ Hyunae Park · hyunaeee@gmail.com
 [한국어 사례](https://hyunaeee.github.io/aengdo-portfolio/work/robo-skill/) · [English case](https://hyunaeee.github.io/aengdo-portfolio/work/robo-skill/en.html) · [실험 재생](https://hyunaeee.github.io/aengdo-portfolio/robo-skill-lab/viewer/)
 
 제작 이유, 작업 실패 문제, MuJoCo 제어 전략 비교, 24회 개발 실험의 성공률·시간, 관측된 실패와 검증 과정의 수정, 다음 개선 실험을 정리했습니다. 실제 실행 GIF와 원본 JSON을 공개합니다. 기본 버전은 규칙 제어와 시뮬레이터 좌표를 사용하며 카메라 인식·LLM 추론·학습 정책은 미실행입니다. 콘텐츠는 `assets/portfolio-roboskill.js`, 사례 생성기는 `scripts/build-roboskill-page.cjs`에서 관리합니다.
+
+## AI Agent Engineering
+
+[직무별 포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/roles/ai-agent/) · [English](https://hyunaeee.github.io/aengdo-portfolio/roles/ai-agent/en.html)
+
+Terracotta → Meeting Assistant → MED-RAG → Serving Lab 순서로 도구 실행·업무 적용·평가·운영 증거를 연결합니다. PDF 메뉴의 AI Agent 구성도 같은 순서입니다. 현재 구현과 검증 범위를 구분하며 RoboSkill ExperimentOps Agent는 미구현 확장 설계로 표시합니다. 소스는 scripts/build-agent-role.cjs입니다.

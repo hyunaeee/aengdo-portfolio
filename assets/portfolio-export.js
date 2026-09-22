@@ -7,6 +7,7 @@
     : new URL(document.body.dataset.siteRoot || "./", document.baseURI).href;
   const BUTTONS = "[data-print-portfolio], [data-export-pdf]";
   const FOCUS = {
+    autoever: { order: ["terracotta", "meeting", "med-rag", "serving-lab"], label: { ko: "AI Agent · MCP · 업무 자동화 · MLOps", en: "AI Agent · MCP · Workflows · MLOps" } },
     openai: { order: ["meeting", "med-rag"], label: { ko: "Applied AI · 회의 어시스턴트 / MED-RAG", en: "Applied AI · Meeting Assistant / MED-RAG" } },
     general: { order: ["med-rag", "terracotta", "meeting", "serving-lab"], label: { ko: "AI Builder 포트폴리오", en: "AI Builder portfolio" } },
     toss: { order: ["serving-lab", "med-rag", "terracotta", "meeting"], label: { ko: "서빙 · 성능 · 운영", en: "Serving · Performance · Operations" } },

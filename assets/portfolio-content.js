@@ -91,13 +91,13 @@
         image: { src: 'assets/terracotta.jpg', alt: L('Terracotta 작업실: 대화, 모델 선택, 개인 가든', 'Terracotta workspace with chat, model selection, and a personal garden') },
         imageCaption: L('제품 화면 · 모델 호출에는 공급사 API 연결이 필요합니다.', 'Product interface · model calls require provider API access.'),
         metrics: [
-          { value: 'MCP', label: L('도구 실행 전 승인', 'Approval before tool actions'), note: L('도구 · 인자 · 만료 조건 표시', 'Tool, arguments, and expiry are visible') },
+          { value: 'MCP', label: L('에이전트 경로의 쓰기 승인', 'Write approval in the agent path'), note: L('도구 · 인자 · 만료 조건 표시', 'Tool, arguments, and expiry are visible') },
           { value: 'GHCR', label: L('컨테이너 이미지 발행', 'Container image publishing'), note: L('GitHub Actions 실행 기록 공개', 'Public GitHub Actions run history') },
           { value: 'D1', label: L('데이터 보존과 상태 확인', 'Persistence and health checks'), note: L('로컬 볼륨 · 백업 절차', 'Local volume · backup procedure') }
         ],
         links: [link('공개 코드', 'Source code', 'https://github.com/hyunaeee/terracotta', 'code'), link('셀프호스팅 가이드', 'Self-hosting guide', 'https://github.com/hyunaeee/terracotta/blob/main/SELF_HOSTING.md'), link('배포 기록', 'Build history', 'https://github.com/hyunaeee/terracotta/actions')],
         decisions: [
-          { title: L('쓰는 행동에는 명시적 승인', 'Explicit approval for writes'), body: L('외부 상태를 바꾸는 도구는 실행 전 서비스·인자를 표시합니다. 승인 상태와 실행 흔적을 함께 남겨 에이전트의 행동을 추적하게 했습니다.', 'Tools that change external state expose their service and arguments before execution. Approval state and traces make agent actions inspectable.') },
+          { title: L('쓰는 행동에는 명시적 승인', 'Explicit approval for writes'), body: L('에이전트 루프에서 쓰기 도구로 분류한 호출은 실행 전 서비스·인자를 표시하고 승인을 기다립니다. 승인 상태와 실행 흔적을 남깁니다. 모든 API 진입점에서 동일한 승인 정책이 강제되는지와 동시 승인 시 중복 실행 여부는 추가 검증 항목입니다.', 'The agent loop shows the service and arguments and waits for approval for calls classified as write tools. Approval state and traces are stored. Uniform enforcement across all API entry points and duplicate execution under concurrent approval require further validation.') },
           { title: L('제품 상태를 컨테이너 수명과 분리', 'Keep state beyond a container'), body: L('사용량, 설정, 승인 기록과 암호화 키를 영속 볼륨에 보관하고 앱과 데이터베이스를 함께 검사합니다.', 'Usage, settings, approval records, and encryption keys persist in a volume. Health checks inspect both the application and database.') },
           { title: L('측정하지 않은 품질 주장은 철회', 'Remove an unmeasured quality claim'), body: L('정책 시뮬레이션의 직접 정의한 품질 상수를 모델 성능으로 볼 수 없어 품질 증가 주장을 제거했습니다. 비용도 비교 기준에 따라 해석합니다.', 'Hand-defined quality constants in a policy simulation cannot establish model quality. That claim was removed, and cost comparisons retain their baseline conditions.') }
         ],

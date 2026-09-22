@@ -1,9 +1,9 @@
 name: Portfolio content
 on:
   push:
-    paths: ["assets/portfolio-*", "assets/visioneye.*", "robo-skill-lab/**", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
+    paths: ["assets/portfolio-*", "assets/visioneye.*", "robo-skill-lab/**", "scripts/**", "*.html", "work/**", "roles/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
   pull_request:
-    paths: ["assets/portfolio-*", "assets/visioneye.*", "robo-skill-lab/**", "scripts/**", "*.html", "work/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
+    paths: ["assets/portfolio-*", "assets/visioneye.*", "robo-skill-lab/**", "scripts/**", "*.html", "work/**", "roles/**", "sitemap.xml", ".github/workflows/portfolio.yml"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -18,7 +18,7 @@ jobs:
       - name: Generate from shared bilingual content
         run: node scripts/build-portfolio.cjs
       - name: Check committed pages are current
-        run: git diff --exit-code -- '*.html' work sitemap.xml
+        run: git diff --exit-code -- '*.html' work roles sitemap.xml
       - name: Validate links, fragments and translations
         run: node scripts/check-portfolio.cjs
       - name: Verify published Serving Lab evidence against source
