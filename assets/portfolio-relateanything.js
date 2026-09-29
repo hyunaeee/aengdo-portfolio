@@ -8,9 +8,9 @@
   'use strict';
   const L = (ko, en) => ({ ko, en });
   // Public results viewer; model inference is run locally.
-  const LIVE_URL = 'https://relateanything-lab.vercel.app/';
+  const LIVE_URL = 'https://relateanything-lab.vercel.app/relateanything/';
   const links = [
-    { label: L('실험 결과 비교', 'Compare recorded runs'), url: LIVE_URL, kind: 'demo' },
+    { label: L('관계 인식 결과 비교', 'Compare relation results'), url: LIVE_URL, kind: 'demo' },
     { label: L('측정 기록', 'Measured evidence'), url: 'https://hyunaeee.github.io/aengdo-portfolio/work/relateanything/evidence.json', kind: 'source' },
     { label: L('원본 모델 코드', 'Upstream model'), url: 'https://github.com/Maelic/RelateAnything', kind: 'code' },
     { label: L('원본 논문', 'Original paper'), url: 'https://arxiv.org/abs/2609.12552', kind: 'source' }
@@ -27,9 +27,9 @@
     )
   };
   const project = {
-    id: 'relateanything', number: '07', title: 'RelateAnything Lab',
+    id: 'relateanything', number: '07', title: 'RelateAnything', parentCase: 'vision-lab',
     featured: false, nextCase: 'visioneye', summary,
-    status: L('AI · 관계 예측 실험', 'AI · Relation prediction experiments'),
+    status: L('Vision Lab / 01 · 관계 인식', 'Vision Lab / 01 · Object relations'),
     role: L('추론 연동 · 오류 분석 · 객체 연결 · 평가 · 결과 비교 화면', 'Inference integration · failure analysis · object association · evaluation · recorded-run viewer'),
     period: '2026.09',
     stack: ['Python', 'PyTorch', 'YOLO11s', 'RelateAnything', 'Vercel'],

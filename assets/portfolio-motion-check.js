@@ -8,7 +8,8 @@
   "project": {
     "id": "motion-check",
     "number": "09",
-    "title": "MotionCheck Lab",
+    "title": "MotionCheck",
+    "parentCase": "vision-lab",
     "featured": false,
     "nextCase": "relateanything",
     "summary": {
@@ -16,8 +17,8 @@
       "en": "Video-derived targets drive four arm joints in MuJoCo with joint feedback. The case isolates controller contributions across 400 physical simulations and reports both total abstention and post-hoc false rejections on real footage."
     },
     "status": {
-      "ko": "Physical AI · 영상 지각 + 물리 제어",
-      "en": "Physical AI · Perception and simulated control"
+      "ko": "Vision Lab / 02–03 · 동작 비교와 물리 제어",
+      "en": "Vision Lab / 02–03 · Motion comparison and simulated control"
     },
     "role": {
       "ko": "평가 설계 · pose 추론 · 단계 판정 · 토크 제어 · 쌍 비교 · 실패 분석",

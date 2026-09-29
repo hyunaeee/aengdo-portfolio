@@ -5,7 +5,7 @@ AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사�
 - [포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/portfolio.html) · [English](https://hyunaeee.github.io/aengdo-portfolio/en.html)
 - 대표 사례: **MED-RAG → Terracotta → Meeting Assistant → MED-RAG Serving Lab**
 - **Anatomy Atlas**: 실제 전체 구조 / 계통 분해 캡처 비교와 라이브 링크
-- **Archive**: 26개 프로젝트 검색·분야·라이브 필터. **VisionEye**는 원본·분석 비교와 실제 실행 기록, 생성 영상 검수 및 미실행 다음 실험을 소개합니다. **Venue Atlas**는 세 공연장의 3D 투어, 문·조명·관객 조작과 ZIP 다운로드를 소개합니다. 실제 Blender 렌더와 한·영 기능·재구성 범위를 함께 제공합니다. **Golden Drive**, **B737-8 3D Explorer**, **Modely · 모델리**와 기존 작업도 유지합니다.
+- **Archive**: 프로젝트 검색·분야·라이브 필터. **Vision Lab**은 관계 인식, 동작 비교, 물리 제어, 3D 추적의 네 실험을 하나의 항목으로 소개합니다. **VisionEye**는 원본·분석 비교와 실제 실행 기록, 생성 영상 검수 및 미실행 다음 실험을 소개합니다. **Venue Atlas**는 세 공연장의 3D 투어, 문·조명·관객 조작과 ZIP 다운로드를 소개합니다. 실제 Blender 렌더와 한·영 기능·재구성 범위를 함께 제공합니다. **Golden Drive**, **B737-8 3D Explorer**, **Modely · 모델리**와 기존 작업도 유지합니다.
 - **Creative**: 영상·이미지. 기존 레트로 OS는 **Playground**에서 실행
 - **History**: 이전 포트폴리오의 2017–2026 경력·연구·학력·강의·활동 22개를 복원한 상세 이력. 홈과 메뉴, PDF에서 연결합니다.
 
@@ -21,7 +21,15 @@ python -m http.server 8765
 # http://localhost:8765/
 ```
 
-`assets/portfolio-content.js`의 한·영 데이터를 수정한 뒤 빌드합니다. 기존 아카이브 데이터는 `assets/portfolio-archive.js`, VisionEye 사례와 카드는 `assets/portfolio-visioneye.js`에서 함께 관리합니다. 빌드는 홈, 아카이브, Creative, 6개 사례의 한·영 정적 HTML과 sitemap을 생성합니다. 생성된 HTML도 커밋하므로 GitHub Pages에서 별도 빌드 서버 없이 제공합니다. 웹과 PDF가 같은 콘텐츠를 사용합니다. `featured: false`인 사례는 상세와 아카이브에 표시하고 홈 대표 작업에서는 제외합니다.
+`assets/portfolio-content.js`의 한·영 데이터를 수정한 뒤 빌드합니다. 기존 아카이브 데이터는 `assets/portfolio-archive.js`, VisionEye 사례와 카드는 `assets/portfolio-visioneye.js`에서 함께 관리합니다. 빌드는 홈, 아카이브, Creative, 사례의 한·영 정적 HTML과 sitemap을 생성합니다. 생성된 HTML도 커밋하므로 GitHub Pages에서 별도 빌드 서버 없이 제공합니다. 웹과 PDF가 같은 콘텐츠를 사용합니다. `featured: false`인 사례는 홈 대표 작업에서 제외합니다. 하위 사례의 `parentCase`는 상위 사례로 돌아가는 링크를 지정합니다.
+
+## Vision Lab
+
+[포트폴리오 소개](https://aengdo.vercel.app/work/vision-lab/) · [통합 실험 화면](https://relateanything-lab.vercel.app/)
+
+`assets/portfolio-vision-lab.js`에서 네 실험과 구현 범위, 현재 한계를 한·영으로 관리합니다. RelateAnything과 MotionCheck의 별도 목록 카드는 Vision Lab 하나로 묶고, 기존 상세 페이지와 원시 기록은 유지합니다. `/work/relateanything/`과 `/work/motion-check/`에서 Vision Lab 소개로 돌아갈 수 있으며 기존 아카이브 해시 링크도 유지합니다. 전체 아카이브 PDF에도 통합 항목이 한 번만 표시됩니다.
+
+3D 추적은 TraceAnything의 저장된 실행 결과입니다. TrackEverything 재현, 999프레임 추적, 검증된 추적 정확도로 소개하지 않습니다. VisionEye와 RoboSkill은 별도 프로젝트로 유지합니다.
 
 | 경로 | 역할 |
 |---|---|

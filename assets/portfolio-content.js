@@ -10,7 +10,7 @@
   const origin = 'https://hyunaeee.github.io/aengdo-portfolio/';
   const link = (ko, en, url, kind = 'source') => ({ label: L(ko, en), url, kind });
   const data = {
-    updatedAt: '2026-09-22',
+    updatedAt: '2026-09-29',
     history: typeof module === 'object' && module.exports ? require('./portfolio-history.js') : globalThis.HYUNAE_HISTORY || [],
     person: {
       name: 'Hyunae Park', email: 'hyunaeee@gmail.com', github: 'https://github.com/hyunaeee',
@@ -202,14 +202,14 @@
   data.archive = [...archive.slice(0, visioneyePosition), visioneye.archive, ...archive.slice(visioneyePosition)];
   const relateanything = typeof module === 'object' && module.exports ? require('./portfolio-relateanything.js') : globalThis.HYUNAE_RELATEANYTHING;
   data.projects.push(relateanything.project);
-  const relateanythingPosition = data.archive.findIndex(item => item.id === 'visioneye') + 1;
-  data.archive.splice(relateanythingPosition, 0, relateanything.archive);
   const roboskill = typeof module === 'object' && module.exports ? require('./portfolio-roboskill.js') : globalThis.HYUNAE_ROBOSKILL;
   data.projects.push(roboskill.project);
   data.archive.unshift(roboskill.archive);
   const motionCheck = typeof module === 'object' && module.exports ? require('./portfolio-motion-check.js') : globalThis.HYUNAE_MOTION_CHECK;
   data.projects.push(motionCheck.project);
-  const motionCheckPosition = data.archive.findIndex(item => item.id === 'relateanything') + 1;
-  data.archive.splice(motionCheckPosition, 0, motionCheck.archive);
+  const visionLab = typeof module === 'object' && module.exports ? require('./portfolio-vision-lab.js') : globalThis.HYUNAE_VISION_LAB;
+  data.projects.push(visionLab.project);
+  const visionLabPosition = data.archive.findIndex(item => item.id === 'visioneye') + 1;
+  data.archive.splice(visionLabPosition, 0, { ...visionLab.archive, aliases: ['relateanything', 'motion-check'] });
   return data;
 });
