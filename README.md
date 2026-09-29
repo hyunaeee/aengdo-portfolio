@@ -5,7 +5,7 @@ AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사�
 - [포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/portfolio.html) · [English](https://hyunaeee.github.io/aengdo-portfolio/en.html)
 - 대표 사례: **MED-RAG → Terracotta → Meeting Assistant → MED-RAG Serving Lab**
 - **Anatomy Atlas**: 실제 전체 구조 / 계통 분해 캡처 비교와 라이브 링크
-- **Archive**: 프로젝트 검색·분야·라이브 필터. **Vision Lab**은 관계 인식, 동작 비교, 물리 제어, 3D 추적의 네 실험을 하나의 항목으로 소개합니다. **VisionEye**는 원본·분석 비교와 실제 실행 기록, 생성 영상 검수 및 미실행 다음 실험을 소개합니다. **Venue Atlas**는 세 공연장의 3D 투어, 문·조명·관객 조작과 ZIP 다운로드를 소개합니다. 실제 Blender 렌더와 한·영 기능·재구성 범위를 함께 제공합니다. **Golden Drive**, **B737-8 3D Explorer**, **Modely · 모델리**와 기존 작업도 유지합니다.
+- **Archive**: 프로젝트 검색·분야·라이브 필터. **Vision Lab**은 관계 인식, 동작 비교, 물리 제어, 3D 추적, DeepLabCut 키포인트·포즈 추정의 다섯 실험을 하나의 항목으로 소개합니다. **VisionEye**는 원본·분석 비교와 실제 실행 기록, 생성 영상 검수 및 미실행 다음 실험을 소개합니다. **Venue Atlas**는 세 공연장의 3D 투어, 문·조명·관객 조작과 ZIP 다운로드를 소개합니다. 실제 Blender 렌더와 한·영 기능·재구성 범위를 함께 제공합니다. **Golden Drive**, **B737-8 3D Explorer**, **Modely · 모델리**와 기존 작업도 유지합니다.
 - **Creative**: 영상·이미지. 기존 레트로 OS는 **Playground**에서 실행
 - **History**: 이전 포트폴리오의 2017–2026 경력·연구·학력·강의·활동 22개를 복원한 상세 이력. 홈과 메뉴, PDF에서 연결합니다.
 
@@ -27,9 +27,9 @@ python -m http.server 8765
 
 [포트폴리오 소개](https://aengdo.vercel.app/work/vision-lab/) · [통합 실험 화면](https://relateanything-lab.vercel.app/)
 
-`assets/portfolio-vision-lab.js`에서 네 실험과 구현 범위, 현재 한계를 한·영으로 관리합니다. RelateAnything과 MotionCheck의 별도 목록 카드는 Vision Lab 하나로 묶고, 기존 상세 페이지와 원시 기록은 유지합니다. `/work/relateanything/`과 `/work/motion-check/`에서 Vision Lab 소개로 돌아갈 수 있으며 기존 아카이브 해시 링크도 유지합니다. 전체 아카이브 PDF에도 통합 항목이 한 번만 표시됩니다.
+`assets/portfolio-vision-lab.js`에서 다섯 실험과 구현 범위, 현재 한계를 한·영으로 관리합니다. RelateAnything과 MotionCheck의 별도 목록 카드는 Vision Lab 하나로 묶고, 기존 상세 페이지와 원시 기록은 유지합니다. `/work/relateanything/`과 `/work/motion-check/`에서 Vision Lab 소개로 돌아갈 수 있으며 기존 아카이브 해시 링크도 유지합니다. 전체 아카이브 PDF에도 통합 항목이 한 번만 표시됩니다.
 
-3D 추적은 TraceAnything의 저장된 실행 결과입니다. TrackEverything 재현, 999프레임 추적, 검증된 추적 정확도로 소개하지 않습니다. VisionEye와 RoboSkill은 별도 프로젝트로 유지합니다.
+Track3D는 TraceAnything의 저장된 실행 결과입니다. TrackEverything 재현, 999프레임 추적, 검증된 추적 정확도로 소개하지 않습니다. DeepLabCut은 춤 90프레임의 17관절과 생쥐 120프레임의 27개 키포인트를 추론하고, 같은 춤 영상에 FMPose3D의 골반 기준 17관절 3D 추정을 추가했습니다. 기본 설정의 대상 전환, 최대 박스 선택의 한계와 남은 관절 오차를 함께 설명하며 신뢰도를 정확도로 표현하지 않습니다. VisionEye와 RoboSkill은 별도 프로젝트로 유지합니다.
 
 | 경로 | 역할 |
 |---|---|
