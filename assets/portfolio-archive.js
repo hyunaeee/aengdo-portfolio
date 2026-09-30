@@ -210,7 +210,7 @@
 },
   {
     "id": "vr360-space",
-    "title": "360VR video generation skill",
+    "title": "360° VR Video Generation Skill",
     "summary": {
       "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤을 브라우저 미리보기와 4K 360 영상으로 봅니다.",
       "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot and the ISS interior and night over Korea, as browser previews and 4K 360 videos."
