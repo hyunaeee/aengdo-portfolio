@@ -212,8 +212,8 @@
     "id": "vr360-space",
     "title": "360° VR Video Generation Skill",
     "summary": {
-      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤을 브라우저 미리보기와 4K 360 영상으로 봅니다.",
-      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot and the ISS interior and night over Korea, as browser previews and 4K 360 videos."
+      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤, 아르테미스 1호를 타고 발사대에서 달 뒷면까지 가는 여정을 브라우저 미리보기와 4K 360 영상으로 봅니다.",
+      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot, the ISS interior and night over Korea, and an Artemis I ride from the launch pad to the lunar far side, as browser previews and 4K 360 videos."
     },
     "category": "play",
     "status": {
@@ -276,6 +276,10 @@
       {
         "ko": "ISS: NASA IGOAL 모델(300만 폴리곤), Blue/Black Marble 위성 지도, ESA 실사 360° 내부 사진으로 큐폴라 근접·내부·한반도 야경을 구성했습니다.",
         "en": "ISS: NASA's IGOAL model (3M polygons), Blue/Black Marble maps and ESA 360° interior photos for a Cupola close-up, interior tour and night over Korea."
+      },
+      {
+        "ko": "달: NASA SLS 모델의 부스터·코어·탈출탑을 실제 분리 시각에 떼어 내고, 궤도·전이 궤도·달 근접 쌍곡선 궤적을 계산해 실제 5일 6시간을 3분 20초로 압축했습니다. 화면에 실제 경과 시간과 배속을 함께 표시합니다.",
+        "en": "Moon: separates the NASA SLS model's boosters, core and abort tower at the real mission times, computes the parking orbit, translunar coast and lunar hyperbolic flyby, and compresses 5 days 6 hours into 3:20 with the real mission clock and speed-up on screen."
       },
       {
         "ko": "VR 멀미를 줄이려고 회전 속도를 초당 10° 이하로 측정·제한하고, 큰 방향 전환은 짧은 암전으로 바꿨습니다. 실내에서는 시선을 고정했습니다.",
