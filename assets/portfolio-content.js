@@ -10,7 +10,7 @@
   const origin = 'https://hyunaeee.github.io/aengdo-portfolio/';
   const link = (ko, en, url, kind = 'source') => ({ label: L(ko, en), url, kind });
   const data = {
-    updatedAt: '2026-09-29',
+    updatedAt: '2026-09-30',
     history: typeof module === 'object' && module.exports ? require('./portfolio-history.js') : globalThis.HYUNAE_HISTORY || [],
     person: {
       name: 'Hyunae Park', email: 'hyunaeee@gmail.com', github: 'https://github.com/hyunaeee',
@@ -213,5 +213,11 @@
   data.projects.push(visionLab.project);
   const visionLabPosition = data.archive.findIndex(item => item.id === 'visioneye') + 1;
   data.archive.splice(visionLabPosition, 0, { ...visionLab.archive, aliases: ['relateanything', 'motion-check'] });
+  // Banjjak Note is optional in the browser so a page built before its script tag existed still loads.
+  const banjjak = typeof module === 'object' && module.exports ? require('./portfolio-banjjak.js') : globalThis.HYUNAE_BANJJAK;
+  if (banjjak) {
+    data.projects.push(banjjak.project);
+    data.archive.unshift(banjjak.archive);
+  }
   return data;
 });

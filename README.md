@@ -91,3 +91,13 @@ Hyunae Park · hyunaeee@gmail.com
 [직무별 포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/roles/ai-agent/) · [English](https://hyunaeee.github.io/aengdo-portfolio/roles/ai-agent/en.html)
 
 Terracotta → Meeting Assistant → MED-RAG → Serving Lab 순서로 도구 실행·업무 적용·평가·운영 증거를 연결합니다. PDF 메뉴의 AI Agent 구성도 같은 순서입니다. 현재 구현과 검증 범위를 구분하며 RoboSkill ExperimentOps Agent는 미구현 확장 설계로 표시합니다. 소스는 scripts/build-agent-role.cjs입니다.
+
+## Banjjak Note · 반짝 노트
+
+[한국어 사례](https://hyunaeee.github.io/aengdo-portfolio/work/banjjak-note/) · [English case](https://hyunaeee.github.io/aengdo-portfolio/work/banjjak-note/en.html) · [라이브 · 체험 모드](https://banjjak-note.vercel.app/)
+
+초등 과학 ‘태양계’ 수업용 AI 노트 보드입니다. 수업 계획서의 단계(질문 틀 → AI 자료 → 확인 근거 → 내 설명 → 정리 답)를 화면 장치와 서버 규칙으로 옮긴 과정, 폴링으로 나아가는 생성 상태 기계, 그림 속 한글 규칙과 모델 확인 결과(한글 문구 28/28 정확, 지구 자전 방향 0/2 정확), 원화 기준 비용과 하루 한도를 정리했습니다.
+
+공개 사이트는 체험 모드이며 미리 만든 견본으로 응답합니다. 실제 Claude 호출, 앱의 OAuth 경로를 통한 생성, 교실 사용은 검증하지 않았습니다. 화면 이미지는 가상 학생의 견본 데이터입니다. 앱 소스는 이 저장소에 포함하지 않습니다.
+
+콘텐츠는 `assets/portfolio-banjjak.js`, 사례 전용 스타일은 `assets/portfolio-banjjak.css`에서 관리합니다. 사례 구역에 `figures`를 넣으면 표 아래에 화면 이미지가 들어가며, `figureLayout: 'stack'`은 한 줄에 한 장씩 배치합니다.
