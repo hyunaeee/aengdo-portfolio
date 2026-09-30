@@ -662,55 +662,60 @@
     "id": "docent",
     "title": "Smart Docent — Location-Aware AI Guide",
     "summary": {
-      "ko": "실시간 위치 기반 1:1 AI 도슨트 · LangGraph 멀티에이전트 · 한영일중 4개 국어 — 4인 팀 프로젝트 (팀 리더)",
-      "en": "A real-time, location-aware AI tour guide for K-tourism: a LangGraph multi-agent docent that follows your position on a live Mapbox map and answers in four languages."
+      "ko": "위치 기반 AI 가이드의 4인 팀 프로젝트. PM으로 기획·우선순위·일정·역할 분담을 맡고, 장소 데이터 파이프라인과 광고 영상을 제작했습니다.",
+      "en": "A four-person team project for a location-aware AI guide. As PM, I handled product planning, priorities, scheduling and role allocation, and worked on the place-data pipeline and promotional video."
     },
     "category": "ai",
     "status": {
-      "ko": "LIVE",
-      "en": "LIVE"
+      "ko": "광고 영상 / 팀 프로젝트",
+      "en": "PROMOTIONAL VIDEO / TEAM PROJECT"
     },
     "period": "2025.08 – 진행 중",
+    "video": "assets/videos/smart-docent-ad.mp4",
+    "videoLabel": {
+      "ko": "스마트 도슨트 광고 영상",
+      "en": "Smart Docent promotional video"
+    },
     "links": [
       {
-        "label": "LIVE ↗",
-        "url": "https://smart-docent-mapbox.vercel.app/"
+        "label": {
+          "ko": "광고 영상 보기 · 32초 · 2.5 MB",
+          "en": "Watch promotional video · 32 sec · 2.5 MB"
+        },
+        "url": "https://hyunaeee.github.io/aengdo-portfolio/assets/videos/smart-docent-ad.mp4",
+        "kind": "video"
       }
     ],
     "stack": [
-      "Next.js App Router",
-      "TypeScript",
-      "Tailwind CSS",
-      "Mapbox GL JS",
-      "LangGraph 멀티에이전트",
-      "Geolocation API"
+      "Product planning",
+      "Team PM",
+      "Data pipeline",
+      "Video production",
+      "LangGraph",
+      "Mapbox"
     ],
-    "live": true,
+    "live": false,
     "problem": {
-      "ko": "관광객은 수백 년의 역사를 안내판 하나로 스쳐 지나가요. 지금 서 있는 위치를 아는 도슨트 — 이동을 따라오며 내 언어로 현지 전문가처럼 답해주는 가이드를 만들고 있습니다.",
-      "en": "Tourists walk past centuries of Seoul's history with nothing but static signboards. We wanted a docent that knows where you are actually standing — following your position in real time and answering like a local expert, in your language."
+      "ko": "관광객이 방문한 장소와 이동 맥락에 맞는 안내를 얻도록 위치 기반 AI 가이드를 기획한 개인 팀 프로젝트입니다.",
+      "en": "A personal team project planning a location-aware AI guide around the places visitors explore and the context of their trip."
     },
     "build": [
       {
-        "ko": "내 역할 (팀 리더) — 기획, AI 데이터 전처리(에이전트에 들어가는 장소·관광 콘텐츠), 캐릭터 디자인",
-        "en": "My role — team lead of 4: product definition, architecture decisions, the place-data pipeline the agents ground on, and character design — the agent implementation is shared with teammates"
+        "ko": "PM — 기능 기획, 우선순위 설정, 일정 관리, 팀원 역할 분담과 출시 준비를 담당했습니다.",
+        "en": "PM — owned feature planning, prioritization, scheduling, role allocation and release preparation."
       },
       {
-        "ko": "위치 파이프라인 — 브라우저 Geolocation 실시간 좌표 + Mapbox GL JS 마커·카메라 연출 (경복궁·북촌·창덕궁·인사동·청계천 데모)",
-        "en": "Location pipeline — browser Geolocation streams live coordinates; Mapbox GL JS renders landmark markers with smooth camera moves (demo: Gyeongbokgung, Bukchon, Changdeokgung, Insadong, Cheonggyecheon)"
+        "ko": "개발 — 장소·관광 콘텐츠의 데이터 파이프라인을 담당하고 아키텍처에 참여했습니다. 에이전트 구현은 팀원과 분담했습니다.",
+        "en": "Development — worked on the place and tourism-content data pipeline and contributed to architecture. Agent implementation was shared with teammates."
       },
       {
-        "ko": "에이전트 중계 — Next.js API가 선택한 장소·질문 맥락을 LangGraph 멀티에이전트 도슨트에 전달, LLM 미연결 시 로컬 응답 폴백",
-        "en": "Agent relay — a Next.js API route passes the selected place and question context to a LangGraph-based multi-agent docent, with a local fallback when the LLM endpoint is unavailable"
-      },
-      {
-        "ko": "모듈형 설계 — 장소 데이터·지도 스타일·LLM 엔드포인트를 독립적으로 교체 가능, API 키는 서버 환경변수에만",
-        "en": "Modular by design — place data, map style and LLM endpoint are independently swappable; API keys live only in server environment variables"
+        "ko": "광고 영상 — 서비스의 사용 맥락을 소개하는 32초 광고 영상을 직접 제작했습니다.",
+        "en": "Promotional video — created a 32-second video introducing the intended use of the service."
       }
     ],
     "limitations": {
-      "ko": "공개 데모는 서울 샘플 데이터 기반이고, LLM 엔드포인트 미연결 시 로컬 폴백으로 응답합니다.",
-      "en": "The public demo ships Seoul sample data, and the docent answers from a local fallback when the LLM endpoint is not connected."
+      "ko": "이 페이지에서는 직접 제작한 광고 영상과 본인의 담당 역할을 공개합니다.",
+      "en": "This page presents the promotional video I created and my responsibilities in the team project."
     }
   },
   {

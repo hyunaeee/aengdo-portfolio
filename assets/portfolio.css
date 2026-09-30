@@ -21,3 +21,6 @@
 .case-cover.visioneye img{display:block;width:100%;height:auto;box-shadow:none;border-radius:0}
 .case-cover.visioneye figcaption{position:static;background:#eef1ef;line-height:1.6}
 .archive-card#visioneye>img{aspect-ratio:16/9;object-fit:contain;background:#eef1ef}
+
+/* Inline portfolio videos preserve their full frame and use native controls. */
+.archive-card>.portfolio-card-video,.creative-grid .portfolio-card-video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#111}.creative-grid .portfolio-card-video{border-radius:6px}
