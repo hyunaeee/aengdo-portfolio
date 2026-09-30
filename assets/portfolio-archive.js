@@ -209,6 +209,89 @@
   }
 },
   {
+    "id": "vr360-space",
+    "title": "360VR video generation skill",
+    "summary": {
+      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤을 브라우저 미리보기와 4K 360 영상으로 봅니다.",
+      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot and the ISS interior and night over Korea, as browser previews and 4K 360 videos."
+    },
+    "category": "play",
+    "status": {
+      "ko": "LIVE / 360 VR",
+      "en": "LIVE / 360 VR"
+    },
+    "period": "2026.09",
+    "image": "assets/vr360-space.jpg",
+    "imageWidth": 1600,
+    "imageHeight": 1000,
+    "imageAlt": {
+      "ko": "보이저 1호 360 영상 장면: 60억 km 밖에서 본 지구와 산란광 줄무늬",
+      "en": "Voyager 1 360 video frame: Earth seen from 6 billion km inside streaks of scattered sunlight"
+    },
+    "links": [
+      {
+        "label": {
+          "ko": "체험·영상 보기 ↗",
+          "en": "OPEN THE EXPERIENCES ↗"
+        },
+        "url": "https://vr360-space.vercel.app"
+      },
+      {
+        "label": {
+          "ko": "보이저 360 영상 ↗",
+          "en": "VOYAGER 360 VIDEO ↗"
+        },
+        "url": "https://vr360-space.vercel.app/watch.html?v=videos%2Fvoyager360_4k.mp4&t=Voyager%201%20%C2%B7%204K%20360"
+      }
+    ],
+    "stack": [
+      "Blender Cycles",
+      "Python",
+      "Three.js",
+      "NASA data",
+      "ElevenLabs",
+      "numpy audio",
+      "Vercel"
+    ],
+    "keywords": [
+      "VR",
+      "360",
+      "Voyager",
+      "ISS",
+      "space",
+      "우주",
+      "보이저",
+      "우주정거장"
+    ],
+    "live": true,
+    "problem": {
+      "ko": "AI 영상 생성기로는 이음새 없는 360° 등장방형 영상과 사실적인 천체 크기를 얻기 어렵습니다. 장면을 Python으로 생성해 Blender 파노라마 카메라로 렌더링하고, AI는 나레이션처럼 강점이 있는 부분에만 썼습니다.",
+      "en": "AI video generators struggle with seamless equirectangular 360° footage and consistent scale. Scenes are generated in Python and rendered with a Blender panoramic camera; AI is used where it is strong, such as narration."
+    },
+    "build": [
+      {
+        "ko": "보이저: NASA Eyes 3D 모델과 PIA00452 원본 사진을 비교하며 창백한 푸른 점 장면을 재현하고, 1:54 영상을 4K 3,420프레임으로 렌더링했습니다.",
+        "en": "Voyager: recreated the Pale Blue Dot against NASA's PIA00452 using the NASA Eyes model and rendered 1:54 at 4K (3,420 frames)."
+      },
+      {
+        "ko": "ISS: NASA IGOAL 모델(300만 폴리곤), Blue/Black Marble 위성 지도, ESA 실사 360° 내부 사진으로 큐폴라 근접·내부·한반도 야경을 구성했습니다.",
+        "en": "ISS: NASA's IGOAL model (3M polygons), Blue/Black Marble maps and ESA 360° interior photos for a Cupola close-up, interior tour and night over Korea."
+      },
+      {
+        "ko": "VR 멀미를 줄이려고 회전 속도를 초당 10° 이하로 측정·제한하고, 큰 방향 전환은 짧은 암전으로 바꿨습니다. 실내에서는 시선을 고정했습니다.",
+        "en": "Measured and capped rotation at 10°/s for comfort, replaced large turns with blink cuts, and held the view fixed indoors."
+      },
+      {
+        "ko": "three.js 미리보기, 한국어 나레이션(ElevenLabs), numpy로 합성한 음악·효과음, 360 메타데이터 삽입까지 하나의 재사용 가능한 스킬로 정리했습니다.",
+        "en": "Packaged the three.js previs, Korean narration (ElevenLabs), numpy-synthesised music and SFX, and 360 metadata injection into a reusable skill."
+      }
+    ],
+    "limitations": {
+      "ko": "거리와 크기는 체험을 위해 압축했습니다(실제 비율 아님). 행성 광채 등 일부는 연출입니다. ESA 내부 사진은 비상업 용도로 출처를 밝혀 사용했습니다.",
+      "en": "Distances and sizes are compressed for the experience, and some glows are artistic. ESA interior photos are used non-commercially with credit."
+    }
+  },
+  {
     "id": "venue-atlas",
     "title": "Venue Atlas",
     "summary": {
