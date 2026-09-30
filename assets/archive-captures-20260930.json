@@ -1,0 +1,50 @@
+{
+  "createdAt": "2026-09-30",
+  "method": "Unretouched screenshots captured from the rendered browser UI. Viewer controls were used to choose the scene and framing.",
+  "captures": [
+    {
+      "id": "venue-atlas",
+      "asset": "venue-atlas-live-20260930.jpg",
+      "resolution": [
+        1600,
+        1000
+      ],
+      "url": "https://venue-atlas.vercel.app/#sydney/sydney-exterior",
+      "scene": "Sydney Opera House exterior and harbor; settings panel closed",
+      "descriptionKo": "Venue Atlas 브라우저 화면의 시드니 오페라하우스와 항구",
+      "sha256": "51ca9e4e87b62149bf03b4d810d241835b2af7f95ca36762fd8654a4c8eddc69"
+    },
+    {
+      "id": "b737-explorer",
+      "asset": "b737-explorer-live-20260930.jpg",
+      "resolution": [
+        1280,
+        720
+      ],
+      "url": "https://airplane-sample.vercel.app/?view=all&v=6202961",
+      "scene": "Full aircraft; assembled; zoom 210%; exploded-view controls collapsed",
+      "descriptionKo": "B737-8 Explorer 브라우저 화면의 전체 기체",
+      "provenance": "Underlying aircraft asset credits and license notices remain available in the viewer. This record describes the browser capture, not a new Blender render.",
+      "sha256": "aad6c6bf02759891c25a62f39db83f26f74701383ed3e0f0e89930f034315a79"
+    },
+    {
+      "id": "golden-drive",
+      "asset": "golden-drive-live-20260930.jpg",
+      "resolution": [
+        1600,
+        1000
+      ],
+      "url": "https://golden-drive-kappa.vercel.app/?city=manhattan",
+      "scene": "Tesla Model 3; Hudson Sunset; free drive; route-following driving enabled",
+      "descriptionKo": "Golden Drive 맨해튼 자유 주행 화면과 Tesla Model 3",
+      "modelCredit": {
+        "title": "Tesla White car.",
+        "author": "aarajesh",
+        "license": "CC BY 4.0",
+        "url": "https://sketchfab.com/3d-models/tesla-white-car-2a4ee44439dc4b1b98f452a9ff427116",
+        "modifications": "Game placement and materials; unretouched browser capture"
+      },
+      "sha256": "b167b6c43cb1b0ded3789f9bf8ad3687de9e022636cb20f67da2c8b578f13729"
+    }
+  ]
+}

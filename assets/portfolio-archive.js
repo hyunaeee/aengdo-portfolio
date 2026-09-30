@@ -221,10 +221,12 @@
       "en": "LIVE / INTERACTIVE 3D"
     },
     "period": "2026.09",
-    "image": "assets/venue-atlas.png",
+    "image": "assets/venue-atlas-live-20260930.jpg",
+    "imageWidth": 1600,
+    "imageHeight": 1000,
     "imageAlt": {
-      "ko": "제공하는 Blender 모델로 렌더링한 시드니 오페라하우스의 지붕 셸·외벽·광장 디테일",
-      "en": "Sydney Opera House roof shells, facade and plaza details rendered from the delivered Blender model"
+      "ko": "Venue Atlas 실제 웹 화면: 시드니 오페라하우스 외관",
+      "en": "Actual Venue Atlas web view showing the Sydney Opera House exterior"
     },
     "links": [
       {
@@ -292,10 +294,12 @@
       "en": "BROWSER GAME / LOCAL DEMO"
     },
     "period": "2026.09",
-    "image": "assets/golden-drive.jpg",
+    "image": "assets/golden-drive-live-20260930.jpg",
+    "imageWidth": 1600,
+    "imageHeight": 1000,
     "imageAlt": {
-      "ko": "Golden Drive 실제 게임 화면: 노을 지는 도심과 차량 선택",
-      "en": "Golden Drive gameplay screen showing the city at sunset and vehicle selection"
+      "ko": "Golden Drive 실제 게임 화면: 뉴욕 Hudson Sunset 코스의 Tesla Model 3 자유주행",
+      "en": "Actual Golden Drive gameplay showing a Tesla Model 3 in Free Drive on New York's Hudson Sunset course"
     },
     "links": [
       {
@@ -359,10 +363,12 @@
       "en": "LIVE / INTERACTIVE 3D"
     },
     "period": "2026.09",
-    "image": "assets/b737-explorer.png",
+    "image": "assets/b737-explorer-live-20260930.jpg",
+    "imageWidth": 1280,
+    "imageHeight": 720,
     "imageAlt": {
-      "ko": "B737-8 Explorer의 실제 배포 모델을 Blender에서 렌더링한 기체 전체 사선 모습",
-      "en": "Three-quarter exterior view rendered in Blender from the actual B737-8 Explorer release model"
+      "ko": "B737-8 3D Explorer 실제 웹 화면: 전체 기체 보기",
+      "en": "Actual B737-8 3D Explorer web view showing the full aircraft"
     },
     "links": [
       {

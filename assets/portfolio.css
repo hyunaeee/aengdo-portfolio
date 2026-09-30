@@ -24,3 +24,5 @@
 
 /* Inline portfolio videos preserve their full frame and use native controls. */
 .archive-card>.portfolio-card-video,.creative-grid .portfolio-card-video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#111}.creative-grid .portfolio-card-video{border-radius:6px}
+
+.archive-card#venue-atlas>img,.archive-card#b737-explorer>img,.archive-card#golden-drive>img{object-fit:contain;object-position:center;background:#111}
