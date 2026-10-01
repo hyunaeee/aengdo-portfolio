@@ -212,8 +212,8 @@
     "id": "vr360-space",
     "title": "360° VR Video Generation Skill",
     "summary": {
-      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤, 아르테미스 1호를 타고 발사대에서 달 뒷면까지 가는 여정, 지구의 자전과 공전을 브라우저 미리보기와 4K 360 영상으로 봅니다.",
-      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot, the ISS interior and night over Korea, an Artemis I ride from the launch pad to the lunar far side, and Earth's rotation and revolution, as browser previews and 4K 360 videos."
+      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤, 아르테미스 1호 우주선 안에서 창밖을 보며 발사대에서 달 뒷면까지 가는 여정, 지구의 자전·공전과 달의 모양·계절별 별자리를 브라우저 미리보기와 4K 360 영상으로 봅니다.",
+      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot, the ISS interior and night over Korea, an Artemis I ride from the launch pad to the lunar far side seen through the capsule windows, and Earth's rotation and revolution with Moon phases and seasonal constellations, as browser previews and 4K 360 videos."
     },
     "category": "play",
     "status": {
@@ -278,12 +278,16 @@
         "en": "ISS: NASA's IGOAL model (3M polygons), Blue/Black Marble maps and ESA 360° interior photos for a Cupola close-up, interior tour and night over Korea."
       },
       {
-        "ko": "달: NASA SLS 모델의 부스터·코어·탈출탑을 실제 분리 시각에 떼어 내고, 궤도·전이 궤도·달 근접 쌍곡선 궤적을 계산해 실제 5일 6시간을 3분 20초로 압축했습니다. 화면에 실제 경과 시간과 배속을 함께 표시합니다.",
-        "en": "Moon: separates the NASA SLS model's boosters, core and abort tower at the real mission times, computes the parking orbit, translunar coast and lunar hyperbolic flyby, and compresses 5 days 6 hours into 3:20 with the real mission clock and speed-up on screen."
+        "ko": "달: NASA SLS 모델의 부스터·코어·탈출탑을 실제 분리 시각에 떼어 내고, 궤도·전이 궤도·달 근접 쌍곡선 궤적을 계산해 실제 5일 6시간을 3분 20초로 압축했습니다. 시점은 오리온 조종실 안에서 창밖을 내다보는 자리이고, 화면에 실제 경과 시간과 배속을 함께 표시합니다.",
+        "en": "Moon: separates the NASA SLS model's boosters, core and abort tower at the real mission times, computes the parking orbit, translunar coast and lunar hyperbolic flyby, and compresses 5 days 6 hours into 3:20, seen from inside the Orion cabin through its windows, with the real mission clock and speed-up on screen."
       },
       {
-        "ko": "VR 멀미를 줄이려고 회전 속도를 초당 10° 이하로 측정·제한하고, 큰 방향 전환은 짧은 암전으로 바꿨습니다. 실내에서는 시선을 고정했습니다.",
-        "en": "Measured and capped rotation at 10°/s for comfort, replaced large turns with blink cuts, and held the view fixed indoors."
+        "ko": "자전·공전: 아이 눈높이로 7분 56초. 햇빛을 곧은 빛줄기로 그려 낮과 밤의 경계를 설명하고, 서울 땅 위에서 해·달·별의 하루, 달 모양이 바뀌는 까닭, 계절마다 바뀌는 별자리와 풍경을 보여 줍니다. 태양은 NASA SDO 사진, 달은 NASA LRO 지도를 썼습니다.",
+        "en": "Rotation and revolution: 7:56 at a child's level. Sunlight drawn as straight beams explains the day/night line; from the ground in Seoul it shows a day of Sun, Moon and stars, why the Moon changes shape, and the constellations and scenery of each season. The Sun uses a NASA SDO photo and the Moon a NASA LRO map."
+      },
+      {
+        "ko": "VR 멀미를 줄이려고 회전 속도를 초당 10° 이하로 측정·제한하고, 큰 방향 전환은 짧은 암전으로 바꿨습니다. 장면이 바뀔 때마다 봐야 할 대상이 정면에 오도록 했습니다.",
+        "en": "Measured and capped rotation at 10°/s for comfort, replaced large turns with blink cuts, and put the subject straight ahead at every cut."
       },
       {
         "ko": "three.js 미리보기, 한국어 나레이션(ElevenLabs), numpy로 합성한 음악·효과음, 360 메타데이터 삽입까지 하나의 재사용 가능한 스킬로 정리했습니다.",
