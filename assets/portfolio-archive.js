@@ -212,8 +212,8 @@
     "id": "vr360-space",
     "title": "360° VR Video Generation Skill",
     "summary": {
-      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤, 아르테미스 1호를 타고 발사대에서 달 뒷면까지 가는 여정을 브라우저 미리보기와 4K 360 영상으로 봅니다.",
-      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot, the ISS interior and night over Korea, and an Artemis I ride from the launch pad to the lunar far side, as browser previews and 4K 360 videos."
+      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤, 아르테미스 1호를 타고 발사대에서 달 뒷면까지 가는 여정, 지구의 자전과 공전을 브라우저 미리보기와 4K 360 영상으로 봅니다.",
+      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot, the ISS interior and night over Korea, an Artemis I ride from the launch pad to the lunar far side, and Earth's rotation and revolution, as browser previews and 4K 360 videos."
     },
     "category": "play",
     "status": {
