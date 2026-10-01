@@ -225,8 +225,8 @@
     "imageWidth": 1600,
     "imageHeight": 1000,
     "imageAlt": {
-      "ko": "보이저 1호 360 영상 장면: 60억 km 밖에서 본 지구와 산란광 줄무늬",
-      "en": "Voyager 1 360 video frame: Earth seen from 6 billion km inside streaks of scattered sunlight"
+      "ko": "국제우주정거장 360 영상 장면: 큐폴라 창과 트랭퀼리티 모듈, 아래로 보이는 지구",
+      "en": "ISS 360 video frame: the Cupola windows and the Tranquility module with Earth below"
     },
     "links": [
       {
