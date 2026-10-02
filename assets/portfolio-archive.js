@@ -212,8 +212,8 @@
     "id": "vr360-space",
     "title": "360° VR Video Generation Skill",
     "summary": {
-      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤, 아르테미스 1호 우주선 안에서 창밖을 보며 발사대에서 달 뒷면까지 가는 여정, 지구의 자전·공전과 달의 모양·계절별 별자리를 브라우저 미리보기와 4K 360 영상으로 봅니다.",
-      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot, the ISS interior and night over Korea, an Artemis I ride from the launch pad to the lunar far side seen through the capsule windows, and Earth's rotation and revolution with Moon phases and seasonal constellations, as browser previews and 4K 360 videos."
+      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤, 아르테미스 1호 우주선 안에서 창밖을 보며 발사대에서 달 뒷면까지 가는 여정, 지구의 자전·공전과 달의 모양·계절별 별자리, 태양과 여덟 행성을 도는 태양계를 브라우저 미리보기와 4K 360 영상으로 봅니다.",
+      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot, the ISS interior and night over Korea, an Artemis I ride from the launch pad to the lunar far side seen through the capsule windows, Earth's rotation and revolution with Moon phases and seasonal constellations, and a tour of the Sun and the eight planets, as browser previews and 4K 360 videos."
     },
     "category": "play",
     "status": {
@@ -250,6 +250,7 @@
       "Three.js",
       "NASA data",
       "ElevenLabs",
+      "AI image generation",
       "numpy audio",
       "Vercel"
     ],
@@ -259,9 +260,12 @@
       "Voyager",
       "ISS",
       "space",
+      "solar system",
       "우주",
       "보이저",
-      "우주정거장"
+      "우주정거장",
+      "태양계",
+      "별자리"
     ],
     "live": true,
     "problem": {
@@ -278,12 +282,16 @@
         "en": "ISS: NASA's IGOAL model (3M polygons), Blue/Black Marble maps and ESA 360° interior photos for a Cupola close-up, interior tour and night over Korea."
       },
       {
-        "ko": "달: NASA SLS 모델의 부스터·코어·탈출탑을 실제 분리 시각에 떼어 내고, 궤도·전이 궤도·달 근접 쌍곡선 궤적을 계산해 실제 5일 6시간을 3분 20초로 압축했습니다. 시점은 오리온 조종실 안에서 창밖을 내다보는 자리이고, 화면에 실제 경과 시간과 배속을 함께 표시합니다.",
-        "en": "Moon: separates the NASA SLS model's boosters, core and abort tower at the real mission times, computes the parking orbit, translunar coast and lunar hyperbolic flyby, and compresses 5 days 6 hours into 3:20, seen from inside the Orion cabin through its windows, with the real mission clock and speed-up on screen."
+        "ko": "달: NASA SLS 모델의 부스터·코어·탈출탑을 실제 분리 시각에 떼어 내고, 궤도·전이 궤도·달 근접 쌍곡선 궤적을 계산해 실제 5일 6시간을 3분 20초로 압축했습니다. 시점은 실사풍 오리온 조종실(계기판·창틀, AI 생성 이미지) 안에서 창밖을 내다보는 자리이고, 화면에 실제 경과 시간과 배속을 함께 표시합니다.",
+        "en": "Moon: separates the NASA SLS model's boosters, core and abort tower at the real mission times, computes the parking orbit, translunar coast and lunar hyperbolic flyby, and compresses 5 days 6 hours into 3:20, seen from inside a photographic Orion cabin (instrument panel and window frames, AI-generated image) through its windows, with the real mission clock and speed-up on screen."
       },
       {
-        "ko": "자전·공전: 아이 눈높이로 7분 56초. 햇빛을 곧은 빛줄기로 그려 낮과 밤의 경계를 설명하고, 서울 땅 위에서 해·달·별의 하루, 달 모양이 바뀌는 까닭, 계절마다 바뀌는 별자리와 풍경을 보여 줍니다. 태양은 NASA SDO 사진, 달은 NASA LRO 지도를 썼습니다.",
-        "en": "Rotation and revolution: 7:56 at a child's level. Sunlight drawn as straight beams explains the day/night line; from the ground in Seoul it shows a day of Sun, Moon and stars, why the Moon changes shape, and the constellations and scenery of each season. The Sun uses a NASA SDO photo and the Moon a NASA LRO map."
+        "ko": "자전·공전: 아이 눈높이로 7분 56초. 햇빛을 곧은 빛줄기로 그려 낮과 밤의 경계를 설명하고, 서울 땅 위에서 해·달·별의 하루, 달 모양이 바뀌는 까닭, 계절마다 바뀌는 별자리와 실사 풍경(벚꽃·숲·단풍·설경)을 보여 줍니다. 별자리 그림은 별 위치 도면을 참조 이미지로 넣어 생성해 별과 정확히 겹치고, 태양은 표면과 불꽃이 이글거립니다. 달은 NASA LRO 지도입니다. 4분 요약판과, 자전·공전 / 별자리로 나눈 두 편도 있습니다.",
+        "en": "Rotation and revolution: 7:56 at a child's level. Sunlight drawn as straight beams explains the day/night line; from the ground in Seoul it shows a day of Sun, Moon and stars, why the Moon changes shape, and the constellations and photographic scenery of each season (cherry blossom, forest, autumn leaves, snow). The constellation art is generated from a star chart used as a reference image, so it lines up with the stars; the Sun's surface and flames keep moving; the Moon is a NASA LRO map. There is also a 4-minute summary cut and a two-part split (rotation and revolution / constellations)."
+      },
+      {
+        "ko": "태양계: 3분. 태양계 전체 → 태양 → 여덟 행성을 하나씩 정면에서 → 실제 크기 비율 비교 → 공전 속도와 소행성대. 행성은 천천히 돌고, 이름은 옆에 작은 글씨로 계속 떠 있습니다. 화성·금성·해왕성은 NASA 지도, 수성 지도와 태양 그림은 AI 생성입니다.",
+        "en": "Solar system: 3:00. The whole system, the Sun, each of the eight planets straight ahead, a true-scale size line-up, then orbital speeds and the asteroid belt. Planets move slowly and their names stay beside them as small text. Mars, Venus and Neptune use NASA maps; the Mercury map and the Sun artwork are AI-generated."
       },
       {
         "ko": "VR 멀미를 줄이려고 회전 속도를 초당 10° 이하로 측정·제한하고, 큰 방향 전환은 짧은 암전으로 바꿨습니다. 장면이 바뀔 때마다 봐야 할 대상이 정면에 오도록 했습니다.",
@@ -295,8 +303,8 @@
       }
     ],
     "limitations": {
-      "ko": "거리와 크기는 체험을 위해 압축했습니다(실제 비율 아님). 행성 광채 등 일부는 연출입니다. ESA 내부 사진은 비상업 용도로 출처를 밝혀 사용했습니다.",
-      "en": "Distances and sizes are compressed for the experience, and some glows are artistic. ESA interior photos are used non-commercially with credit."
+      "ko": "거리와 크기는 체험을 위해 압축했습니다(실제 비율 아님). 행성 광채 등 일부는 연출입니다. 계절 풍경·별자리 그림·조종실·태양 그림·수성 지도는 AI로 생성한 이미지입니다. ESA 내부 사진은 비상업 용도로 출처를 밝혀 사용했습니다.",
+      "en": "Distances and sizes are compressed for the experience, and some glows are artistic. The seasonal scenery, constellation art, cabin, Sun artwork and Mercury map are AI-generated images. ESA interior photos are used non-commercially with credit."
     }
   },
   {
