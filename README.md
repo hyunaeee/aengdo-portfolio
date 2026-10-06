@@ -101,3 +101,9 @@ Terracotta → Meeting Assistant → MED-RAG → Serving Lab 순서로 도구 �
 공개 사이트는 체험 모드이며 미리 만든 견본으로 응답합니다. 실제 Claude 호출, 앱의 OAuth 경로를 통한 생성, 교실 사용은 검증하지 않았습니다. 화면 이미지는 가상 학생의 견본 데이터입니다. 앱 소스는 이 저장소에 포함하지 않습니다.
 
 콘텐츠는 `assets/portfolio-banjjak.js`, 사례 전용 스타일은 `assets/portfolio-banjjak.css`에서 관리합니다. 사례 구역에 `figures`를 넣으면 표 아래에 화면 이미지가 들어가며, `figureLayout: 'stack'`은 한 줄에 한 장씩 배치합니다.
+
+## English CV
+
+[English CV](https://hyunaeee.github.io/aengdo-portfolio/cv/) is a text-first resume with a dark two-column screen layout and a light print stylesheet. English portfolio pages link to it through CV navigation and the home page’s Read CV link. Experience, research, teaching, and project work retain their distinct roles and dates.
+
+Content: assets/portfolio-cv.js. Layout: assets/portfolio-cv.css. Builder: scripts/build-cv.cjs, called by the main portfolio build. The existing visual portfolio and previous resume URLs remain available.
