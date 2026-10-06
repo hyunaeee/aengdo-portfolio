@@ -238,16 +238,24 @@
       },
       {
         "label": {
+          "ko": "Blender 에셋 ↗",
+          "en": "BLENDER ASSETS ↗"
+        },
+        "url": "https://vr360-space.vercel.app/downloads.html"
+      },
+      {
+        "label": {
           "ko": "보이저 360 영상 ↗",
           "en": "VOYAGER 360 VIDEO ↗"
         },
-        "url": "https://vr360-space.vercel.app/watch.html?v=videos%2Fvoyager360_4k.mp4&t=Voyager%201%20%C2%B7%204K%20360"
+        "url": "https://vr360-space.vercel.app/watch.html?v=videos%2Fvoyager360_4k_xl.mp4&t=Voyager%201%20%C2%B7%204K%20360%20XL"
       }
     ],
     "stack": [
       "Blender Cycles",
       "Python",
       "Three.js",
+      "glTF",
       "NASA data",
       "ElevenLabs",
       "AI image generation",
@@ -296,6 +304,10 @@
       {
         "ko": "VR 멀미를 줄이려고 회전 속도를 초당 10° 이하로 측정·제한하고, 큰 방향 전환은 짧은 암전으로 바꿨습니다. 장면이 바뀔 때마다 봐야 할 대상이 정면에 오도록 했습니다.",
         "en": "Measured and capped rotation at 10°/s for comfort, replaced large turns with blink cuts, and put the subject straight ahead at every cut."
+      },
+      {
+        "ko": "영상은 사이트 안에서 바로 스트리밍 재생됩니다(빠른 시작, 휴대폰·느린 회선에서는 2K 자동 선택). 행성·태양·우주선·텍스처는 Blender용으로 묶어 썸네일과 3D 미리보기를 붙였습니다: 360° 카메라가 든 태양계 .blend, 천체별 glTF, SLS·오리온·보이저 모델.",
+        "en": "Videos stream in the site's own 360 player (fast start; 2K picked automatically on phones and slow connections). Planets, Sun, spacecraft and textures are packaged for Blender with thumbnails and a 3D preview: a solar-system .blend with a 360° camera, per-body glTF files, and the SLS/Orion and Voyager models."
       },
       {
         "ko": "three.js 미리보기, 한국어 나레이션(ElevenLabs), numpy로 합성한 음악·효과음, 360 메타데이터 삽입까지 하나의 재사용 가능한 스킬로 정리했습니다.",
