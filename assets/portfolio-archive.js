@@ -212,8 +212,8 @@
     "id": "vr360-space",
     "title": "360° VR Video Generation Skill",
     "summary": {
-      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤, 아르테미스 1호 우주선 안에서 창밖을 보며 발사대에서 달 뒷면까지 가는 여정, 지구의 자전·공전과 달의 모양·계절별 별자리, 태양과 여덟 행성을 도는 태양계를 브라우저 미리보기와 4K 360 영상으로 봅니다.",
-      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot, the ISS interior and night over Korea, an Artemis I ride from the launch pad to the lunar far side seen through the capsule windows, Earth's rotation and revolution with Moon phases and seasonal constellations, and a tour of the Sun and the eight planets, as browser previews and 4K 360 videos."
+      "ko": "NASA 3D 모델·위성 지도·원본 사진으로 만든 360° VR 우주 체험. 보이저 1호의 창백한 푸른 점, 국제우주정거장 내부와 한반도의 밤, 아르테미스 1호 우주선 안에서 창밖을 보며 발사대에서 달 뒷면까지 가는 여정, 지구의 자전·공전과 달의 모양·계절별 별자리, 태양과 여덟 행성을 도는 태양계, 빅뱅에서 지구의 바다가 생기기까지를 브라우저 미리보기와 4K 360 영상으로 봅니다.",
+      "en": "360° VR space experiences built from NASA 3D models, satellite maps and original photos: Voyager 1's Pale Blue Dot, the ISS interior and night over Korea, an Artemis I ride from the launch pad to the lunar far side seen through the capsule windows, Earth's rotation and revolution with Moon phases and seasonal constellations, a tour of the Sun and the eight planets, and the story from the Big Bang to Earth's first oceans, as browser previews and 4K 360 videos."
     },
     "category": "play",
     "status": {
@@ -300,6 +300,10 @@
       {
         "ko": "태양계: 3분 6초. 태양계 전체 → 태양 → 여덟 행성과 토성의 달 타이탄을 하나씩 정면에서 → 실제 크기 비율 비교 → 공전 속도와 소행성대 → 대한민국이 보이는 지구로 천천히 다가가며 끝. 행성마다 빛나는 자전축을 잠깐 보여 주고 실제 자전 주기(1초 = 1시간)로 돌리며, 지구는 낮과 밤 경계와 도시 불빛까지 보입니다. 옆에는 탐사선이 찍은 NASA 실제 사진(메신저·매리너 10·아폴로 17·바이킹·주노·카시니·하위헌스·보이저 2)을 띄웁니다.",
         "en": "Solar system: 3:06. The whole system, the Sun, each of the eight planets and Saturn's moon Titan straight ahead, a true-scale size line-up, orbital speeds and the asteroid belt, then a slow approach to Earth with Korea in view. Each planet briefly shows a glowing spin axis and turns at its real day length (1 s = 1 h); Earth shows the day/night line and city lights. Real NASA mission photos (MESSENGER, Mariner 10, Apollo 17, Viking, Juno, Cassini, Huygens, Voyager 2) appear beside each one."
+      },
+      {
+        "ko": "빅뱅에서 지구까지: 2분. 빅뱅 → 첫 원소 → 우주배경복사(38만 년) → 암흑시대와 첫 별 → 92억 년 뒤 태양 성운 → 원반에서 거대 행성과 암석 행성이 자람 → 지구의 핵, 테이아 충돌과 달, 마그마 바다, 첫 비와 바다. 연대는 Planck 2018, CAI 연대(Connelly 2012), 목성 핵(Kruijer 2017), 잭힐스 지르콘(Wilde 2001) 등으로 확인했고, 플랑크 우주배경복사 지도·제임스 웹 카리나 성운·ALMA HL 타우리 원반 같은 실제 관측 사진을 함께 보여 줍니다.",
+        "en": "Big Bang to Earth: 2:00. The Big Bang, the first nuclei, the cosmic microwave background (380,000 years), the dark ages and first stars, the solar nebula 9.2 billion years later, giant and rocky planets growing in the disc, then Earth's core, the Theia impact and the Moon, the magma ocean, the first rain and oceans. Dates are checked against Planck 2018, CAI ages (Connelly 2012), Jupiter's early core (Kruijer 2017) and the Jack Hills zircons (Wilde 2001); real observations (Planck CMB map, JWST Carina, ALMA HL Tau) appear alongside."
       },
       {
         "ko": "VR 멀미를 줄이려고 회전 속도를 초당 10° 이하로 측정·제한하고, 큰 방향 전환은 짧은 암전으로 바꿨습니다. 장면이 바뀔 때마다 봐야 할 대상이 정면에 오도록 했습니다.",
