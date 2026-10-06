@@ -298,8 +298,8 @@
         "en": "Rotation and revolution: 7:56 at a child's level. Sunlight drawn as straight beams explains the day/night line; from the ground in Seoul it shows a day of Sun, Moon and stars, why the Moon changes shape, and the constellations and photographic scenery of each season (cherry blossom, forest, autumn leaves, snow). The constellation art is generated from a star chart used as a reference image, so it lines up with the stars; the Sun's surface and flames keep moving; the Moon is a NASA LRO map. There is also a 4-minute summary cut and a two-part split (rotation and revolution / constellations)."
       },
       {
-        "ko": "태양계: 3분. 태양계 전체 → 태양 → 여덟 행성을 하나씩 정면에서 → 실제 크기 비율 비교 → 공전 속도와 소행성대. 행성은 천천히 돌고, 이름은 옆에 작은 글씨로 계속 떠 있습니다. 화성·금성·해왕성은 NASA 지도, 수성 지도와 태양 그림은 AI 생성입니다.",
-        "en": "Solar system: 3:00. The whole system, the Sun, each of the eight planets straight ahead, a true-scale size line-up, then orbital speeds and the asteroid belt. Planets move slowly and their names stay beside them as small text. Mars, Venus and Neptune use NASA maps; the Mercury map and the Sun artwork are AI-generated."
+        "ko": "태양계: 3분 6초. 태양계 전체 → 태양 → 여덟 행성과 토성의 달 타이탄을 하나씩 정면에서 → 실제 크기 비율 비교 → 공전 속도와 소행성대 → 대한민국이 보이는 지구로 천천히 다가가며 끝. 행성마다 빛나는 자전축을 잠깐 보여 주고 실제 자전 주기(1초 = 1시간)로 돌리며, 지구는 낮과 밤 경계와 도시 불빛까지 보입니다. 옆에는 탐사선이 찍은 NASA 실제 사진(메신저·매리너 10·아폴로 17·바이킹·주노·카시니·하위헌스·보이저 2)을 띄웁니다.",
+        "en": "Solar system: 3:06. The whole system, the Sun, each of the eight planets and Saturn's moon Titan straight ahead, a true-scale size line-up, orbital speeds and the asteroid belt, then a slow approach to Earth with Korea in view. Each planet briefly shows a glowing spin axis and turns at its real day length (1 s = 1 h); Earth shows the day/night line and city lights. Real NASA mission photos (MESSENGER, Mariner 10, Apollo 17, Viking, Juno, Cassini, Huygens, Voyager 2) appear beside each one."
       },
       {
         "ko": "VR 멀미를 줄이려고 회전 속도를 초당 10° 이하로 측정·제한하고, 큰 방향 전환은 짧은 암전으로 바꿨습니다. 장면이 바뀔 때마다 봐야 할 대상이 정면에 오도록 했습니다.",
