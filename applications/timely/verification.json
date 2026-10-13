@@ -1,0 +1,71 @@
+{
+  "asOf": "2026-10-13",
+  "appAutomation": {
+    "sourceCommit": "1989cd278c963574f3eb9e8715a03e5828b5d6fa",
+    "command": "npm test && npm run build",
+    "node": "24.18.0",
+    "passed": 182,
+    "skipped": 1,
+    "failed": 0,
+    "scope": "Local deterministic tests with external provider/cloud doubles. Android SDK opt-in skipped. TypeScript/Vite build passed.",
+    "ciChange": "https://github.com/hyunaeee/app-automation-gpt/pull/1",
+    "testRevision": "3b2ad231224c9386c0c228c1cb416b579da6f3be",
+    "ciRun": "https://github.com/hyunaeee/app-automation-gpt/actions/runs/38357852155",
+    "ciConclusion": "success",
+    "additionalNodeVerification": "Node 22.23.3: same 182 passed, 1 Android SDK opt-in skipped, 0 failures or cancellations. Mock ChildProcess lifetime was fixed without weakening assertions."
+  },
+  "saju": {
+    "sourceCommit": "e560ee5d5d7c5e8ce1459a44a8f67510eb802ec7",
+    "offlineAssertionsPassed": 348,
+    "testRevision": "923ed3f290007778de2a715929c4d0b58ad8ec9d",
+    "ciChange": "https://github.com/hyunaeee/saju-ai-mobile/pull/1",
+    "ciRun": "https://github.com/hyunaeee/saju-ai-mobile/actions/runs/38357667742",
+    "ciConclusion": "success",
+    "offlineAssertionsFailed": 0,
+    "scope": "Existing server.test.js: Redis/Toss/Claude replacements; Lua executed with Fengari. The full existing npm test command (8 scripts) also exited 0.",
+    "realRedis": {
+      "version": "7.4.11",
+      "node": "24.18.0",
+      "scenariosPassed": 7,
+      "nodeTestPassedIncludingParent": 8,
+      "failed": 0,
+      "scope": "Production handlers and Lua against a disposable local Redis. Toss is stubbed; no actual payments. UUID keys removed and test container removed.",
+      "concurrency": { "confirm": 16, "grant": 24, "questions": 20, "availableQuestions": 5, "refund": 16, "forcedRaceOrdersEach": 6 }
+    }
+  },
+  "postgresLab": {
+    "postgres": "16.15",
+    "prisma": "6.19.0",
+    "integrationTestsPassed": 8,
+    "failed": 0,
+    "migrationsApplied": 2,
+    "schemaDrift": false,
+    "concurrentDebitRequests": 20,
+    "initialCredits": 7,
+    "successfulDebits": 7,
+    "insufficientBalance": 13,
+    "explainSyntheticRows": 100000,
+    "scope": "Independent TypeScript/Prisma/PostgreSQL experiment. No provider payments or authenticated organization membership. Local query-plan comparison is not an operational performance claim.",
+    "report": "../../backend-ledger-lab/reports/README.md"
+  },
+  "terracotta": {
+    "sourceCommit": "9b5026e2b3d5f30bfd757b8b5d34976d670533bd",
+    "testRevision": "adefab493b7c351277050e8365ce68a76ac0acb1",
+    "change": "https://github.com/hyunaeee/terracotta/pull/2",
+    "ciRun": "https://github.com/hyunaeee/terracotta/actions/runs/38357764639",
+    "ciConclusion": "success",
+    "testsPassed": 17,
+    "behavioralTestsPassed": 8,
+    "failed": 0,
+    "typecheck": "passed",
+    "build": "passed",
+    "lint": "0 errors; 7 pre-existing image warnings",
+    "scope": "Actual route/orchestrator/hub with SQLite SQL and stub providers. Conditional approval claim and bound one-time MCP write grants. At-most-once local attempt, not external exactly-once or distributed D1 verification."
+  },
+  "meeting": {
+    "usageAsOf": "2026-09-15",
+    "meetings": 32,
+    "recordedMinutes": 833,
+    "scope": "Owner-provided August and partial September usage. Not time saved. Internal source and meetings remain private."
+  }
+}

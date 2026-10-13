@@ -1,0 +1,20 @@
+
+> backend-ledger-lab@0.1.0 test
+> tsx --test --test-concurrency=1 tests/ledger.test.ts
+
+✔ concurrent grant retries return one entry; changed payload cannot reuse its key (63.7538ms)
+✔ concurrent debit retries create one order and one charge (42.2575ms)
+✔ 20 concurrent orders competing for 7 credits yield 7 charges and no negative balance (137.1434ms)
+✔ tenant namespaces isolate identical keys and order IDs, including refunds (42.4598ms)
+✔ insufficient funds leave no order or entry and the request can succeed after a grant (18.307ms)
+✔ 20 duplicate refunds restore credits once; new keys cannot refund the order twice (64.2855ms)
+✔ a database failure after debit rolls back wallet, order, and idempotency receipt together (43.2138ms)
+✔ invalid amounts fail before writes and SQL constraints reject negative balances (5.077ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 702.8971
