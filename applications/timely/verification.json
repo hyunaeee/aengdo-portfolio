@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-10-13",
+  "asOf": "2026-10-14",
   "appAutomation": {
     "sourceCommit": "1989cd278c963574f3eb9e8715a03e5828b5d6fa",
     "command": "npm test && npm run build",
@@ -30,7 +30,14 @@
       "nodeTestPassedIncludingParent": 8,
       "failed": 0,
       "scope": "Production handlers and Lua against a disposable local Redis. Toss is stubbed; no actual payments. UUID keys removed and test container removed.",
-      "concurrency": { "confirm": 16, "grant": 24, "questions": 20, "availableQuestions": 5, "refund": 16, "forcedRaceOrdersEach": 6 }
+      "concurrency": {
+        "confirm": 16,
+        "grant": 24,
+        "questions": 20,
+        "availableQuestions": 5,
+        "refund": 16,
+        "forcedRaceOrdersEach": 6
+      }
     }
   },
   "postgresLab": {
@@ -63,9 +70,39 @@
     "scope": "Actual route/orchestrator/hub with SQLite SQL and stub providers. Conditional approval claim and bound one-time MCP write grants. At-most-once local attempt, not external exactly-once or distributed D1 verification."
   },
   "meeting": {
-    "usageAsOf": "2026-09-15",
-    "meetings": 32,
-    "recordedMinutes": 833,
-    "scope": "Owner-provided August and partial September usage. Not time saved. Internal source and meetings remain private."
+    "usageAsOf": null,
+    "reportedAt": "2026-10-14",
+    "meetings": 45,
+    "recordedMinutes": 1440,
+    "departments": [
+      {
+        "name": "교육사업본부",
+        "meetings": 23,
+        "recordedMinutes": 735
+      },
+      {
+        "name": "개발사업본부",
+        "meetings": 20,
+        "recordedMinutes": 700
+      },
+      {
+        "name": "비공개",
+        "meetings": 1,
+        "recordedMinutes": 5
+      }
+    ],
+    "reconciliation": {
+      "departmentMeetings": 44,
+      "departmentRecordedMinutes": 1440,
+      "meetingCountDifference": 1,
+      "resolution": "Not provided; no department or duration inferred for the difference."
+    },
+    "scope": "Owner-provided usage dashboard totals. Reporting period and collection cutoff were not supplied. Recorded duration is not time saved. Internal source and meetings remain private.",
+    "previousSnapshot": {
+      "usageAsOf": "2026-09-15",
+      "meetings": 32,
+      "recordedMinutes": 833,
+      "scope": "Owner-provided August and partial September usage. Not time saved. Internal source and meetings remain private."
+    }
   }
 }
