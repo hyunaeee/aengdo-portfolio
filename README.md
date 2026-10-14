@@ -11,7 +11,7 @@ AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사�
 
 ## 타임리 Backend Engineer 지원
 
-[지원용 포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/roles/timely/)는 Meeting Assistant → app-automation → 천기연 순서의 8쪽 사례집입니다. 상단 버튼으로 A4 PDF를 저장할 수 있습니다. 수치와 공개 범위는 `applications/timely/verification.json`에 기록합니다. 별도 `backend-ledger-lab/`은 TypeScript·Prisma·PostgreSQL의 원장·동시성·migration·인덱스 검증이며 기존 서비스의 PostgreSQL 운영 경력으로 표현하지 않습니다.
+[지원용 포트폴리오](https://hyunaeee.github.io/aengdo-portfolio/roles/timely/)는 영문 CV의 타이포와 여백을 따른 한국어 3쪽 사례집입니다. 경력·Meeting Assistant, 인증·결제 프로젝트, PostgreSQL·MCP 검증을 순서대로 소개하며 회의 어시스턴트의 공개 데모 이미지 한 장만 사용합니다. 웹은 어두운 배경, 인쇄본은 흰 배경으로 제공하고 상단 버튼으로 A4 PDF를 저장할 수 있습니다. 수치와 공개 범위는 `applications/timely/verification.json`에 기록합니다. 별도 `backend-ledger-lab/`은 TypeScript·Prisma·PostgreSQL의 원장·동시성·migration·인덱스 검증이며 기존 서비스의 PostgreSQL 운영 경력으로 표현하지 않습니다.
 
 ## MED-RAG Serving Lab
 
