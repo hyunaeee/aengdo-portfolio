@@ -1,0 +1,64 @@
+name: Backend ledger lab
+on:
+  pull_request:
+    paths: ['backend-ledger-lab/**', '.github/workflows/backend-ledger.yml']
+  push:
+    branches: [main]
+    paths: ['backend-ledger-lab/**', '.github/workflows/backend-ledger.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  postgres-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: backend-ledger-lab
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ledger_lab
+          POSTGRES_PASSWORD: lab-only-ci
+          POSTGRES_DB: timely_ledger_lab
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U ledger_lab -d timely_ledger_lab"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://ledger_lab:lab-only-ci@127.0.0.1:5432/timely_ledger_lab?connection_limit=25
+      LEDGER_LAB_TEST: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend-ledger-lab/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run generate
+      - run: npm run migrate
+      - run: npm run typecheck
+      - name: Check migration matches Prisma schema
+        run: npx prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --exit-code
+      - name: Integration contracts
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p artifacts
+          npm test 2>&1 | tee artifacts/integration-test.txt
+      - name: Query-plan evidence from this run
+        run: |
+          npm run explain
+          cp reports/explain.json artifacts/explain.json
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: postgres-ledger-evidence
+          path: |
+            backend-ledger-lab/artifacts/integration-test.txt
+            backend-ledger-lab/artifacts/explain.json
+          retention-days: 14
