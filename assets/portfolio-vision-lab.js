@@ -1,4 +1,4 @@
-/* Fifteen technology pages with recorded results and preparation status.
+/* Sixteen technology pages with recorded results and preparation status.
    Detailed evidence stays in the existing RelateAnything and MotionCheck cases. */
 (function (root, factory) {
   const data = factory();
@@ -11,13 +11,13 @@
   // The portfolio builder resolves this canonical source origin to local links.
   const PORTFOLIO_URL = 'https://hyunaeee.github.io/aengdo-portfolio';
   const links = [
-    { label: L('15개 기술 페이지 둘러보기', 'Explore 15 technology pages'), url: LIVE_URL, kind: 'demo' },
+    { label: L('16개 기술 페이지 둘러보기', 'Explore 16 technology pages'), url: LIVE_URL, kind: 'demo' },
     { label: L('관계 인식 상세 사례', 'Relation prediction case'), url: PORTFOLIO_URL + '/work/relateanything/index.html', urlEn: PORTFOLIO_URL + '/work/relateanything/en.html', kind: 'source' },
     { label: L('동작·제어 상세 사례', 'Motion and control case'), url: PORTFOLIO_URL + '/work/motion-check/index.html', urlEn: PORTFOLIO_URL + '/work/motion-check/en.html', kind: 'source' }
   ];
   const summary = L(
-    '공개 비전 모델의 추론을 연결하고 평가·시각화를 구현했습니다. 15개 기술 페이지에서 객체 관계, 동작 비교, 물리 제어, 추적·자세 추정의 실행 결과와 오류를 살펴보고, 실행한 단계와 모델 공개·접근·파일 준비가 필요한 단계를 구분합니다.',
-    'Integrated public vision models with evaluation and visualization across 15 technology pages. The lab presents recorded results and errors in object relations, motion comparison, simulated control, tracking, and pose estimation, while distinguishing executed stages from stages awaiting model release, access, or required files.'
+    '공개 비전 모델의 추론을 연결하고 평가·시각화를 구현했습니다. 16개 기술 페이지에서 객체 관계, 동작 비교, 물리 제어, 추적·자세 추정·이상 탐지의 실행 결과와 오류를 살펴보고, 실행한 단계와 모델 공개·접근·파일 준비가 필요한 단계를 구분합니다.',
+    'Integrated public vision models with evaluation and visualization across 16 technology pages. The lab presents recorded results and errors in object relations, motion comparison, simulated control, tracking, pose estimation, and anomaly detection, while distinguishing executed stages from stages awaiting model release, access, or required files.'
   );
   const image = {
     src: 'assets/vision-lab.jpg', width: 512, height: 272,
@@ -36,7 +36,7 @@
       'A frame from the 80-frame train run. Colored trajectories are model estimates; the website explores recorded outputs.'
     ),
     metrics: [
-      { value: '15', label: L('기술별 페이지', 'Technology pages'), note: L('실제 실행 결과 · 단계별 진행 · 모델 준비 상태', 'Recorded results · stage progress · model preparation status') },
+      { value: '16', label: L('기술별 페이지', 'Technology pages'), note: L('실제 실행 결과 · 단계별 진행 · 모델 준비 상태', 'Recorded results · stage progress · model preparation status') },
       { value: '481', label: L('관계 인식 입력 프레임', 'Relation experiment frames'), note: L('하나의 생성 영상 · 기본·개선 실행 비교', 'One generated clip · baseline and revised runs') },
       { value: '400', label: L('물리 시뮬레이션 평가', 'Physics simulation evaluations'), note: L('한 기준 동작·4관절 모형의 내부 반복', 'Internal repeats of one reference motion and four-joint model') }
     ],
@@ -46,8 +46,8 @@
         id: 'experiments', eyebrow: '01 / EXPERIMENT MAP',
         title: L('기술별 실행 범위', 'Execution scope by technology'),
         body: [L(
-          '기존 5개 실험에 10개 기술 페이지를 추가했습니다. 15개는 페이지 수이며, 15개 모델의 전체 파이프라인 실행 성공을 뜻하지 않습니다. 결과가 있는 페이지에서는 입력과 원시 예측을 비교하고, 준비 중인 페이지에는 완료 단계와 필요한 모델 공개·접근·파일을 기록합니다. 관계 인식과 동작·제어의 상세 설계는 기존 사례로 연결합니다.',
-          'Ten technology pages extend the five existing experiments. Fifteen is the page count, not a claim that 15 complete model pipelines ran successfully. Result pages compare inputs with raw predictions; preparation pages document completed stages and required model release, access, or files. Existing cases retain the detailed relation and motion-control designs.'
+          '기존 5개 실험에 11개 기술 페이지를 추가했습니다. 16개는 페이지 수이며, 16개 모델의 전체 파이프라인 실행 성공을 뜻하지 않습니다. 결과가 있는 페이지에서는 입력과 원시 예측을 비교하고, 준비 중인 페이지에는 완료 단계와 필요한 모델 공개·접근·파일을 기록합니다. 관계 인식과 동작·제어의 상세 설계는 기존 사례로 연결합니다.',
+          'Eleven technology pages extend the five existing experiments. Sixteen is the page count, not a claim that 16 complete model pipelines ran successfully. Result pages compare inputs with raw predictions; preparation pages document completed stages and required model release, access, or files. Existing cases retain the detailed relation and motion-control designs.'
         )],
         table: {
           headers: [L('실험', 'Experiment'), L('살펴보는 것', 'What it investigates'), L('실행 범위', 'Run scope')],
@@ -66,7 +66,8 @@
             ['Fast SAM 3D Body', L('이미지별 인체 메시 추정 가속', 'Accelerated per-image human mesh estimation'), L('모델 API import 확인 · 가중치 접근 승인 대기', 'Model API imports verified · checkpoint access approval pending')],
             ['CARI4D', L('사람과 물체의 3D 동작·상호작용 복원', '3D human-object motion and interaction reconstruction'), L('코드·환경 준비 · SMPL-H 모델 파일 필요', 'Code and environment prepared · SMPL-H model files required')],
             ['Dense4D', L('몸·옷·머리카락의 밀집 4D 표면 대응', 'Dense 4D surface correspondence of body, clothing, and hair'), L('공식 데모 연결 · 코드·가중치 공개 대기 · 자체 추론 미실행', 'Official demo links · code and checkpoint release pending · no local inference')],
-            ['S4VY', L('시공간에 걸친 물체 영역 분할과 ID 연결', 'Object segmentation and identity association across space and time'), L('춤 90프레임의 기존 분할·점 추적 비교와 입력점 준비 · S4VY 코드 공개 승인 대기', 'Existing segmentation and point-tracking comparison on 90 dance frames, plus point-prompt preparation · S4VY code release approval pending')]
+            ['S4VY', L('시공간에 걸친 물체 영역 분할과 ID 연결', 'Object segmentation and identity association across space and time'), L('춤 90프레임의 기존 분할·점 추적 비교와 입력점 준비 · S4VY 코드 공개 승인 대기', 'Existing segmentation and point-tracking comparison on 90 dance frames, plus point-prompt preparation · S4VY code release approval pending')],
+            ['PatchCore', L('정상 오렌지와의 외관 차이·이상 히트맵·놓친 사례', 'Visual deviation from normal oranges, anomaly heatmaps, and missed cases'), L('사진 248장 평가 · 실제 선별 라인 247프레임 검출·추적 연동', '248 evaluated photos · detection and tracking integrated on 247 real conveyor frames')]
           ]
         },
         links: [
@@ -84,7 +85,8 @@
           { label: L('Fast SAM 3D Body', 'Fast SAM 3D Body'), url: LIVE_URL + 'fast-sam3d/', kind: 'demo' },
           { label: L('CARI4D', 'CARI4D'), url: LIVE_URL + 'cari4d/', kind: 'demo' },
           { label: L('Dense4D', 'Dense4D'), url: LIVE_URL + 'dense4d/', kind: 'demo' },
-          { label: L('S4VY', 'S4VY'), url: LIVE_URL + 's4vy/', kind: 'demo' }
+          { label: L('S4VY', 'S4VY'), url: LIVE_URL + 's4vy/', kind: 'demo' },
+          { label: L('PatchCore', 'PatchCore'), url: LIVE_URL + 'patchcore/', kind: 'demo' }
         ]
       },
       {
@@ -92,7 +94,7 @@
         title: L('구현한 기능과 검증 범위', 'Implementation and validation scope'),
         body: [
           L('구현에서는 객체 연결·시간 후처리, 관절 비교·단계 판정, MuJoCo 토크 제어를 구성했습니다. TraceAnything 추론은 Windows와 24GB GPU에 맞춰 실행 순서와 attention 호환 처리를 조정하고, 내보낸 좌표가 원시 예측과 일치하는지 확인했습니다.', 'I implemented object association and temporal processing, joint comparison and stage decisions, and MuJoCo torque control. For TraceAnything inference, I adapted execution scheduling and attention compatibility for Windows and a 24 GB GPU, then checked exported coordinates against raw predictions.'),
-          L('평가에서는 관측 누락과 관계 오분류, 자세 차이와 시간 차이, 제어 오차와 완료 여부를 구분했습니다. DeepLabCut은 기본 설정과 대상 박스 선택 조건을 비교하고, 예측 신뢰도와 실제 정확도를 구분해 기록했습니다. 추가 모델은 실행한 단계·내보낸 데이터·남은 조건을 기록하고, 실제 결과와 준비 상태를 같은 Vercel 사이트의 15개 기술 페이지로 연결했습니다.', 'Evaluation separates missing observations from relation errors, pose differences from timing, and control error from task completion. For DeepLabCut, I compared default and bounding-box selection settings and distinguished prediction confidence from accuracy. For additional models, I recorded executed stages, exported data, and remaining requirements, connecting results and preparation status through 15 technology pages on one Vercel site.')
+          L('평가에서는 관측 누락과 관계 오분류, 자세 차이와 시간 차이, 제어 오차와 완료 여부를 구분했습니다. DeepLabCut은 기본 설정과 대상 박스 선택 조건을 비교하고, 예측 신뢰도와 실제 정확도를 구분해 기록했습니다. 추가 모델은 실행한 단계·내보낸 데이터·남은 조건을 기록하고, 실제 결과와 준비 상태를 같은 Vercel 사이트의 16개 기술 페이지로 연결했습니다.', 'Evaluation separates missing observations from relation errors, pose differences from timing, and control error from task completion. For DeepLabCut, I compared default and bounding-box selection settings and distinguished prediction confidence from accuracy. For additional models, I recorded executed stages, exported data, and remaining requirements, connecting results and preparation status through 16 technology pages on one Vercel site.')
         ]
       },
       {
@@ -156,6 +158,15 @@
           { label: L('실제 추적 결과 비교', 'Compare the tracking outputs'), url: LIVE_URL + 'track3d/', kind: 'demo' },
           { label: L('모델·데이터 출처와 사용 범위', 'Model, data, and usage scope'), url: LIVE_URL + 'track3d/SOURCES.md', kind: 'source' }
         ]
+      },
+      {
+        id: 'patchcore', eyebrow: '09 / ANOMALY DETECTION',
+        title: L('PatchCore', 'PatchCore'),
+        body: [
+          L('PatchCore를 별도 PyTorch 구현으로 연결해 정상 오렌지 사진 110장의 특징 메모리 뱅크를 만들고, 별도 정상 30장으로 임계값을 고정했습니다. 평가 사진 248장의 원본·이상 히트맵·점수와 놓친 사례를 공개합니다. 불량 198장 중 12장만 검출해 재현율은 6.06%였고, 정상 50장에서는 오탐이 없었습니다. 낮은 검출 성능을 그대로 남긴 탐색 실험입니다.', 'Using an independent PyTorch implementation of PatchCore, I built a feature memory bank from 110 normal orange photos and fixed the threshold using 30 separate normal photos. The viewer exposes source images, anomaly heatmaps, scores, and missed cases for 248 evaluation images. Only 12 of 198 anomalous images were detected, giving 6.06% recall, with no false positives among 50 normal images. This exploratory run preserves its weak detection performance.'),
+          L('실제 Pexels 선별 라인 영상 247프레임에는 RF-DETR Small 검출, ByteTrack 추적, PatchCore 이상 점수와 연속 프레임 판정을 연결했습니다. 저장된 원본·오버레이와 추적 기록을 비교할 수 있습니다. 이 영상은 사진과 촬영 조건이 다르고 품질 정답이 없어, 파이프라인 연동 확인 범위로 기록했습니다.', 'On 247 frames of real Pexels conveyor footage, I connected RF-DETR Small detection, ByteTrack tracking, PatchCore anomaly scores, and decisions across successive frames. The viewer compares recorded source footage, overlays, and tracking logs. Because the clip differs from the photo-training conditions and lacks quality ground truth, it is documented as a pipeline integration check.')
+        ],
+        links: [{ label: L('PatchCore', 'PatchCore'), url: LIVE_URL + 'patchcore/', kind: 'demo' }]
       }
     ],
     decisions: [
@@ -163,10 +174,11 @@
       { title: L('예측·후처리·시각화를 구분', 'Distinguish predictions, processing, and display'), body: L('마스크 선택이나 보기 좋은 시각화를 정확도 개선으로 표현하지 않습니다. 원시 출력과 처리 조건을 남겨 결과를 다시 확인할 수 있게 합니다.', 'Mask selection and clearer visualization are not presented as accuracy improvements. Raw outputs and processing conditions remain available for inspection.') }
     ],
     limitations: [
+      L('PatchCore 사진 실험은 불량 198장 중 186장을 놓쳤습니다. 선별 라인 영상에는 품질 정답이 없고 사진 학습과 촬영 환경이 달라, 영상의 이상 표시를 불량 확정이나 산업용 품질 검증으로 해석할 수 없습니다. 추적 ID 수는 실제 과일 개수가 아니며, 히트맵의 결함 위치 정확도도 검증하지 않았습니다.', 'The PatchCore photo experiment missed 186 of 198 anomalous images. The conveyor clip has no quality ground truth and differs from the training-photo domain, so its anomaly flags do not establish defects or industrial inspection reliability. Track IDs are not a count of physical fruit, and heatmap localization accuracy has not been evaluated.'),
       L('S4VY는 2026년 10월 29일 공식 저장소에서 코드 공개 승인 대기 상태를 확인했습니다. 같은 춤 90프레임의 원본·기존 Sapiens2 의미 분할·TAPNext++ 2D 점 추적을 동기화해 비교하고, 선택한 입력점 좌표를 내보내는 준비 화면을 구현했습니다. 이는 S4VY 추론이나 사람 ID 추적 결과가 아닙니다. 공식 Playground는 저자의 재구성 메시 탐색이며 사용자 영상 업로드 기능은 없습니다.', 'On October 29, 2026, the official S4VY repository stated that code release approval was pending. I implemented synchronized comparison of the same 90 dance frames: source footage, existing Sapiens2 semantic segmentation, and TAPNext++ 2D point tracks, with export of selected point coordinates for preparation. These are not S4VY inference or person-identity tracking results. The official Playground explores the author’s reconstructed meshes and does not accept user-video uploads.'),
       L('Dense4D는 2026년 10월 20일 공식 페이지의 Code Coming soon 상태를 확인했습니다. 논문 조사와 저자의 사전 계산 데모 연결만 포함하며, 이 프로젝트의 추론·설치 성공 사례로 세지 않습니다.', 'On October 20, 2026, the official Dense4D page still stated Code Coming soon. This entry covers paper review and links to the author’s precomputed demos; it is not a successful local installation or inference run.'),
       L('이 프로젝트의 기여는 공개 모델을 연결한 구현·평가·시각화입니다. 원본 모델을 개발하거나 재학습한 결과가 아니며, Vercel은 저장된 결과를 제공하고 새 영상의 GPU 추론을 실행하지 않습니다.', 'The contribution is integration, evaluation, and visualization using credited public models. I did not develop or retrain the original models; Vercel serves recorded results rather than GPU inference on new uploads.'),
-      L('15개 기술 페이지에는 실제 결과, 일부 단계만 실행한 결과, 모델 공개·접근·파일 준비 중인 항목이 함께 있습니다. SAM 3.1·Fast SAM 3D Body는 공식 가중치 접근 승인이, 4DAnyone·HTD-Refine의 후속 단계는 SMPLX_NEUTRAL.npz가, CARI4D는 SMPL-H 모델 파일이 필요합니다. 코드 설치·import 성공을 추론 완료로 세지 않습니다.', 'The 15 technology pages include recorded results, partially executed pipelines, and items awaiting model release, access, or files. SAM 3.1 and Fast SAM 3D Body require official checkpoint access approval; later stages of 4DAnyone and HTD-Refine require SMPLX_NEUTRAL.npz; CARI4D requires SMPL-H model files. Code installation or successful imports do not count as completed inference.'),
+      L('16개 기술 페이지에는 실제 결과, 일부 단계만 실행한 결과, 모델 공개·접근·파일 준비 중인 항목이 함께 있습니다. SAM 3.1·Fast SAM 3D Body는 공식 가중치 접근 승인이, 4DAnyone·HTD-Refine의 후속 단계는 SMPLX_NEUTRAL.npz가, CARI4D는 SMPL-H 모델 파일이 필요합니다. 코드 설치·import 성공을 추론 완료로 세지 않습니다.', 'The 16 technology pages include recorded results, partially executed pipelines, and items awaiting model release, access, or files. SAM 3.1 and Fast SAM 3D Body require official checkpoint access approval; later stages of 4DAnyone and HTD-Refine require SMPLX_NEUTRAL.npz; CARI4D requires SMPL-H model files. Code installation or successful imports do not count as completed inference.'),
       L('관계 인식의 on 관계 실패, 실제 동작 영상의 판정 보류·오거절, 3D 추적의 드리프트, DeepLabCut의 대상 전환과 키포인트 오차가 남아 있습니다. 제한된 입력의 개발 실험이며 실제 로봇이나 새로운 사람·장면에 대한 일반화 성능을 입증하지 않습니다.', 'Unresolved failures include the on relation, abstention and false rejection on real motion footage, 3D tracking drift, and DeepLabCut target switches and keypoint errors. These are development experiments on limited inputs, without demonstrated generalization to real robots or new people and scenes.'),
       L('DeepLabCut 화면의 신뢰도는 2D 모델의 출력이며, 정답 대비 정확도나 FMPose3D의 3D 정확도를 뜻하지 않습니다. FMPose3D는 골반 원점의 상대 좌표로, 실제 세계 좌표 이동·미터 단위·정답 대비 3D 정확도를 검증하지 않았습니다. 장시간 개인 식별 추적도 검증 범위에 포함되지 않습니다.', 'Confidence in the DeepLabCut viewer comes from 2D models; it is neither ground-truth accuracy nor FMPose3D 3D accuracy. FMPose3D outputs pelvis-relative coordinates. World-space translation, metric scale, ground-truth 3D accuracy, and long-term identity tracking have not been validated.'),
       L('TraceAnything은 2026년 9월 29일 조사에서 코드 공개를 확인하지 못한 TrackEverything과는 별도 모델입니다. 이 실행은 999프레임 이상 추적이나 정답 대비 3D 정확도를 검증한 결과가 아닙니다. TAPNext++는 2D 점 추적이고, Sapiens2는 프레임별 자세·분할 추정입니다.', 'TraceAnything is a separate model from TrackEverything, whose code release was not found in the September 29, 2026 review. These runs do not validate 999-plus-frame tracking or 3D accuracy against ground truth. TAPNext++ performs 2D point tracking; Sapiens2 estimates pose and segmentation per frame.')
@@ -174,11 +186,11 @@
   };
   const archive = {
     id: project.id, title: project.title, summary, category: 'ai',
-    status: L('AI / 비전 기술 페이지 15개', 'AI / 15 VISION TECHNOLOGY PAGES'),
+    status: L('AI / 비전 기술 페이지 16개', 'AI / 16 VISION TECHNOLOGY PAGES'),
     period: project.period, image: image.src, imageAlt: image.alt,
     imageWidth: image.width, imageHeight: image.height,
     live: true, caseId: project.id, caseLabel: L('실험 개요 보기', 'Explore the lab'), stack: project.stack, links,
-    keywords: ['RelateAnything', 'MotionCheck', 'TraceAnything', 'DeepLabCut', 'TAPNext++', 'Sapiens2', 'HTD-Refine', 'ReViV', '4DAnyone', 'SAM 3.1', 'Fast SAM 3D Body', 'CARI4D', 'Dense4D', 'S4VY', 'SuperAnimal', 'FMPose3D', 'Pose', 'DTW', '관계 인식', '춤'],
+    keywords: ['RelateAnything', 'MotionCheck', 'TraceAnything', 'DeepLabCut', 'TAPNext++', 'Sapiens2', 'HTD-Refine', 'ReViV', '4DAnyone', 'SAM 3.1', 'Fast SAM 3D Body', 'CARI4D', 'Dense4D', 'S4VY', 'PatchCore', 'RF-DETR', 'ByteTrack', 'SuperAnimal', 'FMPose3D', 'Pose', 'DTW', '관계 인식', '춤', '이상 탐지'],
     limitations: L('실제 결과와 준비 상태 구분 · 입력별 오차와 실행 범위 공개', 'Recorded results separated from preparation status · errors and execution scope documented')
   };
   return { project, archive, liveUrl: LIVE_URL };
