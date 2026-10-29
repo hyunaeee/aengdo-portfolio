@@ -328,6 +328,69 @@
     }
   },
   {
+    "id": "chiikawa-house-cleaning",
+    "title": "Chiikawa House Cleaning · 치이카와 하우스 대청소",
+    "summary": {
+      "ko": "치이카와 친구들이 집 안 방을 하나씩 맡아 컴퓨터에 쌓인 캐시·임시 파일·오래된 다운로드를 찾아 주고, 치우기 전에 꼭 하나씩 물어보는 PC 정리 앱. 윈도우·맥용으로 만들고 한국어판과 글로벌판(일본어 손글씨 말풍선 + 영어) 두 가지로 냈습니다. 비공식 개인 팬 프로젝트입니다.",
+      "en": "A PC cleaner in which Chiikawa and friends each look after a room of the house, find the caches, temp files and old downloads piling up, and always ask before tidying anything. Built for Windows and macOS in a Korean edition and a global edition (handwritten Japanese speech bubbles with an English UI). An unofficial personal fan project."
+    },
+    "category": "app",
+    "status": {
+      "ko": "데모 영상 / 비공식 팬 프로젝트",
+      "en": "DEMO VIDEO / UNOFFICIAL FAN PROJECT"
+    },
+    "period": "2026.10",
+    "video": "assets/videos/chiikawa-house-cleaning.mp4",
+    "poster": "assets/chiikawa-house-cleaning.jpg",
+    "videoWidth": 1280,
+    "videoHeight": 720,
+    "videoLabel": {
+      "ko": "치이카와 하우스 대청소 체험 모드 화면 녹화",
+      "en": "Screen recording of Chiikawa House Cleaning in demo mode"
+    },
+    "links": [
+      {
+        "label": {
+          "ko": "데모 영상 보기 · 59초 · 3.7 MB",
+          "en": "Watch the demo · 59 sec · 3.7 MB"
+        },
+        "url": "https://hyunaeee.github.io/aengdo-portfolio/assets/videos/chiikawa-house-cleaning.mp4",
+        "kind": "video"
+      }
+    ],
+    "stack": [
+      "Node.js",
+      "Windows · macOS",
+      "AI image generation",
+      "Single executable app",
+      "GitHub Actions",
+      "Puppeteer"
+    ],
+    "live": false,
+    "problem": {
+      "ko": "PC 정리 프로그램은 무엇을 지우는지 알기 어렵고 겁이 납니다. 방마다 무엇이 얼마나 쌓였는지 캐릭터가 보여 주고, 사용자가 허락한 것만 치우도록 만들었습니다.",
+      "en": "Cleanup tools are hard to read and a little scary. Here each character shows what has piled up in its room and how much, and only tidies what the user agrees to."
+    },
+    "build": [
+      {
+        "ko": "방 8개가 정리 영역 8개입니다: 임시 파일, 브라우저 캐시, 개발 도구 캐시, 게임 런처, 오류 기록, 앱 캐시, 오래된 다운로드, 휴지통. 코드에 정해 둔 폴더 안에서만 지우고, 하루가 안 된 임시 파일과 켜져 있는 앱은 건너뛰며, 다운로드는 휴지통으로만 옮깁니다.",
+        "en": "Eight rooms map to eight areas: temp files, browser caches, developer tool caches, game launchers, crash logs, app caches, old downloads and the Recycle Bin/Trash. It only deletes inside folders fixed in code, skips temp files younger than a day and apps that are open, and only moves downloads to the bin."
+      },
+      {
+        "ko": "Node 단일 실행 파일로 묶어 설치 없이 바로 실행됩니다(윈도우 .exe, 맥 .app). 화면은 이 컴퓨터 안에서만 열리는 로컬 서버와 실행할 때마다 바뀌는 토큰으로 지켜, 다른 웹페이지가 정리를 요청할 수 없습니다.",
+        "en": "Packaged as a Node single executable that runs without installing (a Windows .exe and a macOS .app). The page talks to a local-only server guarded by a per-run token, so no other web page can ask it to clean."
+      },
+      {
+        "ko": "캐릭터·방·소품 그림은 이미지 생성 모델로 만들었습니다. GitHub Actions가 윈도우·맥 빌드, 실행 점검, 이 데모 영상 녹화까지 자동으로 합니다.",
+        "en": "Characters, rooms and props were drawn with an image generation model. GitHub Actions builds the Windows and Mac apps, checks that they run, and records this demo video."
+      }
+    ],
+    "limitations": {
+      "ko": "치이카와 캐릭터의 권리는 나가노 작가에게 있습니다(©nagano / chiikawa committee). 허락받지 않은 개인 팬 프로젝트라 소스 코드와 설치 파일은 공개하거나 배포하지 않고, 가짜 데이터로 도는 체험 모드 화면 녹화만 공개합니다.",
+      "en": "Chiikawa characters belong to nagano (©nagano / chiikawa committee). As an unlicensed personal fan project, the source code and installers are not published or distributed; only a screen recording of the demo mode, which runs on made-up data, is shown here."
+    }
+  },
+  {
     "id": "venue-atlas",
     "title": "Venue Atlas",
     "summary": {
