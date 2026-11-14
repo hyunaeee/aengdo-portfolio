@@ -8,9 +8,32 @@
   const BUTTONS = "[data-print-portfolio], [data-export-pdf]";
   const FOCUS = {
     autoever: { order: ["terracotta", "meeting", "med-rag", "serving-lab"], label: { ko: "AI Agent · MCP · 업무 자동화 · MLOps", en: "AI Agent · MCP · Workflows · MLOps" } },
-    openai: { order: ["meeting", "med-rag"], label: { ko: "Applied AI · 회의 어시스턴트 / MED-RAG", en: "Applied AI · Meeting Assistant / MED-RAG" } },
+    openai: {
+      order: ["meeting", "med-rag", "terracotta"],
+      label: { ko: "OpenAI / Applied AI Engineer · Seoul", en: "OpenAI / Applied AI Engineer · Seoul" },
+      role: { ko: "AI Engineer · 서비스 구현 / 평가 / 운영", en: "AI Engineer · Delivery / Evaluation / Operations" },
+      headline: { ko: "사용자의 업무를 이해하고, 실제 쓰이는 AI로 구현합니다.", en: "AI systems built around the work people need to do." },
+      intro: { ko: "사내 회의 어시스턴트의 기획부터 운영까지 단독으로 맡고, 교수 개인 PC의 RAG를 설치·유지보수합니다. 사용자의 요청을 제품 변경으로 연결하고, 평가와 실패 분석으로 설계 선택을 검증합니다.", en: "I own an internal meeting assistant from planning through operations and maintain a local RAG assistant on a professor’s personal PC. I turn user requests into product changes and use evaluation and failure analysis to guide engineering decisions." },
+      caseNotes: {
+        meeting: { ko: "사내 사용, 음성·LLM·Notion 연동과 피드백에 따른 개선", en: "Internal adoption, speech/LLM/Notion integration, and user-driven changes" },
+        "med-rag": { ko: "개인 PC 설치·유지보수와 별도 합성 데이터 평가", en: "Personal-PC delivery and maintenance, with separate synthetic evaluations" },
+        terracotta: { ko: "도구 실행 승인, 실행 기록과 배포 가능한 프로토타입", en: "Tool approvals, execution traces, and a self-hosted prototype" }
+      }
+    },
     general: { order: ["med-rag", "terracotta", "meeting", "serving-lab"], label: { ko: "AI Builder 포트폴리오", en: "AI Builder portfolio" } },
-    toss: { order: ["serving-lab", "med-rag", "terracotta", "meeting"], label: { ko: "서빙 · 성능 · 운영", en: "Serving · Performance · Operations" } },
+    toss: {
+      order: ["med-rag", "meeting", "terracotta", "serving-lab"],
+      label: { ko: "토스 Brain · AIOC / 에이전트 · 평가 · 사용자 피드백", en: "Toss Brain · AIOC / Agents · Evaluation · User Feedback" },
+      role: { ko: "AI Engineer · RAG / Agents / Evaluation", en: "AI Engineer · RAG / Agents / Evaluation" },
+      headline: { ko: "실제 사용되는 AI를 만들고, 평가와 피드백으로 개선합니다.", en: "Build AI for real users. Improve it through evaluation and feedback." },
+      intro: { ko: "교수 개인 PC의 진료 보조 RAG와 사내 회의 어시스턴트를 구현하고 유지보수합니다. 검색 근거를 확인하는 평가, 튜닝의 품질 비교, 사용자 요청에 따른 오류 대응을 통해 시스템을 개선해 왔습니다.", en: "I implement and maintain a clinical RAG assistant on a professor’s personal PC and an internal meeting assistant. My work connects evidence-aware evaluation, fine-tuning comparisons, and changes driven by user requests and operating failures." },
+      caseNotes: {
+        "med-rag": { ko: "증례·가이드라인 검색, 근거성 평가와 QLoRA 선택", en: "Case/guideline retrieval, grounding evaluation, and QLoRA decisions" },
+        meeting: { ko: "사내 음성·LLM 워크플로 운영과 사용자 요청 반영", en: "Operating an internal speech/LLM workflow and responding to users" },
+        terracotta: { ko: "MCP 도구 승인, 실행 기록과 비용 비교", en: "MCP tool approvals, execution traces, and cost comparisons" },
+        "serving-lab": { ko: "보충 근거 · 품질 회귀 검사와 HTTP 장애 검증", en: "Supporting evidence · quality regression checks and HTTP fault tests" }
+      }
+    },
     motif: { order: ["terracotta", "med-rag", "meeting", "serving-lab"], label: { ko: "제품 구현 · 배포", en: "Product Engineering · Delivery" } },
     cohere: { order: ["med-rag", "meeting", "terracotta", "serving-lab"], label: { ko: "엔터프라이즈 AI · RAG · 워크플로", en: "Enterprise AI · RAG · Workflows" } }
   };
@@ -203,7 +226,8 @@
     if (!compact) append(top, image(project.image, context.lang, "pf-project-image"));
     result.append(top);
     // MED-RAG's context paragraphs immediately follow; its overview is already on the cover.
-    if (!compact && project.summary && !["med-rag", "serving-lab"].includes(project.id)) result.append(node("p", "pf-summary", localize(project.summary, context.lang)));
+    const omitSummary = ["med-rag", "serving-lab"].includes(project.id) || (["toss", "openai"].includes(context.focus) && project.id === "terracotta");
+    if (!compact && project.summary && !omitSummary) result.append(node("p", "pf-summary", localize(project.summary, context.lang)));
     if (!compact) {
       const facts = node("dl", "pf-facts");
       [[context.copy.role, project.role], [context.copy.status, project.status], [context.copy.period, project.period]].forEach(([label, value]) => {
@@ -214,15 +238,22 @@
         const pair = node("div"); pair.append(node("dt", "", context.copy.stack), node("dd", "pf-stack", project.stack.join(" · "))); facts.append(pair);
       }
       result.append(facts);
+      if (context.focus === "openai") {
+        if (project.imageCaption) result.append(node("p", "pf-small", localize(project.imageCaption, context.lang)));
+        append(result, sourceBlock(project.links, context, false, true));
+      }
     }
     return result;
   }
   function cover(context, orderedProjects) {
     const { data, lang, copy } = context;
-    const { sheet, body } = createPage(copy.portfolio, localize(FOCUS[context.focus].label, lang), context, "pf-cover");
+    const focus = FOCUS[context.focus];
+    const { sheet, body } = createPage(copy.portfolio, localize(focus.label, lang), context, "pf-cover");
     const identity = block("", context, "pf-identity");
     identity.append(node("p", "pf-eyebrow", localize(data.person.location, lang)), node("h1", "pf-name", data.person.name));
-    identity.append(node("p", "pf-position", localize(data.person.role, lang)));
+    identity.append(node("p", "pf-position", localize(focus.role || data.person.role, lang)));
+    if (focus.headline) identity.append(node("p", "pf-headline", localize(focus.headline, lang)));
+    if (focus.intro) identity.append(node("p", "pf-intro", localize(focus.intro, lang)));
     const contacts = node("div", "pf-cover-contacts");
     append(contacts, anchor(data.person.email, "mailto:" + data.person.email));
     append(contacts, anchor("GITHUB / " + String(data.person.github || "").replace(/^https?:\/\//, ""), data.person.github));
@@ -232,6 +263,7 @@
       const item = node("article", "pf-index-case"), details = node("div");
       item.append(node("span", "pf-index-number", String(index + 1).padStart(2, "0")));
       details.append(node("h3", "", project.title), node("p", "pf-index-status", project.period));
+      if (focus.caseNotes?.[project.id]) details.append(node("p", "", localize(focus.caseNotes[project.id], lang)));
       item.append(details); cases.append(item);
     });
     body.append(cases);
@@ -241,15 +273,8 @@
     return sheet;
   }
   function projectPages(project, context) {
-    if (context.focus === "openai") {
-      const { sheet, body } = createPage(project.title, context.copy.implementation, context, "pf-case-page");
-      body.append(projectIntro(project, context, false));
-      // The two deep cases carry decisions inline; the standalone lab stays a source link.
-      list(project.sections).filter(section => section.id !== "operations").forEach(section => body.append(sectionBlock(section, context)));
-      append(body, limitBlock(project, context));
-      append(body, sourceBlock(project.links, context, true, true));
-      return [sheet];
-    }
+    if (context.focus === "toss") return tossProjectPages(project, context);
+    if (context.focus === "openai") return openaiProjectPages(project, context);
     if (project.id !== "med-rag") {
       const { sheet, body } = createPage(project.title, context.copy.implementation, context, "pf-case-page");
       body.append(projectIntro(project, context, false));
@@ -263,14 +288,14 @@
     const design = createPage(project.title, context.copy.implementation, context, "pf-case-page");
     const evidence = createPage(project.title, context.copy.evidence, context, "pf-case-page");
     design.body.append(projectIntro(project, context, false)); evidence.body.append(projectIntro(project, context, true));
-    const sections = list(project.sections);
+    const sections = list(project.sections).filter(section => context.focus !== "toss" || section.id !== "operations");
     let implementation = sections.filter(section => !/eval|tune|bench|measur|evidence|experiment|validation|iteration/i.test(section.id || ""));
     let evaluation = sections.filter(section => /eval|tune|bench|measur|evidence|experiment|validation|iteration/i.test(section.id || ""));
     if (!evaluation.length && sections.length > 1) {
       const cut = Math.ceil(sections.length / 2); implementation = sections.slice(0, cut); evaluation = sections.slice(cut);
     }
     if (context.focus === "toss") {
-      const order = ["context", "operations", "architecture"];
+      const order = ["context", "delivery-scope", "architecture"];
       implementation.sort((a, b) => {
         const aIndex = order.indexOf(a.id), bIndex = order.indexOf(b.id);
         return (aIndex < 0 ? order.length : aIndex) - (bIndex < 0 ? order.length : bIndex);
@@ -283,6 +308,71 @@
     evaluation.forEach(section => evidence.body.append(sectionBlock(section, context)));
     append(evidence.body, limitBlock(project, context)); append(evidence.body, sourceBlock(list(project.links).filter(item => item.kind !== "code" && item.kind !== "demo"), context));
     return [design.sheet, evidence.sheet];
+  }
+  function tossProjectPages(project, context) {
+    const layouts = {
+      "med-rag": [
+        { intro: true, sections: ["context", "architecture", "evaluation"] },
+        { sections: ["failure-evidence", "iteration"], omitDiagrams: true, limits: true, sources: true }
+      ],
+      meeting: [
+        { intro: true, sections: ["usage-evidence", "user-feedback"] },
+        { sections: ["architecture", "reconnection", "recovery", "evaluation"], omitDiagrams: true, limits: true, sources: true }
+      ],
+      terracotta: [
+        { intro: true, sections: ["context", "architecture", "delivery", "evaluation"], approval: true, sources: true }
+      ],
+      "serving-lab": [
+        { intro: true, sections: ["implementation", "evidence"], limits: true, sources: true }
+      ]
+    };
+    return layouts[project.id].map((layout, index) => {
+      const { sheet, body } = createPage(project.title, index ? context.copy.evidence : context.copy.implementation, context, "pf-case-page");
+      if (layout.intro) body.append(projectIntro(project, context, false));
+      if (layout.approval) append(body, decisionBlocks(project, context)[0]);
+      for (const id of layout.sections) {
+        const source = list(project.sections).find(section => section.id === id);
+        if (!source) continue;
+        // The router diagram carries the architecture here; model-catalog terminology stays in the full case.
+        const section = project.id === "terracotta" && id === "architecture" ? { ...source, body: [] } : source;
+        body.append(sectionBlock(section, context, { proseOnly: id === "context", omitDiagram: layout.omitDiagrams }));
+      }
+      if (layout.limits) append(body, limitBlock(project, context));
+      if (layout.sources) append(body, sourceBlock(project.links, context, true, true));
+      return sheet;
+    });
+  }
+  function openaiProjectPages(project, context) {
+    const layouts = {
+      meeting: [
+        { intro: true, sections: ["usage-evidence", "user-feedback"] },
+        { sections: ["architecture", "reconnection", "recovery", "access"], limits: true }
+      ],
+      "med-rag": [
+        { intro: true, sections: ["context", "architecture", "evaluation"] },
+        { sections: ["failure-evidence", "iteration"], limits: true }
+      ],
+      terracotta: [
+        { intro: true, sections: ["context", "architecture", "delivery", "evaluation"], approval: true }
+      ]
+    };
+    return layouts[project.id].map((layout, index) => {
+      const { sheet, body } = createPage(project.title, index ? context.copy.evidence : context.copy.implementation, context, "pf-case-page");
+      if (layout.intro) body.append(projectIntro(project, context, false));
+      if (layout.approval) append(body, decisionBlocks(project, context)[0]);
+      for (const id of layout.sections) {
+        const source = list(project.sections).find(section => section.id === id);
+        if (!source) continue;
+        const section = { ...source };
+        // Retain the canonical tables and scope notes while removing repeated introductions.
+        if ((project.id === "meeting" && ["usage-evidence", "user-feedback"].includes(id)) || (project.id === "terracotta" && id === "architecture")) section.body = [];
+        if ((project.id === "meeting" && id === "access") || (project.id === "med-rag" && ["evaluation", "failure-evidence"].includes(id))) section.body = list(source.body).slice(0, 1);
+        body.append(sectionBlock(section, context, { proseOnly: id === "context", omitDiagram: !["architecture"].includes(id) }));
+      }
+      if (layout.limits) append(body, limitBlock(project, context));
+      if (layout.sources) append(body, sourceBlock(project.links, context, true, true));
+      return sheet;
+    });
   }
   function experiencePage(context) {
     const { data, copy, lang } = context;
@@ -298,7 +388,7 @@
     append(experience, anchor(lang === "ko" ? "전체 이력 · 2017–2026 ↗" : "Full history · 2017–2026 ↗", PUBLIC_ROOT + (lang === "ko" ? "history.html" : "history-en.html"), "pf-small"));
     body.append(experience);
     const anatomy = list(data.projects).find(project => project.id === "anatomy");
-    if (anatomy && context.focus !== "openai") {
+    if (anatomy && !["openai", "toss"].includes(context.focus)) {
       const item = block(copy.technicalProduct + " / " + anatomy.title, context, "pf-anatomy"), layout = node("div", "pf-anatomy-layout"), description = node("div");
       append(layout, image(anatomy.image, lang, "pf-anatomy-image"));
       description.append(node("p", "pf-copy", localize(anatomy.summary, lang)), node("p", "pf-small", localize(anatomy.status, lang)));

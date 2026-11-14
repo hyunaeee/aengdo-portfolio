@@ -1,0 +1,13 @@
+{
+  "name": "Hyunae Park — greeting avatar (cardigan)",
+  "revision": 3,
+  "createdAt": "2026-11-14",
+  "glb": "assets/hyunae-avatar.glb",
+  "source": "scripts/avatar/hyunae-avatar-cardigan.source.glb",
+  "build": "blender -b --factory-startup -P scripts/build-avatar-intro.py -- scripts/avatar/hyunae-avatar-cardigan.source.glb assets/hyunae-mac-studio.glb assets/hyunae-avatar.glb",
+  "mesh": "Generated with Higgsfield (Meshy 7 image-to-3D, standard mode, textured, auto-rigged, about 30k triangles; chosen over the ultra-mode mesh for its face) from a full-body reference image. The reference image was generated from two photos of the site owner, supplied by her for this purpose.",
+  "animation": "Intro, 10 s at 24 fps, authored procedurally in scripts/build-avatar-intro.py: typing with her back turned, swivel, wave, bow. The generated clip that shipped with the rig is discarded.",
+  "placement": "Shares the desk scene's coordinates (metres, desk top at z = 0) so the page can layer it over assets/hyunae-mac-studio.glb with the same camera.",
+  "page": "assets/portfolio-studio.js plays it once, then fades the layer out and removes it. Skipped under prefers-reduced-motion.",
+  "glbBytes": 3248132
+}

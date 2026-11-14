@@ -1,0 +1,21 @@
+{
+  "name": "backend-ledger-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate": "prisma migrate deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test --test-concurrency=1 tests/ledger.test.ts",
+    "explain": "tsx scripts/explain.ts"
+  },
+  "dependencies": { "@prisma/client": "6.19.0" },
+  "devDependencies": {
+    "@types/node": "22.15.30",
+    "prisma": "6.19.0",
+    "tsx": "4.20.5",
+    "typescript": "5.8.3"
+  }
+}
