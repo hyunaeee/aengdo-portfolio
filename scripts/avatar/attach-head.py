@@ -177,15 +177,20 @@ for ob, w, col in ((head, hc, None), (body, bw, bcol)):
     w[fr, 1] = AY + (w[fr, 1] - AY) * (1 - NECK * k[fr])
 # a smaller chest: flatten what stands out in front of a line from the waist to the collarbone
 arms = [body.vertex_groups[n].index for n in ('LeftArm', 'LeftForeArm', 'LeftHand', 'RightArm', 'RightForeArm', 'RightHand')]
-# the front of the chest was half-skinned to the upper arms, so it ballooned whenever an arm moved: hand that
-# share to the spine, fading out toward the arm itself
+# the chest and the sides of the torso were half-skinned to the upper arms, so they ballooned and were dragged
+# along whenever an arm moved: hand that share to the spine bones the vertex already follows, fading out toward
+# the arm itself and, at the sides and back, toward the shoulder
+spine = {body.vertex_groups[n].index: body.vertex_groups[n] for n in ('Hips', 'Spine', 'Spine01', 'Spine02') if n in body.vertex_groups}
+far = arms[1:3] + arms[4:6]
 sp = body.vertex_groups['Spine01']
 moved = 0
 for v in body.data.vertices:
     x, y, z = bw[v.index]
-    if not (y < .01 and 1.03 < z < 1.25):
+    if not (.93 < z < 1.27) or any(g.group in far and g.weight > .3 for g in v.groups):
         continue
     f = 1 - float(sm(np.array((abs(x) - .13) / .04)))
+    if not (y < .01 and z > 1.03):
+        f *= (1 - float(sm(np.array((z - 1.20) / .06)))) * float(sm(np.array((z - .93) / .04)))
     if f <= 0:
         continue
     take = 0.0
@@ -194,7 +199,13 @@ for v in body.data.vertices:
             take += g.weight * f
             g.weight *= 1 - f
     if take > 0:
-        sp.add([v.index], take, 'ADD')
+        own = [(g.group, g.weight) for g in v.groups if g.group in spine and g.weight > 0]
+        tot = sum(w for _, w in own)
+        if tot > .05:
+            for gi_, w in own:
+                spine[gi_].add([v.index], take * w / tot, 'ADD')
+        else:
+            sp.add([v.index], take, 'ADD')
         moved += 1
 print('RESKIN', moved)
 on_arm = np.array([any(g.group in arms and g.weight > .8 for g in v.groups) for v in body.data.vertices])

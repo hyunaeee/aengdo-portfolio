@@ -17,11 +17,11 @@
  });
  viewer.addEventListener('error', fallback);
  // Greeting intro: she types with her back turned, swivels round, waves, bows, then fades out.
- // The camera starts straight on and eases to the resting angle while she bows.
+ // The camera stays straight on and wide through the whole greeting, then moves in on the desk at the same height.
  const avatar = document.querySelector('#studio-avatar');
+ const rest = viewer.getAttribute('camera-orbit');
  function intro() {
   if (!avatar || matchMedia('(prefers-reduced-motion: reduce)').matches) { avatar?.remove(); return; }
-  const rest = viewer.getAttribute('camera-orbit');
   const settle = () => { viewer.setAttribute('interpolation-decay', '260'); viewer.cameraOrbit = rest; };
   const sync = () => {
    const o = viewer.getCameraOrbit(), t = viewer.getCameraTarget();
@@ -34,6 +34,7 @@
   const done = () => {
    if (ended) return;
    ended = true;
+   settle();
    stage.classList.add('avatar-done');
    setTimeout(() => {
     viewer.removeEventListener('camera-change', sync);
@@ -49,10 +50,6 @@
    avatar.currentTime = 0;
    avatar.play({ repetitions: 1 });
    requestAnimationFrame(() => stage.classList.add('has-avatar'));
-   // Follow the clip's own clock, so a slow device still moves the camera on the bow.
-   const watch = setInterval(() => {
-    if (ended || avatar.currentTime >= 7.2) { clearInterval(watch); settle(); }
-   }, 120);
    avatar.addEventListener('finished', done, { once: true });
    setTimeout(done, 20000);
   }, { once: true });
@@ -60,8 +57,15 @@
   avatar.src = avatar.dataset.src;
  }
  viewer.addEventListener('load', intro, { once: true });
+ // Zoom is on buttons only, so the wheel keeps scrolling the page.
+ const zoom = (factor) => {
+  const o = viewer.getCameraOrbit();
+  viewer.cameraOrbit = `${o.theta}rad ${o.phi}rad ${o.radius * factor}m`;
+ };
+ document.querySelector('#studio-zoom-in').addEventListener('click', () => zoom(0.85));
+ document.querySelector('#studio-zoom-out').addEventListener('click', () => zoom(1 / 0.85));
  document.querySelector('#studio-reset').addEventListener('click', () => {
-  viewer.cameraOrbit = '18deg 67deg 72%';
+  viewer.cameraOrbit = rest;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) viewer.jumpCameraToGoal();
  });
  import('./vendor/model-viewer.min.js').then(() => {
