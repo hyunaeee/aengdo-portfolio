@@ -260,6 +260,77 @@ for ob, idx in ((body, kill), (head, [int(i) for i in np.nonzero(drop)[0]])):
     bm.to_mesh(ob.data)
     bm.free()
     print('CUT', ob.name, len(idx), 'left', len(ob.data.vertices))
+# Surfaces. The generated body has under 7,000 distinct points, so limbs read as faceted tubes, and both meshes
+# carry imported split normals and some flat-shaded faces. Weld the UV-seam duplicates, shade everything smooth,
+# split every body edge once (UVs and bone weights are interpolated), slim the wrists and relax the surfaces.
+WRIST = .22                                          # wrist radius; the forearm keeps its width
+
+
+def weld(ob, split=None):
+    """split: None, True (every edge) or a per-vertex mask (edges whose two ends are both set)."""
+    bm = bmesh.new()
+    bm.from_mesh(ob.data)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-5)
+    if split is not None:
+        edges = bm.edges[:] if split is True else [e for e in bm.edges if split[e.verts[0].index] and split[e.verts[1].index]]
+        bmesh.ops.subdivide_edges(bm, edges=edges, cuts=1, use_grid_fill=True)
+        bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 4])
+    bm.verts.ensure_lookup_table()
+    bm.to_mesh(ob.data)
+    nb = [[e.other_vert(v).index for e in v.link_edges] for v in bm.verts]
+    bm.free()
+    for name in ('custom_normal', 'sharp_edge', 'sharp_face'):
+        if name in ob.data.attributes:
+            ob.data.attributes.remove(ob.data.attributes[name])
+    ob.data.polygons.foreach_set('use_smooth', [True] * len(ob.data.polygons))
+    return nb
+
+
+def relax(co, nb, free, rounds):
+    """Taubin smoothing: relax, then push back out, so nothing shrinks. free is 0..1 per vertex."""
+    for _ in range(rounds):
+        for lam in (.5, -.53):
+            avg = np.array([co[n].mean(0) if n else co[i] for i, n in enumerate(nb)])
+            co += (avg - co) * (lam * free)[:, None]
+
+
+nb = weld(body, True)
+nv = len(body.data.vertices)
+bw = world(body)
+amw = arm.matrix_world
+vg = {g.index: g.name for g in body.vertex_groups}
+wts = [{vg[g.group]: g.weight for g in v.groups} for v in body.data.vertices]
+keep = np.zeros(nv)                                  # 1 = leave exactly where it is
+for side in ('Left', 'Right'):
+    el = np.array(amw @ arm.data.bones[side + 'ForeArm'].head_local)
+    wr = np.array(amw @ arm.data.bones[side + 'Hand'].head_local)
+    ax = wr - el
+    ln = np.linalg.norm(ax)
+    ax /= ln
+    chain = np.array([sum(w.get(side + k, 0) for k in ('Arm', 'ForeArm', 'Hand')) for w in wts])
+    hand = np.array([w.get(side + 'Hand', 0) for w in wts])
+    p = bw - el
+    t = p @ ax / ln                                  # 0 at the elbow, 1 at the wrist
+    foot = np.outer(p @ ax, ax)
+    k = sm((t - .55) / .3) * (1 - sm((t - 1.04) / .2)) * sm((chain - .4) / .3)
+    bw[:] = el + foot + (p - foot) * (1 - WRIST * k)[:, None]
+    keep = np.maximum(keep, sm((hand - .5) / .3))    # fingers keep their shape
+keep = np.maximum(keep, sm((bw[:, 2] - 1.215) / .05))   # the neckline and collar were fitted by hand above
+relax(bw, nb, 1 - keep, 6)
+put_world(body, bw)
+# the face: only bare skin is relaxed, so hair strands, brows, eyes and lips keep their edges
+is_face = lambda c: (c.mean(1) > .45) & (c[:, 0] - c[:, 2] > .02)
+weld(head)
+nb = weld(head, is_face(vcols(head)))                # the face itself is only ~800 points: split its skin once
+hc = world(head)
+hcol = vcols(head)
+skin = is_face(hcol).astype(np.float32)
+raw = int(skin.sum())
+for _ in range(1):                                   # feather the mask so the relaxed area fades out
+    skin = skin * np.array([skin[n].mean() if n else skin[i] for i, n in enumerate(nb)])
+relax(hc, nb, skin, 5)
+put_world(head, hc)
+print('REFINE body verts', nv, 'polys', len(body.data.polygons), '| head verts', len(head.data.vertices), 'skin', raw, int((skin > .5).sum()))
 # the new head follows the Head bone rigidly
 head.parent = arm
 head.matrix_parent_inverse = arm.matrix_world.inverted()
