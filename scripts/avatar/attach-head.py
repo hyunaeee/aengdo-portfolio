@@ -318,19 +318,40 @@ for side in ('Left', 'Right'):
 keep = np.maximum(keep, sm((bw[:, 2] - 1.215) / .05))   # the neckline and collar were fitted by hand above
 relax(bw, nb, 1 - keep, 6)
 put_world(body, bw)
-# the face: only bare skin is relaxed, so hair strands, brows, eyes and lips keep their edges
-is_face = lambda c: (c.mean(1) > .45) & (c[:, 0] - c[:, 2] > .02)
-weld(head)
-nb = weld(head, is_face(vcols(head)))                # the face itself is only ~800 points: split its skin once
+# the face keeps its shape and its imported shading; only the front of the bare skin gets smooth normals, so the
+# flat-shaded facets on the nose and cheeks blend while hair, brows, eyes, lips and the sides stay as they were
+hme = head.data
+nl = len(hme.loops)
+cn = np.empty(nl * 3, dtype=np.float32)
+hme.corner_normals.foreach_get('vector', cn)
+cn = cn.reshape(nl, 3)
+lv = np.empty(nl, dtype=np.int32)
+hme.loops.foreach_get('vertex_index', lv)
+npoly = len(hme.polygons)
+pn = np.empty(npoly * 3, dtype=np.float32)
+hme.polygons.foreach_get('normal', pn)
+pa = np.empty(npoly, dtype=np.float32)
+hme.polygons.foreach_get('area', pa)
+ls = np.empty(npoly, dtype=np.int32)
+hme.polygons.foreach_get('loop_start', ls)
+lt = np.empty(npoly, dtype=np.int32)
+hme.polygons.foreach_get('loop_total', lt)
+lp = np.repeat(np.arange(npoly), lt)                 # polygon of each loop (loops are stored polygon by polygon)
 hc = world(head)
-hcol = vcols(head)
-skin = is_face(hcol).astype(np.float32)
+_, pos = np.unique(np.round(hc, 5), axis=0, return_inverse=True)
+pos = pos.ravel()
+acc = np.zeros((pos.max() + 1, 3), np.float32)
+np.add.at(acc, pos[lv], pn.reshape(npoly, 3)[lp] * pa[lp][:, None])
+sn = acc / np.maximum(np.linalg.norm(acc, axis=1, keepdims=True), 1e-9)
+is_face = lambda c: (c.mean(1) > .45) & (c[:, 0] - c[:, 2] > .02)
+skin = is_face(vcols(head))
+m = (skin[lv] * sm((-sn[pos[lv], 1] - .15) / .35))[:, None]   # the model faces -Y
+mixed = cn * (1 - m) + sn[pos[lv]] * m
+mixed /= np.maximum(np.linalg.norm(mixed, axis=1, keepdims=True), 1e-9)
+hme.polygons.foreach_set('use_smooth', [True] * npoly)
+hme.normals_split_custom_set([tuple(v) for v in mixed.tolist()])
 raw = int(skin.sum())
-for _ in range(1):                                   # feather the mask so the relaxed area fades out
-    skin = skin * np.array([skin[n].mean() if n else skin[i] for i, n in enumerate(nb)])
-relax(hc, nb, skin, 5)
-put_world(head, hc)
-print('REFINE body verts', nv, 'polys', len(body.data.polygons), '| head verts', len(head.data.vertices), 'skin', raw, int((skin > .5).sum()))
+print('REFINE body verts', nv, 'polys', len(body.data.polygons), '| head verts', len(head.data.vertices), 'skin', raw, 'front loops', int((m > .5).sum()))
 # the new head follows the Head bone rigidly
 head.parent = arm
 head.matrix_parent_inverse = arm.matrix_world.inverted()
