@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Studio screen texture</title>
+<!--
+Screen texture for scripts/build-studio-scene.py. A desktop in the style of macOS, drawn from
+scratch in CSS: no Apple logo, wallpaper or icons. Open with #macbook for the 16:10 laptop variant.
+Capture (display 2560x1440, laptop 2560x1600):
+  msedge --headless --hide-scrollbars --force-device-scale-factor=2 --window-size=1280,720 --screenshot=display.png screen.html
+  msedge --headless --hide-scrollbars --force-device-scale-factor=2 --window-size=1280,800 --screenshot=macbook.png screen.html#macbook
+-->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:"Segoe UI Variable Display","Segoe UI Variable Text","Segoe UI","Helvetica Neue",Arial,sans-serif;color:#17191c;-webkit-font-smoothing:antialiased;
+ background:
+  radial-gradient(120% 90% at 82% 108%,#f4f5f6 0,#f4f5f600 46%),
+  radial-gradient(90% 80% at 8% 112%,#2a2d32 0,#2a2d3200 58%),
+  radial-gradient(80% 70% at 104% -8%,#3b3f46 0,#3b3f4600 62%),
+  radial-gradient(70% 60% at -6% -10%,#eceef0 0,#eceef000 60%),
+  linear-gradient(135deg,#c9ccd1,#8d9198 55%,#5c6067)}
+.wave{position:absolute;border-radius:50%;filter:blur(38px);opacity:.55}
+.w1{left:-12%;top:38%;width:78%;height:60%;background:#f7f8f9;transform:rotate(-18deg)}
+.w2{left:42%;top:-28%;width:74%;height:66%;background:#494d54;transform:rotate(-24deg);opacity:.5}
+.w3{left:30%;top:52%;width:86%;height:44%;background:#d9dbdf;transform:rotate(-14deg);opacity:.5}
+.bar{position:absolute;inset:0 0 auto 0;height:26px;display:flex;align-items:center;gap:18px;padding:0 14px;font-size:13px;background:#ffffff8c;backdrop-filter:blur(30px);color:#111}
+.bar b{font-weight:700}
+.bar .r{margin-left:auto;display:flex;gap:14px;align-items:center}
+.batt{width:22px;height:11px;border:1.2px solid #111;border-radius:3.5px;position:relative;opacity:.85}
+.batt::before{content:"";position:absolute;inset:1.4px;right:5px;background:#111;border-radius:1.5px}
+.batt::after{content:"";position:absolute;right:-3.6px;top:2.6px;width:2px;height:4px;background:#111;border-radius:0 1px 1px 0}
+.pill{width:16px;height:16px;border-radius:50%;border:1.6px solid #111;opacity:.8}
+.win{position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);width:900px;height:536px;border-radius:13px;background:#fbfbfb;box-shadow:0 0 0 1px #0000002b,0 34px 80px #00000066,0 10px 24px #0000002e;overflow:hidden;display:flex;flex-direction:column}
+.tool{height:52px;display:flex;align-items:center;gap:8px;padding:0 18px;background:#f0f0f1;border-bottom:1px solid #d9dadc;flex:none}
+.tl{width:12.5px;height:12.5px;border-radius:50%;box-shadow:inset 0 0 0 .6px #00000030}
+.tl.a{background:#ff5f57}.tl.b{background:#febc2e}.tl.c{background:#28c840}
+.nv{margin-left:22px;color:#7b7e84;font-size:20px;letter-spacing:10px;line-height:1}
+.addr{margin:0 auto;width:420px;height:30px;border-radius:8px;background:#e2e3e5;display:flex;align-items:center;justify-content:center;font-size:13px;color:#3a3d42;gap:7px}
+.lock{width:8px;height:7px;background:#6c6f75;border-radius:1.5px;position:relative}
+.lock::before{content:"";position:absolute;left:1.4px;top:-4.4px;width:5.2px;height:6px;border:1.4px solid #6c6f75;border-bottom:0;border-radius:3px 3px 0 0}
+.plus{width:84px;color:#7b7e84;font-size:19px;text-align:right}
+.page{flex:1;padding:34px 56px 0;display:flex;flex-direction:column}
+.meta{display:flex;justify-content:space-between;font-size:11.5px;letter-spacing:.09em;color:#6a6e75;padding-bottom:14px;border-bottom:1px solid #d5d7da}
+.dash{width:26px;height:3px;background:#17191c;margin-top:46px}
+h1{font-size:112px;line-height:1;font-weight:600;letter-spacing:-.035em;margin-top:22px}
+.role{font-size:38px;color:#6a6e75;letter-spacing:-.01em;margin-top:10px}
+.links{margin-top:auto;padding:16px 0 20px;border-top:1px solid #d5d7da;display:flex;gap:30px;font-size:12px;letter-spacing:.09em;color:#3a3d42}
+.links span:last-child{margin-left:auto;color:#6a6e75}
+.dock{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);display:flex;gap:9px;padding:7px 9px;border-radius:19px;background:#ffffff4d;backdrop-filter:blur(30px);box-shadow:0 0 0 1px #ffffff59,0 12px 30px #00000040}
+.ic{width:46px;height:46px;border-radius:11.5px;position:relative;box-shadow:inset 0 0 0 .8px #0000001f,0 2px 5px #00000033;display:grid;place-items:center}
+.ic i{display:block}
+.sep{width:1px;background:#00000033;margin:4px 2px}
+.dot{position:absolute;bottom:-5.5px;left:50%;width:3.5px;height:3.5px;margin-left:-1.75px;border-radius:50%;background:#111c}
+/* laptop variant: code editor */
+.mb .win{width:1010px;height:640px;transform:translate(-50%,-51.5%);background:#1b1d21;color:#d7dae0;box-shadow:0 0 0 1px #00000080,0 34px 80px #00000080}
+.mb .tool{background:#24272c;border-bottom:1px solid #111316;height:42px}
+.mb .addr{background:#16181b;color:#aeb3bb;height:26px;width:380px;font-size:12.5px}
+.ed{flex:1;display:flex;min-height:0;font-family:"Cascadia Code","Cascadia Mono",Consolas,monospace}
+.tree{width:190px;background:#202328;border-right:1px solid #111316;padding:14px 0;font:12.5px "Segoe UI Variable Text","Segoe UI",sans-serif;color:#9aa0a9}
+.tree h4{font-size:10.5px;letter-spacing:.1em;color:#6f757e;padding:0 16px 8px}
+.tree p{padding:4.5px 16px}.tree p.in{padding-left:30px}.tree p.on{background:#2e3238;color:#f1f2f4}
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.tabs{display:flex;height:34px;background:#202328;border-bottom:1px solid #111316;font:12.5px "Segoe UI Variable Text","Segoe UI",sans-serif;color:#8a9099}
+.tabs span{padding:0 18px;display:flex;align-items:center;border-right:1px solid #111316}
+.tabs .on{background:#1b1d21;color:#f1f2f4;box-shadow:inset 0 2px #d7dae0}
+.code{flex:1;padding:14px 0 0;font-size:14.5px;line-height:22.5px;white-space:pre;counter-reset:l;overflow:hidden}
+.code div{counter-increment:l;padding-right:20px}
+.code div::before{content:counter(l);display:inline-block;width:46px;padding-right:18px;text-align:right;color:#565b63}
+.code .cur{background:#262a30}
+.k{color:#f1f2f4;font-weight:600}.s{color:#b9d7c2}.c{color:#6f757e;font-style:italic}.f{color:#c9d3ea}.n{color:#e2c9a4}
+.caret{display:inline-block;width:2px;height:17px;background:#f1f2f4;vertical-align:-3px}
+.term{height:132px;border-top:1px solid #111316;background:#16181b;padding:10px 20px;font-size:13.5px;line-height:21px;white-space:pre;color:#aeb3bb}
+.term b{color:#f1f2f4;font-weight:600}.term i{font-style:normal;color:#b9d7c2}
+.status{height:24px;background:#d7dae0;color:#16181b;font:11.5px "Segoe UI Variable Text","Segoe UI",sans-serif;display:flex;align-items:center;gap:18px;padding:0 14px}
+.status span:nth-child(3){margin-left:auto}
+#mbwin{display:none}
+.mb #mbwin{display:flex}
+.mb #dwin{display:none}
+</style>
+</head>
+<body>
+<div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div>
+
+<div class="bar"><b>Portfolio</b><span>File</span><span>Edit</span><span>View</span><span>History</span><span>Window</span><span>Help</span>
+<div class="r"><span class="batt"></span><span class="pill"></span><span>Sat Nov 14</span><span>9:41 AM</span></div></div>
+
+<div class="win" id="dwin">
+<div class="tool"><span class="tl a"></span><span class="tl b"></span><span class="tl c"></span><span class="nv">‹›</span>
+<div class="addr"><span class="lock"></span>Hyunae Park — Portfolio</div><span class="plus">+</span></div>
+<div class="page">
+<div class="meta"><span>HYUNAE PARK / PORTFOLIO</span><span>2026</span></div>
+<div class="dash"></div>
+<h1>Hyunae Park</h1>
+<p class="role">AI Builder</p>
+<div class="links"><span>PROJECTS</span><span>HISTORY</span><span>CONTACT</span><span>MED-RAG · TERRACOTTA · MEETING ASSISTANT</span></div>
+</div>
+</div>
+
+<div class="win" id="mbwin">
+<div class="tool"><span class="tl a"></span><span class="tl b"></span><span class="tl c"></span>
+<div class="addr">welcome.py — hyunae-portfolio</div><span class="plus"></span></div>
+<div class="ed">
+<div class="tree"><h4>HYUNAE-PORTFOLIO</h4><p>agents</p><p class="in on">welcome.py</p><p class="in">tools.py</p><p>projects</p><p class="in">med_rag.md</p><p class="in">terracotta.md</p><p class="in">meeting.md</p><p>evals</p><p>README.md</p><p>pyproject.toml</p></div>
+<div class="main">
+<div class="tabs"><span class="on">welcome.py</span><span>tools.py</span><span>README.md</span></div>
+<div class="code"><div><span class="c"># welcome.py — Hyunae Park · AI Builder</span></div><div><span class="k">from</span> portfolio <span class="k">import</span> Agent, tools</div><div> </div><div>agent = <span class="f">Agent</span>(</div><div>    name=<span class="s">"Hyunae Park"</span>,</div><div>    role=<span class="s">"AI Builder"</span>,</div><div>    tools=[tools.projects, tools.history, tools.contact],</div><div>)</div><div> </div><div><span class="n">@agent.on</span>(<span class="s">"visit"</span>)</div><div><span class="k">async def</span> <span class="f">greet</span>(visitor):</div><div>    <span class="s">"""Say hello to everyone who opens this page."""</span></div><div class="cur">    <span class="k">return await</span> agent.<span class="f">say</span>(<span class="s">"Welcome to my portfolio!"</span>)<span class="caret"></span></div><div> </div><div><span class="k">if</span> __name__ == <span class="s">"__main__"</span>:</div><div>    agent.<span class="f">run</span>()</div></div>
+<div class="term"><b>$</b> python agents/welcome.py
+<i>›</i> agent ready: Hyunae Park (AI Builder)
+<i>›</i> visitor connected
+<b>Welcome to my portfolio!</b></div>
+<div class="status"><span>main</span><span>Python 3.13</span><span>Ln 12, Col 55</span><span>UTF-8</span></div>
+</div>
+</div>
+</div>
+
+<div class="dock">
+<span class="ic" style="background:linear-gradient(#fdfdfd,#d9dbde)"><i style="width:24px;height:18px;border-radius:5px;background:#3a3d42"></i><span class="dot"></span></span>
+<span class="ic" style="background:linear-gradient(#4a4e55,#1e2024)"><i style="width:24px;height:24px;border-radius:50%;border:3px solid #f2f3f4"></i><span class="dot"></span></span>
+<span class="ic" style="background:linear-gradient(#ffffff,#e4e5e8)"><i style="width:24px;height:3px;background:#3a3d42;box-shadow:0 7px #3a3d42,0 -7px #3a3d42"></i></span>
+<span class="ic" style="background:linear-gradient(#2c2f34,#0f1012)"><i style="font:600 15px Consolas,monospace;color:#f2f3f4">&gt;_</i><span class="dot"></span></span>
+<span class="ic" style="background:linear-gradient(#b9bcc2,#7d8188)"><i style="width:22px;height:22px;border-radius:6px;background:#f7f7f8"></i></span>
+<span class="ic" style="background:linear-gradient(#f4f5f6,#c6c9ce)"><i style="width:0;height:0;border-left:16px solid #26282c;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:5px"></i></span>
+<span class="ic" style="background:linear-gradient(#6a6e75,#3a3d42)"><i style="width:24px;height:17px;border-radius:3px;border:2.5px solid #f2f3f4"></i></span>
+<span class="sep"></span>
+<span class="ic" style="background:linear-gradient(#e8e9eb,#b4b7bc)"><i style="width:20px;height:24px;border-radius:3px;background:#fbfbfb;box-shadow:0 0 0 1px #0000001f"></i></span>
+</div>
+<script>if(location.hash==='#macbook')document.body.classList.add('mb')</script>
+</body>
+</html>

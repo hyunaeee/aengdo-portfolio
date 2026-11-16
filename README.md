@@ -9,7 +9,11 @@ AI 엔지니어 채용을 위한 한·영 포트폴리오입니다. 대표 사�
 - **Creative**: 영상·이미지. 기존 레트로 OS는 **Playground**에서 실행
 - **History**: 이전 포트폴리오의 2017–2026 경력·연구·학력·강의·활동 22개를 복원한 상세 이력. 홈과 메뉴, PDF에서 연결합니다.
 
-## MED-RAG Serving Lab
+## 타임리 Backend Engineer 지원
+
+`roles/timely/index.html`은 영문 CV의 타이포와 여백을 따른 한국어 3쪽 사례집입니다. 경력·Meeting Assistant, 인증·결제 프로젝트, PostgreSQL·MCP 검증을 순서대로 소개하며 회의 어시스턴트의 공개 데모 이미지 한 장만 사용합니다. 웹은 어두운 배경, 인쇄본은 흰 배경으로 제공하고 상단 버튼으로 A4 PDF를 저장할 수 있습니다. 수치와 공개 범위는 `applications/timely/verification.json`에 기록합니다. 별도 `backend-ledger-lab/`은 TypeScript·Prisma·PostgreSQL의 원장·동시성·migration·인덱스 검증이며 기존 서비스의 PostgreSQL 운영 경력으로 표현하지 않습니다.
+
+## MED-RAG Serving Lab 실행 기록
 
 [실행 기록 탐색](https://hyunaeee.github.io/aengdo-portfolio/work/serving-lab/)에서 구현한 5개 모듈, 12개 합성 품질 사례, 실제 HTTP 정상·과부하·장애·복구 기록을 확인할 수 있습니다. 31개 Python 테스트와 14개 rehearsal 계약을 확인했습니다. 모델 inference·GPU 성능과 실제 배포 롤백은 미측정이며, 웹은 저장된 검증 결과를 탐색합니다.
 
@@ -47,15 +51,15 @@ Track3D는 TraceAnything의 저장된 실행 결과입니다. TrackEverything �
 
 ## PDF
 
-상단 **PDF** 버튼에서 언어와 강조 역량을 선택하고 브라우저 인쇄 창의 **PDF로 저장**을 사용합니다. 기본판은 대표 사례 중심의 A4 8쪽이며 전체 아카이브는 별도 선택입니다. 일반판, 서빙·운영 중심(Toss), 제품 구현 중심(Motif), 고객 문제·평가 중심(Cohere)의 순서와 소개가 달라집니다. 회사별 경력이나 실측 성과를 새로 만들어 넣지 않습니다.
+상단 **PDF** 버튼에서 언어와 강조 역량을 선택하고 브라우저 인쇄 창의 **PDF로 저장**을 사용합니다. 대표 사례 중심의 A4 문서이며 전체 아카이브는 별도 선택입니다. 토스 Brain·AIOC 한국어판은 8쪽, OpenAI Applied AI 영문판은 7쪽으로 검수했습니다. 일반판, 에이전트·평가·사용자 피드백 중심(Toss Brain·AIOC), 제품 구현 중심(Motif), 고객 문제·평가 중심(Cohere)의 순서와 소개가 달라집니다. 토스 Brain·AIOC판은 MED-RAG → Meeting Assistant → Terracotta → Serving Lab, OpenAI Applied AI판은 Meeting Assistant → MED-RAG → Terracotta 순서로 구성합니다. 회사별 경력이나 실측 성과를 새로 만들어 넣지 않습니다.
 
 PDF는 검색 가능한 텍스트, 원문 링크, 실제 캡처를 포함합니다. 브라우저 머리글·바닥글은 끄는 편이 좋습니다. Chromium에서 화면·중첩 사례 경로·인쇄를 확인했습니다. `output/`의 로컬 PDF와 `tmp/` 검수 캡처는 저장소에서 제외합니다.
 
 ## 3D Mac Studio와 안내
 
-첫 화면은 Mac Studio 본체, 모니터, 키보드와 마우스로 구성한 3D 장면입니다. 모니터 안에 **Hyunae Park / AI Builder**를 실제 메시로 넣었습니다. 드래그와 방향키로 회전하며, 처음 각도로 돌아가는 버튼이 있습니다. 자동 회전은 하지 않습니다. WebGL이나 JavaScript를 사용할 수 없을 때는 같은 장면의 정지 이미지를 표시합니다.
+첫 화면은 Mac Studio, Mac mini, 모니터, MacBook, Magic Keyboard, Magic Mouse로 구성한 3D 장면입니다. 모니터에는 macOS 스타일 데스크톱 위에 **Hyunae Park / AI Builder** 창이, MacBook에는 `Welcome to my portfolio!`를 출력하는 에이전트 코드 화면이 떠 있습니다. 드래그와 방향키로 회전하며, 처음 각도로 돌아가는 버튼이 있습니다. 자동 회전은 하지 않습니다. WebGL이나 JavaScript를 사용할 수 없을 때는 같은 장면의 정지 이미지를 표시합니다.
 
-[Higgsfield 3D Jutsu / Mac Studio](https://higgsfield.ai/3d-jutsu/778e498b-7d74-4c2b-8fd2-2d1350f752ca)에서 제작했습니다. 모델과 이미지는 로컬 `assets/hyunae-mac-studio.glb`, `assets/hyunae-mac-studio.png`로 제공하며, Blender 생성 코드는 `scripts/build-studio-scene.py`, 출처와 리비전은 `assets/hyunae-mac-studio.source.json`에 기록했습니다.
+revision 4부터는 로컬 Blender 5.2에서 `scripts/build-studio-scene.py`로 생성합니다(`blender -b --factory-startup -P scripts/build-studio-scene.py -- assets`). 각 제품의 공개 외형 치수를 기준으로 한 절차적 메시이며, 내려받은 모델·로고·배경화면은 쓰지 않았습니다. 화면 텍스처 원본은 `scripts/studio-screen/screen.html`입니다. 모델과 이미지는 `assets/hyunae-mac-studio.glb`, `assets/hyunae-mac-studio.png`로 제공하고, 출처와 리비전은 `assets/hyunae-mac-studio.source.json`에 기록했습니다. revision 3까지는 [Higgsfield 3D Jutsu / Mac Studio](https://higgsfield.ai/3d-jutsu/778e498b-7d74-4c2b-8fd2-2d1350f752ca)에서 제작했습니다.
 
 [Higgsfield 3D Jutsu / Portfolio Guide](https://higgsfield.ai/3d-jutsu/c6e6b80f-2b0c-40a9-949c-d13740d9e6ba) revision 3에서 만든 캐릭터입니다. `hyunae-guide-v2.glb`는 원본 메시·재질·리그·4초 `GreetingLoop`를 보존하고 로컬에서 `Idle` 4.8초와 `Point` 2.8초 클립을 추가한 파생 파일입니다. 출처와 검증 기록은 `assets/hyunae-guide-v2.source.json`에 있습니다.
 

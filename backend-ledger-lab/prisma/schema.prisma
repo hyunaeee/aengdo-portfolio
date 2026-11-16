@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EntryKind {
+  GRANT
+  DEBIT
+  REFUND
+}
+
+enum OrderStatus {
+  DEBITED
+  REFUNDED
+}
+
+model Wallet {
+  tenantId String @id
+  balance  Int    @default(0)
+  orders   UsageOrder[]
+  entries  LedgerEntry[]
+}
+
+model UsageOrder {
+  tenantId String
+  orderId  String
+  credits  Int
+  status   OrderStatus @default(DEBITED)
+  wallet   Wallet @relation(fields: [tenantId], references: [tenantId], onDelete: Restrict)
+  entries  LedgerEntry[]
+
+  @@id([tenantId, orderId])
+}
+
+model LedgerEntry {
+  id             String    @id @default(uuid())
+  tenantId       String
+  idempotencyKey String
+  kind           EntryKind
+  delta          Int
+  orderId        String?
+  createdAt      DateTime @default(now())
+  wallet         Wallet @relation(fields: [tenantId], references: [tenantId], onDelete: Restrict)
+  order          UsageOrder? @relation(fields: [tenantId, orderId], references: [tenantId, orderId], onDelete: Restrict)
+
+  @@unique([tenantId, idempotencyKey])
+  @@unique([tenantId, orderId, kind])
+  @@index([tenantId, createdAt(sort: Desc), id(sort: Desc)], map: "ledger_tenant_history_idx")
+}

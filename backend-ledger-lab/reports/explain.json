@@ -1,0 +1,228 @@
+{
+  "recordedAt": "2026-10-13T06:28:20.794Z",
+  "scope": "Synthetic dedicated PostgreSQL lab; one local before/after query, not a production performance claim.",
+  "rows": 100000,
+  "tenants": 20,
+  "rowsPerTenant": 5000,
+  "limit": 20,
+  "node": "v24.18.0",
+  "postgres": "PostgreSQL 16.15 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+  "caution": "Index creation warms data pages. Plan shape and scanned rows matter more than this single timing sample.",
+  "before": [
+    {
+      "QUERY PLAN": [
+        {
+          "Plan": {
+            "Node Type": "Limit",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Startup Cost": 1483.41,
+            "Total Cost": 1483.46,
+            "Plan Rows": 20,
+            "Plan Width": 33,
+            "Actual Startup Time": 2.042,
+            "Actual Total Time": 2.044,
+            "Actual Rows": 20,
+            "Actual Loops": 1,
+            "Shared Hit Blocks": 1240,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Plans": [
+              {
+                "Node Type": "Sort",
+                "Parent Relationship": "Outer",
+                "Parallel Aware": false,
+                "Async Capable": false,
+                "Startup Cost": 1483.41,
+                "Total Cost": 1495.58,
+                "Plan Rows": 4868,
+                "Plan Width": 33,
+                "Actual Startup Time": 2.041,
+                "Actual Total Time": 2.042,
+                "Actual Rows": 20,
+                "Actual Loops": 1,
+                "Sort Key": [
+                  "\"createdAt\" DESC",
+                  "id DESC"
+                ],
+                "Sort Method": "top-N heapsort",
+                "Sort Space Used": 27,
+                "Sort Space Type": "Memory",
+                "Shared Hit Blocks": 1240,
+                "Shared Read Blocks": 0,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Plans": [
+                  {
+                    "Node Type": "Bitmap Heap Scan",
+                    "Parent Relationship": "Outer",
+                    "Parallel Aware": false,
+                    "Async Capable": false,
+                    "Relation Name": "LedgerEntry",
+                    "Alias": "LedgerEntry",
+                    "Startup Cost": 58.02,
+                    "Total Cost": 1353.87,
+                    "Plan Rows": 4868,
+                    "Plan Width": 33,
+                    "Actual Startup Time": 0.238,
+                    "Actual Total Time": 1.329,
+                    "Actual Rows": 5000,
+                    "Actual Loops": 1,
+                    "Recheck Cond": "(\"tenantId\" = 'benchmark-7'::text)",
+                    "Rows Removed by Index Recheck": 0,
+                    "Exact Heap Blocks": 1235,
+                    "Lossy Heap Blocks": 0,
+                    "Shared Hit Blocks": 1240,
+                    "Shared Read Blocks": 0,
+                    "Shared Dirtied Blocks": 0,
+                    "Shared Written Blocks": 0,
+                    "Local Hit Blocks": 0,
+                    "Local Read Blocks": 0,
+                    "Local Dirtied Blocks": 0,
+                    "Local Written Blocks": 0,
+                    "Temp Read Blocks": 0,
+                    "Temp Written Blocks": 0,
+                    "Plans": [
+                      {
+                        "Node Type": "Bitmap Index Scan",
+                        "Parent Relationship": "Outer",
+                        "Parallel Aware": false,
+                        "Async Capable": false,
+                        "Index Name": "LedgerEntry_tenantId_orderId_kind_key",
+                        "Startup Cost": 0,
+                        "Total Cost": 56.8,
+                        "Plan Rows": 4868,
+                        "Plan Width": 0,
+                        "Actual Startup Time": 0.156,
+                        "Actual Total Time": 0.157,
+                        "Actual Rows": 5000,
+                        "Actual Loops": 1,
+                        "Index Cond": "(\"tenantId\" = 'benchmark-7'::text)",
+                        "Shared Hit Blocks": 5,
+                        "Shared Read Blocks": 0,
+                        "Shared Dirtied Blocks": 0,
+                        "Shared Written Blocks": 0,
+                        "Local Hit Blocks": 0,
+                        "Local Read Blocks": 0,
+                        "Local Dirtied Blocks": 0,
+                        "Local Written Blocks": 0,
+                        "Temp Read Blocks": 0,
+                        "Temp Written Blocks": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "Planning": {
+            "Shared Hit Blocks": 53,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0
+          },
+          "Planning Time": 0.241,
+          "Triggers": [],
+          "Execution Time": 2.079
+        }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "QUERY PLAN": [
+        {
+          "Plan": {
+            "Node Type": "Limit",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Startup Cost": 0.42,
+            "Total Cost": 21.71,
+            "Plan Rows": 20,
+            "Plan Width": 33,
+            "Actual Startup Time": 0.02,
+            "Actual Total Time": 0.025,
+            "Actual Rows": 20,
+            "Actual Loops": 1,
+            "Shared Hit Blocks": 5,
+            "Shared Read Blocks": 3,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Plans": [
+              {
+                "Node Type": "Index Scan",
+                "Parent Relationship": "Outer",
+                "Parallel Aware": false,
+                "Async Capable": false,
+                "Scan Direction": "Forward",
+                "Index Name": "ledger_tenant_history_idx",
+                "Relation Name": "LedgerEntry",
+                "Alias": "LedgerEntry",
+                "Startup Cost": 0.42,
+                "Total Cost": 5182.26,
+                "Plan Rows": 4868,
+                "Plan Width": 33,
+                "Actual Startup Time": 0.019,
+                "Actual Total Time": 0.024,
+                "Actual Rows": 20,
+                "Actual Loops": 1,
+                "Index Cond": "(\"tenantId\" = 'benchmark-7'::text)",
+                "Rows Removed by Index Recheck": 0,
+                "Shared Hit Blocks": 5,
+                "Shared Read Blocks": 3,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0
+              }
+            ]
+          },
+          "Planning": {
+            "Shared Hit Blocks": 4,
+            "Shared Read Blocks": 1,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0
+          },
+          "Planning Time": 0.101,
+          "Triggers": [],
+          "Execution Time": 0.036
+        }
+      ]
+    }
+  ]
+}

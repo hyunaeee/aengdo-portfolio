@@ -1,19 +1,26 @@
 {
-  "name": "Hyunae Park — Mac Studio / AI Builder",
-  "projectId": "778e498b-7d74-4c2b-8fd2-2d1350f752ca",
-  "projectUrl": "https://higgsfield.ai/3d-jutsu/778e498b-7d74-4c2b-8fd2-2d1350f752ca",
-  "revision": 3,
-  "operationId": "studio-identity-spacing-20260911",
-  "createdAt": "2026-09-11",
+  "name": "Hyunae Park — Mac Studio desk / AI Builder",
+  "revision": 4,
+  "createdAt": "2026-11-14",
   "source": "scripts/build-studio-scene.py",
-  "geometry": "Procedural, original meshes authored for this portfolio. No downloaded product model or textures.",
+  "screenSource": "scripts/studio-screen/screen.html",
+  "tool": "Blender 5.2 (local, headless), Cycles for the poster",
+  "build": "blender -b --factory-startup -P scripts/build-studio-scene.py -- assets",
+  "geometry": "Procedural, original meshes authored for this portfolio from published outer dimensions. No downloaded product models, logos, wallpapers or icons.",
   "reference": "https://www.apple.com/mac-studio/",
-  "parts": ["Mac Studio", "display", "keyboard", "mouse", "desk"],
-  "screenText": ["Hyunae Park", "AI Builder"],
+  "parts": ["Mac Studio", "Mac mini", "Studio Display", "MacBook", "Magic Keyboard", "Magic Mouse", "desk"],
+  "screens": {
+    "display": "macOS-style desktop with a browser window: Hyunae Park / AI Builder",
+    "macbook": "Code editor with welcome.py: an agent that says \"Welcome to my portfolio!\""
+  },
+  "previousRevision": {
+    "revision": 3,
+    "projectUrl": "https://higgsfield.ai/3d-jutsu/778e498b-7d74-4c2b-8fd2-2d1350f752ca"
+  },
   "glb": "assets/hyunae-mac-studio.glb",
   "poster": "assets/hyunae-mac-studio.png",
-  "glbBytes": 1793080,
+  "glbBytes": 1346216,
   "posterSize": [1400, 900],
-  "meshCount": 55,
+  "meshCount": 31,
   "animation": "Manual browser orbit controls; no automatic rotation."
 }
