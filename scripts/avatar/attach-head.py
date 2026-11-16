@@ -165,7 +165,7 @@ drop |= (hc[:, 2] < CUT - .008) & (hc[:, 1] > AY + .05)
 # loose strand ends that hang beside the neck read as specks at page size
 drop |= (hc[:, 2] < 1.34) & (hcol.mean(1) < .45) & (hc[:, 1] < AY + .03)
 # a slimmer neck: pull both meshes toward the neck axis between the collar and the jaw
-NECK, CHEST, WIDTH = 0.0, .85, .16          # the neck is left at its original width
+NECK, CHEST, WIDTH = 0.0, 0.0, 0.0          # the neck is left at its original width
 for ob, w, col in ((head, hc, None), (body, bw, bcol)):
     r = np.hypot(w[:, 0] - AX, w[:, 1] - AY)
     lo = 1.262 if col is None else 1.29              # the body is only narrowed above its collar, and only its skin
@@ -318,6 +318,219 @@ for side in ('Left', 'Right'):
 keep = np.maximum(keep, sm((bw[:, 2] - 1.215) / .05))   # the neckline and collar were fitted by hand above
 relax(bw, nb, 1 - keep, 6)
 put_world(body, bw)
+# Optional: a clean quad face. The generated face is a few hundred irregular triangles. Take the front of a CC0 base
+# head (Blender Studio "Human Base Meshes", GEO-head_animation_realistic), fit it to this face by eye, nose, mouth and
+# chin heights, drop every vertex onto the existing surface along the view axis, and photograph the existing texture
+# onto it from the front. The old triangles under the patch are removed; the patch edge tucks 1.5 mm under the old skin.
+HBM = a[9] if len(a) > 9 else None
+face_patch = None
+if HBM:
+    from mathutils.bvhtree import BVHTree
+    hc = world(head)
+    hpoly = [tuple(p.vertices) for p in head.data.polygons]
+    hloop = [tuple(p.loop_indices) for p in head.data.polygons]
+    nlp = len(head.data.loops)
+    huv = np.empty(nlp * 2, dtype=np.float32)
+    head.data.uv_layers.active.data.foreach_get('uv', huv)
+    huv = (huv.reshape(nlp, 2) % 1).tolist()
+    him = tex_of(head)
+    tw, th = him.size
+    hpx = np.array(him.pixels[:], dtype=np.float32).reshape(th, tw, 4)[:, :, :3]
+    obvh = BVHTree.FromPolygons([Vector(c) for c in hc], hpoly)
+    hcl = hc.tolist()
+    FRONT, INTO = Vector((0, -1, 0)), Vector((0, 1, 0))
+
+    def old_hit(x, z):
+        """First surface seen from the front at (x, z): its depth and texture colour."""
+        loc, nrm, idx, d = obvh.ray_cast(Vector((x, -1, z)), INTO)
+        if loc is None:
+            return None
+        v0, v1, v2 = (hcl[i] for i in hpoly[idx][:3])
+        den = (v1[2] - v2[2]) * (v0[0] - v2[0]) + (v2[0] - v1[0]) * (v0[2] - v2[2])
+        if abs(den) < 1e-12:
+            return None
+        b0 = ((v1[2] - v2[2]) * (x - v2[0]) + (v2[0] - v1[0]) * (z - v2[2])) / den
+        b1 = ((v2[2] - v0[2]) * (x - v2[0]) + (v0[0] - v2[0]) * (z - v2[2])) / den
+        b2 = 1 - b0 - b1
+        u0, u1, u2 = (huv[i] for i in hloop[idx][:3])
+        u, v = b0 * u0[0] + b1 * u1[0] + b2 * u2[0], b0 * u0[1] + b1 * u1[1] + b2 * u2[1]
+        return loc.y, hpx[min(int(v * th), th - 1), min(int(u * tw), tw - 1)]
+
+    with bpy.data.libraries.load(HBM, link=False) as (src, dst):
+        dst.objects = [n for n in src.objects if n == 'GEO-head_animation_realistic']
+    fb = bmesh.new()
+    fb.from_mesh(dst.objects[0].data)
+    bmesh.ops.subdivide_edges(fb, edges=fb.edges[:], cuts=1, use_grid_fill=True)
+    fb.normal_update()
+    base_bvh = BVHTree.FromBMesh(fb)
+    # landmark heights read off both midline profiles: under the chin, mouth, under the nose, nose tip, eyes
+    ZB, ZO = [.184, .228, .252, .268, .311], [1.345, 1.384, 1.402, 1.412, 1.450]
+    CXO, SX, SZ = -.002, .94, .84
+
+    def to_old_z(z):
+        if z <= ZB[0]:
+            return ZO[0] + (z - ZB[0]) * SZ
+        if z >= ZB[-1]:
+            return ZO[-1] + (z - ZB[-1]) * SZ
+        return float(np.interp(z, ZB, ZO))
+
+    seen_ok = {}
+    for v in fb.verts:
+        x, z = CXO + v.co.x * SX, to_old_z(v.co.z)
+        h = old_hit(x, z) if (1.343 < z < 1.535 and abs(x - CXO) < .088) else None
+        if h is None:
+            continue
+        inner = abs(x - CXO) < .062 and 1.365 < z < 1.478          # eyes, brows, nose and lips whatever their colour
+        if inner or (h[1].mean() > .32 and h[1][0] - h[1][2] > .0):
+            seen_ok[v] = (x, h[0], z)
+    keepf = []
+    for f in fb.faces:
+        c = f.calc_center_median()
+        if f.normal.y < -.25 and all(v in seen_ok for v in f.verts) and base_bvh.ray_cast(c + FRONT * 1e-4, FRONT)[0] is None:
+            keepf.append(f)
+    bmesh.ops.delete(fb, geom=[f for f in fb.faces if f not in set(keepf)], context='FACES')
+    bmesh.ops.delete(fb, geom=[v for v in fb.verts if not v.link_faces], context='VERTS')
+    for v in fb.verts:
+        v.co = seen_ok[v]
+    fb.faces.ensure_lookup_table()
+    left, comps = set(fb.faces), []
+    while left:                                      # keep the largest connected piece (drops eye-socket and nostril linings)
+        st = [left.pop()]
+        comp = [st[0]]
+        while st:
+            for e in st.pop().edges:
+                for g in e.link_faces:
+                    if g in left:
+                        left.discard(g)
+                        st.append(g)
+                        comp.append(g)
+        comps.append(comp)
+    comps.sort(key=len, reverse=True)
+    bmesh.ops.delete(fb, geom=[f for c in comps[1:] for f in c], context='FACES')
+    loose = [v for v in fb.verts if not v.link_faces]
+    bmesh.ops.delete(fb, geom=loose, context='VERTS')
+    # boundary loops: the longest is the outline, the rest are the eye and nostril openings, which get closed
+    bedges = set(e for e in fb.edges if e.is_boundary)
+    loops_ = []
+    while bedges:
+        e = bedges.pop()
+        loop, st = [e], [e]
+        while st:
+            for v in st.pop().verts:
+                for g in v.link_edges:
+                    if g in bedges:
+                        bedges.discard(g)
+                        st.append(g)
+                        loop.append(g)
+        loops_.append(loop)
+    loops_.sort(key=lambda l: sum(e.calc_length() for e in l), reverse=True)
+    mark = fb.verts.layers.int.new('mark')            # 1 = was there before the openings were closed, 2 = on the outline
+    for v in fb.verts:
+        v[mark] = 1
+    for e in loops_[0]:
+        for v in e.verts:
+            v[mark] = 2
+    for hole in loops_[1:]:
+        hole = [e for e in hole if e.is_valid]
+        if len(hole) < 3:
+            continue
+        filled = bmesh.ops.holes_fill(fb, edges=hole, sides=0)['faces']
+        tri = bmesh.ops.triangulate(fb, faces=filled)['faces']
+        inner_e = list(set(e for f in tri for e in f.edges if not e.is_boundary and len([g for g in e.link_faces if g in tri]) == 2))
+        bmesh.ops.subdivide_edges(fb, edges=inner_e, cuts=2, use_grid_fill=True)
+    bmesh.ops.triangulate(fb, faces=[f for f in fb.faces if len(f.verts) > 4])
+    for v in fb.verts:
+        if v[mark] == 0:
+            h = old_hit(v.co.x, v.co.z)
+            if h is not None:
+                v.co.y = h[0]
+    # rings counted in from the outline
+    outline = [v for v in fb.verts if v[mark] == 2]
+    ring = {v: 0 for v in outline}
+    front_ = list(outline)
+    while front_:
+        nxt = []
+        for v in front_:
+            for e in v.link_edges:
+                w = e.other_vert(v)
+                if w not in ring:
+                    ring[w] = ring[v] + 1
+                    nxt.append(w)
+        front_ = nxt
+    for v in fb.verts:
+        r = ring.get(v, 9)
+        v.co.y += .0015 if r <= 3 else (.0008 if r == 4 else 0)
+    fb.verts.ensure_lookup_table()
+    fb.faces.ensure_lookup_table()
+    pme = bpy.data.meshes.new('face')
+    fb.to_mesh(pme)
+    patch_bvh = BVHTree.FromBMesh(fb)
+    fring = [min(ring.get(v, 9) for v in f.verts) for f in fb.faces]
+    nq = sum(len(f.verts) == 4 for f in fb.faces)
+    print('FACE patch verts', len(fb.verts), 'faces', len(fb.faces), 'quads', nq, 'holes closed', len(loops_) - 1)
+    fb.free()
+    # planar UVs and the front photograph of the old texture
+    pn = len(pme.vertices)
+    pco = np.empty(pn * 3, dtype=np.float32)
+    pme.vertices.foreach_get('co', pco)
+    pco = pco.reshape(pn, 3)
+    x0, x1, z0, z1 = pco[:, 0].min() - .004, pco[:, 0].max() + .004, pco[:, 2].min() - .004, pco[:, 2].max() + .004
+    plv = np.empty(len(pme.loops), dtype=np.int32)
+    pme.loops.foreach_get('vertex_index', plv)
+    puv = np.stack([(pco[plv, 0] - x0) / (x1 - x0), (pco[plv, 2] - z0) / (z1 - z0)], 1).astype(np.float32)
+    pme.uv_layers.new(name='UVMap')
+    pme.uv_layers.active.data.foreach_set('uv', puv.ravel())
+    R = 768
+    img = np.zeros((R, R, 4), np.float32)
+    img[:, :, 3] = 1
+    got = np.zeros((R, R), bool)
+    for j in range(R):
+        z = z0 + (j + .5) / R * (z1 - z0)
+        for i in range(R):
+            h = old_hit(x0 + (i + .5) / R * (x1 - x0), z)
+            if h is not None:
+                img[j, i, :3] = h[1]
+                got[j, i] = True
+    for _ in range(6):                               # fill the few texels the rays missed from their neighbours
+        if got.all():
+            break
+        acc, cnt = np.zeros((R, R, 3), np.float32), np.zeros((R, R), np.float32)
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            m = np.roll(got, (dy, dx), (0, 1))
+            acc += np.roll(img[:, :, :3], (dy, dx), (0, 1)) * m[..., None]
+            cnt += m
+        grow = ~got & (cnt > 0)
+        img[grow, :3] = acc[grow] / cnt[grow][:, None]
+        got |= grow
+    fimg = bpy.data.images.new('face-albedo', R, R, alpha=False)
+    fimg.pixels.foreach_set(img.ravel())
+    fimg.filepath_raw = out + '.face.png'
+    fimg.file_format = 'PNG'
+    fimg.save()
+    fimg.pack()
+    fmat = head.data.materials[0].copy()
+    fmat.name = 'face'
+    for node in fmat.node_tree.nodes:
+        if node.type == 'TEX_IMAGE':
+            node.image = fimg
+    pme.materials.append(fmat)
+    pme.polygons.foreach_set('use_smooth', [True] * len(pme.polygons))
+    # remove the old triangles that sit under the inside of the patch
+    gone = []
+    for i, p in enumerate(hcl):
+        loc, nrm, idx, d = patch_bvh.ray_cast(Vector((p[0], -1, p[2])), INTO)
+        if loc is not None and abs(loc.y - p[1]) < .004 and fring[idx] >= 4:
+            gone.append(i)
+    ob_ = bmesh.new()
+    ob_.from_mesh(head.data)
+    ob_.verts.ensure_lookup_table()
+    bmesh.ops.delete(ob_, geom=[ob_.verts[i] for i in gone], context='VERTS')
+    ob_.to_mesh(head.data)
+    ob_.free()
+    print('FACE old verts removed', len(gone), 'head verts left', len(head.data.vertices))
+    face_patch = bpy.data.objects.new('face', pme)
+    sc.collection.objects.link(face_patch)
+
 # the face keeps its shape and its imported shading; only the front of the bare skin gets smooth normals, so the
 # flat-shaded facets on the nose and cheeks blend while hair, brows, eyes, lips and the sides stay as they were
 hme = head.data
@@ -358,6 +571,11 @@ head.matrix_parent_inverse = arm.matrix_world.inverted()
 g = head.vertex_groups.new(name='Head')
 g.add(range(len(head.data.vertices)), 1.0, 'REPLACE')
 head.modifiers.new('Armature', 'ARMATURE').object = arm
+if face_patch is not None:
+    face_patch.parent = arm
+    face_patch.matrix_parent_inverse = arm.matrix_world.inverted()
+    face_patch.vertex_groups.new(name='Head').add(range(len(face_patch.data.vertices)), 1.0, 'REPLACE')
+    face_patch.modifiers.new('Armature', 'ARMATURE').object = arm
 
 
 def liner(name, rings, uv, src, bone, t0=0.0, t1=2 * np.pi, n=40):
