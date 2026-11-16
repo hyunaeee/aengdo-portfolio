@@ -27,7 +27,7 @@ function nav(lang, depth, alternate, pageType) {
 }
 function footer(lang, depth, pageType) {
  const strip = pageType === 'home' ? '' : `<section class="contact-strip" id="contact"><a href="mailto:${data.person.email}"><span>${tr(lang,'같이 만들어요','Let’s build something')}</span><strong>${data.person.email} ↗</strong></a></section>`;
- return `${strip}<footer class="site-footer"><span>© 2026 Hyunae Park</span><div>${a(data.person.github,'GitHub ↗')}${a('https://velog.io/@hyunaeee','Writing ↗')}${a(local(lang==='en'?'history-en.html':'history.html',depth),'History')}${a(local(lang==='en'?'creative-en.html':'creative.html',depth),'Creative')}${a(local('playground.html#os',depth),'Playground ↗')}</div></footer>`;
+ return `${strip}<footer class="site-footer"><span>© 2026 Hyunae Park</span><div>${a(data.person.github,'GitHub ↗')}${a('https://velog.io/@hyunaeee','Writing ↗')}${a('https://aengdo-devlog.vercel.app/','Devlog ↗')}${a(local(lang==='en'?'history-en.html':'history.html',depth),'History')}${a(local(lang==='en'?'creative-en.html':'creative.html',depth),'Creative')}${a(local('playground.html#os',depth),'Playground ↗')}</div></footer>`;
 }
 
 function exportDialog(lang) {
