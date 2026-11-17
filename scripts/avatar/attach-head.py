@@ -163,7 +163,7 @@ kill += [int(i) for i in np.nonzero((bw[:, 2] > 1.312) & (bcol.mean(1) < .35) & 
 # below the collar line the plug must not reach back past the collar liner, or its skin shows through gaps there
 drop |= (hc[:, 2] < CUT - .008) & (hc[:, 1] > AY + .05)
 # loose strand ends that hang beside the neck read as specks at page size
-drop |= (hc[:, 2] < 1.34) & (hcol.mean(1) < .45) & (hc[:, 1] < AY + .03)
+drop |= (hc[:, 2] < 1.34) & (hcol.mean(1) < .45) & (hc[:, 1] < AY + .03) & (np.hypot(hc[:, 0] - AX, hc[:, 1] - AY) > .07)
 # a slimmer neck: pull both meshes toward the neck axis between the collar and the jaw
 NECK, CHEST, WIDTH = 0.0, 0.0, 0.0          # the neck is left at its original width
 for ob, w, col in ((head, hc, None), (body, bw, bcol)):
@@ -242,6 +242,91 @@ skin_uv = vuvs(head)[pick[np.argsort(hcol[pick].mean(1))[len(pick) // 2]]]
 pick = np.nonzero((bw[:, 2] > 1.18) & (bw[:, 2] < 1.24) & (abs(bw[:, 0]) < .06) & (bw[:, 1] > .1) & (bcol.mean(1) < .12))[0]
 black_uv = vuvs(body)[pick[len(pick) // 2]]
 print('LINER uv skin', skin_uv.round(3), 'black', black_uv.round(3))
+
+
+def texel(o, uv):
+    im = tex_of(o)
+    w_, h_ = im.size
+    i = (min(int(uv[1] % 1 * h_), h_ - 1) * w_ + min(int(uv[0] % 1 * w_), w_ - 1)) * 4
+    return np.array(im.pixels[i:i + 3], dtype=np.float32)
+
+
+def paint(o, jobs):
+    """Repaint the texture under whole triangles. jobs: (per-vertex mask, colour); with colour None, only the
+    texels that stand out from the area's own median (baked shadows, stray patches) are set to that median."""
+    im = tex_of(o)
+    w_, h_ = im.size
+    P = np.array(im.pixels[:], dtype=np.float32).reshape(h_, w_, 4)
+    uvl = o.data.uv_layers.active.data
+    for mask, colour in jobs:
+        n = 0
+        sel = np.zeros((h_, w_), bool)
+        for pl in o.data.polygons:
+            if not all(mask[v] for v in pl.vertices):
+                continue
+            u = np.array([uvl[l].uv[:] for l in pl.loop_indices][:3]) % 1 * (w_, h_) - .5
+            xa, xb = max(int(np.floor(u[:, 0].min())) - 1, 0), min(int(np.ceil(u[:, 0].max())) + 1, w_ - 1)
+            ya, yb = max(int(np.floor(u[:, 1].min())) - 1, 0), min(int(np.ceil(u[:, 1].max())) + 1, h_ - 1)
+            d = (u[1, 1] - u[2, 1]) * (u[0, 0] - u[2, 0]) + (u[2, 0] - u[1, 0]) * (u[0, 1] - u[2, 1])
+            if abs(d) < 1e-9 or xb < xa or yb < ya:
+                continue
+            gx, gy = np.meshgrid(np.arange(xa, xb + 1), np.arange(ya, yb + 1))
+            b0 = ((u[1, 1] - u[2, 1]) * (gx - u[2, 0]) + (u[2, 0] - u[1, 0]) * (gy - u[2, 1])) / d
+            b1 = ((u[2, 1] - u[0, 1]) * (gx - u[2, 0]) + (u[0, 0] - u[2, 0]) * (gy - u[2, 1])) / d
+            ins = (b0 > -.25) & (b1 > -.25) & (1 - b0 - b1 > -.25)       # a little past the edge, so filtering stays clean
+            sel[gy[ins], gx[ins]] = True
+            n += 1
+        if colour is None and sel.any():
+            med = np.median(P[sel][:, :3], axis=0)
+            odd = sel & (np.abs(P[:, :, :3] - med).max(-1) > .03)
+            P[odd, :3] = med
+            print('PAINT', o.name, n, 'triangles, evened', int(odd.sum()), 'of', int(sel.sum()), 'texels to', np.round(med, 3))
+        elif sel.any():
+            P[sel, :3] = colour
+            print('PAINT', o.name, n, 'triangles', np.round(colour, 3))
+    im.pixels.foreach_set(P.ravel())
+    im.update()
+    im.pack()
+
+
+pick = np.nonzero(is_skin(bcol) & (bw[:, 2] > 1.272) & (bw[:, 2] < 1.30) & (abs(bw[:, 0]) < .03) & (bw[:, 1] < AY))[0]
+bskin_uv = vuvs(body)[pick[np.argsort(bcol[pick].mean(1))[len(pick) // 2]]]
+
+
+def fill_holes(bm, mw):
+    """Close the holes that cutting left in the body round the neck (not the neck opening itself, which is the
+    longest loop). Each patch takes knit black or skin from the colour of its rim."""
+    dark = bm.verts.layers.int['dark']
+    uvl = bm.loops.layers.uv.active
+    near = lambda v: (lambda c: 1.15 < c.z < 1.36 and np.hypot(c.x - AX, c.y - AY) < .2)(mw @ v.co)
+    rim = set(e for e in bm.edges if e.is_boundary and near(e.verts[0]) and near(e.verts[1]))
+    loops_ = []
+    while rim:
+        e = rim.pop()
+        loop, st = [e], [e]
+        while st:
+            for v in st.pop().verts:
+                for g in v.link_edges:
+                    if g in rim:
+                        rim.discard(g)
+                        st.append(g)
+                        loop.append(g)
+        loops_.append(loop)
+    loops_.sort(key=lambda l: sum(e.calc_length() for e in l), reverse=True)
+    made = 0
+    for loop in loops_[1:]:
+        rimv = set(v for e in loop for v in e.verts)
+        if len(loop) < 3 or sum(v[dark] for v in rimv) * 2 < len(rimv):      # only holes in the knit; the neck part covers skin
+            continue
+        faces = bmesh.ops.holes_fill(bm, edges=[e for e in loop if e.is_valid], sides=0)['faces']
+        faces = bmesh.ops.triangulate(bm, faces=faces)['faces'] if faces else []
+        for f in faces:
+            uv = black_uv
+            for l in f.loops:
+                l[uvl].uv = (float(uv[0]), float(uv[1]))
+            f.smooth = True
+        made += len(faces)
+    print('HOLES loops', len(loops_), 'longest %.3f m' % sum(e.calc_length() for e in loops_[0]) if loops_ else 0, 'filled faces', made)
 # measure the new neck where it is bare, so the skin liner can sit a little inside it all the way round
 neck_rings = []
 hskin = (hcol.mean(1) > .55) & (hcol[:, 0] - hcol[:, 2] > .03)
@@ -252,11 +337,43 @@ for zr in (1.312, 1.322, 1.332):
     neck_rings.append((zr, (x0 + x1) / 2, (y0 + y1) / 2, (x1 - x0) / 2 * .86, (y1 - y0) / 2 * .86))
     print('RING z %.3f centre %.3f %.3f half %.3f %.3f' % neck_rings[-1])
 print('SHAPE neck -%d%% chest -%d%%, chest verts moved %d' % (NECK * 100, CHEST * 100, int((front & (k > .01)).sum())))
+# The neck is its own part (built further down). The old body's neck skin goes, except for the ring of skin that
+# touches the knit, so the collar's edge stays whole; and the new head's neck is cut level at ZN, just under the jaw.
+ZN = 1.318
+bskin0 = is_skin(bcol)
+by_knit = np.zeros(len(bw), bool)
+for pl in body.data.polygons:
+    if not all(bskin0[v] for v in pl.vertices):
+        for v in pl.vertices:
+            by_knit[v] = True
+kill += [int(i) for i in np.nonzero(bskin0 & ~by_knit & (bw[:, 2] > 1.263) & ~((abs(bw[:, 0] - AX) < .03) & (bw[:, 2] < 1.274) & (bw[:, 1] < AY)) & (np.hypot(bw[:, 0] - AX, bw[:, 1] - AY) < .14))[0]]
+hneck = (hcol.mean(1) > .30) & (hcol[:, 0] - hcol[:, 2] > .0) & (np.hypot(hc[:, 0] - AX, hc[:, 1] - AY) < .09) & (hc[:, 2] < ZN + .03)
 for ob, idx in ((body, kill), (head, [int(i) for i in np.nonzero(drop)[0]])):
     bm = bmesh.new()
     bm.from_mesh(ob.data)
     bm.verts.ensure_lookup_table()
-    bmesh.ops.delete(bm, geom=[bm.verts[i] for i in sorted(set(idx))], context="VERTS")
+    if ob is body:
+        dark = bm.verts.layers.int.new('dark')
+        for v in bm.verts:
+            v[dark] = int(bcol[v.index].mean() < .35)
+    gone_ = [] if ob is head else [bm.verts[i] for i in sorted(set(idx))]
+    if ob is head:                                   # a level cut through the neck skin only; hair ends hang on past it
+        nk = bm.verts.layers.int.new('neck')
+        dl = bm.verts.layers.int.new('drop')             # the cut below replaces vertices, so mark rather than hold them
+        bm.verts.ensure_lookup_table()                   # adding a layer reallocates the vertices
+        for v in bm.verts:
+            v[nk] = int(hneck[v.index])
+        for i in set(idx):
+            bm.verts[i][dl] = 1
+        fs = [f for f in bm.faces if all(v[nk] for v in f.verts)]
+        geom = list(set(fs) | set(e for f in fs for e in f.edges) | set(v for f in fs for v in f.verts))
+        bmesh.ops.bisect_plane(bm, geom=geom, dist=1e-6, plane_co=(0, 0, ZN), plane_no=(0, 0, 1))
+        low = [v for v in bm.verts if v.is_valid and v[nk] and v.co.z < ZN - 1e-5]
+        gone_ = list(set(v for v in bm.verts if v.is_valid and v[dl] == 1) | set(low))
+        print('NECK cut', len(low), 'verts under z', ZN)
+    bmesh.ops.delete(bm, geom=gone_, context="VERTS")
+    if ob is body:
+        fill_holes(bm, ob.matrix_world)
     bm.to_mesh(ob.data)
     bm.free()
     print('CUT', ob.name, len(idx), 'left', len(ob.data.vertices))
@@ -604,10 +721,173 @@ def liner(name, rings, uv, src, bone, t0=0.0, t1=2 * np.pi, n=40):
 
 
 z0, cx0, cy0, a0, b0 = neck_rings[0]
-a0, b0 = a0 * .85, b0 * .85                             # the gaps are at and below the cut, so the liner stops just above it
-liner('neck-liner', [(1.235, cx0, cy0, a0 + .040, b0 + .014), (1.262, cx0, cy0, a0 + .040, b0 + .016), (1.295, cx0, cy0, a0 + .027, b0 + .012),
-                     (1.306, cx0, cy0, a0, b0), (1.312, cx0, cy0, a0, b0)], skin_uv, head, 'neck')
-liner('collar-liner', [(1.20, AX, AY, .125, .074), (1.26, AX, AY, .125, .074), (1.292, AX, AY, .105, .066), (1.303, AX, AY, .085, .064)], black_uv, body, 'Spine', .35, np.pi - .35)
+
+
+def neck_part(n=64):
+    """A separate neck: a smooth tube from just inside the head's cut neck down under the collar. Each column takes
+    the head's own radius and skin colour at the cut, so the join is a level line with no step in shape or colour."""
+    from mathutils.bvhtree import BVHTree
+    from mathutils.interpolate import poly_3d_calc
+    hw_ = world(head)
+    polys = [tuple(pl.vertices) for pl in head.data.polygons]
+    lps = [tuple(pl.loop_indices) for pl in head.data.polygons]
+    nl_ = len(head.data.loops)
+    uvs = np.empty(nl_ * 2, dtype=np.float32)
+    head.data.uv_layers.active.data.foreach_get('uv', uvs)
+    uvs = uvs.reshape(nl_, 2) % 1
+    im = tex_of(head)
+    w_, h_ = im.size
+    px_ = np.array(im.pixels[:], dtype=np.float32).reshape(h_, w_, 4)[:, :, :3]
+    bvh = BVHTree.FromPolygons([Vector(c) for c in hw_], polys)
+    rad, col = [], []
+    for i in range(n):
+        t = 2 * np.pi * i / n
+        d = Vector((np.cos(t), np.sin(t), 0))
+        rs, cs = [], []
+        for z in (ZN + .0015, ZN + .004, ZN + .007):
+            loc, nrm, idx, dist = bvh.ray_cast(Vector((cx0, cy0, z)), d, .1)
+            if loc is None:
+                continue
+            rs.append(dist)
+            wts_ = poly_3d_calc([Vector(hw_[v]) for v in polys[idx]], loc)
+            uv = sum(w * uvs[l] for w, l in zip(wts_, lps[idx]))
+            c = px_[min(int(uv[1] * h_), h_ - 1), min(int(uv[0] * w_), w_ - 1)]
+            if c.mean() > .45 and c[0] - c[2] > .02:
+                cs.append(c)
+        rad.append(rs[0] if rs else np.nan)
+        col.append(np.mean(cs, axis=0) if cs else None)
+    rad = np.array(rad)
+    ok = ~np.isnan(rad) & (rad > .03) & (rad < .075)
+    rad[~ok] = np.interp(np.nonzero(~ok)[0], np.nonzero(ok)[0], rad[ok], period=n)
+    rad = np.array([np.median(rad[[(i - 1) % n, i, (i + 1) % n]]) for i in range(n)])        # drop single spikes
+    med = np.median([c for c in col if c is not None], axis=0)
+    have = np.array([c is not None for c in col])
+    full = np.array([c if c is not None else med for c in col])
+    for ch in range(3):                              # columns with no skin sample take their neighbours' colour
+        full[~have, ch] = np.interp(np.nonzero(~have)[0], np.nonzero(have)[0], full[have, ch], period=n)
+    col = full
+    col = (np.roll(col, 1, 0) + col * 2 + np.roll(col, -1, 0)) / 4
+    print('NECK part radius %.3f..%.3f, colour' % (rad.min(), rad.max()), med.round(3), 'missed', int((~ok).sum()))
+    # (height, extra radius at the front, extra radius at the back); bottom ring first
+    prof = ((1.236, .026, .010), (1.252, .022, .009), (1.268, .015, .006), (1.284, .006, .003), (1.300, .0015, .0015))
+    verts = []
+    for z, df, db in prof:
+        for i in range(n + 1):
+            t = 2 * np.pi * (i % n) / n
+            f = (1 - np.sin(t)) / 2                          # 1 at the front (the model faces -Y), 0 at the back
+            r = rad[i % n] + db + (df - db) * f
+            verts.append((cx0 + r * np.cos(t), cy0 + r * np.sin(t), z))
+    for z, k in ((ZN, 1.0), (ZN + .012, .995), (ZN + .022, .97)):   # flush with the cut, then a sleeve inside the head's neck
+        for i in range(n + 1):
+            t = 2 * np.pi * (i % n) / n
+            verts.append((cx0 + rad[i % n] * k * np.cos(t), cy0 + rad[i % n] * k * np.sin(t), z))
+    rows = len(prof) + 3
+    m_ = n + 1
+    faces = [(j * m_ + i, j * m_ + i + 1, (j + 1) * m_ + i + 1, (j + 1) * m_ + i) for j in range(rows - 1) for i in range(n)]
+    me = bpy.data.meshes.new('neck')
+    me.from_pydata(verts, [], faces)
+    lv_ = np.empty(len(me.loops), dtype=np.int32)
+    me.loops.foreach_get('vertex_index', lv_)
+    uvn = np.stack([((lv_ % m_) + .5) / n, np.full(len(lv_), .5)], 1).astype(np.float32)      # column n wraps onto column 0
+    me.uv_layers.new(name='UVMap')
+    me.uv_layers.active.data.foreach_set('uv', uvn.ravel())
+    strip = np.ones((16, n, 4), np.float32)
+    strip[:, :, :3] = col[None, :, :]
+    nimg = bpy.data.images.new('neck-albedo', n, 16, alpha=False)
+    nimg.pixels.foreach_set(strip.ravel())
+    nimg.filepath_raw = out + '.neck.png'
+    nimg.file_format = 'PNG'
+    nimg.save()
+    nimg.pack()
+    nmat = head.data.materials[0].copy()
+    nmat.name = 'neck'
+    for node in nmat.node_tree.nodes:
+        if node.type == 'TEX_IMAGE':
+            node.image = nimg
+    me.materials.append(nmat)
+    me.polygons.foreach_set('use_smooth', [True] * len(me.polygons))
+    ob = bpy.data.objects.new('neck', me)
+    sc.collection.objects.link(ob)
+    ob.parent = arm
+    ob.matrix_parent_inverse = arm.matrix_world.inverted()
+    ob.vertex_groups.new(name='neck').add(range(len(verts)), 1.0, 'REPLACE')
+    ob.modifiers.new('Armature', 'ARMATURE').object = arm
+
+
+neck_part()
+liner('collar-liner', [(1.20, AX, AY, .125, .074), (1.26, AX, AY, .125, .074), (1.292, AX, AY, .105, .066)], black_uv, body, 'Spine', .05, np.pi - .05)
+
+
+def collar_back():
+    """The knit is cut open behind the neck and its edge is ragged. A flat black band lies over that edge, from the
+    neck out to the collar, so from above the back of the collar reads as one clean piece."""
+    ts = np.linspace(np.radians(6), np.radians(174), 37)
+    cols = ((.049, .049, .003), (.074, .064, -.003), (.100, .083, -.012))    # x radius, y radius, height offset
+    verts = []
+    for t in ts:
+        w = float(sm(np.array((np.sin(t) - .10) / .22)))                     # narrows to nothing at the very sides
+        for ax, by, dz in cols:
+            ax, by = cols[0][0] + (ax - cols[0][0]) * w, cols[0][1] + (by - cols[0][1]) * w
+            verts.append((AX + ax * np.cos(t), AY + by * np.sin(t), 1.294 + .008 * np.sin(t) + dz * w))
+    faces = [(i * 3 + j, i * 3 + j + 1, (i + 1) * 3 + j + 1, (i + 1) * 3 + j) for i in range(len(ts) - 1) for j in range(2)]
+    me = bpy.data.meshes.new('collar-back')
+    me.from_pydata(verts, [], faces)
+    me.uv_layers.new(name='UVMap')
+    me.uv_layers.active.data.foreach_set('uv', np.tile(black_uv, len(me.loops)).astype(np.float32))
+    me.polygons.foreach_set('use_smooth', [True] * len(me.polygons))
+    me.materials.append(body.data.materials[0])
+    ob = bpy.data.objects.new('collar-back', me)
+    sc.collection.objects.link(ob)
+    ob.parent = arm
+    ob.matrix_parent_inverse = arm.matrix_world.inverted()
+    ob.vertex_groups.new(name='Spine').add(range(len(verts)), 1.0, 'REPLACE')
+    ob.modifiers.new('Armature', 'ARMATURE').object = arm
+
+
+collar_back()
+
+
+def follow_body(name):
+    """Skin an added piece like the knit beside it (each vertex copies its nearest body vertex), so it bends with the collar."""
+    from mathutils.kdtree import KDTree
+    ob = bpy.data.objects[name]
+    bco = world(body)
+    kd = KDTree(len(bco))
+    for i, c in enumerate(bco):
+        kd.insert(Vector(c), i)
+    kd.balance()
+    for g in list(ob.vertex_groups):
+        ob.vertex_groups.remove(g)
+    names = {g.index: g.name for g in body.vertex_groups}
+    for v in ob.data.vertices:
+        co, i, d = kd.find(ob.matrix_world @ v.co)
+        for g in body.data.vertices[i].groups:
+            if g.weight > 0:
+                (ob.vertex_groups.get(names[g.group]) or ob.vertex_groups.new(name=names[g.group])).add([v.index], g.weight, 'REPLACE')
+
+
+# The knit round the neck was partly skinned to the neck and head bones, so the back of the collar rose into a hump
+# when she bowed. The collar belongs to the torso: hand that share to the upper spine bone.
+bco_ = world(body)
+bcl_ = vcols(body)
+spine_g = body.vertex_groups['Spine']
+hn_ = {body.vertex_groups[n].index for n in ('Head', 'neck') if n in body.vertex_groups}
+moved_ = 0
+for v in body.data.vertices:
+    c = bco_[v.index]
+    if c[2] < 1.22 or np.hypot(c[0] - AX, c[1] - AY) > .17 or bcl_[v.index].mean() > .35:
+        continue
+    take = 0.0
+    for g in v.groups:
+        if g.group in hn_ and g.weight > 0:
+            take += g.weight
+            g.weight = 0.0
+    if take > 0:
+        spine_g.add([v.index], take, 'ADD')
+        moved_ += 1
+print('COLLAR weights moved to the spine on', moved_, 'vertices')
+follow_body('collar-back')
+follow_body('collar-liner')
 for o in sc.objects:
     o.select_set(True)
 bpy.ops.export_scene.gltf(filepath=out, export_format='GLB', export_yup=True, export_animations=True)
