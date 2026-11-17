@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-11-17",
+  "method": "Unretouched screenshot captured from the rendered browser UI of the deployed site with headless Chrome. The page's own URL parameters chose the scene.",
+  "captures": [
+    {
+      "id": "b737-explorer",
+      "asset": "b737-assembly-atlas-live-20261117.jpg",
+      "resolution": [
+        1600,
+        900
+      ],
+      "url": "https://airplane-sample.vercel.app/?view=all&explode=100&v=684ef5d",
+      "scene": "Full aircraft; exploded drawing at 100% with numbered call-outs and the parts list",
+      "descriptionKo": "B737-8 Assembly Atlas 브라우저 화면의 번호가 붙은 분해도",
+      "provenance": "Underlying aircraft asset credits and license notices remain available in the viewer. This record describes the browser capture, not a new Blender render.",
+      "sha256": "01cb4ef353bd38f5097997b3a32c793ad9a8f93bb30871b8378797d72f879fd4"
+    }
+  ]
+}
