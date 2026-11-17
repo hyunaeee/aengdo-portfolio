@@ -534,38 +534,45 @@
   },
   {
     "id": "b737-explorer",
-    "title": "B737-8 3D Explorer",
+    "title": "B737-8 Assembly Atlas",
     "summary": {
-      "ko": "기체 외피부터 조종석·객실·LEAP-1B 엔진까지 탐색하는 3D 항공기 뷰어. 부품을 선택·분해하고, 창문 덮개·테이블·날개의 동작과 조명을 직접 조작합니다.",
-      "en": "An interactive aircraft explorer spanning the airframe, cockpit, cabin and LEAP-1B engines. Select and separate parts, operate window shades, tray tables and wing controls, and adjust the lighting."
+      "ko": "보잉 737-8이 골격에서 엔진까지 여덟 단계로 조립되는 과정을 보여 주는 3D 조립도. 번호가 붙은 분해도와 부품표로 조립체를 골라 보고, 조종석·객실·LEAP-1B 엔진과 창문·테이블·날개의 동작을 직접 조작합니다.",
+      "en": "A 3D assembly drawing that builds a Boeing 737-8 in eight stages, from the bare airframe to the engines. Pick assemblies from a numbered exploded view and parts list, then explore the cockpit, cabin and LEAP-1B engines and operate window shades, tray tables and wing controls."
     },
     "category": "play",
     "status": {
       "ko": "LIVE / 인터랙티브 3D",
       "en": "LIVE / INTERACTIVE 3D"
     },
-    "period": "2026.09",
-    "image": "assets/b737-explorer-live-20260930.jpg",
-    "imageWidth": 1280,
-    "imageHeight": 720,
+    "period": "2026.09 – 2026.11",
+    "image": "assets/b737-assembly-atlas-live-20261117.jpg",
+    "imageWidth": 1600,
+    "imageHeight": 900,
     "imageAlt": {
-      "ko": "B737-8 3D Explorer 실제 웹 화면: 전체 기체 보기",
-      "en": "Actual B737-8 3D Explorer web view showing the full aircraft"
+      "ko": "B737-8 Assembly Atlas 실제 웹 화면: 부품 번호가 붙은 분해도와 부품표",
+      "en": "Actual B737-8 Assembly Atlas web view showing the numbered exploded drawing and parts list"
     },
     "links": [
       {
         "label": {
-          "ko": "기체 둘러보기 ↗",
-          "en": "EXPLORE THE AIRCRAFT ↗"
+          "ko": "분해도 열기 ↗",
+          "en": "OPEN THE EXPLODED VIEW ↗"
         },
-        "url": "https://airplane-sample.vercel.app/?view=all&v=6202961"
+        "url": "https://airplane-sample.vercel.app/?view=all&explode=100&v=684ef5d"
+      },
+      {
+        "label": {
+          "ko": "조립 과정 보기 ↗",
+          "en": "WATCH IT ASSEMBLE ↗"
+        },
+        "url": "https://airplane-sample.vercel.app/?view=assembly&v=684ef5d"
       },
       {
         "label": {
           "ko": "부품 움직여 보기 ↗",
           "en": "TRY THE MECHANISMS ↗"
         },
-        "url": "https://airplane-sample.vercel.app/?view=details&v=6202961"
+        "url": "https://airplane-sample.vercel.app/?view=details&v=684ef5d"
       }
     ],
     "stack": [
@@ -583,6 +590,14 @@
       "en": "Starting from a supplied aircraft model, I corrected window-to-skin alignment and door/bin rigging, then extended the static geometry into a web experience for exploring internal structures and mechanisms."
     },
     "build": [
+      {
+        "ko": "2026년 11월 뷰어를 조립도 중심으로 다시 만들었습니다. 동체 골격, 계통·화물칸·바닥, 조종석·객실 내장, 좌석, 외피·도어, 주익, 꼬리날개, 랜딩기어·엔진의 여덟 단계로 조립되며 단계마다 카메라가 따라갑니다.",
+        "en": "In November 2026 I rebuilt the viewer around an assembly drawing. The aircraft comes together in eight stages — airframe, systems and floor, cockpit and cabin interior, seats, skin and doors, wings, tail, then landing gear and engines — with the camera following each stage."
+      },
+      {
+        "ko": "분해도는 외피 부품 이름에 남은 41–48번 섹션 경계로 동체를 나눈 뒤 외피·내장·날개를 층별로 펼칩니다. 18개 조립체에 번호와 지시선, 부품표를 연결했고 층이 서로 겹치지 않는지 자동 테스트로 확인합니다.",
+        "en": "The exploded view splits the fuselage at the section 41–48 joints recorded in the skin part names, then spreads skin, interior and wings in layers. Eighteen assemblies carry numbered call-outs linked to a parts list, and automated tests check that the layers never overlap."
+      },
       {
         "ko": "31,665개 부품을 이름으로 검색·선택·단독 표시하고 분해합니다. 선택 부품의 재질과 관련 애니메이션을 GLB로 내보내며, 전체 GLB·Blender 파일도 제공합니다.",
         "en": "Search, select, isolate and separate 31,665 parts. Export a selected part with its materials and relevant animation as GLB, or download the complete GLB and Blender files."
@@ -605,8 +620,8 @@
       }
     ],
     "limitations": {
-      "ko": "공개 사양과 제공 모델에 맞춘 시각적 재현입니다. 제조사 CAD를 확보하지 않은 내부 단면·링크 치수·작동 경로는 추정이며, 애니메이션 시간은 검사 시연용입니다. 실제 기체의 모든 부품이나 비행 절차를 완전히 재현한 시뮬레이터는 아닙니다.",
-      "en": "This is a visual reconstruction fitted to public specifications and the supplied model. Internal sections, linkage dimensions and motion paths without manufacturer CAD are illustrative; animation timing serves inspection. It is not a complete aircraft-parts or flight-procedure simulator."
+      "ko": "공개 사양과 제공 모델에 맞춘 시각적 재현입니다. 조립 순서는 이미 놓인 부품을 통과하지 않도록 배열한 설명용 재구성이며 실제 공장의 공정 순서가 아닙니다. 제조사 CAD를 확보하지 않은 내부 단면·링크 치수·작동 경로는 추정이며, 애니메이션 시간은 검사 시연용입니다. 실제 기체의 모든 부품이나 비행 절차를 완전히 재현한 시뮬레이터는 아닙니다.",
+      "en": "This is a visual reconstruction fitted to public specifications and the supplied model. The build order is an illustrative arrangement in which no part passes through one already installed, not the sequence of a real assembly line. Internal sections, linkage dimensions and motion paths without manufacturer CAD are illustrative; animation timing serves inspection. It is not a complete aircraft-parts or flight-procedure simulator."
     }
   },
   {
