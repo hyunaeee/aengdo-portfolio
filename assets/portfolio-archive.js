@@ -536,8 +536,8 @@
     "id": "b737-explorer",
     "title": "B737-8 Assembly Atlas",
     "summary": {
-      "ko": "보잉 737-8이 골격에서 엔진까지 여덟 단계로 조립되는 과정을 보여 주는 3D 조립도. 번호가 붙은 분해도와 부품표로 조립체를 골라 보고, 조사 자료를 바탕으로 다시 모델링한 154석 객실과 조종석·LEAP-1B 엔진, 창문·테이블·날개의 동작을 직접 살펴봅니다.",
-      "en": "A 3D assembly drawing that builds a Boeing 737-8 in eight stages, from the bare airframe to the engines. Pick assemblies from a numbered exploded view and parts list, then explore a 154-seat cabin remodelled from researched references, the cockpit and LEAP-1B engines, and operate window shades, tray tables and wing controls."
+      "ko": "보잉 737-8이 골격에서 엔진까지 여덟 단계로 조립되는 과정을 보여 주는 3D 조립도. 번호가 붙은 분해도와 부품표로 조립체를 골라 보고, 실물 사진을 보고 다시 모델링한 154석 객실·갤리·화장실과 조종석·LEAP-1B 엔진, 창문·테이블·날개의 동작을 직접 살펴봅니다.",
+      "en": "A 3D assembly drawing that builds a Boeing 737-8 in eight stages, from the bare airframe to the engines. Pick assemblies from a numbered exploded view and parts list, then explore a 154-seat cabin with galleys and lavatories remodelled from photographs, the cockpit and LEAP-1B engines, and operate window shades, tray tables and wing controls."
     },
     "category": "play",
     "status": {
@@ -545,12 +545,12 @@
       "en": "LIVE / INTERACTIVE 3D"
     },
     "period": "2026.09 – 2026.11",
-    "image": "assets/b737-assembly-atlas-live-20261117.jpg",
+    "image": "assets/b737-assembly-atlas-live-20261118.jpg",
     "imageWidth": 1600,
     "imageHeight": 900,
     "imageAlt": {
-      "ko": "B737-8 Assembly Atlas 실제 웹 화면: 부품 번호가 붙은 분해도와 부품표",
-      "en": "Actual B737-8 Assembly Atlas web view showing the numbered exploded drawing and parts list"
+      "ko": "B737-8 Assembly Atlas 실제 웹 화면: 리버리를 입힌 전체 기체와 부품표",
+      "en": "Actual B737-8 Assembly Atlas web view showing the full aircraft in its livery beside the parts list"
     },
     "links": [
       {
@@ -558,28 +558,28 @@
           "ko": "객실 들어가 보기 ↗",
           "en": "STEP INTO THE CABIN ↗"
         },
-        "url": "https://airplane-sample.vercel.app/?view=cabin&shot=economy&v=9e8531f"
+        "url": "https://airplane-sample.vercel.app/?view=cabin&shot=aft&v=f8da179"
       },
       {
         "label": {
           "ko": "분해도 열기 ↗",
           "en": "OPEN THE EXPLODED VIEW ↗"
         },
-        "url": "https://airplane-sample.vercel.app/?view=all&explode=100&v=9e8531f"
+        "url": "https://airplane-sample.vercel.app/?view=all&explode=100&v=f8da179"
       },
       {
         "label": {
           "ko": "조립 과정 보기 ↗",
           "en": "WATCH IT ASSEMBLE ↗"
         },
-        "url": "https://airplane-sample.vercel.app/?view=assembly&v=9e8531f"
+        "url": "https://airplane-sample.vercel.app/?view=assembly&v=f8da179"
       },
       {
         "label": {
           "ko": "부품 움직여 보기 ↗",
           "en": "TRY THE MECHANISMS ↗"
         },
-        "url": "https://airplane-sample.vercel.app/?view=details&v=9e8531f"
+        "url": "https://airplane-sample.vercel.app/?view=details&v=f8da179"
       }
     ],
     "stack": [
@@ -610,8 +610,12 @@
         "en": "The seats, originally assembled from boxes and slabs, were remodelled after researching published layouts, dimensions and photographs of comparable products: cushions with sewn seams, moulded seat-back shells with screens and pockets, fixed shells and consoles in business, and economy triples carried by two leg frames as on a real aircraft. Automated tests check on all 154 seats that the retained belts and tray tables still fit the new shapes."
       },
       {
-        "ko": "34,201개 부품을 이름으로 검색·선택·단독 표시하고 분해합니다. 선택 부품의 재질과 관련 애니메이션을 GLB로 내보내며, 전체 GLB·Blender 파일도 제공합니다.",
-        "en": "Search, select, isolate and separate 34,201 parts. Export a selected part with its materials and relevant animation as GLB, or download the complete GLB and Blender files."
+        "ko": "이어서 단색이던 동체와 상자로 돼 있던 객실 설비를 실물 사진과 대조해 다시 만들었습니다. 동체에는 패널 이음·리벳 도장과 리버리를 입히고, 머리 위 선반과 서비스 유닛, 트롤리가 들어간 갤리, 내부까지 만든 화장실, 접힌 승무원 좌석을 모델링했습니다. 선반 문은 기존 힌지 리그를 그대로 따라 열리며, 교체한 부품과 리그 동작, GitHub 파일 용량 한도를 자동 테스트로 확인합니다.",
+        "en": "Next, the single-colour fuselage and box-shaped cabin monuments were rebuilt against photographs of the real aircraft: painted skin with panel joints, fasteners and the livery; overhead bins and service units; galleys with trolleys; lavatories modelled inside as well; and stowed cabin attendant seats. The bin doors still open on the original hinge rigs, and automated tests cover the replaced parts, the rig motion and GitHub's file-size limit."
+      },
+      {
+        "ko": "35,732개 부품을 이름으로 검색·선택·단독 표시하고 분해합니다. 선택 부품의 재질과 관련 애니메이션을 GLB로 내보내며, 전체 GLB·Blender 파일도 제공합니다.",
+        "en": "Search, select, isolate and separate 35,732 parts. Export a selected part with its materials and relevant animation as GLB, or download the complete GLB and Blender files."
       },
       {
         "ko": "Singapore Airlines의 737-8 운항 사례를 참고한 비즈니스 10석·이코노미 144석, 조종석과 LEAP-1B 엔진을 구성했습니다. 일등석은 별도 디자인 콘셉트로 구분합니다.",
@@ -631,8 +635,8 @@
       }
     ],
     "limitations": {
-      "ko": "공개 사양과 제공 모델에 맞춘 시각적 재현입니다. 좌석은 제조사 CAD나 라이선스 복제품이 아닌 참고 자료 기반 모델입니다. 조립 순서는 이미 놓인 부품을 통과하지 않도록 배열한 설명용 재구성이며 실제 공장의 공정 순서가 아닙니다. 제조사 CAD를 확보하지 않은 내부 단면·링크 치수·작동 경로는 추정이며, 애니메이션 시간은 검사 시연용입니다. 실제 기체의 모든 부품이나 비행 절차를 완전히 재현한 시뮬레이터는 아닙니다.",
-      "en": "This is a visual reconstruction fitted to public specifications and the supplied model. The seats are modelled from references, not manufacturer CAD or licensed replicas. The build order is an illustrative arrangement in which no part passes through one already installed, not the sequence of a real assembly line. Internal sections, linkage dimensions and motion paths without manufacturer CAD are illustrative; animation timing serves inspection. It is not a complete aircraft-parts or flight-procedure simulator."
+      "ko": "공개 사양과 제공 모델에 맞춘 시각적 재현입니다. 좌석과 객실 설비, 동체 도장은 제조사 CAD나 항공사 원본 아트워크가 아닌 참고 자료 기반 모델입니다. 조립 순서는 이미 놓인 부품을 통과하지 않도록 배열한 설명용 재구성이며 실제 공장의 공정 순서가 아닙니다. 제조사 CAD를 확보하지 않은 내부 단면·링크 치수·작동 경로는 추정이며, 애니메이션 시간은 검사 시연용입니다. 실제 기체의 모든 부품이나 비행 절차를 완전히 재현한 시뮬레이터는 아닙니다.",
+      "en": "This is a visual reconstruction fitted to public specifications and the supplied model. The seats, cabin monuments and paint are modelled from references, not manufacturer CAD, airline artwork or licensed replicas. The build order is an illustrative arrangement in which no part passes through one already installed, not the sequence of a real assembly line. Internal sections, linkage dimensions and motion paths without manufacturer CAD are illustrative; animation timing serves inspection. It is not a complete aircraft-parts or flight-procedure simulator."
     }
   },
   {
