@@ -72,6 +72,7 @@ module.exports = {
     ['Evaluation','Retrieval and answer evaluation, failure analysis, API contract checks']
   ],
   community:[
+    {title:'OpenAI × 잇츠 스터디 · Cohort 5',role:'Codex Agent Lab · Study Group Leader',date:'Oct — Nov 2026 (ongoing)',note:'Exploring how AI agents can understand software projects and navigate, edit, and verify code.'},
     {title:'Google Study Jam',role:'AI Study Leader',date:'Jul — Nov 2025',note:'Led a study group through the Google Cloud AI curriculum.'},
     {title:'Google · Built with AI',role:'Hackathon Participant',date:'Jun 2025'},
     {title:'SeoulCon DDP',role:'Invited Artist',date:'Dec 2025',note:'Exhibited N.O.W. in AI Exhibition: Beyond Fluxus.'}
