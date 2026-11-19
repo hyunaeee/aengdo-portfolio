@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-11-18",
+  "method": "Unretouched screenshot captured from the rendered browser UI of the deployed site with headless Chrome. The page's own URL parameters chose the scene.",
+  "captures": [
+    {
+      "id": "b737-explorer",
+      "asset": "b737-assembly-atlas-live-20261118.jpg",
+      "resolution": [
+        1600,
+        900
+      ],
+      "url": "https://airplane-sample.vercel.app/?view=all&explode=0&cam=0.75,0.1,170&v=f8da179",
+      "scene": "Full aircraft with the painted skin, livery and red engine cowls beside the parts list",
+      "descriptionKo": "B737-8 Assembly Atlas 브라우저 화면의 리버리를 입힌 전체 기체",
+      "provenance": "Underlying aircraft asset credits and license notices remain available in the viewer. This record describes the browser capture, not a new Blender render.",
+      "sha256": "c337486c58e7f216d44bf2fc3bdf6fde8b6b64a57fd7184b7db08b10bc0c6254"
+    }
+  ]
+}
