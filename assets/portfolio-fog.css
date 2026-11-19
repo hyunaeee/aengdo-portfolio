@@ -259,3 +259,46 @@ th{font-size:12px;background:#F0F1F3}
 .flow-step>.project-feature>a{grid-template-columns:minmax(0,1fr)}
 .flow-thumb{width:88px}
 }
+/* Other work: filters across the top, four compact windows per row */
+@media screen{
+.archive-layout{grid-template-columns:minmax(0,1fr);gap:24px;padding-top:40px}
+.archive-side{position:static;flex-direction:row;flex-wrap:wrap;align-items:center;gap:16px 24px}
+.archive-side .page-intro{flex:1 1 220px}
+[data-page="archive"] .archive-side h1{margin:8px 0 0;font-size:32px;line-height:40px}
+.archive-search{flex:0 1 280px}
+.archive-search input{height:40px;padding:0 16px}
+.archive-filters{flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px}
+.archive-filters .cap{padding:0 8px 0 0}
+.archive-filters button{height:40px;padding:0 14px;border-radius:999px}
+.result-count{flex:0 0 auto;font-size:13px;color:var(--muted)}
+.archive-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.archive-card.win{border-radius:var(--rs)}
+.archive-card .win-bar{height:32px;padding:0 12px;grid-template-columns:40px minmax(0,1fr) 8px}
+.archive-card .win-lights{gap:4px}
+.archive-card .win-lights i{width:6px;height:6px}
+.archive-card .win-bar .win-addr{height:20px;line-height:20px;font-size:11.5px;padding:0 8px}
+.archive-card>img,.archive-card>video,.archive-card>.card-video{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.archive-card-body{padding:12px 16px 16px}
+.archive-head{gap:8px}
+.archive-card .eyebrow{font-size:11px;letter-spacing:.06em}
+.archive-period{font-size:12px}
+.archive-card-body>p{margin-top:8px;font-size:13px;line-height:20px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.archive-card .tag-row{margin-top:8px;gap:4px}
+.tag-row span{padding:1px 8px;font-size:11px}
+.archive-links{margin-top:8px}
+.archive-links .text-link{font-size:13px}
+.archive-card details{margin-top:8px}
+.archive-card summary{font-size:12px}
+}
+@media screen and (max-width:1200px){.archive-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media screen and (max-width:860px){.archive-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media screen and (max-width:520px){.archive-grid{grid-template-columns:minmax(0,1fr)}}
+/* Home: the display alone, centred */
+@media screen{
+.studio-hero{grid-template-columns:minmax(0,1fr);justify-items:center;padding:32px 0 0}
+.studio-visual{width:min(100%,960px)}
+.studio-controls{justify-content:center}
+}
+@media screen{
+.studio-hero>.studio-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:8px}
+}
