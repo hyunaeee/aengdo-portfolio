@@ -80,9 +80,9 @@ Hyunae Park · hyunaeee@gmail.com
 
 [다른 작업들 · Golden Drive](https://hyunaeee.github.io/aengdo-portfolio/archive.html#golden-drive)의 Play 분류에 실제 게임 캡처와 한국어·영어 소개를 게시했습니다. 15개 차량 설정, 뉴욕·서울 2개 도시, 6개 코스와 AI 경쟁 차량 4대, 120Hz 물리·경주 규칙·최적화의 구현 범위를 정리합니다. 2026년 11월의 2.0에서 더한 산책 모드(광화문·경주·부산, 동물 캐릭터 8종, 몸짓으로만 만나는 무작위 짝짓기, 113개 테스트)도 함께 소개하며, 만든 과정은 [Devlog 글](https://aengdo-devlog.vercel.app/posts/golden-drive-walk/)에 적었습니다.
 
-현재 공개 범위는 프로젝트 소개와 화면 이미지입니다. 게임 소스와 3D 에셋, 플레이 데모는 이 저장소에 포함하지 않습니다. 대표 이미지의 Tesla Model 3 모델은 aarajesh의 CC BY 4.0 에셋입니다.
+현재 공개 범위는 프로젝트 소개와 화면 이미지입니다. 게임 소스와 3D 에셋, 플레이 데모는 이 저장소에 포함하지 않습니다. 대표 이미지는 산책 모드의 경주 화면입니다. 화면의 캐릭터와 건물은 그림 한 장에서 AI(Higgsfield의 GPT Image, Meshy, Tripo)로 생성한 3D 모델이고, 나무와 땅은 코드로 만들었습니다.
 
-화면 이미지 차량 출처: [Tesla White car. — aarajesh](https://sketchfab.com/3d-models/tesla-white-car-2a4ee44439dc4b1b98f452a9ff427116), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 게임용 크기·배치·재질을 적용한 차량의 실제 렌더링 화면이며, 이미지의 도시·UI와 장면 구성은 Golden Drive 작업입니다.
+이전 대표 이미지(`assets/golden-drive-live-20260930.jpg`, 드라이브 모드)의 차량 출처: [Tesla White car. — aarajesh](https://sketchfab.com/3d-models/tesla-white-car-2a4ee44439dc4b1b98f452a9ff427116), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 게임용 크기·배치·재질을 적용한 차량의 실제 렌더링 화면이며, 이미지의 도시·UI와 장면 구성은 Golden Drive 작업입니다.
 
 ## RoboSkill Lab
 

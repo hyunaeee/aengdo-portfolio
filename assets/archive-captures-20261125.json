@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-11-25",
+  "method": "Unretouched 1600x1000 screenshot of the game running from a local build, captured with headless Chrome. A script moved the character and camera to the spot and hid the on-screen controls before the capture.",
+  "captures": [
+    {
+      "id": "golden-drive",
+      "asset": "golden-drive-walk-20261125.jpg",
+      "resolution": [
+        1600,
+        1000
+      ],
+      "url": "https://golden-drive-kappa.vercel.app/walk.html?place=gyeongju",
+      "scene": "Walking mode; Gyeongju; Jindo dog character on the path through the pink muhly field; controls hidden",
+      "descriptionKo": "Golden Drive 산책 모드의 경주 핑크뮬리 밭과 진돗개 캐릭터",
+      "provenance": "Characters and buildings are AI-generated 3D models (image to 3D); trees, grass and ground are procedural with generated photographic textures.",
+      "sha256": "4af98952038e752b455bd3d0395c894a118d740e77de70f493af1ac3c9b1e194"
+    }
+  ]
+}
