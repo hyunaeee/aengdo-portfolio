@@ -104,6 +104,7 @@ function flowStep(p,lang,depth,posters) {
 // into the details and, where a public demo exists, the live page itself (assets/portfolio-white.js).
 const REEL = {
  'med-rag': {video:'assets/videos/demo-med-rag.mp4', live:()=>'med-rag/index.html'},
+ terracotta: {video:'assets/videos/demo-terracotta.mp4'},
  meeting: {video:'assets/videos/demo-meeting.mp4', live:()=>'meeting/index.html'},
  'serving-lab': {video:'assets/videos/demo-serving-lab.mp4', live:lang=>casePath('serving-lab',lang)},
  'robo-skill': {video:'assets/videos/demo-robo-skill.mp4', live:()=>'robo-skill-lab/viewer/index.html'}
