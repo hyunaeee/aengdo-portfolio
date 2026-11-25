@@ -467,15 +467,15 @@
     "id": "golden-drive",
     "title": "Golden Drive",
     "summary": {
-      "ko": "노을 지는 뉴욕과 서울 광화문을 달리는 3D 브라우저 레이싱 게임. 슈퍼카를 포함한 15개 차량 설정, 6개 코스에서 AI 차량 4대와 경주하거나 자유롭게 드라이브합니다.",
-      "en": "A 3D browser racing game set in Manhattan- and Gwanghwamun-inspired cities at sunset. Choose from 15 vehicle configurations and six courses to race four AI rivals or enjoy free driving."
+      "ko": "노을 지는 뉴욕과 서울 광화문을 달리는 3D 브라우저 레이싱 게임. 슈퍼카를 포함한 15개 차량 설정, 6개 코스에서 AI 차량 4대와 경주하거나 자유롭게 드라이브합니다. 2026년 11월에는 동물 캐릭터로 광화문·경주·부산을 걷다가 낯선 사람과 몸짓으로만 인사하는 산책 모드를 더했습니다.",
+      "en": "A 3D browser racing game set in Manhattan- and Gwanghwamun-inspired cities at sunset. Choose from 15 vehicle configurations and six courses to race four AI rivals or enjoy free driving. In November 2026 I added a walking mode: stroll through Gwanghwamun, Gyeongju or Busan as an animal character and greet a stranger with gestures only."
     },
     "category": "play",
     "status": {
       "ko": "브라우저 게임 / 로컬 데모",
       "en": "BROWSER GAME / LOCAL DEMO"
     },
-    "period": "2026.09",
+    "period": "2026.09 – 2026.11",
     "image": "assets/golden-drive-live-20260930.jpg",
     "imageWidth": 1600,
     "imageHeight": 1000,
@@ -490,6 +490,13 @@
           "en": "IMAGE CREDITS ↗"
         },
         "url": "https://github.com/hyunaeee/aengdo-portfolio#golden-drive"
+      },
+      {
+        "label": {
+          "ko": "산책 모드를 만든 과정 (Devlog) ↗",
+          "en": "HOW THE WALKING MODE WAS BUILT (DEVLOG, KOREAN) ↗"
+        },
+        "url": "https://aengdo-devlog.vercel.app/posts/golden-drive-walk/"
       }
     ],
     "stack": [
@@ -498,6 +505,8 @@
       "JavaScript",
       "WebGL",
       "glTF / GLB",
+      "WebSocket",
+      "Node.js",
       "GitHub Pages"
     ],
     "live": false,
@@ -523,13 +532,17 @@
         "en": "Cities and rendering — waterfront and Gwanghwamun street scenes include pedestrians and dog walkers. Lighter vehicle models, instancing, distance-based detail, motion interpolation, and adaptive graphics manage rendering work."
       },
       {
-        "ko": "검증 — 1.4 업데이트에서 차량 역학·경주 판정·AI 완주·렌더링 예산 등을 다룬 자동 테스트 65개를 통과했습니다. 브라우저에서 뉴욕·서울 완주와 모바일 터치 가속·제동·일시정지를 확인했습니다.",
-        "en": "Verification — version 1.4 passed 65 automated tests covering vehicle dynamics, race adjudication, AI completion, and rendering budgets. Browser checks covered race completion in both cities and mobile touch acceleration, braking, and pause."
+        "ko": "산책 모드 (2.0) — 광화문·경주·부산 세 장소를 동물 캐릭터 8종으로 걷습니다. 같은 장소를 고른 로그인 사용자 둘을 무작위로 짝짓고, 위치와 몸짓 8가지만 주고받습니다. 헤어질 때 둘 다 원할 때만 로그인으로 확인된 이메일 주소를 건넵니다. 캐릭터·행인 12종·건물은 그림 한 장에서 뽑은 3D 모델이고, 걷기와 몸짓은 뼈 이름으로 각도를 넣는 코드 하나를 모든 캐릭터가 함께 씁니다. 만남 서버는 외부 패키지 없이 WebSocket과 구글 토큰 검증을 직접 구현했습니다.",
+        "en": "Walking mode (2.0) — walk three places (Gwanghwamun, Gyeongju, Busan Haeundae) as one of eight animal characters. Two signed-in walkers who chose the same place are matched at random and exchange only positions and eight gestures; at parting, verified email addresses are shared only if both agree. Characters, twelve passers-by and buildings are 3D models generated from a single image each, and one procedural pose rig that addresses bones by name animates every character. The meeting server implements WebSocket and Google token verification without external packages."
+      },
+      {
+        "ko": "검증 — 1.4 업데이트에서 차량 역학·경주 판정·AI 완주·렌더링 예산 등을 다룬 자동 테스트 65개를 통과했습니다. 브라우저에서 뉴욕·서울 완주와 모바일 터치 가속·제동·일시정지를 확인했습니다. 2.0에서는 산책 모드의 만남 규칙, 토큰 검증, 장소 구성까지 자동 테스트가 113개로 늘었고, 창 두 개로 만남부터 작별까지 확인했습니다.",
+        "en": "Verification — version 1.4 passed 65 automated tests covering vehicle dynamics, race adjudication, AI completion, and rendering budgets. Browser checks covered race completion in both cities and mobile touch acceleration, braking, and pause. Version 2.0 grew the suite to 113 tests covering the meeting rules, token verification and place construction, and a two-window run checked a meeting from greeting to parting."
       }
     ],
     "limitations": {
-      "ko": "현재 이 페이지에는 프로젝트 소개와 실제 화면을 공개하며, 플레이 데모는 아직 공개하지 않았습니다. 도시는 실측·스캔 복원이 아닌 게임용 재해석입니다. 물리는 브라우저 조작감을 위한 아케이드 근사이며 제조사의 실제 성능을 재현하지 않습니다. 성능은 기기·브라우저에 따라 달라지고 간헐적인 프레임 지연이 남아 있습니다. 차량에는 외부 3D 모델을 활용했습니다. 대표 이미지의 Tesla Model 3는 aarajesh의 CC BY 4.0 모델이며 게임용 배치·재질을 적용했습니다.",
-      "en": "This page publishes the project overview and actual screenshots; the playable demo is not public yet. The cities are game interpretations rather than surveyed or scanned reconstructions. Physics uses an arcade approximation and does not reproduce manufacturer performance. Frame rate varies by device and browser, with occasional delays remaining. Vehicles include third-party 3D models. The cover screenshot uses aarajesh’s Tesla Model 3 under CC BY 4.0, adapted with game placement and materials."
+      "ko": "현재 이 페이지에는 프로젝트 소개와 실제 화면을 공개하며, 플레이 데모는 아직 공개하지 않았습니다. 도시는 실측·스캔 복원이 아닌 게임용 재해석입니다. 물리는 브라우저 조작감을 위한 아케이드 근사이며 제조사의 실제 성능을 재현하지 않습니다. 성능은 기기·브라우저에 따라 달라지고 간헐적인 프레임 지연이 남아 있습니다. 차량에는 외부 3D 모델을 활용했습니다. 대표 이미지의 Tesla Model 3는 aarajesh의 CC BY 4.0 모델이며 게임용 배치·재질을 적용했습니다. 산책 모드의 만남 서버는 로컬에서만 실행해 확인했고, 실제 구글 로그인과 실제 휴대폰 기기에서의 확인은 하지 못했습니다.",
+      "en": "This page publishes the project overview and actual screenshots; the playable demo is not public yet. The cities are game interpretations rather than surveyed or scanned reconstructions. Physics uses an arcade approximation and does not reproduce manufacturer performance. Frame rate varies by device and browser, with occasional delays remaining. Vehicles include third-party 3D models. The cover screenshot uses aarajesh’s Tesla Model 3 under CC BY 4.0, adapted with game placement and materials. The walking mode’s meeting server has only been run locally; real Google sign-in and real phones have not been tested."
     }
   },
   {
