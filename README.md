@@ -78,7 +78,7 @@ Hyunae Park · hyunaeee@gmail.com
 
 ## Golden Drive
 
-[다른 작업들 · Golden Drive](https://hyunaeee.github.io/aengdo-portfolio/archive.html#golden-drive)의 Play 분류에 실제 게임 캡처와 한국어·영어 소개를 게시했습니다. 15개 차량 설정, 뉴욕·서울 2개 도시, 6개 코스와 AI 경쟁 차량 4대, 120Hz 물리·경주 규칙·최적화·65개 테스트의 구현 범위를 정리합니다.
+[다른 작업들 · Golden Drive](https://hyunaeee.github.io/aengdo-portfolio/archive.html#golden-drive)의 Play 분류에 실제 게임 캡처와 한국어·영어 소개를 게시했습니다. 15개 차량 설정, 뉴욕·서울 2개 도시, 6개 코스와 AI 경쟁 차량 4대, 120Hz 물리·경주 규칙·최적화의 구현 범위를 정리합니다. 2026년 11월의 2.0에서 더한 산책 모드(광화문·경주·부산, 동물 캐릭터 8종, 몸짓으로만 만나는 무작위 짝짓기, 113개 테스트)도 함께 소개하며, 만든 과정은 [Devlog 글](https://aengdo-devlog.vercel.app/posts/golden-drive-walk/)에 적었습니다.
 
 현재 공개 범위는 프로젝트 소개와 화면 이미지입니다. 게임 소스와 3D 에셋, 플레이 데모는 이 저장소에 포함하지 않습니다. 대표 이미지의 Tesla Model 3 모델은 aarajesh의 CC BY 4.0 에셋입니다.
 
