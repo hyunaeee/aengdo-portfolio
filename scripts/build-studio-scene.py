@@ -293,8 +293,10 @@ panel = group('Display panel', display, (0, 0, 286), (math.radians(87), 0, 0))
 Part().loft(prism_rings(311.5, 181, 9, -19, 0, top=.5, bot=3, seg=10)).build('Display housing', ALU, panel)
 Part().loft([lift(rrect(310.6, 180.1, 8.2, 10), .02), lift(rrect(310.6, 180.1, 8.2, 10), .35)], bottom=False) \
     .build('Display glass', BLACK, panel)
-screen('Display screen', 299, 168.2, .4, 'display.png', panel)
-Part().poly(lift(circle(1.6, 16), .5, 0, 174.5)).build('Display camera', LENS, panel)
+# Flat parts sit at least 0.5 mm above what is under them. At 0.05 mm the two surfaces fought for the same
+# depth and the screens flickered pixel by pixel as the camera moved.
+screen('Display screen', 299, 168.2, 1.8, 'display.png', panel)
+Part().poly(lift(circle(1.6, 16), 2.0, 0, 174.5)).build('Display camera', LENS, panel)
 
 # Magic Keyboard: 278.9 x 114.9 mm, 4.1 mm at the front edge rising to 10.9 mm at the back.
 KW, KD, T0, T1 = 278.9, 114.9, 4.1, 10.9
@@ -321,7 +323,7 @@ def key(cx, cy, w, h, label=None, size=5.2):
     keys.loft([lift(rrect(hx, hy, 1.9, 4), KZ, cx, cy), lift(rrect(hx, hy, 1.9, 4), KZ + 1.15, cx, cy),
                lift(rrect(hx - .4, hy - .4, 1.5, 4), KZ + 1.55, cx, cy)], bottom=False)
     if label:
-        legends.text(label, size, Matrix.Translation((cx, cy, KZ + 1.75)), align='CENTER', valign='CENTER', res=3)
+        legends.text(label, size, Matrix.Translation((cx, cy, KZ + 2.05)), align='CENTER', valign='CENTER', res=3)
 
 
 def key_row(cy, spec, h=U - GAP):
@@ -376,7 +378,7 @@ rails.build('Mouse rails', RUBBER, mouse)
 macbook = group('MacBook', root, (-390, -172, 0), (0, 0, math.radians(8)))
 BASE = 7.6
 Part().loft(prism_rings(152.05, 107.5, 11, .8, BASE, top=.5, bot=2.6, seg=10)).build('MacBook base', ALU, macbook)
-Part().poly(lift(rrect(65, 40.5, 4, 6), BASE + .06, 0, -61)).build('MacBook trackpad', TRACKPAD, macbook)
+Part().poly(lift(rrect(65, 40.5, 4, 6), BASE + .66, 0, -61)).build('MacBook trackpad', TRACKPAD, macbook)
 Part().loft(prism_rings(118, 3.4, 3, BASE - 3, BASE + 2.2, seg=4, cy=103.5)).build('MacBook hinge', ALU_DARK, macbook)
 keys, legends, KY, KZ = Part(), Part(), 37.0, BASE - .9
 layout_keys()
@@ -385,8 +387,8 @@ legends.build('MacBook legends', LEGEND_LIGHT, macbook)
 lid = group('MacBook lid', macbook, (0, 105, BASE + 1.2), (math.radians(72), 0, 0))
 Part().loft(prism_rings(152.05, 106, 11, -3.6, 0, top=.4, bot=1.6, seg=10, cy=107)).build('MacBook lid shell', ALU, lid)
 Part().loft([lift(rrect(150.7, 104.7, 9.8, 10), .02, 0, 107), lift(rrect(150.7, 104.7, 9.8, 10), .3, 0, 107)], bottom=False)     .build('MacBook glass', BLACK, lid)
-screen('MacBook screen', 143.5, 89.7, .34, 'macbook.png', lid, cy=109.5)
-Part().poly(lift(circle(1.3, 16), .36, 0, 205.5)).build('MacBook camera', LENS, lid)
+screen('MacBook screen', 143.5, 89.7, 1.54, 'macbook.png', lid, cy=109.5)
+Part().poly(lift(circle(1.3, 16), 1.66, 0, 205.5)).build('MacBook camera', LENS, lid)
 
 # ---------------------------------------------------------------- export
 glb = os.path.join(OUT, 'hyunae-mac-studio.glb')
