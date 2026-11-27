@@ -18,9 +18,36 @@
  // The desk scene: the still stays until the 3D model has loaded.
  const viewer = root.querySelector('model-viewer');
  if (viewer) {
-  viewer.addEventListener('load', () => viewer.parentElement.classList.add('is-ready'));
-  // The scene stays still until the visitor drags it: moving it automatically made the fine screen lettering and
-  // the metal highlights shimmer.
+  const scene = viewer.parentElement;
+  viewer.addEventListener('load', () => scene.parentElement.classList.add('is-ready'));
+  // On ordinary (1x) screens the scene is drawn at twice the size and scaled down, which smooths the fine
+  // screen lettering and edges that otherwise crawl when the scene turns.
+  if (devicePixelRatio < 1.5) scene.classList.add('is-fine');
+  // The camera distance is a share of the distance that fits the whole scene in the box. A wide box can come
+  // closer; a narrow one has to stay back or the desk is cut off at the sides.
+  let r = 72;
+  const frame = () => {
+   const w = scene.clientWidth, h = scene.clientHeight;
+   if (!w || !h) return;
+   r = Math.round(Math.max(72, Math.min(104, 72 * 1.45 / (w / h))));
+   viewer.setAttribute('min-camera-orbit', `-40deg 55deg ${r}%`);
+   viewer.setAttribute('max-camera-orbit', `40deg 86deg ${r}%`);
+   const o = viewer.getCameraOrbit ? viewer.getCameraOrbit() : null;
+   viewer.cameraOrbit = o ? `${o.theta}rad ${o.phi}rad ${r}%` : `18deg 80deg ${r}%`;
+  };
+  viewer.addEventListener('load', frame);
+  new ResizeObserver(frame).observe(scene);
+  // A slow turn from side to side, well inside the orbit limits (auto-rotate runs into the limit and stutters there).
+  // It goes through the viewer's own damping, pauses off-screen, and stops for good once the visitor drags the scene.
+  let turning = !reduced;
+  viewer.addEventListener('camera-change', (e) => { if (e.detail.source === 'user-interaction') turning = false; });
+  const t0 = performance.now();
+  const turn = (now) => {
+   if (!turning) return;
+   if (step === 0 && !document.hidden) viewer.cameraOrbit = `${(18 + 14 * Math.sin((now - t0) / 5200)).toFixed(2)}deg 80deg ${r}%`;
+   requestAnimationFrame(turn);
+  };
+  viewer.addEventListener('load', () => requestAnimationFrame(turn), { once: true });
   import('./vendor/model-viewer.min.js').then(() => { customElements.get('model-viewer').minimumRenderScale = 1; }).catch(() => {});
  }
 
