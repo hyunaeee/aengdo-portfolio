@@ -467,21 +467,21 @@
     "id": "golden-drive",
     "title": "Golden Drive",
     "summary": {
-      "ko": "노을 지는 뉴욕과 서울 광화문을 달리는 3D 브라우저 레이싱 게임. 슈퍼카를 포함한 15개 차량 설정, 6개 코스에서 AI 차량 4대와 경주하거나 자유롭게 드라이브합니다.",
-      "en": "A 3D browser racing game set in Manhattan- and Gwanghwamun-inspired cities at sunset. Choose from 15 vehicle configurations and six courses to race four AI rivals or enjoy free driving."
+      "ko": "노을 지는 광화문·경주·부산을 동물 캐릭터로 천천히 걷는 힐링 산책 게임. 같은 곳을 고른 낯선 사람 한 명과 만나 말 없이 몸짓으로만 인사합니다. 자동차로 뉴욕과 서울을 달리는 드라이브 모드(15개 차량 설정, 6개 코스, AI 차량 4대)도 함께 들어 있습니다.",
+      "en": "A cozy walking game: stroll through Gwanghwamun, Gyeongju or Busan at sunset as an animal character, meet one stranger who chose the same place, and greet each other with gestures only. A driving mode through Manhattan- and Gwanghwamun-inspired cities (15 vehicle configurations, six courses, four AI rivals) is included."
     },
     "category": "play",
     "status": {
       "ko": "브라우저 게임 / 로컬 데모",
       "en": "BROWSER GAME / LOCAL DEMO"
     },
-    "period": "2026.09",
-    "image": "assets/golden-drive-live-20260930.jpg",
+    "period": "2026.09 – 2026.11",
+    "image": "assets/golden-drive-walk-20261125.jpg",
     "imageWidth": 1600,
     "imageHeight": 1000,
     "imageAlt": {
-      "ko": "Golden Drive 실제 게임 화면: 뉴욕 Hudson Sunset 코스의 Tesla Model 3 자유주행",
-      "en": "Actual Golden Drive gameplay showing a Tesla Model 3 in Free Drive on New York's Hudson Sunset course"
+      "ko": "Golden Drive 산책 모드의 실제 게임 화면: 경주의 핑크뮬리 밭 사이 흙길을 걷는 진돗개 캐릭터",
+      "en": "Actual Golden Drive walking-mode gameplay: a Jindo dog character on an earth path between pink muhly fields in Gyeongju"
     },
     "links": [
       {
@@ -490,6 +490,13 @@
           "en": "IMAGE CREDITS ↗"
         },
         "url": "https://github.com/hyunaeee/aengdo-portfolio#golden-drive"
+      },
+      {
+        "label": {
+          "ko": "산책 모드를 만든 과정 (Devlog) ↗",
+          "en": "HOW THE WALKING MODE WAS BUILT (DEVLOG, KOREAN) ↗"
+        },
+        "url": "https://aengdo-devlog.vercel.app/posts/golden-drive-walk/"
       }
     ],
     "stack": [
@@ -498,12 +505,14 @@
       "JavaScript",
       "WebGL",
       "glTF / GLB",
+      "WebSocket",
+      "Node.js",
       "GitHub Pages"
     ],
     "live": false,
     "problem": {
-      "ko": "설치 없이 도시의 노을을 즐기며 달릴 수 있는 게임을 만들었습니다. 차량과 거리의 상세도를 높이면서 생긴 렌더링 부하를 줄이고, 조작감과 경주 판정도 함께 개선했습니다.",
-      "en": "I wanted a game people could open in a browser and immediately enjoy driving through a city at sunset. As vehicle and street detail increased, I refined the rendering workload, handling, and race adjudication together."
+      "ko": "바쁘게 겨루지 않고 노을 속을 천천히 걷기만 해도 좋은 게임을 만들고 싶었습니다. 처음에는 설치 없이 도시의 노을을 즐기며 달릴 수 있는 드라이브 게임으로 시작했고, 같은 세계를 걸어서 만나는 산책 게임으로 넓혔습니다. 차량과 거리의 상세도를 높이면서 생긴 렌더링 부하를 줄이고, 조작감과 경주 판정도 함께 개선했습니다.",
+      "en": "I wanted a game that is pleasant even when you only walk slowly through the sunset, with nothing to win. It began as a browser game for driving through a city at sunset and grew into a walking game where you meet someone on foot in the same world. As vehicle and street detail increased, I refined the rendering workload, handling, and race adjudication together."
     },
     "build": [
       {
@@ -523,13 +532,17 @@
         "en": "Cities and rendering — waterfront and Gwanghwamun street scenes include pedestrians and dog walkers. Lighter vehicle models, instancing, distance-based detail, motion interpolation, and adaptive graphics manage rendering work."
       },
       {
-        "ko": "검증 — 1.4 업데이트에서 차량 역학·경주 판정·AI 완주·렌더링 예산 등을 다룬 자동 테스트 65개를 통과했습니다. 브라우저에서 뉴욕·서울 완주와 모바일 터치 가속·제동·일시정지를 확인했습니다.",
-        "en": "Verification — version 1.4 passed 65 automated tests covering vehicle dynamics, race adjudication, AI completion, and rendering budgets. Browser checks covered race completion in both cities and mobile touch acceleration, braking, and pause."
+        "ko": "산책 모드 (2.0) — 광화문·경주·부산 세 장소를 동물 캐릭터 8종으로 걷습니다. 같은 장소를 고른 로그인 사용자 둘을 무작위로 짝짓고, 위치와 몸짓 8가지만 주고받습니다. 헤어질 때 둘 다 원할 때만 로그인으로 확인된 이메일 주소를 건넵니다. 캐릭터·행인 12종·건물은 그림 한 장에서 뽑은 3D 모델이고, 걷기와 몸짓은 뼈 이름으로 각도를 넣는 코드 하나를 모든 캐릭터가 함께 씁니다. 만남 서버는 외부 패키지 없이 WebSocket과 구글 토큰 검증을 직접 구현했습니다.",
+        "en": "Walking mode (2.0) — walk three places (Gwanghwamun, Gyeongju, Busan Haeundae) as one of eight animal characters. Two signed-in walkers who chose the same place are matched at random and exchange only positions and eight gestures; at parting, verified email addresses are shared only if both agree. Characters, twelve passers-by and buildings are 3D models generated from a single image each, and one procedural pose rig that addresses bones by name animates every character. The meeting server implements WebSocket and Google token verification without external packages."
+      },
+      {
+        "ko": "검증 — 1.4 업데이트에서 차량 역학·경주 판정·AI 완주·렌더링 예산 등을 다룬 자동 테스트 65개를 통과했습니다. 브라우저에서 뉴욕·서울 완주와 모바일 터치 가속·제동·일시정지를 확인했습니다. 2.0에서는 산책 모드의 만남 규칙, 토큰 검증, 장소 구성까지 자동 테스트가 113개로 늘었고, 창 두 개로 만남부터 작별까지 확인했습니다.",
+        "en": "Verification — version 1.4 passed 65 automated tests covering vehicle dynamics, race adjudication, AI completion, and rendering budgets. Browser checks covered race completion in both cities and mobile touch acceleration, braking, and pause. Version 2.0 grew the suite to 113 tests covering the meeting rules, token verification and place construction, and a two-window run checked a meeting from greeting to parting."
       }
     ],
     "limitations": {
-      "ko": "현재 이 페이지에는 프로젝트 소개와 실제 화면을 공개하며, 플레이 데모는 아직 공개하지 않았습니다. 도시는 실측·스캔 복원이 아닌 게임용 재해석입니다. 물리는 브라우저 조작감을 위한 아케이드 근사이며 제조사의 실제 성능을 재현하지 않습니다. 성능은 기기·브라우저에 따라 달라지고 간헐적인 프레임 지연이 남아 있습니다. 차량에는 외부 3D 모델을 활용했습니다. 대표 이미지의 Tesla Model 3는 aarajesh의 CC BY 4.0 모델이며 게임용 배치·재질을 적용했습니다.",
-      "en": "This page publishes the project overview and actual screenshots; the playable demo is not public yet. The cities are game interpretations rather than surveyed or scanned reconstructions. Physics uses an arcade approximation and does not reproduce manufacturer performance. Frame rate varies by device and browser, with occasional delays remaining. Vehicles include third-party 3D models. The cover screenshot uses aarajesh’s Tesla Model 3 under CC BY 4.0, adapted with game placement and materials."
+      "ko": "현재 이 페이지에는 프로젝트 소개와 실제 화면을 공개하며, 플레이 데모는 아직 공개하지 않았습니다. 도시는 실측·스캔 복원이 아닌 게임용 재해석입니다. 물리는 브라우저 조작감을 위한 아케이드 근사이며 제조사의 실제 성능을 재현하지 않습니다. 성능은 기기·브라우저에 따라 달라지고 간헐적인 프레임 지연이 남아 있습니다. 차량에는 외부 3D 모델을 활용했습니다. 대표 이미지의 캐릭터와 건물은 그림 한 장에서 AI로 생성한 3D 모델이고, 나무와 땅은 코드로 만들었습니다. 화면은 조작 안내를 숨기고 찍었습니다. 산책 모드의 만남 서버는 로컬에서만 실행해 확인했고, 실제 구글 로그인과 실제 휴대폰 기기에서의 확인은 하지 못했습니다.",
+      "en": "This page publishes the project overview and actual screenshots; the playable demo is not public yet. The cities are game interpretations rather than surveyed or scanned reconstructions. Physics uses an arcade approximation and does not reproduce manufacturer performance. Frame rate varies by device and browser, with occasional delays remaining. Vehicles include third-party 3D models. The characters and buildings in the cover screenshot are 3D models generated by AI from a single image each, and the trees and ground are procedural; the screenshot hides the on-screen controls. The walking mode’s meeting server has only been run locally; real Google sign-in and real phones have not been tested."
     }
   },
   {
