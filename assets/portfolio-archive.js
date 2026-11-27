@@ -1,6 +1,83 @@
 /* Preserved project archive; shared by web and PDF. */
 (function(root,data){if(typeof module==='object'&&module.exports)module.exports=data;else root.HYUNAE_ARCHIVE=data;})(typeof globalThis!=='undefined'?globalThis:this, [
 {
+  "id": "comfy-drama",
+  "title": "ComfyUI Drama Pipeline",
+  "summary": {
+    "ko": "대본 파일 하나에서 캐릭터시트, 스토리보드, 컷별 5초 영상, 합본까지 만드는 로컬 생성 파이프라인. ComfyUI를 HTTP API로 구동하고, 인물이 컷마다 같게 나오도록 컷 종류별로 참조 이미지를 다르게 줍니다. 예시 대본(인물 2명, 6컷)으로 30초 합본을 끝까지 만들었습니다.",
+    "en": "A local generation pipeline that turns one script file into character sheets, storyboard stills, 5-second clips per shot and a final cut. It drives ComfyUI over its HTTP API and picks different reference images per shot type to keep characters consistent. A sample script (two characters, six shots) was run end to end into a 30-second cut."
+  },
+  "category": "ai",
+  "status": {
+    "ko": "CODE / 로컬 실험",
+    "en": "CODE / LOCAL EXPERIMENT"
+  },
+  "period": "2026.11",
+  "image": "assets/comfy-drama.jpg",
+  "imageWidth": 1600,
+  "imageHeight": 1000,
+  "imageAlt": {
+    "ko": "예시 대본의 여섯 컷 영상 프레임과, 그 아래 인물 한 명의 캐릭터시트(기준 사진, 전신 3방향, 표정 2종)",
+    "en": "Frames from the six sample shots, with one character's sheet below (base portrait, three full-body views, two expressions)"
+  },
+  "links": [
+    {
+      "label": {
+        "ko": "작업 기록 읽기 ↗",
+        "en": "READ THE WRITE-UP (KO) ↗"
+      },
+      "url": "https://aengdo-devlog.vercel.app/posts/comfyui-drama-pipeline/"
+    }
+  ],
+  "stack": [
+    "ComfyUI",
+    "Qwen-Image 2512",
+    "Qwen-Image-Edit 2511",
+    "Wan 2.2 I2V",
+    "Python",
+    "ffmpeg",
+    "Claude Code"
+  ],
+  "keywords": [
+    "ComfyUI",
+    "drama",
+    "storyboard",
+    "character sheet",
+    "video generation",
+    "드라마",
+    "스토리보드",
+    "캐릭터시트",
+    "영상 생성"
+  ],
+  "live": false,
+  "problem": {
+    "ko": "생성 모델로 여러 컷을 만들면 인물이 컷마다 달라지고, 컷 크기 지시가 무시됩니다. 원인은 프롬프트보다 참조 이미지였습니다. 편집 모델이 참조의 구도를 따라가고, 한 인물의 참조를 여러 장 주면 그 인물을 여러 번 그렸습니다.",
+    "en": "Generated shots drift: characters change between shots and shot-size instructions are ignored. The cause was the reference images rather than the prompt. The edit model follows the framing of its references, and draws a character once per reference image it is given."
+  },
+  "build": [
+    {
+      "ko": "인물마다 기준 사진 한 장을 만들고, 그 사진을 참조로 전신 3방향과 표정 2종을 만들어 캐릭터시트로 묶었습니다.",
+      "en": "One base portrait per character; three full-body views and two expressions are generated from it and stitched into a character sheet."
+    },
+    {
+      "ko": "클로즈업 컷은 얼굴 클로즈업 참조 한 장만 주고 장소는 글로 묘사해, 미디엄 샷으로 나오던 문제를 고쳤습니다.",
+      "en": "Close-ups get a single close portrait as reference, with the location described in text, which fixed close-ups coming out as medium shots."
+    },
+    {
+      "ko": "2인 오버더숄더 컷은 인물이 복제되어 세 명이 그려졌습니다. 다섯 가지 방법을 시험한 뒤, 마주 보는 인물로 구도를 잡고 전경 인물만 바꾸는 두 단계 방식으로 정했습니다.",
+      "en": "Two-person over-the-shoulder shots duplicated a character into three people. After five attempts it became a two-pass edit: compose with the facing character, then swap only the foreground figure."
+    },
+    {
+      "ko": "RTX 4090 한 장에서 캐릭터시트 12장 약 4분, 스토리보드 6컷 약 3분 30초, 1280×720 81프레임 영상 6개 1,129초가 걸렸습니다. 단계마다 결과 파일이 있으면 건너뛰어, 고칠 컷만 다시 만듭니다.",
+      "en": "On one RTX 4090: 12 sheet images in about 4 minutes, 6 storyboard stills in about 3.5 minutes, six 1280×720 81-frame clips in 1,129 seconds. Each stage skips existing files, so only the shots being fixed are regenerated."
+    }
+  ],
+  "limitations": {
+    "ko": "예시 대본 한 편으로만 확인했습니다. 오버더숄더 두 단계 방식은 한 컷에서 확인했고, 영상에는 소리가 없습니다. Claude API로 대본을 만드는 단계는 코드만 있고 실행하지 않았습니다. 코드와 결과 영상은 공개하지 않았습니다.",
+    "en": "Verified on one sample script only. The two-pass over-the-shoulder method was checked on a single shot, and clips have no audio. The Claude API script-generation step is written but has not been run. Code and output video are not public."
+  }
+},
+{
   "id": "fall-in-korea",
   "title": "Fall in Korea · 폴 인 코리아",
   "summary": {
