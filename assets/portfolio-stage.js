@@ -30,24 +30,71 @@
    const w = scene.clientWidth, h = scene.clientHeight;
    if (!w || !h) return;
    r = Math.round(Math.max(72, Math.min(104, 72 * 1.45 / (w / h))));
-   viewer.setAttribute('min-camera-orbit', `-40deg 55deg ${r}%`);
-   viewer.setAttribute('max-camera-orbit', `40deg 86deg ${r}%`);
+   viewer.setAttribute('min-camera-orbit', `auto 55deg ${r}%`);
+   viewer.setAttribute('max-camera-orbit', `auto 86deg ${r}%`);
    const o = viewer.getCameraOrbit ? viewer.getCameraOrbit() : null;
    viewer.cameraOrbit = o ? `${o.theta}rad ${o.phi}rad ${r}%` : `18deg 80deg ${r}%`;
   };
   viewer.addEventListener('load', frame);
   new ResizeObserver(frame).observe(scene);
-  // A slow turn from side to side, well inside the orbit limits (auto-rotate runs into the limit and stutters there).
-  // It goes through the viewer's own damping, pauses off-screen, and stops for good once the visitor drags the scene.
-  let turning = !reduced;
-  viewer.addEventListener('camera-change', (e) => { if (e.detail.source === 'user-interaction') turning = false; });
-  const t0 = performance.now();
+  // A slow turn all the way round, one lap in about a minute. The angle only advances while the scene is on
+  // screen, so it never has to catch up, and it stops for good once the visitor drags the scene.
+  // A plain click also reports as an interaction, so those are let through for a moment after a tap.
+  let turning = !reduced, tapped = -1e9;
+  viewer.addEventListener('camera-change', (e) => { if (e.detail.source === 'user-interaction' && performance.now() - tapped > 600) turning = false; });
+  let angle = 18, last = 0;
   const turn = (now) => {
    if (!turning) return;
-   if (step === 0 && !document.hidden) viewer.cameraOrbit = `${(18 + 14 * Math.sin((now - t0) / 5200)).toFixed(2)}deg 80deg ${r}%`;
+   if (step === 0 && !document.hidden) {
+    if (last) angle += Math.min(now - last, 100) * 0.006;
+    viewer.cameraOrbit = `${angle.toFixed(3)}deg 80deg ${r}%`;
+    last = now;
+   } else last = 0;
    requestAnimationFrame(turn);
   };
   viewer.addEventListener('load', () => requestAnimationFrame(turn), { once: true });
+  // Click the laptop and its lid shuts; the display goes dark with it. Click again and both wake up.
+  // The model carries a "Lid" clip (open at 0 s, shut at 1 s) that is never played, only moved along from here.
+  let shut = false, lid = 0, lidFrame = 0, lidLast = 0, screens = [];
+  viewer.addEventListener('load', () => {
+   if (!(viewer.availableAnimations || []).includes('Lid')) return;
+   viewer.animationName = 'Lid';
+   viewer.pause();
+   screens = viewer.model.materials.filter((m) => /screen$/.test(m.name));
+  });
+  const pose = () => {
+   const e = lid * lid * (3 - 2 * lid);
+   viewer.currentTime = e * 0.999;
+   const glow = 1 - Math.min(1, Math.max(0, (e - 0.55) / 0.35));
+   screens.forEach((m) => m.setEmissiveFactor([glow, glow, glow]));
+  };
+  const moveLid = (now) => {
+   const to = shut ? 1 : 0;
+   lid = reduced ? to : Math.min(1, Math.max(0, lid + (shut ? 1 : -1) * Math.min(now - lidLast, 50) / 950));
+   lidLast = now;
+   pose();
+   lidFrame = lid === to ? 0 : requestAnimationFrame(moveLid);
+  };
+  const onLaptop = (x, y) => {
+   // The viewer measures the point against its own unscaled size, so a scene drawn at double size needs it doubled.
+   const box = viewer.getBoundingClientRect(), k = viewer.offsetWidth / box.width;
+   const hit = screens.length && viewer.positionAndNormalFromPoint(box.left + (x - box.left) * k, box.top + (y - box.top) * k);
+   if (!hit) return false;
+   const p = hit.position;
+   return p.x > -0.57 && p.x < -0.21 && p.z > -0.03 && p.z < 0.31 && p.y > 0.002 && p.y < 0.25;
+  };
+  let press = null;
+  viewer.addEventListener('pointerdown', (e) => { press = { x: e.clientX, y: e.clientY, t: e.timeStamp }; });
+  viewer.addEventListener('pointerup', (e) => {
+   const d = press;
+   press = null;
+   if (!d || Math.hypot(e.clientX - d.x, e.clientY - d.y) > 6 || e.timeStamp - d.t > 500) return;
+   tapped = performance.now();
+   if (!onLaptop(e.clientX, e.clientY)) return;
+   shut = !shut;
+   lidLast = performance.now();
+   if (!lidFrame) lidFrame = requestAnimationFrame(moveLid);
+  });
   import('./vendor/model-viewer.min.js').then(() => { customElements.get('model-viewer').minimumRenderScale = 1; }).catch(() => {});
  }
 

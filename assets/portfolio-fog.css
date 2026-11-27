@@ -615,6 +615,7 @@ body[data-page=home] .site-footer{max-width:760px;margin:0 auto;padding:0 clamp(
 .stg-index button{width:auto;min-height:44px}
 .stg-index [aria-current=true]{transform:none}
 .stg-object{height:auto;aspect-ratio:16/11}
+.stg-scene{height:100%}
 .stg-win{width:100%}
 .stg-detail{min-height:340px}
 .stg-note{justify-content:flex-start}
