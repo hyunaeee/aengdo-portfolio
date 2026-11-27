@@ -1,0 +1,26 @@
+FROM python:3.10-slim-bookworm
+
+ENV MUJOCO_GL=osmesa PYOPENGL_PLATFORM=osmesa PYNPUT_BACKEND=dummy \
+    PYTHONUNBUFFERED=1 PIP_DISABLE_PIP_VERSION_CHECK=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates curl libosmesa6 libgl1 libglib2.0-0 libegl1 libgomp1 ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+ARG ROBOCASA_REV=4840e671596f93ca03651524b9f72ffb1aadfeff
+RUN mkdir -p /opt/robocasa && curl -fsSL --retry 3 \
+    "https://codeload.github.com/robocasa/robocasa-gr1-tabletop-tasks/tar.gz/${ROBOCASA_REV}" \
+    | tar xz -C /opt/robocasa --strip-components=1
+
+# The Gym wrapper runs in a separate process from the GPU policy.
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential \
+    && rm -rf /var/lib/apt/lists/*
+RUN --mount=type=cache,target=/root/.cache/pip pip install numpy==1.26.4 numba==0.61.2 mujoco==3.2.6 \
+    robosuite==1.5.1 gymnasium==0.29.1 opencv-python==4.10.0.84 \
+    pyzmq msgpack msgpack-numpy h5py pyyaml av==15.0.0 \
+    && pip install --no-deps -e /opt/robocasa
+
+RUN pip install --no-cache-dir lxml==6.1.0 tqdm==4.67.1 \
+    && cp -a /opt/robocasa/robocasa/models/assets /opt/robocasa/base-assets
+COPY sim_assets.py /opt/robocasa/sim_assets.py
+WORKDIR /work

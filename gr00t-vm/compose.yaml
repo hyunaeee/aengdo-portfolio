@@ -1,0 +1,58 @@
+name: aengdo-gr00t-vm
+
+services:
+  policy:
+    container_name: aengdo-gr00t-policy
+    image: aengdo-gr00t-policy
+    build:
+      context: .
+      dockerfile: Dockerfile.policy
+    gpus: all
+    volumes:
+      - models:/models
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - |
+          import msgpack, zmq
+          s = zmq.Context.instance().socket(zmq.REQ)
+          s.linger = 0
+          s.connect("tcp://127.0.0.1:5555")
+          s.send(msgpack.packb({"endpoint": "ping"}))
+          assert s.poll(3000) and msgpack.unpackb(s.recv())["status"] == "ok"
+      interval: 15s
+      timeout: 7s
+      start_period: 15m
+      retries: 4
+
+  assets:
+    image: aengdo-gr00t-sim
+    pull_policy: never
+    volumes:
+      - sim-assets:/opt/robocasa/robocasa/models/assets
+      - ./sim_assets.py:/lab/sim_assets.py:ro
+    command: ["python", "/lab/sim_assets.py"]
+
+  sim:
+    image: aengdo-gr00t-sim
+    build:
+      context: .
+      dockerfile: Dockerfile.sim
+    depends_on:
+      policy:
+        condition: service_healthy
+      assets:
+        condition: service_completed_successfully
+    volumes:
+      - sim-assets:/opt/robocasa/robocasa/models/assets
+      - ./episode.py:/lab/episode.py:ro
+      - ./results:/results
+    entrypoint: ["python", "/lab/episode.py", "--host", "policy"]
+
+volumes:
+  models:
+    name: aengdo-gr00t-models
+  sim-assets:
+    name: aengdo-gr00t-sim-assets
