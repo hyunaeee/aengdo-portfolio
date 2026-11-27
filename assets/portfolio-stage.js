@@ -19,18 +19,8 @@
  const viewer = root.querySelector('model-viewer');
  if (viewer) {
   viewer.addEventListener('load', () => viewer.parentElement.classList.add('is-ready'));
-  // A slow sway that stays well inside the orbit limits. (auto-rotate keeps turning into the limit and stutters there.)
-  // It goes through the viewer's own damping, and stops for good once the visitor drags the scene.
-  const [, phi, radius] = viewer.getAttribute('camera-orbit').split(' ');
-  let swaying = !reduced;
-  viewer.addEventListener('camera-change', (e) => { if (e.detail.source === 'user-interaction') swaying = false; });
-  const t0 = performance.now();
-  const sway = (now) => {
-   if (!swaying) return;
-   if (step === 0 && !document.hidden) viewer.cameraOrbit = `${(18 + 9 * Math.sin((now - t0) / 4200)).toFixed(2)}deg ${phi} ${radius}`;
-   requestAnimationFrame(sway);
-  };
-  viewer.addEventListener('load', () => requestAnimationFrame(sway), { once: true });
+  // The scene stays still until the visitor drags it: moving it automatically made the fine screen lettering and
+  // the metal highlights shimmer.
   import('./vendor/model-viewer.min.js').then(() => { customElements.get('model-viewer').minimumRenderScale = 1; }).catch(() => {});
  }
 
