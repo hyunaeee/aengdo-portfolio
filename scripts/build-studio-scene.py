@@ -323,7 +323,7 @@ def key(cx, cy, w, h, label=None, size=5.2):
     keys.loft([lift(rrect(hx, hy, 1.9, 4), KZ, cx, cy), lift(rrect(hx, hy, 1.9, 4), KZ + 1.15, cx, cy),
                lift(rrect(hx - .4, hy - .4, 1.5, 4), KZ + 1.55, cx, cy)], bottom=False)
     if label:
-        legends.text(label, size, Matrix.Translation((cx, cy, KZ + 2.05)), align='CENTER', valign='CENTER', res=3)
+        legends.text(label, size, Matrix.Translation((cx, cy, KZ + 2.45)), align='CENTER', valign='CENTER', res=3)
 
 
 def key_row(cy, spec, h=U - GAP):
@@ -395,6 +395,8 @@ glb = os.path.join(OUT, 'hyunae-mac-studio.glb')
 bpy.ops.export_scene.gltf(filepath=glb, export_format='GLB', export_apply=True, export_yup=True,
                           export_cameras=False, export_lights=False,
                           export_image_format='JPEG', export_image_quality=90)
+# Then run scripts/finish-studio-glb.py on the file: it swaps the exhaust holes for a smooth panel (the holes
+# shimmer at page size) and adds the MacBook lid animation the home page uses.
 meshes = [o for o in scene.objects if o.type == 'MESH']
 print('GLB', glb, os.path.getsize(glb), 'bytes,', len(meshes), 'meshes,',
       sum(len(o.data.polygons) for o in meshes), 'faces')
